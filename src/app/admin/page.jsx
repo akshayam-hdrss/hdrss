@@ -6,15 +6,19 @@ import AdminPanel from "@/components/AdminPanel";
 import auth from "@/firebase/config";
 import { useRouter } from "next/navigation";
 function AdminPage() {
-    const router = useRouter();
+  const router = useRouter();
+
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (!user) {
-        // If the user is not authenticated, redirect to the admin login page
-        router.replace("/admin/login");
-      }
-    });
-  });
+    const unsubscribe = () => {
+      auth.onAuthStateChanged((user) => {
+        if (!user) {
+          router.push("/login");
+        }
+      });
+    };
+    return () => unsubscribe();
+  }, []);
+
   return (
     <PrivateRouter>
       <AdminPanel />

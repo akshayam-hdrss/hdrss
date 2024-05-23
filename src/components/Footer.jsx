@@ -5,7 +5,7 @@ import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { PiFlowerLotus } from "react-icons/pi";
 import Link from "next/link";
-
+import Image from "next/image";
 function Footer() {
   return (
     <div className="bg-kaavi text-primary px-4 py-10 pb-4">
@@ -15,12 +15,12 @@ function Footer() {
         </Link>
         <div className="ml-3">
           <h1 className="font-bold text-xl leading-6 mb-1">
-            Ram Dass <br />
-            Sandilyan
+            Sandilyan <br />
+            Rama Dass
           </h1>
           <h2 className="text-sm">HDRSS Founder</h2>
         </div>
-        <PiFlowerLotus fontSize={80} className="ml-16" />
+        <Image src="/hdrss.png" alt="logo" width={60} height={60} className="ml-16" />
       </div>
       <div className="flex flex-col justify-center items-start">
         <h2 className="text-2xl font-bold pb-2">Resources</h2>

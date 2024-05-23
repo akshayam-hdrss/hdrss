@@ -136,7 +136,7 @@ export default function Home() {
             className="rotate-45 opacity-5 absolute -right-7 -top-16 -z-10"
           />
           <h1 className="font-koulen text-4xl text-grey mb-8">Services</h1>
-          <div className="grid grid-cols-3 gap-y-10 gap-x-10">
+          <div className="grid grid-cols-3 gap-y-10 gap-x-4 items-center justify-center">
             <Level1Services />
           </div>
           <Link
@@ -210,7 +210,7 @@ export default function Home() {
         <div className="py-6">
           <h1 className="px-6 font-koulen text-4xl text-grey mb-6">explore</h1>
 
-          <ExploreCarousel />
+          {/* <ExploreCarousel /> */}
         </div>
 
         {/* Social complaints */}
