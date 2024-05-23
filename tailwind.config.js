@@ -1,18 +1,28 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import withMT from "@material-tailwind/react/utils/withMT";
+
+export default withMT({
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    colors: {
+      primary: "#FFFFFF",
+      secondary: "#801F00",
+      background: "#FFFAF8",
+      grey: "#727272",
+      kaavi: "#FF8D3A",
+    },
+    plugins: [],
     extend: {
+      fontFamily: {
+        koulen: ["var(--font-koulen)"],
+        inter: ["var(--font-inter)"],
+      },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        pattern: "url('/om.svg')",
       },
     },
   },
-  plugins: [],
-};
+});
