@@ -67,7 +67,7 @@ function AdminPanel() {
         </button>
       </div>
       <div className="my-8 mt-14">
-        <h1 className="font-bold text-2xl mb-8">Categories</h1>
+        <h1 className="font-bold text-2xl mb-8">Services</h1>
         <div className="grid grid-cols-3 place-items-center gap-y-10 gap-x-10">
           {data &&
             data.map((item) => (

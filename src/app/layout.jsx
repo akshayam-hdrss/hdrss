@@ -18,9 +18,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  if (children.name === "Signup") {
-    return <div>{children}</div>;
-  }
   return (
     <html lang="en" className={`${koulen.variable}`}>
       <body className={inter.className}>
