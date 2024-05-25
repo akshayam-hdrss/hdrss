@@ -6,11 +6,13 @@ import ServiceCard from "./ServiceCard";
 import AddServicePopup from "@/components/AddServicePopup";
 import { subscribeToServices } from "@/firebase/firestore/getData";
 import EditServicePopup from "./EditServicePopup";
+import DeleteServicePopup from "./DeleteServicePopup";
 
 function AdminPanel() {
   const [data, setData] = useState(null);
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const handleSignOut = () => {
     try {
       auth.signOut();
@@ -47,14 +49,21 @@ function AdminPanel() {
             beforeprevious={null}
             previous={null}
           />
-          <button>Delete</button>
+          <DeleteServicePopup
+            open={deleteOpen}
+            setOpen={setDeleteOpen}
+            data={data}
+            rootprevious={null}
+            beforeprevious={null}
+            previous={null}
+          />
         </div>
 
         <div className="grid grid-cols-3 place-items-center gap-y-10 gap-x-10">
           {data &&
             data.map((item) => (
               <ServiceCard
-                name={item.id}
+                name={item.name}
                 url={item.iconUrl}
                 slug={`/admin/level2?previous=${item.id}`}
               />

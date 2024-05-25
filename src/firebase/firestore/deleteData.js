@@ -1,25 +1,22 @@
 import { app } from "../config";
-import { doc, updateDoc, getFirestore } from "firebase/firestore";
-import { uploadIcons } from "./addData";
+import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 import { deleteObject, getStorage, ref } from "firebase/storage";
 
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-export async function editServices(
+export async function deleteServices(
   rootprevious = null,
   beforeprevious = null,
   previous = null,
   id,
-  name,
-  icon,
   iconUrl
 ) {
   let result = null;
   let e = null;
+
   try {
     let docUrl;
-    let fileUrl;
     if (rootprevious != null) {
       docUrl = `services/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
     } else if (beforeprevious != null) {
@@ -29,7 +26,7 @@ export async function editServices(
     } else {
       docUrl = "services";
     }
-    if (icon != null && name != null) {
+    if (iconUrl != null) {
       const fileRef = ref(storage, iconUrl);
       deleteObject(fileRef)
         .then(() => {
@@ -38,28 +35,13 @@ export async function editServices(
         .catch((e) => {
           console.log(e);
         });
-      fileUrl = await uploadIcons(icon, id);
-      await updateDoc(doc(db, docUrl, id), {
-        name: name,
-        iconUrl: fileUrl,
-      });
-    } else if (icon != null) {
-      const fileRef = ref(storage, iconUrl);
-      deleteObject(fileRef)
-        .then(() => {
-          console.log("deleted successfully");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      fileUrl = await uploadIcons(icon, id);
-      await updateDoc(doc(db, docUrl, id), {
-        iconUrl: fileUrl,
-      });
+      await deleteDoc(doc(db, docUrl, id));
+
+      return "success";
     } else {
-      await updateDoc(doc(db, docUrl, id), {
-        name: name,
-      });
+      await deleteDoc(doc(db, docUrl, id));
+
+      return "success";
     }
   } catch (e) {
     console.log(e);
