@@ -39,7 +39,14 @@ function AdminPanel() {
       <div className="my-8 mt-14">
         <div className="flex justify-between items-center mb-14">
           <h1 className="font-bold text-2xl">Services</h1>
-          <EditServicePopup open={editOpen} setOpen={setEditOpen} data={data} />
+          <EditServicePopup
+            open={editOpen}
+            setOpen={setEditOpen}
+            data={data}
+            rootprevious={null}
+            beforeprevious={null}
+            previous={null}
+          />
           <button>Delete</button>
         </div>
 

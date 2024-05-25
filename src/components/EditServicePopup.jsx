@@ -7,15 +7,47 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
+import { editServices } from "@/firebase/firestore/editData";
 
-function EditServicePopup({ open, setOpen, data }) {
+function EditServicePopup({
+  open,
+  setOpen,
+  data,
+  rootprevious,
+  beforeprevious,
+  previous,
+}) {
   const [editOption, setEditOption] = useState(null);
+  const [editName, setEditName] = useState(null);
+  const [editIcon, setEditIcon] = useState(null);
+  let iconUrl;
   const handleOpen = () => setOpen(!open);
-  const handleEdit = () => {
+  const handleEdit = async () => {
+    setOpen(!open);
+    data.map((item) => {
+      if (item.id === editOption) {
+        iconUrl = item.iconUrl;
+      }
+    });
+    editServices(
+      rootprevious,
+      beforeprevious,
+      previous,
+      editOption,
+      editName,
+      editIcon,
+      iconUrl
+    );
     console.log("edited successfully");
   };
   const handleEditOption = (e) => {
-    console.log(e.target.value);
+    setEditOption(e.target.value);
+  };
+  const handleNameChange = (e) => {
+    setEditName(e.target.value);
+  };
+  const handleIconChange = (e) => {
+    setEditIcon(e.target.value);
   };
   return (
     <>
@@ -36,7 +68,7 @@ function EditServicePopup({ open, setOpen, data }) {
               Enter details for the Level 1 service.
             </Typography>
             <Typography className="-mb-2" variant="h6">
-              Name of the Service
+              Select the Service you want to change
             </Typography>
             <select
               name="servicename"
@@ -53,10 +85,19 @@ function EditServicePopup({ open, setOpen, data }) {
                   </option>
                 ))}
             </select>
-
+            <Typography className="-mb-2" variant="h6">
+              Name of the Service
+            </Typography>
+            <input
+              type="text"
+              value={editName}
+              onChange={handleNameChange}
+              className="border mb-5 p-1 border-deep-orange-200"
+            />
             <Typography className="-mb-2" variant="h6">
               Give Icon
             </Typography>
+            <input type="file" value={editIcon} onChange={handleIconChange} />
           </CardBody>
           <CardFooter className="pt-0">
             <Button
