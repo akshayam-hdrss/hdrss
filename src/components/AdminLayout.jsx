@@ -17,7 +17,7 @@ function AdminLayout({ children }) {
     });
   });
   if (!admin) return <AdminGaurd />;
-  return { children };
+  return <> {children} </>;
 }
 
 export default AdminLayout;

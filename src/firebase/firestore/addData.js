@@ -12,10 +12,10 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 //Function to upload level 1 icons
-async function uploadIcons(file, metadata) {
+async function uploadIcons(file, id) {
   try {
-    const storageRef = ref(storage, `icons/${file.name}`);
-    await uploadBytes(storageRef, file, metadata);
+    const storageRef = ref(storage, `icons/${id}`);
+    await uploadBytes(storageRef, file);
     const url = await getDownloadURL(storageRef);
     return url;
   } catch (e) {
@@ -23,84 +23,36 @@ async function uploadIcons(file, metadata) {
   }
 }
 
-//Function to add level 1 services
-async function addLevel1Service(id, data, iconName, file) {
+async function addService(
+  rootprevious = null,
+  beforeprevious = null,
+  previous = null,
+  id,
+  data,
+  file
+) {
   let result = null;
-  let error = null;
+  let e = null;
 
   try {
-    const metadata = {
-      contentType: "image/jpg",
-      name: iconName,
-    };
-    const fileUrl = await uploadIcons(file);
+    let docUrl;
+    if (rootprevious != null) {
+      docUrl = `services/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
+    } else if (beforeprevious != null) {
+      docUrl = `services/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
+    } else if (previous != null) {
+      docUrl = `services/${previous}/${previous}col`;
+    } else {
+      docUrl = "services";
+    }
+    const fileUrl = await uploadIcons(file, id);
     const docData = { ...data, iconUrl: fileUrl };
-    result = await setDoc(doc(db, "services", id), docData);
-    console.log("added successfully");
-  } catch (e) {
-    error = e;
-    console.log(error);
-  }
-
-  return { result, error };
-}
-
-async function addLevel2Service(previous, id, data, file) {
-  let result = null;
-  const docUrl = `services/${previous}/${previous}col`;
-  try {
-    const fileUrl = await uploadIcons(file);
-    const docData = { ...data, iconUrl: fileUrl };
-    result = await setDoc(
-      doc(db, `services/${previous}/${previous}col`, id),
-      docData
-    );
-    console.log("added level2");
-    return result;
+    result = await setDoc(doc(db, docUrl, id), docData);
+    console.log("added level4");
   } catch (e) {
     console.log(e);
     return "failure";
   }
 }
 
-async function addLevel3Service(beforeprevious,previous, id, data, file) {
-  let result = null;
-  const docUrl = `services/${previous}/${previous}col`;
-  try {
-    const fileUrl = await uploadIcons(file);
-    const docData = { ...data, iconUrl: fileUrl };
-    result = await setDoc(
-      doc(db, `services/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`, id),
-      docData
-    );
-    console.log("added level3");
-    return result;
-  } catch (e) {
-    console.log(e);
-    return "failure";
-  }
-}
-
-async function addLevel4Service(rootprevious,beforeprevious, previous, id, data, file) {
-  let result = null;
-  const docUrl = `services/${previous}/${previous}col`;
-  try {
-    const fileUrl = await uploadIcons(file);
-    const docData = { ...data, iconUrl: fileUrl };
-    result = await setDoc(
-      doc(
-        db,
-        `services/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`,
-        id
-      ),
-      docData
-    );
-    console.log("added level3");
-    return result;
-  } catch (e) {
-    console.log(e);
-    return "failure";
-  }
-}
-
-export { addLevel1Service, uploadIcons, addLevel2Service, addLevel3Service, addLevel4Service };
+export { addService, uploadIcons };

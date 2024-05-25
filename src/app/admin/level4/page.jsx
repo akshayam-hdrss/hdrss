@@ -1,24 +1,11 @@
-"use client";
-import React, { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import auth from "@/firebase/config";
+import React from "react";
 import AdminPanel4 from "@/components/AdminPanel4";
-import PrivateRouter from "@/components/PrivateRouter";
+import AdminLayout from "@/components/AdminLayout";
 
 export default function AdminLevel4Page() {
-  const router = useRouter();
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (!user) {
-        // If the user is not authenticated, redirect to the admin login page
-        router.replace("/admin/login");
-      }
-    });
-  });
-
   return (
-    <PrivateRouter>
+    <AdminLayout>
       <AdminPanel4 />
-    </PrivateRouter>
+    </AdminLayout>
   );
 }

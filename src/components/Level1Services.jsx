@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 import { useState, useEffect } from "react";
-import { subscribeToLevel1 } from "@/firebase/firestore/getData";
+import { subscribeToServices } from "@/firebase/firestore/getData";
 import ServiceCard from "./ServiceCard";
 
 function Level1Services() {
   const [data, setData] = useState(null);
   useEffect(() => {
-    const unsubscribe = subscribeToLevel1(setData);
+    const unsubscribe = subscribeToServices(setData);
     return () => unsubscribe();
   }, []);
   return (
