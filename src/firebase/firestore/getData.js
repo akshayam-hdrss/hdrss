@@ -62,3 +62,55 @@ export const subscribeToServices = (
     console.log(e);
   }
 };
+
+export const subscribeToProducts = (
+  callback,
+  docid = null,
+  beforedocid = null
+) => {
+  try {
+    if (beforedocid != null) {
+      const unsubscribe = onSnapshot(
+        collection(
+          db,
+          "products",
+          beforedocid,
+          `${beforedocid}col`,
+          docid,
+          `${docid}col`
+        ),
+        (snapshot) => {
+          let data = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          callback(data);
+        }
+      );
+      return unsubscribe;
+    } else if (docid != null) {
+      const unsubscribe = onSnapshot(
+        collection(db, "products", docid, `${docid}col`),
+        (snapshot) => {
+          let data = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          callback(data);
+        }
+      );
+      return unsubscribe;
+    } else {
+      const unsubscribe = onSnapshot(collection(db, "products"), (snapshot) => {
+        let data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        callback(data);
+      });
+      return unsubscribe;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};

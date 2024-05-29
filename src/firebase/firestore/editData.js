@@ -66,3 +66,64 @@ export async function editServices(
     return "failure";
   }
 }
+
+export async function editProducts(
+  rootprevious = null,
+  beforeprevious = null,
+  previous = null,
+  id,
+  name,
+  icon,
+  iconUrl
+) {
+  let result = null;
+  let e = null;
+  try {
+    let docUrl;
+    let fileUrl;
+    if (rootprevious != null) {
+      docUrl = `products/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
+    } else if (beforeprevious != null) {
+      docUrl = `products/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
+    } else if (previous != null) {
+      docUrl = `products/${previous}/${previous}col`;
+    } else {
+      docUrl = "products";
+    }
+    if (icon != null && name != null) {
+      const fileRef = ref(storage, iconUrl);
+      deleteObject(fileRef)
+        .then(() => {
+          console.log("deleted successfully");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      fileUrl = await uploadIcons(icon, id);
+      await updateDoc(doc(db, docUrl, id), {
+        name: name,
+        iconUrl: fileUrl,
+      });
+    } else if (icon != null) {
+      const fileRef = ref(storage, iconUrl);
+      deleteObject(fileRef)
+        .then(() => {
+          console.log("deleted successfully");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      fileUrl = await uploadIcons(icon, id);
+      await updateDoc(doc(db, docUrl, id), {
+        iconUrl: fileUrl,
+      });
+    } else {
+      await updateDoc(doc(db, docUrl, id), {
+        name: name,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    return "failure";
+  }
+}

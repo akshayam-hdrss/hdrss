@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { useState } from "react";
 import { MdAdd } from "react-icons/md";
-import { addService } from "@/firebase/firestore/addData";
+import { addProduct, addService } from "@/firebase/firestore/addData";
 
 function AddServicePopup({
   open,
@@ -18,6 +18,7 @@ function AddServicePopup({
   rootprevious,
   beforeprevious,
   previous,
+  item,
 }) {
   const [name, setName] = useState("");
   const [icon, setIcon] = useState(null);
@@ -31,17 +32,31 @@ function AddServicePopup({
   const handleadd = async () => {
     setOpen(false);
     const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
-    addService(
-      rootprevious,
-      beforeprevious,
-      previous,
-      name,
-      {
-        name: capitalized,
-      },
-      name,
-      icon
-    );
+    if (item == "services") {
+      addService(
+        rootprevious,
+        beforeprevious,
+        previous,
+        name,
+        {
+          name: capitalized,
+        },
+        name,
+        icon
+      );
+    } else if (item == "products") {
+      addProduct(
+        rootprevious,
+        beforeprevious,
+        previous,
+        name,
+        {
+          name: capitalized,
+        },
+        name,
+        icon
+      );
+    }
   };
   return (
     <>

@@ -48,3 +48,47 @@ export async function deleteServices(
     return "failure";
   }
 }
+
+export async function deleteProducts(
+  rootprevious = null,
+  beforeprevious = null,
+  previous = null,
+  id,
+  iconUrl
+) {
+  let result = null;
+  let e = null;
+
+  try {
+    let docUrl;
+    if (rootprevious != null) {
+      docUrl = `products/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
+    } else if (beforeprevious != null) {
+      docUrl = `products/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
+    } else if (previous != null) {
+      docUrl = `products/${previous}/${previous}col`;
+    } else {
+      docUrl = "products";
+    }
+    if (iconUrl != null) {
+      const fileRef = ref(storage, iconUrl);
+      deleteObject(fileRef)
+        .then(() => {
+          console.log("deleted successfully");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      await deleteDoc(doc(db, docUrl, id));
+
+      return "success";
+    } else {
+      await deleteDoc(doc(db, docUrl, id));
+
+      return "success";
+    }
+  } catch (e) {
+    console.log(e);
+    return "failure";
+  }
+}

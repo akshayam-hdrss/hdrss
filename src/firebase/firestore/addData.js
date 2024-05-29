@@ -48,11 +48,43 @@ async function addService(
     const fileUrl = await uploadIcons(file, id);
     const docData = { ...data, iconUrl: fileUrl };
     result = await setDoc(doc(db, docUrl, id), docData);
-    console.log("added level4");
+    console.log("added service");
   } catch (e) {
     console.log(e);
     return "failure";
   }
 }
 
-export { addService, uploadIcons };
+async function addProduct(
+  rootprevious = null,
+  beforeprevious = null,
+  previous = null,
+  id,
+  data,
+  file
+) {
+  let result = null;
+  let e = null;
+
+  try {
+    let docUrl;
+    if (rootprevious != null) {
+      docUrl = `products/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
+    } else if (beforeprevious != null) {
+      docUrl = `products/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
+    } else if (previous != null) {
+      docUrl = `products/${previous}/${previous}col`;
+    } else {
+      docUrl = "products";
+    }
+    const fileUrl = await uploadIcons(file, id);
+    const docData = { ...data, iconUrl: fileUrl };
+    result = await setDoc(doc(db, docUrl, id), docData);
+    console.log("added product");
+  } catch (e) {
+    console.log(e);
+    return "failure";
+  }
+}
+
+export { addService, uploadIcons, addProduct };

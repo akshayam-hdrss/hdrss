@@ -7,7 +7,7 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
-import { editServices } from "@/firebase/firestore/editData";
+import { editProducts, editServices } from "@/firebase/firestore/editData";
 
 function EditServicePopup({
   open,
@@ -16,6 +16,7 @@ function EditServicePopup({
   rootprevious,
   beforeprevious,
   previous,
+  name,
 }) {
   const [editOption, setEditOption] = useState(null);
   const [editName, setEditName] = useState(null);
@@ -29,15 +30,28 @@ function EditServicePopup({
         iconUrl = item.iconUrl;
       }
     });
-    editServices(
-      rootprevious,
-      beforeprevious,
-      previous,
-      editOption,
-      editName,
-      editIcon,
-      iconUrl
-    );
+    if (name == "services") {
+      editServices(
+        rootprevious,
+        beforeprevious,
+        previous,
+        editOption,
+        editName,
+        editIcon,
+        iconUrl
+      );
+    } else if (name == "products") {
+      editProducts(
+        rootprevious,
+        beforeprevious,
+        previous,
+        editOption,
+        editName,
+        editIcon,
+        iconUrl
+      );
+    }
+
     console.log("edited successfully");
   };
   const handleEditOption = (e) => {

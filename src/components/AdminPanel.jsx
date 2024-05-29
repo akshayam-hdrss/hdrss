@@ -4,15 +4,19 @@ import { useState, useEffect } from "react";
 import auth from "@/firebase/config";
 import ServiceCard from "./ServiceCard";
 import AddServicePopup from "@/components/AddServicePopup";
-import { subscribeToServices } from "@/firebase/firestore/getData";
+import {
+  subscribeToProducts,
+  subscribeToServices,
+} from "@/firebase/firestore/getData";
 import EditServicePopup from "./EditServicePopup";
 import DeleteServicePopup from "./DeleteServicePopup";
 
 function AdminPanel() {
-  const [data, setData] = useState(null);
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [services, setServices] = useState(null);
+  const [products, setProducts] = useState(null);
   const handleSignOut = () => {
     try {
       auth.signOut();
@@ -23,12 +27,16 @@ function AdminPanel() {
   };
 
   useEffect(() => {
-    const unsubscribe = subscribeToServices(setData);
-    return () => unsubscribe();
+    const unsubscribe1 = subscribeToServices(setServices);
+    const unsubscribe2 = subscribeToProducts(setProducts);
+    return () => {
+      unsubscribe1();
+      unsubscribe2();
+    };
   }, []);
 
   return (
-    <div className="p-6 pt-12">
+    <div className="p-6 md:p-20 pt-12">
       <div className="flex justify-between items-center">
         <h1 className="text-4xl font-koulen text-grey">admin panel</h1>
         <button
@@ -40,28 +48,32 @@ function AdminPanel() {
       </div>
       <div className="my-8 mt-14">
         <div className="flex justify-between items-center mb-14">
-          <h1 className="font-bold text-2xl">Services</h1>
-          <EditServicePopup
-            open={editOpen}
-            setOpen={setEditOpen}
-            data={data}
-            rootprevious={null}
-            beforeprevious={null}
-            previous={null}
-          />
-          <DeleteServicePopup
-            open={deleteOpen}
-            setOpen={setDeleteOpen}
-            data={data}
-            rootprevious={null}
-            beforeprevious={null}
-            previous={null}
-          />
+          <h1 className="font-bold text-2xl md:text-4xl">Services</h1>
+          <div className="gap-x-10 flex ">
+            <EditServicePopup
+              open={editOpen}
+              setOpen={setEditOpen}
+              data={services}
+              rootprevious={null}
+              beforeprevious={null}
+              previous={null}
+              name="services"
+            />
+            <DeleteServicePopup
+              open={deleteOpen}
+              setOpen={setDeleteOpen}
+              data={services}
+              rootprevious={null}
+              beforeprevious={null}
+              previous={null}
+              name="services"
+            />
+          </div>
         </div>
 
-        <div className="grid grid-cols-3 place-items-center gap-y-10 gap-x-10">
-          {data &&
-            data.map((item) => (
+        <div className="grid grid-cols-3 place-items-center md:grid-cols-4 mt-10 gap-y-10 gap-x-10">
+          {services &&
+            services.map((item) => (
               <ServiceCard
                 name={item.name}
                 url={item.iconUrl}
@@ -74,6 +86,50 @@ function AdminPanel() {
             rootprevious={null}
             beforeprevious={null}
             previous={null}
+            item="services"
+          />
+        </div>
+      </div>
+      <div className="my-8 mt-14 md:mt-32">
+        <div className="flex justify-between items-center mb-14">
+          <h1 className="font-bold text-2xl md:text-4xl">Products</h1>
+          <div className=" flex gap-x-10">
+            <EditServicePopup
+              open={editOpen}
+              setOpen={setEditOpen}
+              data={products}
+              rootprevious={null}
+              beforeprevious={null}
+              previous={null}
+              name="products"
+            />
+            <DeleteServicePopup
+              open={deleteOpen}
+              setOpen={setDeleteOpen}
+              data={products}
+              rootprevious={null}
+              beforeprevious={null}
+              previous={null}
+              name="products"
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-3 place-items-center md:grid-cols-4 mt-10 gap-y-10 gap-x-10">
+          {products &&
+            products.map((item) => (
+              <ServiceCard
+                name={item.name}
+                url={item.iconUrl}
+                slug={`/admin/level2?previous=${item.id}`}
+              />
+            ))}
+          <AddServicePopup
+            open={addOpen}
+            setOpen={setAddOpen}
+            rootprevious={null}
+            beforeprevious={null}
+            previous={null}
+            item="products"
           />
         </div>
       </div>

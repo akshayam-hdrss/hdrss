@@ -7,7 +7,7 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
-import { deleteServices } from "@/firebase/firestore/deleteData";
+import { deleteProducts, deleteServices } from "@/firebase/firestore/deleteData";
 
 function DeleteServicePopup({
   open,
@@ -16,6 +16,7 @@ function DeleteServicePopup({
   rootprevious,
   beforeprevious,
   previous,
+  name
 }) {
   const [deleteOption, setDeleteOption] = useState(null);
   const handleOpen = () => setOpen(!open);
@@ -30,13 +31,25 @@ function DeleteServicePopup({
           iconUrl = item.iconUrl;
       }
     });
-    deleteServices(
-      rootprevious,
-      beforeprevious,
-      previous,
-      deleteOption,
-      iconUrl
-    );
+    if (name == "service") {
+      deleteServices(
+        rootprevious,
+        beforeprevious,
+        previous,
+        deleteOption,
+        iconUrl
+      );
+    }
+    else if (name == "product") {
+      deleteProducts(
+        rootprevious,
+        beforeprevious,
+        previous,
+        deleteOption,
+        iconUrl
+      );
+    }
+    
   };
   return (
     <>

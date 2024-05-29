@@ -210,7 +210,7 @@ export default function Home() {
         <div className="py-6">
           <h1 className="px-6 font-koulen text-4xl text-grey mb-6">explore</h1>
 
-          {/* <ExploreCarousel /> */}
+          <ExploreCarousel />
         </div>
 
         {/* Social complaints */}
