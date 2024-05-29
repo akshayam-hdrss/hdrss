@@ -7,7 +7,11 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
-import { deleteProducts, deleteServices } from "@/firebase/firestore/deleteData";
+import {
+  deleteProducts,
+  deleteServices,
+} from "@/firebase/firestore/deleteData";
+import { IoClose } from "react-icons/io5";
 
 function DeleteServicePopup({
   open,
@@ -16,10 +20,12 @@ function DeleteServicePopup({
   rootprevious,
   beforeprevious,
   previous,
-  name
+  type,
 }) {
   const [deleteOption, setDeleteOption] = useState(null);
-  const handleOpen = () => setOpen(!open);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   let iconUrl;
   const handleDeleteOption = (e) => {
     setDeleteOption(e.target.value);
@@ -28,10 +34,10 @@ function DeleteServicePopup({
     setOpen(!open);
     data.map((item) => {
       if (item.id === deleteOption) {
-          iconUrl = item.iconUrl;
+        iconUrl = item.iconUrl;
       }
     });
-    if (name == "service") {
+    if (type == "service") {
       deleteServices(
         rootprevious,
         beforeprevious,
@@ -39,8 +45,7 @@ function DeleteServicePopup({
         deleteOption,
         iconUrl
       );
-    }
-    else if (name == "product") {
+    } else if (type == "product") {
       deleteProducts(
         rootprevious,
         beforeprevious,
@@ -49,7 +54,6 @@ function DeleteServicePopup({
         iconUrl
       );
     }
-    
   };
   return (
     <>
@@ -59,9 +63,12 @@ function DeleteServicePopup({
       <Dialog open={open} handler={handleOpen}>
         <Card className="mx-auto w-full max-w-[24rem] font-inter">
           <CardBody className="flex flex-col gap-4">
-            <Typography variant="h4" color="blue-gray">
-              Add a Service
-            </Typography>
+            <div className="flex justify-between items-center">
+              <Typography variant="h4" color="blue-gray">
+                Delete a Service
+              </Typography>
+              <IoClose fontSize={30} onClick={handleClose} />
+            </div>
             <Typography
               className="mb-3 font-normal"
               variant="paragraph"

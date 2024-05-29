@@ -18,7 +18,7 @@ function AddServicePopup({
   rootprevious,
   beforeprevious,
   previous,
-  item,
+  type,
 }) {
   const [name, setName] = useState("");
   const [icon, setIcon] = useState(null);
@@ -32,7 +32,7 @@ function AddServicePopup({
   const handleadd = async () => {
     setOpen(false);
     const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
-    if (item == "services") {
+    if (type == "services") {
       addService(
         rootprevious,
         beforeprevious,
@@ -44,7 +44,7 @@ function AddServicePopup({
         name,
         icon
       );
-    } else if (item == "products") {
+    } else if (type == "products") {
       addProduct(
         rootprevious,
         beforeprevious,
@@ -62,7 +62,7 @@ function AddServicePopup({
     <>
       <Button
         onClick={handleOpen}
-        className=" bg-gradient-to-b from-[#FCEDED] to-[#F6F6F6] flex flex-col justify-center items-center w-[100px] h-[100px] bg-white border-2 border-solid border-[#909090] rounded-2xl cursor-pointer"
+        className=" bg-gradient-to-b from-[#FCEDED] to-[#F6F6F6] flex flex-col justify-center types-center w-[100px] h-[100px] bg-white border-2 border-solid border-[#909090] rounded-2xl cursor-pointer"
       >
         <MdAdd fontSize={50} className="text-black" />
       </Button>

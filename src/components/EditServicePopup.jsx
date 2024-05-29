@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { editProducts, editServices } from "@/firebase/firestore/editData";
+import { IoClose } from "react-icons/io5";
 
 function EditServicePopup({
   open,
@@ -16,21 +17,24 @@ function EditServicePopup({
   rootprevious,
   beforeprevious,
   previous,
-  name,
+  type,
 }) {
   const [editOption, setEditOption] = useState(null);
   const [editName, setEditName] = useState(null);
   const [editIcon, setEditIcon] = useState(null);
   let iconUrl;
-  const handleOpen = () => setOpen(!open);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
   const handleEdit = async () => {
-    setOpen(!open);
+    setOpen(false);
     data.map((item) => {
       if (item.id === editOption) {
         iconUrl = item.iconUrl;
       }
     });
-    if (name == "services") {
+    if (type == "services") {
       editServices(
         rootprevious,
         beforeprevious,
@@ -40,7 +44,7 @@ function EditServicePopup({
         editIcon,
         iconUrl
       );
-    } else if (name == "products") {
+    } else if (type == "products") {
       editProducts(
         rootprevious,
         beforeprevious,
@@ -71,9 +75,13 @@ function EditServicePopup({
       <Dialog open={open} handler={handleOpen}>
         <Card className="mx-auto w-full max-w-[24rem] font-inter">
           <CardBody className="flex flex-col gap-4">
-            <Typography variant="h4" color="blue-gray">
-              Add a Service
-            </Typography>
+            <div className="flex justify-between items-center">
+              <Typography variant="h4" color="blue-gray">
+                Add a Service
+              </Typography>
+              <IoClose fontSize={30} onClick={handleClose} />
+            </div>
+
             <Typography
               className="mb-3 font-normal"
               variant="paragraph"
@@ -91,7 +99,7 @@ function EditServicePopup({
               onChange={handleEditOption}
               className="p-3 border-deep-orange-200 border rounded-xl"
             >
-              <option value="">Select any option</option>
+              <option value=" ">Select any option</option>
               {data &&
                 data.map((item, key) => (
                   <option key={key} value={item.id}>

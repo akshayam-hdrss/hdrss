@@ -14,6 +14,7 @@ import DeleteServicePopup from "./DeleteServicePopup";
 function AdminPanel() {
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [editProductsOpen, setEditProductsOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [services, setServices] = useState(null);
   const [products, setProducts] = useState(null);
@@ -57,7 +58,7 @@ function AdminPanel() {
               rootprevious={null}
               beforeprevious={null}
               previous={null}
-              name="services"
+              type="services"
             />
             <DeleteServicePopup
               open={deleteOpen}
@@ -66,7 +67,7 @@ function AdminPanel() {
               rootprevious={null}
               beforeprevious={null}
               previous={null}
-              name="services"
+              type="services"
             />
           </div>
         </div>
@@ -77,7 +78,7 @@ function AdminPanel() {
               <ServiceCard
                 name={item.name}
                 url={item.iconUrl}
-                slug={`/admin/level2?previous=${item.id}`}
+                slug={`/admin/level2?previous=${item.id}&type=services`}
               />
             ))}
           <AddServicePopup
@@ -95,18 +96,18 @@ function AdminPanel() {
           <h1 className="font-bold text-2xl md:text-4xl">Products</h1>
           <div className=" flex gap-x-10">
             <EditServicePopup
-              open={editOpen}
-              setOpen={setEditOpen}
+              open={editProductsOpen}
+              setOpen={setEditProductsOpen}
               data={products}
               rootprevious={null}
               beforeprevious={null}
               previous={null}
-              name="products"
+              type="products"
             />
             <DeleteServicePopup
               open={deleteOpen}
               setOpen={setDeleteOpen}
-              data={products}
+              data={services}
               rootprevious={null}
               beforeprevious={null}
               previous={null}
@@ -120,7 +121,7 @@ function AdminPanel() {
               <ServiceCard
                 name={item.name}
                 url={item.iconUrl}
-                slug={`/admin/level2?previous=${item.id}`}
+                slug={`/admin/level2?previous=${item.id}&type=products`}
               />
             ))}
           <AddServicePopup
@@ -129,7 +130,7 @@ function AdminPanel() {
             rootprevious={null}
             beforeprevious={null}
             previous={null}
-            item="products"
+            type="products"
           />
         </div>
       </div>
