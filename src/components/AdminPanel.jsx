@@ -5,6 +5,7 @@ import auth from "@/firebase/config";
 import ServiceCard from "./ServiceCard";
 import AddServicePopup from "@/components/AddServicePopup";
 import {
+  getServicesList,
   subscribeToProducts,
   subscribeToServices,
 } from "@/firebase/firestore/getData";
@@ -13,8 +14,10 @@ import DeleteServicePopup from "./DeleteServicePopup";
 
 function AdminPanel() {
   const [addOpen, setAddOpen] = useState(false);
+  const [addServiceOpen, setAddServiceOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [editProductsOpen, setEditProductsOpen] = useState(false);
+  const [deleteProductOpen, setDeleteProductOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [services, setServices] = useState(null);
   const [products, setProducts] = useState(null);
@@ -30,6 +33,8 @@ function AdminPanel() {
   useEffect(() => {
     const unsubscribe1 = subscribeToServices(setServices);
     const unsubscribe2 = subscribeToProducts(setProducts);
+    const items = getServicesList();
+    console.log(items);
     return () => {
       unsubscribe1();
       unsubscribe2();
@@ -82,12 +87,11 @@ function AdminPanel() {
               />
             ))}
           <AddServicePopup
-            open={addOpen}
-            setOpen={setAddOpen}
-            rootprevious={null}
+            open={addServiceOpen}
+            setOpen={setAddServiceOpen}
             beforeprevious={null}
             previous={null}
-            item="services"
+            type="services"
           />
         </div>
       </div>
@@ -105,13 +109,13 @@ function AdminPanel() {
               type="products"
             />
             <DeleteServicePopup
-              open={deleteOpen}
-              setOpen={setDeleteOpen}
-              data={services}
+              open={deleteProductOpen}
+              setOpen={setDeleteProductOpen}
+              data={products}
               rootprevious={null}
               beforeprevious={null}
               previous={null}
-              name="products"
+              type="products"
             />
           </div>
         </div>
@@ -127,7 +131,6 @@ function AdminPanel() {
           <AddServicePopup
             open={addOpen}
             setOpen={setAddOpen}
-            rootprevious={null}
             beforeprevious={null}
             previous={null}
             type="products"

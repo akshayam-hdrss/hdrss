@@ -10,23 +10,24 @@ import {
 import {
   deleteProducts,
   deleteServices,
+  deleteServicesDoc,
 } from "@/firebase/firestore/deleteData";
 import { IoClose } from "react-icons/io5";
 
-function DeleteServicePopup({
+function DeleteDocPopup(
   open,
   setOpen,
   data,
-  rootprevious=null,
-  beforeprevious=null,
-  previous=null,
-  type,
-}) {
+  rootprevious = null,
+  beforeprevious = null,
+  previous = null,
+  type
+) {
   const [deleteOption, setDeleteOption] = useState(null);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  let iconUrl;
+  let profilepic;
   const handleDeleteOption = (e) => {
     setDeleteOption(e.target.value);
   };
@@ -34,24 +35,28 @@ function DeleteServicePopup({
     setOpen(!open);
     data.map((item) => {
       if (item.id === deleteOption) {
-        iconUrl = item.iconUrl;
+        profilepic = item.profilepicture;
       }
     });
     if (type == "services") {
-      deleteServices(
+      deleteServicesDoc(
         rootprevious,
         beforeprevious,
         previous,
         deleteOption,
-        iconUrl
+        profilepic,
+        photos,
+        "services"
       );
     } else if (type == "products") {
-      deleteProducts(
+      deleteServicesDoc(
         rootprevious,
         beforeprevious,
         previous,
         deleteOption,
-        iconUrl
+        profilepic,
+        photos,
+        "products"
       );
     }
     console.log("deleted successfully");
@@ -112,4 +117,4 @@ function DeleteServicePopup({
   );
 }
 
-export default DeleteServicePopup;
+export default DeleteDocPopup;

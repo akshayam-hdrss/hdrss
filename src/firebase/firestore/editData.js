@@ -31,13 +31,7 @@ export async function editServices(
     }
     if (icon != null && name != null) {
       const fileRef = ref(storage, iconUrl);
-      deleteObject(fileRef)
-        .then(() => {
-          console.log("deleted successfully");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+
       fileUrl = await uploadIcons(icon, id);
       await updateDoc(doc(db, docUrl, id), {
         name: name,
@@ -45,13 +39,7 @@ export async function editServices(
       });
     } else if (icon != null) {
       const fileRef = ref(storage, iconUrl);
-      deleteObject(fileRef)
-        .then(() => {
-          console.log("deleted successfully");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+
       fileUrl = await uploadIcons(icon, id);
       await updateDoc(doc(db, docUrl, id), {
         iconUrl: fileUrl,
@@ -127,3 +115,56 @@ export async function editProducts(
     return "failure";
   }
 }
+
+// export async function editServicesDoc(
+//   rootprevious = null,
+//   beforeprevious = null,
+//   previous = null,
+//   id,
+//   data,
+//   profilepic,
+//   photos
+// ) {
+//   let result = null;
+//   let e = null;
+//   try {
+//     let docUrl;
+//     let fileUrl;
+//     docUrl = `services/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
+//     if (profilepic != null && photos != null) {
+//       const fileRef = ref(storage, iconUrl);
+//       deleteObject(fileRef)
+//         .then(() => {
+//           console.log("deleted successfully");
+//         })
+//         .catch((e) => {
+//           console.log(e);
+//         });
+//       fileUrl = await uploadIcons(icon, id);
+//       await updateDoc(doc(db, docUrl, id), {
+//         name: name,
+//         iconUrl: fileUrl,
+//       });
+//     } else if (icon != null) {
+//       const fileRef = ref(storage, iconUrl);
+//       deleteObject(fileRef)
+//         .then(() => {
+//           console.log("deleted successfully");
+//         })
+//         .catch((e) => {
+//           console.log(e);
+//         });
+//       fileUrl = await uploadIcons(icon, id);
+//       await updateDoc(doc(db, docUrl, id), {
+//         iconUrl: fileUrl,
+//       });
+//     } else {
+//       await updateDoc(doc(db, docUrl, id), {
+//         name: name,
+//       });
+//     }
+//   } catch (e) {
+//     console.log(e);
+//     return "failure";
+//   }
+// }

@@ -41,8 +41,8 @@ function AdminPanel2() {
       />
     ));
   useEffect(() => {
-    const unsubscribe1 = () => subscribeToServices(setServices, previous);
-    const unsubscribe2 = () => subscribeToProducts(setProducts, previous);
+    const unsubscribe1 =  subscribeToServices(setServices, previous);
+    const unsubscribe2 =  subscribeToProducts(setProducts, previous);
     console.log(typeof services);
     return () => {
       unsubscribe1();
@@ -63,7 +63,7 @@ function AdminPanel2() {
             data={services}
             rootprevious={null}
             beforeprevious={null}
-            previous={previous}
+            level2={previous}
             type={type}
           />
           <DeleteServicePopup

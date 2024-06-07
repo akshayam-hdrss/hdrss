@@ -92,3 +92,40 @@ export async function deleteProducts(
     return "failure";
   }
 }
+
+export async function deleteServicesDoc(
+  rootprevious = null,
+  beforeprevious = null,
+  previous = null,
+  id,
+  profilepic,
+  photos,
+  type
+) {
+  let result = null;
+  let e = null;
+
+  try {
+    let docUrl;
+    docUrl = `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
+    if (profilepic != null) {
+      const fileRef = ref(storage, profilepic);
+      deleteObject(fileRef)
+        .then(() => {
+          console.log("deleted successfully");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      await deleteDoc(doc(db, docUrl, id));
+
+      return "success";
+    } else {
+      await deleteDoc(doc(db, docUrl, id));
+      return "success";
+    }
+  } catch (e) {
+    console.log(e);
+    return "failure";
+  }
+}

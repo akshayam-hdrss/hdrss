@@ -65,7 +65,8 @@ function EditServicePopup({
     setEditName(e.target.value);
   };
   const handleIconChange = (e) => {
-    setEditIcon(e.target.value);
+    setEditIcon(e.target.files[0]);
+
   };
   return (
     <>
@@ -77,7 +78,7 @@ function EditServicePopup({
           <CardBody className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
               <Typography variant="h4" color="blue-gray">
-                Add a Service
+                Edit a Service
               </Typography>
               <IoClose fontSize={30} onClick={handleClose} />
             </div>
@@ -119,7 +120,7 @@ function EditServicePopup({
             <Typography className="-mb-2" variant="h6">
               Give Icon
             </Typography>
-            <input type="file" value={editIcon} onChange={handleIconChange} />
+            <input type="file" onChange={handleIconChange} />
           </CardBody>
           <CardFooter className="pt-0">
             <Button

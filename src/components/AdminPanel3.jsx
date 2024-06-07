@@ -28,7 +28,7 @@ function AdminPanel3() {
       <ServiceCard
         name={item.name}
         url={item.iconUrl}
-        slug={`/admin/level4?previous=${item.id}&beforeprevious=${previous}&rootprevious=${beforeprevious}`}
+        slug={`/admin/level4?previous=${item.id}&beforeprevious=${previous}&rootprevious=${beforeprevious}&type=services&name=${item.name}`}
       />
     ));
   const content2 =
@@ -37,7 +37,7 @@ function AdminPanel3() {
       <ServiceCard
         name={item.name}
         url={item.iconUrl}
-        slug={`/admin/level4?previous=${item.id}&beforeprevious=${previous}&rootprevious=${beforeprevious}`}
+        slug={`/admin/level4?previous=${item.id}&beforeprevious=${previous}&rootprevious=${beforeprevious}&type=products&name=${item.name}`}
       />
     ));
   useEffect(() => {

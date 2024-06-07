@@ -14,7 +14,6 @@ function Events() {
           <h1 className="font-koulen text-4xl uppercase text-grey">Events</h1>
           <h2 className="text-lg font-bold text-grey">May 2024</h2>
         </div>
-
         <div className="p-2 border border-black w-fit h-fit rounded-xl">
           <IoSearch fontSize={30} className="text-kaavi" />
         </div>

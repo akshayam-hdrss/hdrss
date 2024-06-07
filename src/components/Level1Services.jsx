@@ -14,7 +14,7 @@ function Level1Services() {
     <>
       {data &&
         data.map((item) => (
-          <ServiceCard name={item.id} url={item.iconUrl} slug={`/${item.id}`} />
+          <ServiceCard name={item.id} url={item.iconUrl} slug={`/services/${item.id}`} />
         ))}
     </>
   );

@@ -140,7 +140,7 @@ export default function Home() {
             <Level1Services />
           </div>
           <Link
-            href="/all-services"
+            href="/services"
             className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer"
           >
             <p>See all services</p>
@@ -149,7 +149,7 @@ export default function Home() {
         </div>
 
         {/* Socials Section */}
-        <div className="px-6 py-16 relative z-0">
+        <div className="px-6 py-8 relative z-0">
           <Image
             src="/om.svg"
             alt="om"

@@ -12,14 +12,7 @@ import { useState } from "react";
 import { MdAdd } from "react-icons/md";
 import { addProduct, addService } from "@/firebase/firestore/addData";
 
-function AddServicePopup({
-  open,
-  setOpen,
-  rootprevious,
-  beforeprevious,
-  previous,
-  type,
-}) {
+function AddServicePopup({ open, setOpen, beforeprevious, previous, type }) {
   const [name, setName] = useState("");
   const [icon, setIcon] = useState(null);
   const handleName = (event) => {
@@ -30,11 +23,9 @@ function AddServicePopup({
   };
   const handleOpen = () => setOpen(!open);
   const handleadd = async () => {
-    setOpen(false);
     const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
     if (type == "services") {
       addService(
-        rootprevious,
         beforeprevious,
         previous,
         name,
@@ -46,7 +37,6 @@ function AddServicePopup({
       );
     } else if (type == "products") {
       addProduct(
-        rootprevious,
         beforeprevious,
         previous,
         name,
@@ -57,6 +47,7 @@ function AddServicePopup({
         icon
       );
     }
+    setOpen(false);
   };
   return (
     <>
