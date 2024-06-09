@@ -13,10 +13,30 @@ import {
   getDownloadURL,
   getStorage,
 } from "firebase/storage";
-import { v4 as uuidv4 } from "uuid";
 
 const db = getFirestore(app);
 const storage = getStorage(app);
+
+async function uploadFilesAndSaveURLs(files) {
+  // Create an array of promises to upload each file and get its download URL
+  const uploadPromises = files.map((file) => {
+    const storageRef = ref(storage, `servicegallery/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on(
+        "state_changed",
+        null,
+        (error) => reject(error),
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(resolve).catch(reject);
+        }
+      );
+    });
+  });
+  const downloadURLs = await Promise.all(uploadPromises);
+  return downloadURLs;
+}
 
 //Function to upload level 1 icons
 async function uploadIcons(file, id) {
@@ -94,7 +114,8 @@ async function addDocument(
   data,
   profilepic = null,
   photos = null,
-  type
+  type,
+  id
 ) {
   let result = null;
   let e = null;
@@ -103,22 +124,24 @@ async function addDocument(
     let pfpUrl;
     let galleryUrls;
     let docData;
-    const id = uuidv4();
+
     docUrl = `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
-    if (profilepic && photos) {
+    if (profilepic != null && photos != null) {
       pfpUrl = await uploadIcons(profilepic, id);
+      galleryUrls = await uploadFilesAndSaveURLs(photos);
       docData = {
         ...data,
         profilepicture: pfpUrl,
         photos: galleryUrls,
       };
-    } else if (photos) {
+    } else if (photos != null) {
       galleryUrls = await uploadFilesAndSaveURLs(photos);
       docData = {
         ...data,
         photos: galleryUrls,
       };
-    } else if (profilepic) {
+    } else if (profilepic != null) {
+      pfpUrl = await uploadIcons(profilepic, id);
       docData = {
         ...data,
         profilepicture: pfpUrl,
@@ -133,27 +156,6 @@ async function addDocument(
     console.log(e);
     return "failed in adding service document";
   }
-}
-
-async function uploadFilesAndSaveURLs(files) {
-  // Create an array of promises to upload each file and get its download URL
-  const uploadPromises = files.map((file) => {
-    const storageRef = ref(storage, `servicegallery/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    return new Promise((resolve, reject) => {
-      uploadTask.on(
-        "state_changed",
-        null,
-        (error) => reject(error),
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(resolve).catch(reject);
-        }
-      );
-    });
-  });
-  const downloadURLs = await Promise.all(uploadPromises);
-  return downloadURLs;
 }
 
 export { addService, uploadIcons, addProduct, addDocument };

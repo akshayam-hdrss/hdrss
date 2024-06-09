@@ -6,8 +6,6 @@ import {
   Dialog,
   Card,
   CardBody,
-  CardFooter,
-  Typography,
   Input,
 } from "@material-tailwind/react";
 
@@ -23,7 +21,7 @@ function AddServiceDocPopup({
   const [name, setName] = useState();
   const [number, setNumber] = useState();
   const [about, setAbout] = useState();
-  const [photos, setPhotos] = useState();
+  const [photos, setPhotos] = useState([]);
   const [district, setDistrict] = useState();
   const [location, setLocation] = useState();
   const handleProfile = (e) => {
@@ -33,8 +31,7 @@ function AddServiceDocPopup({
   const handleNumber = (e) => setNumber(e.target.value);
   const handleAbout = (e) => setAbout(e.target.value);
   const handlePhotos = (e) => {
-    const files = Array.from(e.target.files);
-    setPhotos(files);
+    setPhotos([...e.target.files]);
   };
   const handleDistrict = (e) => setDistrict(e.target.value);
   const handleLocation = (e) => setLocation(e.target.value);
@@ -46,6 +43,7 @@ function AddServiceDocPopup({
   const handleAdd = (e) => {
     e.preventDefault();
     setOpen(!open);
+    const id = name.replace(/\s+/g, "").toLowerCase();
     addDocument(
       rootprevious,
       beforeprevious,
@@ -56,10 +54,12 @@ function AddServiceDocPopup({
         mobile: number,
         about: about,
         district: district,
+        location: location,
       },
       profile,
       photos,
-      "services"
+      "services",
+      id
     );
   };
   return (
@@ -90,7 +90,7 @@ function AddServiceDocPopup({
                 <p className="text-xl font-medium mb-1">Position</p>
                 <Input
                   type="text"
-                  value={previousname}
+                  defaultValue={previousname}
                   placeholder="position"
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />

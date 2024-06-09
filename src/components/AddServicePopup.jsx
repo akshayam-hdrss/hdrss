@@ -23,27 +23,26 @@ function AddServicePopup({ open, setOpen, beforeprevious, previous, type }) {
   };
   const handleOpen = () => setOpen(!open);
   const handleadd = async () => {
+    const id = name.replace(/\s+/g, "").toLowerCase();
     const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
     if (type == "services") {
       addService(
         beforeprevious,
         previous,
-        name,
+        id,
         {
           name: capitalized,
         },
-        name,
         icon
       );
     } else if (type == "products") {
       addProduct(
         beforeprevious,
         previous,
-        name,
+        id,
         {
           name: capitalized,
         },
-        name,
         icon
       );
     }

@@ -4,11 +4,13 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import YoutubeEmbed from "@/components/YoutubeEmbed";
 import ServiceCard from "@/components/ServiceCard";
+import BackButton from "@/components/BackButton";
+
 export async function generateStaticParams() {
-  const list = await getServicesList(null, null);
+  const list = await getServicesList(null, null, null);
   const paths = await Promise.all(
     list.map(async (item) => {
-      const list2 = await getServicesList(null, item);
+      const list2 = await getServicesList(null, null, item);
       return list2.map((subitem) => ({
         id: item,
         secondid: subitem,
@@ -21,13 +23,15 @@ export async function generateStaticParams() {
 
 async function ServiceLevel2Page({ params }) {
   const { id, secondid } = params;
-  const data = await getServicesDocs(id, secondid);
+  const data = await getServicesDocs(null, id, secondid);
+   const capitalized = secondid.charAt(0).toUpperCase() + secondid.slice(1);
   return (
     <div>
       <Header />
+      <BackButton route={`/services/${id}/`} />
       <YoutubeEmbed embedId="#" />
       <div className="p-6 py-20">
-        <h1 className="font-bold text-3xl text-center pb-20">{secondid}</h1>
+        <h1 className="font-bold text-3xl text-center pb-20">{capitalized}</h1>
         <div className="grid grid-cols-3 gap-y-10 gap-x-4 items-center justify-center">
           {data.map((doc) => (
             <ServiceCard

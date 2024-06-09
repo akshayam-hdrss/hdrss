@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Carousel } from "@material-tailwind/react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
-import ServiceCard from "@/components/ServiceCard";
 import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
 import YoutubeEmbed from "@/components/YoutubeEmbed";

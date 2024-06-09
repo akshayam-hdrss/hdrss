@@ -4,6 +4,8 @@ import {
   onSnapshot,
   getFirestore,
   getDocs,
+  getDoc,
+  query,
 } from "firebase/firestore";
 
 import { app } from "../config";
@@ -179,11 +181,22 @@ export const subscribeToProductsDocuments = (
   }
 };
 
-export const getServicesList = async (rootdocid = null, beforedocid = null) => {
+export const getServicesList = async (
+  rootbeforedocid = null,
+  rootdocid = null,
+  beforedocid = null
+) => {
   try {
     let data = [];
     let snapshot;
-    if (rootdocid != null && beforedocid != null) {
+    if (rootbeforedocid != null && rootdocid != null && beforedocid != null) {
+      snapshot = await getDocs(
+        collection(
+          db,
+          `services/${rootbeforedocid}/${rootbeforedocid}col/${rootdocid}/${rootdocid}col/${beforedocid}/${beforedocid}col`
+        )
+      );
+    } else if (rootdocid != null && beforedocid != null) {
       snapshot = await getDocs(
         collection(
           db,
@@ -195,7 +208,7 @@ export const getServicesList = async (rootdocid = null, beforedocid = null) => {
         collection(db, `services/${beforedocid}/${beforedocid}col`)
       );
     } else {
-      snapshot = await getDocs(collection(db, "services"));
+      snapshot = await getDocs(collection(db, `services`));
     }
     snapshot.forEach((doc) => data.push(doc.id));
     return data;
@@ -204,25 +217,47 @@ export const getServicesList = async (rootdocid = null, beforedocid = null) => {
   }
 };
 
-export const getServicesDocs = async (rootdocid = null, beforedocid = null) => {
+export const getServicesDocs = async (
+  rootbeforedocid = null,
+  rootdocid = null,
+  beforedocid = null,
+  docid = null
+) => {
   try {
     let q;
-    let alldocs=[];
-    if (rootdocid != null && beforedocid != null) {
+    let querySnapshot;
+    let alldocs = [];
+    if (docid != null) {
+      q = doc(
+        db,
+        `services/${rootbeforedocid}/${rootbeforedocid}col/${rootdocid}/${rootdocid}col/${beforedocid}/${beforedocid}col`,
+        docid
+      );
+    } else if (rootbeforedocid != null) {
+      q = collection(
+        db,
+        `services/${rootbeforedocid}/${rootbeforedocid}col/${rootdocid}/${rootdocid}col/${beforedocid}/${beforedocid}col`
+      );
+    } else if (rootdocid != null && beforedocid != null) {
       q = collection(
         db,
         `services/${rootdocid}/${rootdocid}col/${beforedocid}/${beforedocid}col`
       );
     } else if (beforedocid != null) {
-      q = collection(db, `services/${beforedocid}/${beforedocid}col`);
+      q = collection(db, `services/${beforedocid}/${beforedocid}col/`);
     } else {
       q = collection(db, "services");
     }
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      alldocs.push({ id: doc.id, data: doc.data() });
-    });
-    return alldocs;
+    if (docid == null) {
+      querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        alldocs.push({ id: doc.id, data: doc.data() });
+      });
+      return alldocs;
+    } else {
+      querySnapshot = await getDoc(q);
+      return querySnapshot.data();
+    }
   } catch (e) {
     console.log(e);
   }
