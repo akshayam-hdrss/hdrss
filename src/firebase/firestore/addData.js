@@ -124,7 +124,7 @@ async function addDocument(
     let pfpUrl;
     let galleryUrls;
     let docData;
-
+    console.log("inside");
     docUrl = `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
     if (profilepic != null && photos != null) {
       pfpUrl = await uploadIcons(profilepic, id);

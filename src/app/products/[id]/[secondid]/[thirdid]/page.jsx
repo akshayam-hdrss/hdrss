@@ -1,18 +1,18 @@
 import React from "react";
-import { getServicesDocs, getServicesList } from "@/firebase/firestore/getData";
+import { getProductsDocs, getProductsList } from "@/firebase/firestore/getData";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import BackButton from "@/components/BackButton";
 
 export async function generateStaticParams() {
-  const list = await getServicesList(null, null);
+  const list = await getProductsList(null, null);
   const paths = await Promise.all(
     list.map(async (item) => {
-      const list2 = await getServicesList(null, null, item);
+      const list2 = await getProductsList(null, null, item);
       const subPaths = await Promise.all(
         list2.map(async (subitem) => {
-          const list3 = await getServicesList(null, item, subitem);
+          const list3 = await getProductsList(null, item, subitem);
           return list3.map((subitem2) => ({
             id: item,
             secondid: subitem,
@@ -26,21 +26,22 @@ export async function generateStaticParams() {
   return paths.flat();
 }
 
-async function ServiceLevel3Page({ params }) {
+async function ProductLevel3Page({ params }) {
   const { id, secondid, thirdid } = params;
-  const data = await getServicesDocs(id, secondid, thirdid, null);
+  const data = await getProductsDocs(id, secondid, thirdid, null);
   const capitalized = thirdid.charAt(0).toUpperCase() + thirdid.slice(1);
   return (
     <div>
       <Header />
-      <BackButton route={`/services/${id}/${secondid}`} />
+      <BackButton route={`/products/${id}/${secondid}`} />
+
       <div>
         <h1 className="font-bold text-2xl pb-20 p-6">{capitalized}</h1>
 
         {data &&
           data.map((item) => (
             <Link
-              href={`/services/${id}/${secondid}/${thirdid}/${item.id}`}
+              href={`/products/${id}/${secondid}/${thirdid}/${item.id}`}
               key={item.id}
               className="flex justify-evenly items-center border-b border-grey pb-10 px-0 mb-5 mx-0"
             >
@@ -57,9 +58,10 @@ async function ServiceLevel3Page({ params }) {
             </Link>
           ))}
       </div>
+
       <Footer />
     </div>
   );
 }
 
-export default ServiceLevel3Page;
+export default ProductLevel3Page;

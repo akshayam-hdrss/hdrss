@@ -17,7 +17,7 @@ function AddProductDocPopup({
   previous,
   beforeprevious,
   rootprevious,
-  previousname
+  previousname,
 }) {
   const [profile, setProfile] = useState();
   const [name, setName] = useState();
@@ -41,6 +41,8 @@ function AddProductDocPopup({
   };
   const handleAdd = (e) => {
     e.preventDefault();
+    const id = name.replace(/\s+/g, "").toLowerCase();
+
     setOpen(!open);
     addDocument(
       rootprevious,
@@ -53,8 +55,13 @@ function AddProductDocPopup({
       },
       profile,
       photos,
-      "products"
+      "products",
+      id
     );
+    setName("")
+    setPrice()
+    setAbout("")
+    setPhotos()
   };
   return (
     <>

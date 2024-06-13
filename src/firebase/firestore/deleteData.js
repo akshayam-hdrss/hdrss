@@ -107,7 +107,21 @@ export async function deleteServicesDoc(
 
   try {
     let docUrl;
+    console.log(photos);
     docUrl = `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
+
+    if (photos != null) {
+      photos.map((photo) => {
+        const fileRef = ref(storage, photo);
+        deleteObject(fileRef)
+          .then(() => {
+            console.log("photo deleted successfully");
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      });
+    }
     if (profilepic != null) {
       const fileRef = ref(storage, profilepic);
       deleteObject(fileRef)

@@ -12,7 +12,7 @@ function SelectLocation() {
   useEffect(() => {
     const fetchdata = async () => {
       const [data, unused] = await getLocation();
-      setLocations(data);
+      setLocations(unused);
     };
     fetchdata();
   }, []);
@@ -22,13 +22,13 @@ function SelectLocation() {
         <Link href="/">
           <IoIosArrowDown fontSize={30} />
         </Link>
-        <h1 className="text-xl ml-3 font-bold">Select Location</h1>
+        <h1 className="text-xl ml-3 font-bold">Select District</h1>
       </div>
       <div className="flex bg-white rounded-xl items-center shadow-[100px_100px_80px_rgba(0,0,0,0.08)] p-3">
         <IoSearch fontSize={25} className="text-kaavi" />
         <input
           type="text"
-          placeholder="Search for your city"
+          placeholder="Search for your District"
           className="bg-inherit ml-5 text-lg"
         />
       </div>

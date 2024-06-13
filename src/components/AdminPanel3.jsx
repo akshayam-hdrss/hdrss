@@ -11,13 +11,20 @@ import {
 } from "@/firebase/firestore/getData";
 import EditServicePopup from "./EditServicePopup";
 import DeleteServicePopup from "./DeleteServicePopup";
-
+import EditExplorePopup from "./EditExplorePopup";
+import DeleteExplorePopup from "./DeleteExplorePopup";
+import AddExplorePopup from "./AddExplorePopup";
+import { subscribeToExplore } from "../firebase/firestore/getExplore";
 function AdminPanel3() {
   const [open, setOpen] = useState(false);
   const [services, setServices] = useState(null);
   const [products, setProducts] = useState(null);
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [explore, setExplore] = useState();
+  const [exploreAdd, setExploreAdd] = useState();
+  const [editExploreOpen, setEditExploreOpen] = useState();
+  const [deleteExploreOpen, setDeleteExploreOpen] = useState();
   const searchparam = useSearchParams();
   const previous = searchparam.get("previous");
   const beforeprevious = searchparam.get("beforeprevious");
@@ -40,6 +47,15 @@ function AdminPanel3() {
         slug={`/admin/level4?previous=${item.id}&beforeprevious=${previous}&rootprevious=${beforeprevious}&type=products&name=${item.name}`}
       />
     ));
+  const content3 =
+    explore &&
+    explore.map((item) => (
+      <ServiceCard
+        name={item.name}
+        url={item.iconUrl}
+        slug={`/admin/level4?previous=${item.id}&type=explore`}
+      />
+    ));
   useEffect(() => {
     const unsubscribe1 = subscribeToServices(
       setServices,
@@ -51,9 +67,16 @@ function AdminPanel3() {
       previous,
       beforeprevious
     );
+    const unsubscribe3 = subscribeToExplore(
+      setExplore,
+      previous,
+      beforeprevious
+    );
+
     return () => {
       unsubscribe1();
       unsubscribe2();
+      unsubscribe3();
     };
   }, []);
   return (
@@ -66,37 +89,74 @@ function AdminPanel3() {
           {previous.charAt(0).toUpperCase() + previous.slice(1)}
         </h1>
         <div className="flex gap-x-10">
-          <EditServicePopup
-            open={editOpen}
-            setOpen={setEditOpen}
-            data={services}
-            rootprevious={null}
-            beforeprevious={beforeprevious}
-            previous={previous}
-            type={type}
-          />
-          <DeleteServicePopup
-            open={deleteOpen}
-            setOpen={setDeleteOpen}
-            data={services}
-            rootprevious={null}
-            beforeprevious={beforeprevious}
-            previous={previous}
-            name={type}
-          />
+          {type === "explore" ? (
+            <>
+              <EditExplorePopup
+                open={editExploreOpen}
+                setOpen={setEditExploreOpen}
+                data={explore}
+                rootprevious={null}
+                beforeprevious={beforeprevious}
+                previous={previous}
+              />
+              <DeleteExplorePopup
+                open={deleteExploreOpen}
+                setOpen={setDeleteExploreOpen}
+                data={explore}
+                rootprevious={null}
+                beforeprevious={beforeprevious}
+                previous={previous}
+              />
+            </>
+          ) : (
+            <>
+              <EditServicePopup
+                open={editOpen}
+                setOpen={setEditOpen}
+                data={services}
+                rootprevious={null}
+                beforeprevious={beforeprevious}
+                previous={previous}
+                type={type}
+              />
+              <DeleteServicePopup
+                open={deleteOpen}
+                setOpen={setDeleteOpen}
+                data={services}
+                rootprevious={null}
+                beforeprevious={beforeprevious}
+                previous={previous}
+                type={type}
+              />
+            </>
+          )}
         </div>
       </div>
 
       <div className="grid grid-cols-3 place-items-center gap-y-10 gap-x-10">
         {type == "services" ? content1 : content2}
-        <AddServicePopup
-          open={open}
-          setOpen={setOpen}
-          rootprevious={null}
-          beforeprevious={beforeprevious}
-          previous={previous}
-          type={type}
-        />
+        {type == "explore" && content3}
+        {type == "explore" ? (
+          <>
+            <AddExplorePopup
+              open={exploreAdd}
+              setOpen={setExploreAdd}
+              beforeprevious={beforeprevious}
+              previous={previous}
+            />
+          </>
+        ) : (
+          <>
+            <AddServicePopup
+              open={open}
+              setOpen={setOpen}
+              rootprevious={null}
+              beforeprevious={beforeprevious}
+              previous={previous}
+              type={type}
+            />
+          </>
+        )}
       </div>
     </div>
   );

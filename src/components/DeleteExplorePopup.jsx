@@ -7,32 +7,22 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
-import {
-  deleteProducts,
-  deleteServices,
-  deleteServicesDoc,
-} from "@/firebase/firestore/deleteData";
+import { deleteExplore } from "@/firebase/firestore/deleteExplore";
 import { IoClose } from "react-icons/io5";
 
-function DeleteDocPopup({
+function DeleteExplorePopup({
   open,
   setOpen,
   data,
   rootprevious = null,
   beforeprevious = null,
   previous = null,
-  type,
 }) {
   const [deleteOption, setDeleteOption] = useState(null);
-  const handleOpen = () => {
-    setOpen(!open);
-  };
-  const handleClose = () => {
-    setOpen(!open);
-  };
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  let profilepic;
-  let photos;
+  let iconUrl;
   const handleDeleteOption = (e) => {
     setDeleteOption(e.target.value);
   };
@@ -40,26 +30,23 @@ function DeleteDocPopup({
     setOpen(!open);
     data.map((item) => {
       if (item.id === deleteOption) {
-        profilepic = item.profilepicture;
-        photos = item.photos;
+        iconUrl = item.iconUrl;
       }
     });
 
-    deleteServicesDoc(
+    deleteExplore(
       rootprevious,
       beforeprevious,
       previous,
       deleteOption,
-      profilepic,
-      photos,
-      type
+      iconUrl
     );
 
     console.log("deleted successfully");
   };
   return (
     <>
-      <Button onClick={handleOpen} className="bg-kaavi my-3">
+      <Button onClick={handleOpen} className="bg-kaavi">
         Delete
       </Button>
       <Dialog open={open} handler={handleOpen}>
@@ -67,7 +54,7 @@ function DeleteDocPopup({
           <CardBody className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
               <Typography variant="h4" color="blue-gray">
-                Delete a Service
+                Delete a Explore Card
               </Typography>
               <IoClose fontSize={30} onClick={handleClose} />
             </div>
@@ -76,10 +63,10 @@ function DeleteDocPopup({
               variant="paragraph"
               color="gray"
             >
-              Enter details for the Level 1 service.
+              Enter details for the Level 1 explore.
             </Typography>
             <Typography className="-mb-2" variant="h6">
-              Select the Service you want to delete
+              Select the explore card you want to delete
             </Typography>
             <select
               name="servicename"
@@ -113,4 +100,4 @@ function DeleteDocPopup({
   );
 }
 
-export default DeleteDocPopup;
+export default DeleteExplorePopup;

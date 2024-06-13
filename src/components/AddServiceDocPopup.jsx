@@ -44,6 +44,7 @@ function AddServiceDocPopup({
     e.preventDefault();
     setOpen(!open);
     const id = name.replace(/\s+/g, "").toLowerCase();
+    console.log("before");
     addDocument(
       rootprevious,
       beforeprevious,
@@ -65,7 +66,7 @@ function AddServiceDocPopup({
   return (
     <>
       <Button className="bg-kaavi" onClick={handleOpen}>
-        Add new {previousname}
+        Add
       </Button>
       <Dialog open={open} handler={handleOpen}>
         <Card>

@@ -32,7 +32,6 @@ function AdminPanel4() {
         <div>
           <h1 className="text-2xl font-bold">{item.name}</h1>
           <p className="text-base text-grey">{item.location}</p>
-          <p>{item.about}</p>
           <p>{item.position}</p>
           <p>{item.mobile}</p>
         </div>
@@ -49,7 +48,6 @@ function AdminPanel4() {
         <img src={item.profilepicture} alt="profile picture" />
         <div>
           <h1 className="text-2xl font-bold">{item.name}</h1>
-          <p>{item.about}</p>
           <p>{item.price}</p>
         </div>
       </div>
@@ -81,7 +79,7 @@ function AdminPanel4() {
       <div className="p-10">
         <h1 className="text-3xl font-bold pb-20">{previousname}</h1>
         <div>
-          {/* {type == "services" ? (
+          {type === "services" ? (
             <DeleteDocPopup
               open={deleteOpen}
               setOpen={setDeleteOpen}
@@ -101,7 +99,7 @@ function AdminPanel4() {
               previous={previous}
               type="products"
             />
-          )} */}
+          )}
         </div>
         {type == "services" ? (
           <AddServiceDocPopup

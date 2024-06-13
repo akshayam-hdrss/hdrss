@@ -1,22 +1,22 @@
 import React from "react";
-import { getServicesDocs, getServicesList } from "@/firebase/firestore/getData";
+import { getProductsDocs, getProductsList } from "@/firebase/firestore/getData";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
 import GalleryCarousel from "@/components/GalleryCarousel";
 
 export async function generateStaticParams() {
-  const list = await getServicesList(null, null);
+  const list = await getProductsList(null, null);
   const paths = await Promise.all(
     list?.map(async (item) => {
-      const list2 = await getServicesList(null, null, item);
+      const list2 = await getProductsList(null, null, item);
       const subPaths = await Promise.all(
         list2?.map(async (subitem) => {
-          const list3 = await getServicesList(null, item, subitem);
+          const list3 = await getProductsList(null, item, subitem);
           console.log("list3:", list3);
           const subsubPaths = await Promise.all(
             list3?.map(async (subitem2) => {
-              const list4 = await getServicesList(item, subitem, subitem2);
+              const list4 = await getProductsList(item, subitem, subitem2);
               return list4?.map((subitem3) => ({
                 id: item,
                 secondid: subitem,
@@ -34,9 +34,9 @@ export async function generateStaticParams() {
   return paths?.flat();
 }
 
-export default async function ServiceLevel4Page({ params }) {
+export default async function ProductLevel4Page({ params }) {
   const { id, secondid, thirdid, fourthid } = params;
-  const data = await getServicesDocs(id, secondid, thirdid, fourthid);
+  const data = await getProductsDocs(id, secondid, thirdid, fourthid);
   return (
     <div>
       <Header />

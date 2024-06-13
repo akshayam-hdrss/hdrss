@@ -7,88 +7,87 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
-import {
-  deleteProducts,
-  deleteServices,
-  deleteServicesDoc,
-} from "@/firebase/firestore/deleteData";
+import { editExplore } from "@/firebase/firestore/editExplore";
 import { IoClose } from "react-icons/io5";
 
-function DeleteDocPopup({
+function EditExplorePopup({
   open,
   setOpen,
   data,
-  rootprevious = null,
-  beforeprevious = null,
-  previous = null,
-  type,
+  rootprevious,
+  beforeprevious,
+  previous,
 }) {
-  const [deleteOption, setDeleteOption] = useState(null);
+  const [editOption, setEditOption] = useState(null);
+  const [editName, setEditName] = useState(null);
+  const [editIcon, setEditIcon] = useState(null);
+  let iconUrl;
   const handleOpen = () => {
-    setOpen(!open);
+    setOpen(true);
   };
-  const handleClose = () => {
-    setOpen(!open);
-  };
-
-  let profilepic;
-  let photos;
-  const handleDeleteOption = (e) => {
-    setDeleteOption(e.target.value);
-  };
-  const handleDelete = async () => {
-    setOpen(!open);
+  const handleClose = () => setOpen(false);
+  const handleEdit = async () => {
+    setOpen(false);
     data.map((item) => {
-      if (item.id === deleteOption) {
-        profilepic = item.profilepicture;
-        photos = item.photos;
+      if (item.id === editOption) {
+        iconUrl = item.iconUrl;
       }
     });
 
-    deleteServicesDoc(
+    editExplore(
       rootprevious,
       beforeprevious,
       previous,
-      deleteOption,
-      profilepic,
-      photos,
-      type
+      editOption,
+      editName,
+      editIcon,
+      iconUrl
     );
 
-    console.log("deleted successfully");
+    console.log("edited successfully");
+  };
+  const handleEditOption = (e) => {
+    setEditOption(e.target.value);
+  };
+  const handleNameChange = (e) => {
+    setEditName(e.target.value);
+  };
+  const handleIconChange = (e) => {
+    setEditIcon(e.target.files[0]);
   };
   return (
     <>
-      <Button onClick={handleOpen} className="bg-kaavi my-3">
-        Delete
+      <Button onClick={handleOpen} className="bg-kaavi">
+        Edit
       </Button>
       <Dialog open={open} handler={handleOpen}>
         <Card className="mx-auto w-full max-w-[24rem] font-inter">
           <CardBody className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
               <Typography variant="h4" color="blue-gray">
-                Delete a Service
+                Edit a Explore
               </Typography>
               <IoClose fontSize={30} onClick={handleClose} />
             </div>
+
             <Typography
               className="mb-3 font-normal"
               variant="paragraph"
               color="gray"
             >
-              Enter details for the Level 1 service.
+              Enter details for the Level 1 explore.
             </Typography>
             <Typography className="-mb-2" variant="h6">
-              Select the Service you want to delete
+              Select the Explore Card you want to change
             </Typography>
             <select
               name="servicename"
               id="name"
-              value={deleteOption}
-              onChange={handleDeleteOption}
+              value={editOption}
+              onChange={handleEditOption}
               className="p-3 border-deep-orange-200 border rounded-xl"
             >
-              <option value="">Select any option</option>
+              <option value=" ">Select any option</option>
               {data &&
                 data.map((item, key) => (
                   <option key={key} value={item.id}>
@@ -96,12 +95,25 @@ function DeleteDocPopup({
                   </option>
                 ))}
             </select>
+            <Typography className="-mb-2" variant="h6">
+              Name of the Explore Card
+            </Typography>
+            <input
+              type="text"
+              value={editName}
+              onChange={handleNameChange}
+              className="border mb-5 p-1 border-deep-orange-200"
+            />
+            <Typography className="-mb-2" variant="h6">
+              Give Icon
+            </Typography>
+            <input type="file" onChange={handleIconChange} />
           </CardBody>
           <CardFooter className="pt-0">
             <Button
               className="bg-kaavi text-white"
               type="submit"
-              onClick={handleDelete}
+              onClick={handleEdit}
               fullWidth
             >
               Enter
@@ -113,4 +125,4 @@ function DeleteDocPopup({
   );
 }
 
-export default DeleteDocPopup;
+export default EditExplorePopup;

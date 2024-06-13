@@ -11,7 +11,11 @@ import {
 } from "@/firebase/firestore/getData";
 import EditServicePopup from "./EditServicePopup";
 import DeleteServicePopup from "./DeleteServicePopup";
-
+import Link from "next/link";
+import EditExplorePopup from "./EditExplorePopup";
+import DeleteExplorePopup from "./DeleteExplorePopup";
+import AddExplorePopup from "./AddExplorePopup";
+import { subscribeToExplore } from "../firebase/firestore/getExplore";
 function AdminPanel() {
   const [addOpen, setAddOpen] = useState(false);
   const [addServiceOpen, setAddServiceOpen] = useState(false);
@@ -21,6 +25,10 @@ function AdminPanel() {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [services, setServices] = useState(null);
   const [products, setProducts] = useState(null);
+  const [explore, setExplore] = useState();
+  const [exploreAdd, setExploreAdd] = useState();
+  const [editExploreOpen, setEditExploreOpen] = useState();
+  const [deleteExploreOpen, setDeleteExploreOpen] = useState();
   const handleSignOut = () => {
     try {
       auth.signOut();
@@ -33,11 +41,12 @@ function AdminPanel() {
   useEffect(() => {
     const unsubscribe1 = subscribeToServices(setServices);
     const unsubscribe2 = subscribeToProducts(setProducts);
+    const unsubscribe3 = subscribeToExplore(setExplore);
     const items = getServicesList();
-    console.log(items);
     return () => {
       unsubscribe1();
       unsubscribe2();
+      unsubscribe3();
     };
   }, []);
 
@@ -135,6 +144,51 @@ function AdminPanel() {
             previous={null}
             type="products"
           />
+        </div>
+        <div className="my-20">
+          <Link
+            className="font-bold underline text-2xl active:text-kaavi"
+            href={"/admin/leaders"}
+          >
+            Add Leaders
+          </Link>
+        </div>
+        <div className="my-4">
+          <h1 className="font-bold text-2xl md:text-4xl inline">Explore</h1>
+          <div className=" flex gap-x-10">
+            <EditExplorePopup
+              open={editExploreOpen}
+              setOpen={setEditExploreOpen}
+              data={explore}
+              rootprevious={null}
+              beforeprevious={null}
+              previous={null}
+            />
+            <DeleteExplorePopup
+              open={deleteExploreOpen}
+              setOpen={setDeleteExploreOpen}
+              data={explore}
+              rootprevious={null}
+              beforeprevious={null}
+              previous={null}
+            />
+          </div>
+          <div className="grid grid-cols-3 place-items-center md:grid-cols-4 mt-10 gap-y-10 gap-x-10">
+            {explore &&
+              explore.map((item) => (
+                <ServiceCard
+                  name={item.name}
+                  url={item.iconUrl}
+                  slug={`/admin/level2?previous=${item.id}&type=explore`}
+                />
+              ))}
+            <AddExplorePopup
+              open={exploreAdd}
+              setOpen={setExploreAdd}
+              beforeprevious={null}
+              previous={null}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -11,13 +11,21 @@ import BackButton from "./BackButton";
 import AddServicePopup from "@/components/AddServicePopup";
 import EditServicePopup from "./EditServicePopup";
 import DeleteServicePopup from "./DeleteServicePopup";
-
+import EditExplorePopup from "./EditExplorePopup";
+import DeleteExplorePopup from "./DeleteExplorePopup";
+import AddExplorePopup from "./AddExplorePopup";
+import { subscribeToExplore } from "../firebase/firestore/getExplore";
 function AdminPanel2() {
   const [open, setOpen] = useState(false);
   const [services, setServices] = useState(null);
   const [products, setProducts] = useState([]);
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const [explore, setExplore] = useState();
+  const [exploreAdd, setExploreAdd] = useState();
+  const [editExploreOpen, setEditExploreOpen] = useState();
+  const [deleteExploreOpen, setDeleteExploreOpen] = useState();
   const searchparam = useSearchParams();
   const previous = searchparam.get("previous");
   const type = searchparam.get("type");
@@ -28,7 +36,6 @@ function AdminPanel2() {
         name={item.name}
         url={item.iconUrl}
         slug={`/admin/level3?previous=${item.id}&beforeprevious=${previous}&type=services`}
-
       />
     ));
   const content2 =
@@ -40,13 +47,23 @@ function AdminPanel2() {
         slug={`/admin/level3?previous=${item.id}&beforeprevious=${previous}&type=products`}
       />
     ));
+  const content3 =
+    explore &&
+    explore.map((item) => (
+      <ServiceCard
+        name={item.name}
+        url={item.iconUrl}
+        slug={`/admin/level3?previous=${item.id}&beforeprevious=${previous}&type=explore`}
+      />
+    ));
   useEffect(() => {
-    const unsubscribe1 =  subscribeToServices(setServices, previous);
-    const unsubscribe2 =  subscribeToProducts(setProducts, previous);
-    console.log(typeof services);
+    const unsubscribe1 = subscribeToServices(setServices, previous);
+    const unsubscribe2 = subscribeToProducts(setProducts, previous);
+    const unsubscribe3 = subscribeToExplore(setExplore, previous);
     return () => {
       unsubscribe1();
       unsubscribe2();
+      unsubscribe3();
     };
   }, []);
   return (
@@ -57,37 +74,74 @@ function AdminPanel2() {
           {previous.charAt(0).toUpperCase() + previous.slice(1)}
         </h1>
         <div className="flex gap-x-10">
-          <EditServicePopup
-            open={editOpen}
-            setOpen={setEditOpen}
-            data={services}
-            rootprevious={null}
-            beforeprevious={null}
-            level2={previous}
-            type={type}
-          />
-          <DeleteServicePopup
-            open={deleteOpen}
-            setOpen={setDeleteOpen}
-            data={services}
-            rootprevious={null}
-            beforeprevious={null}
-            previous={previous}
-            type={type}
-          />
+          {type === "explore" ? (
+            <>
+              <EditExplorePopup
+                open={editExploreOpen}
+                setOpen={setEditExploreOpen}
+                data={explore}
+                rootprevious={null}
+                beforeprevious={null}
+                previous={previous}
+              />
+              <DeleteExplorePopup
+                open={deleteExploreOpen}
+                setOpen={setDeleteExploreOpen}
+                data={explore}
+                rootprevious={null}
+                beforeprevious={null}
+                previous={previous}
+              />
+            </>
+          ) : (
+            <>
+              <EditServicePopup
+                open={editOpen}
+                setOpen={setEditOpen}
+                data={services}
+                rootprevious={null}
+                beforeprevious={null}
+                previous={previous}
+                type={type}
+              />
+              <DeleteServicePopup
+                open={deleteOpen}
+                setOpen={setDeleteOpen}
+                data={services}
+                rootprevious={null}
+                beforeprevious={null}
+                previous={previous}
+                type={type}
+              />
+            </>
+          )}
         </div>
       </div>
 
       <div className="grid grid-cols-3 place-items-center gap-y-10 gap-x-10">
         {type == "services" ? content1 : content2}
-        <AddServicePopup
-          open={open}
-          setOpen={setOpen}
-          rootprevious={null}
-          beforeprevious={null}
-          previous={previous}
-          type={type}
-        />
+        {type == "explore" && content3}
+        {type == "explore" ? (
+          <>
+            <AddExplorePopup
+              open={exploreAdd}
+              setOpen={setExploreAdd}
+              beforeprevious={null}
+              previous={previous}
+            />
+          </>
+        ) : (
+          <>
+            <AddServicePopup
+              open={open}
+              setOpen={setOpen}
+              rootprevious={null}
+              beforeprevious={null}
+              previous={previous}
+              type={type}
+            />
+          </>
+        )}
       </div>
     </div>
   );

@@ -7,13 +7,15 @@ import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
 import YoutubeEmbed from "@/components/YoutubeEmbed";
 import EventCarousel from "@/components/EventCarousel";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ExploreCarousel from "@/components/ExploreCarousel";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Level1Services from "@/components/Level1Services";
+import { getStateLeaders } from "@/firebase/firestore/addLeaders";
 export default function Home() {
   const [isEventActive, setIsEventActive] = useState(true);
+  const [randomData, setRandomData] = useState();
   const handleArchiveClick = () => {
     setIsEventActive(false);
   };
@@ -49,6 +51,16 @@ export default function Home() {
       text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
   ];
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      const data = await getStateLeaders();
+      const randomIndex = Math.floor(Math.random() * data.length);
+      const random = data[randomIndex];
+      setRandomData(random);
+    };
+    fetchdata();
+  }, []);
   return (
     <>
       <Header />
@@ -65,7 +77,7 @@ export default function Home() {
           {/* Location */}
 
           <Link
-            href="/location"
+            href="/district"
             className="bg-white z-10 absolute top-5 left-2 px-2 py-2 flex items-center justify-around rounded-3xl cursor-pointer shadow-md"
           >
             <MdLocationOn fontSize={28} className="pr-1 text-[#E53700]" />
@@ -73,6 +85,14 @@ export default function Home() {
             <RiArrowDropDownLine fontSize={30} />
           </Link>
 
+          <Link
+            href="/location"
+            className="bg-white z-10 absolute top-5 right-2 px-2 py-2 flex items-center justify-around rounded-3xl cursor-pointer shadow-md"
+          >
+            <MdLocationOn fontSize={28} className="pr-1 text-[#E53700]" />
+            <p className="font-bold text-secondary">Select Location</p>
+            <RiArrowDropDownLine fontSize={30} />
+          </Link>
           <Image
             src="/temple-bells.png"
             alt="temple-bells"
@@ -196,9 +216,7 @@ export default function Home() {
         {/* Products Section */}
         <div className="p-6">
           <h1 className="font-koulen text-4xl text-grey mb-6">Products</h1>
-          <div className="grid grid-cols-3 gap-y-10 gap-x-10">
-           
-          </div>
+          <div className="grid grid-cols-3 gap-y-10 gap-x-10"></div>
           <div className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer">
             <Link href="#">See all products</Link>
             <IoIosArrowDown className="ml-1" />
@@ -262,16 +280,24 @@ export default function Home() {
         <div className="p-6">
           <h1 className="font-koulen text-4xl text-grey mb-2">Members</h1>
           <h2 className="text-lg text-grey font-bold">State Level Leaders</h2>
-          <div className="p-6 flex justify-evenly items-center my-2">
-            <img src="/user.svg" alt="user profile" height={60} width={60} />
-            <div>
-              <h1 className="font-medium text-2xl">Name</h1>
-              <h2 className="text-lg">Position</h2>
-              <p className="text-grey text-sm">+91 99*** *****</p>
+          {randomData && (
+            <div className="p-6 flex justify-evenly items-center my-2">
+              <img
+                src={randomData.data.profile}
+                alt="user profile"
+                height={60}
+                width={60}
+              />
+              <div>
+                <h1 className="font-medium text-xl">{randomData.data.name}</h1>
+                <h2 className="text-base">{randomData.data.position}</h2>
+                <p className="text-grey text-sm">{randomData.data.mobile}</p>
+              </div>
             </div>
-          </div>
+          )}
+
           <div className="flex justify-center items-center w-fit bg-kaavi text-white mx-auto py-2 px-4 rounded-xl">
-            <Link href="#">All members</Link>
+            <Link href="/members">All members</Link>
             <IoIosArrowDown className="ml-1" />
           </div>
         </div>

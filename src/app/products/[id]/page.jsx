@@ -1,4 +1,4 @@
-import { getServicesDocs, getServicesList } from "@/firebase/firestore/getData";
+import { getProductsDocs, getProductsList } from "@/firebase/firestore/getData";
 import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -7,21 +7,21 @@ import ServiceCard from "@/components/ServiceCard";
 import BackButton from "@/components/BackButton";
 
 export async function generateStaticParams() {
-  const list = await getServicesList();
+  const list = await getProductsList();
   return list.map((item) => ({
     id: item,
   }));
 }
 
-export default async function ServicePages({ params }) {
+export default async function ProductPages({ params }) {
   const { id } = params;
-  const data = await getServicesDocs(null, null, id);
+  const data = await getProductsDocs(null, null, id);
   const capitalized = id.charAt(0).toUpperCase() + id.slice(1);
 
   return (
     <div>
       <Header />
-      <BackButton route={`/services`} />
+      <BackButton route={`/products`} />
       <YoutubeEmbed embedId="#" />
       <div className="p-6 py-20">
         <h1 className="text-center font-bold text-2xl pb-10">{capitalized}</h1>
@@ -30,7 +30,7 @@ export default async function ServicePages({ params }) {
             <ServiceCard
               name={doc.data.name}
               url={doc.data.iconUrl}
-              slug={`/services/${id}/${doc.id}`}
+              slug={`/products/${id}/${doc.id}`}
             />
           ))}
         </div>

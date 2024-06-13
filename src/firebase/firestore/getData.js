@@ -217,6 +217,42 @@ export const getServicesList = async (
   }
 };
 
+export const getProductsList = async (
+  rootbeforedocid = null,
+  rootdocid = null,
+  beforedocid = null
+) => {
+  try {
+    let data = [];
+    let snapshot;
+    if (rootbeforedocid != null && rootdocid != null && beforedocid != null) {
+      snapshot = await getDocs(
+        collection(
+          db,
+          `products/${rootbeforedocid}/${rootbeforedocid}col/${rootdocid}/${rootdocid}col/${beforedocid}/${beforedocid}col`
+        )
+      );
+    } else if (rootdocid != null && beforedocid != null) {
+      snapshot = await getDocs(
+        collection(
+          db,
+          `products/${rootdocid}/${rootdocid}col/${beforedocid}/${beforedocid}col`
+        )
+      );
+    } else if (beforedocid != null) {
+      snapshot = await getDocs(
+        collection(db, `products/${beforedocid}/${beforedocid}col`)
+      );
+    } else {
+      snapshot = await getDocs(collection(db, `products`));
+    }
+    snapshot.forEach((doc) => data.push(doc.id));
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const getServicesDocs = async (
   rootbeforedocid = null,
   rootdocid = null,
@@ -247,6 +283,52 @@ export const getServicesDocs = async (
       q = collection(db, `services/${beforedocid}/${beforedocid}col/`);
     } else {
       q = collection(db, "services");
+    }
+    if (docid == null) {
+      querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        alldocs.push({ id: doc.id, data: doc.data() });
+      });
+      return alldocs;
+    } else {
+      querySnapshot = await getDoc(q);
+      return querySnapshot.data();
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getProductsDocs = async (
+  rootbeforedocid = null,
+  rootdocid = null,
+  beforedocid = null,
+  docid = null
+) => {
+  try {
+    let q;
+    let querySnapshot;
+    let alldocs = [];
+    if (docid != null) {
+      q = doc(
+        db,
+        `products/${rootbeforedocid}/${rootbeforedocid}col/${rootdocid}/${rootdocid}col/${beforedocid}/${beforedocid}col`,
+        docid
+      );
+    } else if (rootbeforedocid != null) {
+      q = collection(
+        db,
+        `products/${rootbeforedocid}/${rootbeforedocid}col/${rootdocid}/${rootdocid}col/${beforedocid}/${beforedocid}col`
+      );
+    } else if (rootdocid != null && beforedocid != null) {
+      q = collection(
+        db,
+        `products/${rootdocid}/${rootdocid}col/${beforedocid}/${beforedocid}col`
+      );
+    } else if (beforedocid != null) {
+      q = collection(db, `products/${beforedocid}/${beforedocid}col/`);
+    } else {
+      q = collection(db, "products");
     }
     if (docid == null) {
       querySnapshot = await getDocs(q);
