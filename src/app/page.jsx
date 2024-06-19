@@ -1,56 +1,39 @@
 "use client";
 import Image from "next/image";
-import { Carousel } from "@material-tailwind/react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
 import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
-import YoutubeEmbed from "@/components/YoutubeEmbed";
-import EventCarousel from "@/components/EventCarousel";
+import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
+import EventCarousel from "@/components/ui/EventCarousel";
 import { useState, useEffect } from "react";
-import ExploreCarousel from "@/components/ExploreCarousel";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import Level1Services from "@/components/Level1Services";
+import ExploreCarousel from "@/components/ui/ExploreCarousel";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import { getUser, subscribeToProducts } from "@/firebase/firestore/getData";
+import ServiceCard from "@/components/ui/ServiceCard";
+import Level1Services from "@/components/ui/Level1Services";
 import { getStateLeaders } from "@/firebase/firestore/addLeaders";
+import { getAdvertisements } from "@/firebase/firestore/getData";
+import auth from "@/firebase/config.js";
+import { onAuthStateChanged } from "firebase/auth";
+import AdCarousel from "@/components/ui/AdCarousel";
+import { getEvents } from "@/firebase/firestore/events";
+import News from "@/components/Home/News";
 export default function Home() {
   const [isEventActive, setIsEventActive] = useState(true);
   const [randomData, setRandomData] = useState();
+  const [products, setProducts] = useState();
+  const [ads, setAds] = useState();
+  const [user, setUser] = useState();
+  const [userDoc, setUserDoc] = useState();
+  const [events, setEvents] = useState();
   const handleArchiveClick = () => {
     setIsEventActive(false);
   };
   const handleEventClick = () => {
     setIsEventActive(true);
   };
-  const dynamicContent = [
-    {
-      image: "/event.jpg",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elitewrewriowioqrioetriqriuoinfviojrijoijgoirjtjwritq.",
-    },
-    {
-      image: "/event.jpg",
-      text: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    {
-      image: "/event.jpg",
-      text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-  ];
-
-  const dynamicContent2 = [
-    {
-      image: "/event.jpg",
-      text: "content 2 Lorem ipsum dolor sit amet, consectetur adipiscing elitewrewriowioqrioetriqriuoinfviojrijoijgoirjtjwritq.",
-    },
-    {
-      image: "/event.jpg",
-      text: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    {
-      image: "/event.jpg",
-      text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-  ];
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -58,6 +41,30 @@ export default function Home() {
       const randomIndex = Math.floor(Math.random() * data.length);
       const random = data[randomIndex];
       setRandomData(random);
+      const data2 = await getAdvertisements();
+      setAds(data2);
+    };
+    fetchdata();
+  }, []);
+  useEffect(() => {
+    const unsubscribe = subscribeToProducts(setProducts);
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        const data = await getUser(currentUser.uid);
+        setUserDoc(data);
+      }
+    });
+    return unsubscribe;
+  }, []);
+  useEffect(() => {
+    const fetchdata = async () => {
+      const data = await getEvents();
+      setEvents(data);
     };
     fetchdata();
   }, []);
@@ -81,7 +88,9 @@ export default function Home() {
             className="bg-white z-10 absolute top-5 left-2 px-2 py-2 flex items-center justify-around rounded-3xl cursor-pointer shadow-md"
           >
             <MdLocationOn fontSize={28} className="pr-1 text-[#E53700]" />
-            <p className="font-bold text-secondary">Coimbatore</p>
+            <p className="font-bold text-secondary">
+              {userDoc ? userDoc.district : "District"}
+            </p>
             <RiArrowDropDownLine fontSize={30} />
           </Link>
 
@@ -90,7 +99,9 @@ export default function Home() {
             className="bg-white z-10 absolute top-5 right-2 px-2 py-2 flex items-center justify-around rounded-3xl cursor-pointer shadow-md"
           >
             <MdLocationOn fontSize={28} className="pr-1 text-[#E53700]" />
-            <p className="font-bold text-secondary">Select Location</p>
+            <p className="font-bold text-secondary">
+              {userDoc ? userDoc.location : " Select Location"}
+            </p>
             <RiArrowDropDownLine fontSize={30} />
           </Link>
           <Image
@@ -100,41 +111,8 @@ export default function Home() {
             height={150}
             className="opacity-30 absolute top-0 right-0 z-0"
           />
+          <AdCarousel ads={ads} />
 
-          <Carousel
-            autoplay="true"
-            loop="true"
-            className="rounded-xl h-52 w-[95%] z-10 mt-8"
-            navigation={({ setActiveIndex, activeIndex, length }) => (
-              <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
-                {new Array(length).fill("").map((_, i) => (
-                  <span
-                    key={i}
-                    className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-                      activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
-                    }`}
-                    onClick={() => setActiveIndex(i)}
-                  />
-                ))}
-              </div>
-            )}
-          >
-            <img
-              src="/advertisement.jpg"
-              alt="image 1"
-              className="h-full w-full object-cover"
-            />
-            <img
-              src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-              alt="image 2"
-              className="h-full w-full object-cover"
-            />
-            <img
-              src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-              alt="image 3"
-              className="h-full w-full object-cover"
-            />
-          </Carousel>
           <Image
             src="/ram-temple.png"
             alt="ram-temple"
@@ -167,18 +145,8 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Socials Section */}
-        <div className="px-6 py-8 relative z-0">
-          <Image
-            src="/om.svg"
-            alt="om"
-            width={300}
-            height={300}
-            className="rotate-45 opacity-5 absolute -left-7 -top-2 -z-10"
-          />
-          <h1 className="font-koulen text-4xl text-grey mb-6">socials</h1>
-          <YoutubeEmbed embedId="1Cl6ST2hbdg" />
-        </div>
+        {/* News Section */}
+        <News />
 
         {/* Events Section */}
         <div className="p-6 text-center">
@@ -204,9 +172,7 @@ export default function Home() {
               archive
             </button>
           </div>
-          <EventCarousel
-            content={isEventActive ? dynamicContent : dynamicContent2}
-          />
+          <EventCarousel content={isEventActive ? events : events} />
 
           <button className="p-2 bg-kaavi text-white my-5 mt-8 rounded-md">
             Load More
@@ -216,9 +182,18 @@ export default function Home() {
         {/* Products Section */}
         <div className="p-6">
           <h1 className="font-koulen text-4xl text-grey mb-6">Products</h1>
-          <div className="grid grid-cols-3 gap-y-10 gap-x-10"></div>
+          <div className="grid grid-cols-3 gap-y-10 gap-x-10 mt-8">
+            {products &&
+              products.map((item) => (
+                <ServiceCard
+                  name={item.id}
+                  url={item.iconUrl}
+                  slug={`/products/${item.id}`}
+                />
+              ))}
+          </div>
           <div className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer">
-            <Link href="#">See all products</Link>
+            <Link href="/products">See all products</Link>
             <IoIosArrowDown className="ml-1" />
           </div>
         </div>

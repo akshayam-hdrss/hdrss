@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import BackButton from "@/components/BackButton";
-import YoutubeEmbed from "@/components/YoutubeEmbed";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import BackButton from "@/components/ui/BackButton";
+import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import { subscribeToProducts } from "@/firebase/firestore/getData";
-import ServiceCard from "@/components/ServiceCard";
+import ServiceCard from "@/components/ui/ServiceCard";
 
 function Products() {
   const [data, setData] = useState(null);

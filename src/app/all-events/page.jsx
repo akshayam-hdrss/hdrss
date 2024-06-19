@@ -1,10 +1,21 @@
-import React from "react";
-import BackButton from "@/components/BackButton";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+"use client";
+import React, { useEffect, useState } from "react";
+import BackButton from "@/components/ui/BackButton";
+import Footer from "@/components/ui/Footer";
+import Header from "@/components/ui/Header";
 import { IoSearch } from "react-icons/io5";
+import { getEvents } from "@/firebase/firestore/events";
 
 function Events() {
+  const [events, setEvents] = useState();
+  useEffect(() => {
+    const fetchevents = async () => {
+      const data = await getEvents();
+      setEvents(data);
+    };
+    fetchevents();
+  });
+
   return (
     <div>
       <Header />

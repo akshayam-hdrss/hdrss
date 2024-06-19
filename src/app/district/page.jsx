@@ -4,18 +4,36 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { GrLocation } from "react-icons/gr";
 import Link from "next/link";
-import getLocation from "@/firebase/firestore/getLocation";
+import {getDistrict} from "@/firebase/firestore/getLocation";
+import { updateUserDocDistrict } from "@/firebase/firestore/getData";
+import { onAuthStateChanged } from "firebase/auth";
+import auth from "@/firebase/config";
 
-function SelectLocation() {
-  const districts = ["Chennai", "Madurai", "Tiruppur", "Salem"];
-  const [locations, setLocations] = useState();
+function SelectDistrict() {
+  const [locations, setLocations] = useState([]);
+  const [user, setUser] = useState(null);
+
+  const handleLocation = async (district) => {
+    if (user) {
+      await updateUserDocDistrict(user, district);
+    }
+  };
+
   useEffect(() => {
     const fetchdata = async () => {
-      const [data, unused] = await getLocation();
-      setLocations(unused);
+      const data = await getDistrict();
+      setLocations(data);
     };
     fetchdata();
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className="p-8">
       <div className="flex items-center mb-8">
@@ -34,10 +52,14 @@ function SelectLocation() {
       </div>
       <div className="p-6">
         {locations &&
-          locations.map((district, index) => (
-            <div className="flex items-center my-4" key={index}>
+          locations.map((value, index) => (
+            <div
+              className="flex items-center my-4"
+              key={index}
+              onClick={() => handleLocation(value)}
+            >
               <GrLocation className="m-3" fontSize={25} />
-              <p className="ml-2 text-xl font-medium">{district}</p>
+              <button className="ml-2 text-xl font-medium">{value}</button>
             </div>
           ))}
       </div>
@@ -45,4 +67,4 @@ function SelectLocation() {
   );
 }
 
-export default SelectLocation;
+export default SelectDistrict;

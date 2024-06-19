@@ -1,9 +1,9 @@
 import React from "react";
 import { getServicesDocs, getServicesList } from "@/firebase/firestore/getData";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import BackButton from "@/components/BackButton";
-import GalleryCarousel from "@/components/GalleryCarousel";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import BackButton from "@/components/ui/BackButton";
+import GalleryCarousel from "@/components/ui/GalleryCarousel";
 
 export async function generateStaticParams() {
   const list = await getServicesList(null, null);

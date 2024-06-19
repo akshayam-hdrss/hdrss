@@ -1,9 +1,9 @@
 import React from "react";
-import BackButton from "@/components/BackButton";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import YoutubeEmbed from "@/components/YoutubeEmbed";
-import ServiceCard from "@/components/ServiceCard";
+import BackButton from "@/components/ui/BackButton";
+import Footer from "@/components/ui/Footer";
+import Header from "@/components/ui/Header";
+import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
+import ServiceCard from "@/components/ui/ServiceCard";
 
 function Healthcare() {
   return (
@@ -16,9 +16,7 @@ function Healthcare() {
           Healthcare
         </h1>
 
-        <div className="grid grid-cols-3 gap-y-10 gap-x-10 mb-10">
-         
-        </div>
+        <div className="grid grid-cols-3 gap-y-10 gap-x-10 mb-10"></div>
         <YoutubeEmbed embedId="1Cl6ST2hbdg" />
       </div>
       <Footer />

@@ -1,10 +1,10 @@
 import React from "react";
 import { getProductsDocs, getProductsList } from "@/firebase/firestore/getData";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import YoutubeEmbed from "@/components/YoutubeEmbed";
-import ServiceCard from "@/components/ServiceCard";
-import BackButton from "@/components/BackButton";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
+import ServiceCard from "@/components/ui/ServiceCard";
+import BackButton from "@/components/ui/BackButton";
 
 export async function generateStaticParams() {
   const list = await getProductsList(null, null, null);

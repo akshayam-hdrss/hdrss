@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import BackButton from "@/components/BackButton";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import BackButton from "@/components/ui/BackButton";
 import {
   getDistrictLeaders,
   getLeadersDistrict,
@@ -42,11 +42,16 @@ function MembersPage() {
         <div className="grid grid-cols-2 gap-x-5 gap-y-8">
           {stateLeaders &&
             stateLeaders.map((doc, index) => (
-              <div key={index}>
-                <img src={doc.data.profile} alt="Profile" />
-                <h3 className="font-medium text-lg">{doc.data.name}</h3>
-                <h4>{doc.data.position}</h4>
-                <h5 className="text-grey">{doc.data.mobile}</h5>
+              <div key={index} className="flex flex-col items-center">
+                <div className="w-[150px] h-[150px] mb-1">
+                  <img
+                    src={doc.data.profile}
+                    alt="Profile"
+                    className="object-cover aspect-square"
+                  />
+                </div>
+                <p className="font-bold text-lg">{doc.data.name}</p>
+                <p className="text-center">{doc.data.position}</p>
               </div>
             ))}
         </div>
@@ -72,11 +77,16 @@ function MembersPage() {
         <div className="grid grid-cols-2 gap-x-5 gap-y-8">
           {districtLeaders &&
             districtLeaders.map((doc, index) => (
-              <div key={index}>
-                <img src={doc.data.profile} alt="Profile" />
-                <h1 className="font-medium text-lg">{doc.data.name}</h1>
-                <h2>{doc.data.position}</h2>
-                <h3 className="text-grey">{doc.data.mobile}</h3>
+              <div key={index} className="flex flex-col items-center">
+                <div className="w-[150px] h-[150px] mb-1">
+                  <img
+                    src={doc.data.profile}
+                    alt="Profile"
+                    className="object-cover aspect-square"
+                  />
+                </div>
+                <p className="font-bold text-lg">{doc.data.name}</p>
+                <p className="text-center">{doc.data.position}</p>
               </div>
             ))}
         </div>

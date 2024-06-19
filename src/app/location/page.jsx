@@ -5,17 +5,46 @@ import { IoSearch } from "react-icons/io5";
 import { GrLocation } from "react-icons/gr";
 import Link from "next/link";
 import getLocation from "@/firebase/firestore/getLocation";
+import { updateUserDoc } from "@/firebase/firestore/getData";
+import { onAuthStateChanged } from "firebase/auth";
+import auth from "@/firebase/config";
 
 function SelectLocation() {
-  const districts = ["Chennai", "Madurai", "Tiruppur", "Salem"];
-  const [locations, setLocations] = useState();
+  const [locations, setLocations] = useState([]);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Added loading state
+  const [error, setError] = useState(null); // Added error state
+
+  const handleLocation = async (district) => {
+    if (user) {
+      await updateUserDoc(user, district);
+    }
+  };
+
   useEffect(() => {
-    const fetchdata = async () => {
-      const [data, unused] = await getLocation();
-      setLocations(data);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await getLocation();
+        setLocations(data);
+      } catch (error) {
+        console.error("Error fetching locations:", error);
+        setError("Failed to fetch locations.");
+      } finally {
+        setLoading(false);
+      }
     };
-    fetchdata();
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+  console.log(user && user);
   return (
     <div className="p-8">
       <div className="flex items-center mb-8">
@@ -33,13 +62,20 @@ function SelectLocation() {
         />
       </div>
       <div className="p-6">
-        {locations &&
+        {loading ? (
+          <p>Loading locations...</p>
+        ) : (
           locations.map((district, index) => (
-            <div className="flex items-center my-4" key={index}>
+            <div
+              key={index}
+              className="flex items-center my-4 cursor-pointer"
+              onClick={() => handleLocation(district)}
+            >
               <GrLocation className="m-3" fontSize={25} />
               <p className="ml-2 text-xl font-medium">{district}</p>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </div>
   );

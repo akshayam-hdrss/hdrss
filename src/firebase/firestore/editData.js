@@ -1,6 +1,6 @@
 import { app } from "../config";
 import { doc, updateDoc, getFirestore } from "firebase/firestore";
-import { uploadIcons } from "./addData";
+import { uploadFilesAndSaveURLs, uploadIcons } from "./addData";
 import { deleteObject, getStorage, ref } from "firebase/storage";
 
 const db = getFirestore(app);
@@ -116,55 +116,61 @@ export async function editProducts(
   }
 }
 
-// export async function editServicesDoc(
-//   rootprevious = null,
-//   beforeprevious = null,
-//   previous = null,
-//   id,
-//   data,
-//   profilepic,
-//   photos
-// ) {
-//   let result = null;
-//   let e = null;
-//   try {
-//     let docUrl;
-//     let fileUrl;
-//     docUrl = `services/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
-//     if (profilepic != null && photos != null) {
-//       const fileRef = ref(storage, iconUrl);
-//       deleteObject(fileRef)
-//         .then(() => {
-//           console.log("deleted successfully");
-//         })
-//         .catch((e) => {
-//           console.log(e);
-//         });
-//       fileUrl = await uploadIcons(icon, id);
-//       await updateDoc(doc(db, docUrl, id), {
-//         name: name,
-//         iconUrl: fileUrl,
-//       });
-//     } else if (icon != null) {
-//       const fileRef = ref(storage, iconUrl);
-//       deleteObject(fileRef)
-//         .then(() => {
-//           console.log("deleted successfully");
-//         })
-//         .catch((e) => {
-//           console.log(e);
-//         });
-//       fileUrl = await uploadIcons(icon, id);
-//       await updateDoc(doc(db, docUrl, id), {
-//         iconUrl: fileUrl,
-//       });
-//     } else {
-//       await updateDoc(doc(db, docUrl, id), {
-//         name: name,
-//       });
-//     }
-//   } catch (e) {
-//     console.log(e);
-//     return "failure";
-//   }
-// }
+export async function editServicesDoc(
+  rootprevious = null,
+  beforeprevious = null,
+  previous = null,
+  id,
+  data,
+  profilepic,
+  oldphotos,
+  type,
+  icon,
+  photos
+) {
+  let result = null;
+  let e = null;
+  try {
+    let docUrl;
+    let fileUrl;
+    docUrl = `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
+    if (profilepic != null && photos != null) {
+      // const fileRef = ref(storage, iconUrl);
+      // deleteObject(fileRef)
+      //   .then(() => {
+      //     console.log("deleted successfully");
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
+      fileUrl = await uploadIcons(icon, id);
+      photosurl = await uploadFilesAndSaveURLs(photos);
+      await updateDoc(doc(db, docUrl, id), {
+        ...data,
+        profile: fileUrl,
+        photos: photosurl,
+      });
+    } else if (icon != null) {
+      // const fileRef = ref(storage, iconUrl);
+      // deleteObject(fileRef)
+      //   .then(() => {
+      //     console.log("deleted successfully");
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
+      fileUrl = await uploadIcons(icon, id);
+      await updateDoc(doc(db, docUrl, id), {
+        ...data,
+        profile: fileUrl,
+      });
+    } else {
+      await updateDoc(doc(db, docUrl, id), {
+        ...data,
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    return "failure";
+  }
+}

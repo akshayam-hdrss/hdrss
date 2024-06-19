@@ -1,9 +1,9 @@
 import React from "react";
 import { getProductsDocs, getProductsList } from "@/firebase/firestore/getData";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import BackButton from "@/components/BackButton";
-import GalleryCarousel from "@/components/GalleryCarousel";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import BackButton from "@/components/ui/BackButton";
+import GalleryCarousel from "@/components/ui/GalleryCarousel";
 
 export async function generateStaticParams() {
   const list = await getProductsList(null, null);
@@ -43,7 +43,7 @@ export default async function ProductLevel4Page({ params }) {
       <BackButton route="/" />
       <div className="p-6">
         <div className="flex flex-col items-center justify-evenly py-6">
-          <img src={data.profilepicture} alt="profile" />
+          <img src={data.profile} alt="profile" />
           <h1 className="font-bold text-3xl pt-6">{data.name}</h1>
           <p className="text-grey font-medium">{data.location}</p>
           <p className="text-grey font-medium">{data.district}</p>

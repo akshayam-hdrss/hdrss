@@ -8,6 +8,9 @@ import {
   getDocs,
   updateDoc,
   deleteDoc,
+  query,
+  orderBy,
+  limit,
 } from "firebase/firestore";
 import {
   ref,
@@ -24,7 +27,10 @@ const storage = getStorage(app);
 async function uploadProfile(file, id) {
   try {
     const storageRef = ref(storage, `members/${id}`);
-    await uploadBytes(storageRef, file);
+    const meta = {
+      contentType: "image/jpeg",
+    };
+    await uploadBytes(storageRef, file, meta);
     const url = await getDownloadURL(storageRef);
     return url;
   } catch (e) {
@@ -78,7 +84,8 @@ export async function getStateLeaders() {
   try {
     let members = [];
     const ref = collection(db, "members/state/statecol");
-    const result = await getDocs(ref);
+    const orderedQuery = query(ref, orderBy("sno"));
+    const result = await getDocs(orderedQuery);
     result.forEach((doc) => {
       members.push({ id: doc.id, data: doc.data() });
     });
@@ -95,7 +102,8 @@ export async function getDistrictLeaders(district) {
       db,
       `members/district/districtcol/${district}/${district}col`
     );
-    const result = await getDocs(ref);
+    const orderedQuery = query(ref, orderBy("sNo"));
+    const result = await getDocs(orderedQuery);
     result.forEach((doc) => {
       members.push({ id: doc.id, data: doc.data() });
     });
@@ -121,6 +129,7 @@ export async function getLeadersDistrict() {
 
 export async function editDistrictLeaders(district, id, data, file = null) {
   try {
+    console.log(file);
     const docUrl = `members/district/districtcol/${district}/${district}col`;
     let updateData;
     const existingdata = await (
@@ -149,12 +158,13 @@ export async function editDistrictLeaders(district, id, data, file = null) {
 
 export async function editStateLeaders(id, data, file = null) {
   try {
+    console.log(file);
     const docUrl = `members/state/statecol`;
     let updateData;
     const existingdata = await (
       await getStateLeaders()
     ).find((doc) => doc.id === id);
-    const existingprofile = existingdata.data.profile;
+    const existingprofile = existingdata?.data.profile;
     if (file) {
       if (existingprofile) {
         const profileRef = ref(storage, existingprofile);
@@ -216,4 +226,27 @@ export async function deleteStateLeaders(id) {
   } catch (e) {
     console.log(e);
   }
+}
+
+export async function getMaxSno() {
+  try {
+    const docUrl = collection(db, "members/state/statecol"); // Correctly reference the collection
+    const orderedQuery = query(docUrl, orderBy("sno", "desc"), limit(1));
+    const result = await getDocs(orderedQuery);
+    let maxSNo = 0;
+    result.forEach((doc) => {
+      maxSNo = doc.data().sno;
+    });
+    return maxSNo + 1;
+  } catch (e) {
+    console.log(e);
+  }
+}
+export async function getExistingSNos() {
+  const result = await getStateLeaders();
+  const sNoValues = [];
+  result.map((doc) => {
+    sNoValues.push(doc.data.sno);
+  });
+  return sNoValues;
 }

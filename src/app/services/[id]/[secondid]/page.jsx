@@ -1,10 +1,10 @@
 import React from "react";
 import { getServicesDocs, getServicesList } from "@/firebase/firestore/getData";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import YoutubeEmbed from "@/components/YoutubeEmbed";
-import ServiceCard from "@/components/ServiceCard";
-import BackButton from "@/components/BackButton";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
+import ServiceCard from "@/components/ui/ServiceCard";
+import BackButton from "@/components/ui/BackButton";
 
 export async function generateStaticParams() {
   const list = await getServicesList(null, null, null);
@@ -24,7 +24,7 @@ export async function generateStaticParams() {
 async function ServiceLevel2Page({ params }) {
   const { id, secondid } = params;
   const data = await getServicesDocs(null, id, secondid);
-   const capitalized = secondid.charAt(0).toUpperCase() + secondid.slice(1);
+  const capitalized = secondid.charAt(0).toUpperCase() + secondid.slice(1);
   return (
     <div>
       <Header />

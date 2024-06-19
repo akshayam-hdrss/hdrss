@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import Level1Services from "@/components/Level1Services";
-import BackButton from "@/components/BackButton";
-import YoutubeEmbed from "@/components/YoutubeEmbed";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import Level1Services from "@/components/ui/Level1Services";
+import BackButton from "@/components/ui/BackButton";
+import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 
 function Services() {
   return (

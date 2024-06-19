@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import AdminPanel from "@/components/AdminPanel";
-import AdminLayout from "@/components/AdminLayout";
+import AdminPanel from "@/components/Admin/AdminPanel";
+import AdminLayout from "@/components/Admin/AdminLayout";
 
 function AdminPage() {
   return (

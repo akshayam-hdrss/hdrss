@@ -1,3 +1,4 @@
+import { update } from "firebase/database";
 import { app } from "../config";
 import {
   getFirestore,
@@ -5,6 +6,8 @@ import {
   addDoc,
   setDoc,
   collection,
+  updateDoc,
+  getDoc,
 } from "firebase/firestore";
 import {
   ref,
@@ -17,7 +20,7 @@ import {
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-async function uploadFilesAndSaveURLs(files) {
+export async function uploadFilesAndSaveURLs(files) {
   // Create an array of promises to upload each file and get its download URL
   const uploadPromises = files.map((file) => {
     const storageRef = ref(storage, `servicegallery/${file.name}`);
@@ -131,7 +134,7 @@ async function addDocument(
       galleryUrls = await uploadFilesAndSaveURLs(photos);
       docData = {
         ...data,
-        profilepicture: pfpUrl,
+        profile: pfpUrl,
         photos: galleryUrls,
       };
     } else if (photos != null) {
@@ -144,7 +147,7 @@ async function addDocument(
       pfpUrl = await uploadIcons(profilepic, id);
       docData = {
         ...data,
-        profilepicture: pfpUrl,
+        profile: pfpUrl,
       };
     } else {
       docData = { ...data };
@@ -158,4 +161,40 @@ async function addDocument(
   }
 }
 
+export async function uploadAdvertisements(ads) {
+  try {
+    ads.map(async (ad, index) => {
+      const result = await setDoc(doc(db, "advertisements", `ad${index}`), {
+        ad: ad,
+      });
+    });
+    console.log("ads added");
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function addRamadass(data, photo = null) {
+  try {
+    let profile;
+    if (photo != null) {
+      profile = await uploadIcons(photo, "ramadass");
+      data.profile = profile;
+    }
+    const result = await updateDoc(doc(db, "ramadass", "ramadass"), data);
+    console.log("update ramadass");
+  } catch (e) {
+    console.log(e);
+  }
+}
+export async function getRamadass() {
+  try {
+    const result = await getDoc(doc(db, "ramadass", "ramadass"));
+    if (result.exists()) {
+      return result.data();
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
 export { addService, uploadIcons, addProduct, addDocument };
