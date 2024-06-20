@@ -11,6 +11,7 @@ import {
 import EditLeaderPopup from "@/components/Admin/Leaders/EditLeaderPopup";
 import DeleteLeaderPopup from "@/components/Admin/Leaders/DeleteLeaderPopup";
 import BackButton from "@/components/ui/BackButton";
+import AddDistrict from "@/components/Admin/Leaders/AddDistrict";
 
 function LeadersPage() {
   const [districtLeaders, setDistrictLeaders] = useState("");
@@ -23,6 +24,8 @@ function LeadersPage() {
   const [maxSnoState, setMaxSnoState] = useState();
   const [existingSnos, setExistingSnos] = useState();
   const [stateAvailableSNos, setStateAvailableSnos] = useState();
+  const [districtOpen, setDistrictOpen] = useState();
+
   useEffect(() => {
     const fetchData = async () => {
       const data2 = await getStateLeaders();
@@ -31,42 +34,27 @@ function LeadersPage() {
       setExistingDistricts(data3);
     };
     fetchData();
-  }, [editOpen, deleteOpen]);
+  }, [addOpen, editOpen, deleteOpen, districtOpen]);
   useEffect(() => {
     const fetchData = async () => {
       const data1 = await getDistrictLeaders(selectedDistrict);
       setDistrictLeaders(data1);
     };
     fetchData();
-  }, [selectedDistrict, editOpen, deleteOpen]);
+  }, [selectedDistrict, addOpen, editOpen, deleteOpen]);
   useEffect(() => {
     const fetch = async () => {
       const data = await getMaxSno();
       setMaxSnoState(data);
     };
-    function getAvailableSNos(existingSNos, limit) {
-      const availableSNos = [];
-      let nextSNo = 1;
 
-      while (availableSNos.length < limit - 2) {
-        if (!existingSNos.includes(nextSNo)) {
-          availableSNos.push(nextSNo);
-        }
-        nextSNo++;
-      }
-
-      return availableSNos;
-    }
     const fetch2 = async () => {
       const data = await getExistingSNos();
       setExistingSnos(data);
     };
     fetch();
     fetch2();
-    const data = getAvailableSNos(existingSnos, maxSnoState);
-    setStateAvailableSnos(data);
   }, [addOpen, editOpen]);
-
   return (
     <div className="p-10">
       <BackButton route="/admin" />
@@ -74,7 +62,8 @@ function LeadersPage() {
       <AddLeaderPopup
         open={addOpen}
         setOpen={setAddOpen}
-        maxSno={maxSnoState}
+        maxSnoState={maxSnoState}
+        districts={existingdistricts}
       />
       <EditLeaderPopup
         open={editOpen}
@@ -91,11 +80,11 @@ function LeadersPage() {
         {stateLeaders &&
           stateLeaders.map((doc, index) => (
             <div key={index} className="flex flex-col items-center">
-              <div className="w-[150px] h-[150px] mb-1">
+              <div className="w-[130px] h-fit mb-1">
                 <img
                   src={doc.data.profile}
                   alt="Profile"
-                  className="object-cover aspect-square"
+                  className="object-cover aspect-[4/5] border border-kaavi"
                 />
               </div>
               <h1 className="font-bold text-lg">{doc.data.name}</h1>
@@ -105,30 +94,34 @@ function LeadersPage() {
       </div>
 
       <h1 className="text-xl font-bold mt-10">District Level Leaders</h1>
-      <select
-        name="districtleaders"
-        id="districts"
-        value={selectedDistrict}
-        className="mt-4 mb-10 border-2 p-3 rounded-xl border-kaavi"
-        onChange={(e) => setSelectedDistrict(e.target.value)}
-      >
-        <option value=" ">District</option>
-        {existingdistricts &&
-          existingdistricts.map((doc, index) => (
-            <option value={doc.id} key={index}>
-              {doc.data.name}
-            </option>
-          ))}
-      </select>
+      <div className="flex justify-between mx-2 items-center mb-10 mt-6">
+        <select
+          name="districtleaders"
+          id="districts"
+          value={selectedDistrict}
+          className=" border-2 p-3 rounded-xl border-kaavi"
+          onChange={(e) => setSelectedDistrict(e.target.value)}
+        >
+          <option value=" ">District</option>
+          {existingdistricts &&
+            existingdistricts.map((doc, index) => (
+              <option value={doc.id} key={index}>
+                {doc.data.name}
+              </option>
+            ))}
+        </select>
+        <AddDistrict open={districtOpen} setOpen={setDistrictOpen} />
+      </div>
+
       <div className="grid grid-cols-2 gap-x-6 gap-y-6 ">
         {districtLeaders &&
           districtLeaders.map((doc, index) => (
             <div key={index} className="flex flex-col items-center">
-              <div className="w-[150px] h-[150px] mb-1">
+              <div className="w-[130px] h-fit mb-1">
                 <img
                   src={doc.data.profile}
                   alt="Profile"
-                  className="object-cover aspect-square"
+                  className="object-cover aspect-[4/5] border border-kaavi"
                 />
               </div>
               <h1 className="font-bold text-lg">{doc.data.name}</h1>

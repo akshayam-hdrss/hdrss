@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>
-        <main className="bg-background h-full">{children}</main>
+        <main className="bg-white h-full">{children}</main>
       </body>
     </html>
   );

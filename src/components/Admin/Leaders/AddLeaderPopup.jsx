@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -13,15 +13,17 @@ import {
   addDistrictLeader,
   addStateLeader,
 } from "@/firebase/firestore/addLeaders";
+import { getMaxSnoDistrict } from "@/firebase/firestore/addLeaders";
+import { getLeadersDistrict } from "@/firebase/firestore/addLeaders";
 
-function AddLeaderPopup({ open, setOpen, maxSno }) {
+function AddLeaderPopup({ open, setOpen, maxSnoState, districts }) {
   const [name, setName] = useState();
   const [position, setPosition] = useState();
   const [profilepic, setProfilepic] = useState();
   const [level, setLevel] = useState("");
   const [mobileNumber, setMobileNumber] = useState();
   const [district, setDistrict] = useState();
-  const [serialNumber, setSerialNumber] = useState();
+  const [maxSnoDistrict, setMaxSnoDistrict] = useState();
   let id;
   let districtlower;
   const handleOpen = () => setOpen(!open);
@@ -42,18 +44,33 @@ function AddLeaderPopup({ open, setOpen, maxSno }) {
           name: name,
           position: position,
           ...(mobileNumber && { mobile: mobileNumber }),
+          sno: maxSnoDistrict,
         },
         profilepic
       );
     } else if (level === "state") {
       addStateLeader(
         id,
-        { name: name, position: position, mobile: mobileNumber },
+        {
+          name: name,
+          position: position,
+          ...(mobileNumber && { mobile: mobileNumber }),
+          sno: maxSnoState,
+        },
         profilepic
       );
     }
     setLevel("");
   };
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getMaxSnoDistrict(district);
+      setMaxSnoDistrict(data);
+    };
+
+    fetch();
+  }, [district]);
+
   return (
     <>
       <Button onClick={handleOpen} className="bg-kaavi cursor-pointer">
@@ -77,6 +94,37 @@ function AddLeaderPopup({ open, setOpen, maxSno }) {
             >
               Enter details for the State Level Leader
             </Typography>
+            <Typography className="-mb-2" variant="h6">
+              Enter the Level
+            </Typography>
+            <select
+              name="Level"
+              id="level"
+              onChange={(e) => setLevel(e.target.value)}
+            >
+              <option value=" ">Select level</option>
+              <option value="district">District Level</option>
+              <option value="state">State Level</option>
+            </select>
+
+            {level === "district" && (
+              <>
+                <Typography className="-mb-2" variant="h6">
+                  Enter the District
+                </Typography>
+                <select
+                  name="district"
+                  id="district"
+                  onChange={(e) => setDistrict(e.target.value)}
+                >
+                  <option value="">Select District</option>
+                  {districts &&
+                    districts.map((district) => (
+                      <option value={district.id}>{district.data.name}</option>
+                    ))}
+                </select>
+              </>
+            )}
             <Typography className="-mb-2" variant="h6">
               Name of the Leader
             </Typography>
@@ -107,8 +155,7 @@ function AddLeaderPopup({ open, setOpen, maxSno }) {
               size="lg"
               label="position"
               required
-              defaultValue={maxSno}
-              onChange={(e) => setSerialNumber(e.target.value)}
+              value={level === "state" ? maxSnoState : maxSnoDistrict}
             />
 
             <Typography className="-mb-2" variant="h6">
@@ -124,7 +171,7 @@ function AddLeaderPopup({ open, setOpen, maxSno }) {
             />
 
             <Typography className="-mb-2" variant="h6">
-              Profile Picture (Should be 1:1 Aspect Ratio)
+              Profile Picture (Should be 4:5 Aspect Ratio)
             </Typography>
 
             <Input
@@ -135,34 +182,6 @@ function AddLeaderPopup({ open, setOpen, maxSno }) {
               required
               onChange={(e) => setProfilepic(e.target.files[0])}
             />
-            <Typography className="-mb-2" variant="h6">
-              Enter the Level
-            </Typography>
-
-            <select
-              name="Level"
-              id="level"
-              onChange={(e) => setLevel(e.target.value)}
-            >
-              <option value=" ">Select level</option>
-              <option value="district">District Level</option>
-              <option value="state">State Level</option>
-            </select>
-
-            {level === "district" && (
-              <>
-                <Typography className="-mb-2" variant="h6">
-                  Enter the District
-                </Typography>
-                <Input
-                  type="text"
-                  size="lg"
-                  label="district"
-                  required
-                  onChange={(e) => setDistrict(e.target.value)}
-                />
-              </>
-            )}
           </CardBody>
           <CardFooter className="pt-0">
             <Button

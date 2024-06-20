@@ -21,7 +21,7 @@ import {
   uploadFilesAndSaveURLs,
 } from "@/firebase/firestore/addData";
 import { addRamadass, getRamadass } from "../../firebase/firestore/addData";
-
+import AdminNews from "@/components/Admin/AdminNews";
 function AdminPanel() {
   const [addOpen, setAddOpen] = useState(false);
   const [addServiceOpen, setAddServiceOpen] = useState(false);
@@ -332,6 +332,8 @@ function AdminPanel() {
           Manage Events
         </Link>
       </div>
+
+      <AdminNews />
     </div>
   );
 }

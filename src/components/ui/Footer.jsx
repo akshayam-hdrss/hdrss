@@ -29,7 +29,7 @@ function Footer() {
           <h1 className="font-bold text-xl leading-6 mb-1">
           {leader.name}
           </h1>
-          <h2 className="text-sm">HDRSS Founder</h2>
+          <h2 className="text-sm">Founder/President</h2>
         </div>
         <Image src="/hdrss.png" alt="logo" width={60} height={60} className="ml-16" />
       </div>

@@ -110,7 +110,7 @@ export async function deleteServicesDoc(
     console.log(photos);
     docUrl = `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
 
-    if (photos != null) {
+    if (photos != "") {
       photos.map((photo) => {
         const fileRef = ref(storage, photo);
         deleteObject(fileRef)
@@ -122,11 +122,11 @@ export async function deleteServicesDoc(
           });
       });
     }
-    if (profilepic != null) {
+    if (profilepic != "") {
       const fileRef = ref(storage, profilepic);
       deleteObject(fileRef)
         .then(() => {
-          console.log("deleted successfully");
+          console.log("profile deleted successfully");
         })
         .catch((e) => {
           console.log(e);

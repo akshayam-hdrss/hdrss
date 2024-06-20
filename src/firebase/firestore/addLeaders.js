@@ -42,6 +42,7 @@ export async function addStateLeader(id, data, file) {
   try {
     let docData;
     let result;
+    console.log("before")
     const membersRef = collection(db, "members/state/statecol");
     if (file != null) {
       const picUrl = await uploadProfile(file, id);
@@ -102,7 +103,7 @@ export async function getDistrictLeaders(district) {
       db,
       `members/district/districtcol/${district}/${district}col`
     );
-    const orderedQuery = query(ref, orderBy("sNo"));
+    const orderedQuery = query(ref, orderBy("sno"));
     const result = await getDocs(orderedQuery);
     result.forEach((doc) => {
       members.push({ id: doc.id, data: doc.data() });
@@ -242,6 +243,23 @@ export async function getMaxSno() {
     console.log(e);
   }
 }
+export async function getMaxSnoDistrict(district) {
+  try {
+    const docUrl = collection(
+      db,
+      `members/district/districtcol/${district}/${district}col`
+    ); // Correctly reference the collection
+    const orderedQuery = query(docUrl, orderBy("sno", "desc"), limit(1));
+    const result = await getDocs(orderedQuery);
+    let maxSNo = 0;
+    result.forEach((doc) => {
+      maxSNo = doc.data().sno;
+    });
+    return maxSNo + 1;
+  } catch (e) {
+    console.log(e);
+  }
+}
 export async function getExistingSNos() {
   const result = await getStateLeaders();
   const sNoValues = [];
@@ -249,4 +267,15 @@ export async function getExistingSNos() {
     sNoValues.push(doc.data.sno);
   });
   return sNoValues;
+}
+
+export async function addLeadersDistrict(district) {
+  try {
+    const districtUrl = `members/district/districtcol`;
+    const id = district.toLowerCase();
+    const result = setDoc(doc(db, districtUrl, id), { name: district });
+    console.log("district added");
+  } catch (e) {
+    console.log(e);
+  }
 }

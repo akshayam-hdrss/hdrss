@@ -10,7 +10,6 @@ export default withMT({
     colors: {
       primary: "#FFFFFF",
       secondary: "#801F00",
-      background: "#FFFAF8",
       grey: "#727272",
       kaavi: "#FF8D3A",
     },

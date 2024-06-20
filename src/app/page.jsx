@@ -124,7 +124,7 @@ export default function Home() {
 
         {/* Services Section */}
 
-        <div className="bg-background text-black relative w-full h-max pt-10 px-6 z-10 overflow-hidden rounded-[30px] -mt-10">
+        <div className="bg-[#FFFAF8] text-black relative w-full h-max pt-10 px-6 z-10 overflow-hidden rounded-[30px] -mt-10">
           <Image
             src="/om.svg"
             alt="om"
