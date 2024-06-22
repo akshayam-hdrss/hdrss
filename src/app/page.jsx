@@ -4,26 +4,24 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
 import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
-import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import EventCarousel from "@/components/ui/EventCarousel";
 import { useState, useEffect } from "react";
 import ExploreCarousel from "@/components/ui/ExploreCarousel";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
-import { getUser, subscribeToProducts } from "@/firebase/firestore/getData";
-import ServiceCard from "@/components/ui/ServiceCard";
+import { getUser } from "@/firebase/firestore/user";
 import Level1Services from "@/components/ui/Level1Services";
-import { getStateLeaders } from "@/firebase/firestore/addLeaders";
-import { getAdvertisements } from "@/firebase/firestore/getData";
+import { getStateLeaders } from "@/firebase/firestore/leaders";
+import { getHomeAdvertisements } from "@/firebase/firestore/advertisements";
 import auth from "@/firebase/config.js";
 import { onAuthStateChanged } from "firebase/auth";
 import AdCarousel from "@/components/ui/AdCarousel";
 import { getEvents } from "@/firebase/firestore/events";
 import News from "@/components/Home/News";
+import Products from "@/components/Home/Products"
 export default function Home() {
   const [isEventActive, setIsEventActive] = useState(true);
   const [randomData, setRandomData] = useState();
-  const [products, setProducts] = useState();
   const [ads, setAds] = useState();
   const [user, setUser] = useState();
   const [userDoc, setUserDoc] = useState();
@@ -41,15 +39,12 @@ export default function Home() {
       const randomIndex = Math.floor(Math.random() * data.length);
       const random = data[randomIndex];
       setRandomData(random);
-      const data2 = await getAdvertisements();
+      const data2 = await getHomeAdvertisements();
       setAds(data2);
     };
     fetchdata();
   }, []);
-  useEffect(() => {
-    const unsubscribe = subscribeToProducts(setProducts);
-    return () => unsubscribe();
-  }, []);
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -68,6 +63,7 @@ export default function Home() {
     };
     fetchdata();
   }, []);
+
   return (
     <>
       <Header />
@@ -182,16 +178,7 @@ export default function Home() {
         {/* Products Section */}
         <div className="p-6">
           <h1 className="font-koulen text-4xl text-grey mb-6">Products</h1>
-          <div className="grid grid-cols-3 gap-y-10 gap-x-10 mt-8">
-            {products &&
-              products.map((item) => (
-                <ServiceCard
-                  name={item.id}
-                  url={item.iconUrl}
-                  slug={`/products/${item.id}`}
-                />
-              ))}
-          </div>
+         <Products />
           <div className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer">
             <Link href="/products">See all products</Link>
             <IoIosArrowDown className="ml-1" />

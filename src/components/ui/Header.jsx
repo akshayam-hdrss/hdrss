@@ -12,7 +12,7 @@ import auth from "@/firebase/config.js";
 import { onAuthStateChanged } from "firebase/auth";
 import Link from "next/link";
 import Image from "next/image";
-import { getUser } from "@/firebase/firestore/getData";
+import { getUser } from "@/firebase/firestore/user";
 import { useRouter } from "next/navigation";
 const theme = createTheme({
   components: {
@@ -58,7 +58,7 @@ function Header() {
       <Link href="/">
         <Image src="/hdrss.png" alt="logo" width={40} height={40} />
       </Link>
-        <h1 className="font-bold text-xl uppercase mr-10">Akshayam</h1>
+      <h1 className="font-bold text-xl uppercase mr-10">Akshayam</h1>
 
       <IoToggle fontSize={35} className="cursor-pointer" />
       <React.Fragment>

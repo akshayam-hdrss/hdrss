@@ -12,9 +12,8 @@ import {
 import {
   addDistrictLeader,
   addStateLeader,
-} from "@/firebase/firestore/addLeaders";
-import { getMaxSnoDistrict } from "@/firebase/firestore/addLeaders";
-import { getLeadersDistrict } from "@/firebase/firestore/addLeaders";
+} from "@/firebase/firestore/leaders";
+import { getMaxSnoDistrict } from "@/firebase/firestore/leaders";
 
 function AddLeaderPopup({ open, setOpen, maxSnoState, districts }) {
   const [name, setName] = useState();

@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { app } from "../config";
-import { uploadFilesAndSaveURLs } from "./addData";
+import { uploadFilesAndSaveURLs } from "./common";
 const db = getFirestore(app);
 const storage = getStorage(app);
 

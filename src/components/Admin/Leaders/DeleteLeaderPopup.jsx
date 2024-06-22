@@ -15,7 +15,7 @@ import {
   editDistrictLeaders,
   getDistrictLeaders,
   getStateLeaders,
-} from "../../../firebase/firestore/addLeaders";
+} from "@/firebase/firestore/leaders";
 
 function DeleteLeaderPopup({ open, setOpen, districts }) {
   const [editDistrict, setEditDistrict] = useState("");

@@ -7,7 +7,7 @@ import { FaInstagram } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { getRamadass } from "@/firebase/firestore/addData";
+import { getRamadass } from "@/firebase/firestore/ramadass";
 
 function Footer() {
   const [leader, setLeader] = useState([]);

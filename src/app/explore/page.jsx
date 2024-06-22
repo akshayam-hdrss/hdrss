@@ -5,7 +5,7 @@ import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import BackButton from "@/components/ui/BackButton";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
-import { subscribeToExplore } from "@/firebase/firestore/getExplore";
+import { subscribeToExplore } from "@/firebase/firestore/explore";
 import ServiceCard from "@/components/ui/ServiceCard";
 
 function Products() {

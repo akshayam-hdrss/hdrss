@@ -5,16 +5,13 @@ import { useSearchParams } from "next/navigation";
 import AddServicePopup from "@/components/Admin/Services/AddServicePopup";
 import ServiceCard from "@/components/ui/ServiceCard";
 import BackButton from "@/components/ui/BackButton";
-import {
-  subscribeToProducts,
-  subscribeToServices,
-} from "@/firebase/firestore/getData";
+import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import EditServicePopup from "@/components/Admin/Services/EditServicePopup";
 import DeleteServicePopup from "@/components/Admin/Services/DeleteServicePopup";
 import EditExplorePopup from "@/components/Admin/Explore/EditExplorePopup";
 import DeleteExplorePopup from "@/components/Admin/Explore/DeleteExplorePopup";
 import AddExplorePopup from "@/components/Admin/Explore/AddExplorePopup";
-import { subscribeToExplore } from "@/firebase/firestore/getExplore";
+import { subscribeToExplore } from "@/firebase/firestore/explore";
 function AdminPanel3() {
   const [open, setOpen] = useState(false);
   const [services, setServices] = useState(null);
@@ -57,15 +54,17 @@ function AdminPanel3() {
       />
     ));
   useEffect(() => {
-    const unsubscribe1 = subscribeToServices(
+    const unsubscribe1 = subscribeToServicesAndProducts(
       setServices,
       previous,
-      beforeprevious
+      beforeprevious,
+      "services"
     );
-    const unsubscribe2 = subscribeToProducts(
+    const unsubscribe2 = subscribeToServicesAndProducts(
       setProducts,
       previous,
-      beforeprevious
+      beforeprevious,
+      "products"
     );
     const unsubscribe3 = subscribeToExplore(
       setExplore,

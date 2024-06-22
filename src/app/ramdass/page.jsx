@@ -7,7 +7,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { MdOutlineCall } from "react-icons/md";
 import { MdOutlineEmail } from "react-icons/md";
-import { getRamadass } from "../../firebase/firestore/addData";
+import { getRamadass } from "@/firebase/firestore/ramadass";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 
 function Ramdass() {

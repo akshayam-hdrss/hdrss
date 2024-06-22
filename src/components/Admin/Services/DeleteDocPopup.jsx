@@ -7,11 +7,7 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
-import {
-  deleteProducts,
-  deleteServices,
-  deleteServicesDoc,
-} from "@/firebase/firestore/deleteData";
+import { deleteServicesAndProductsDoc } from "@/firebase/firestore/servicesProducts";
 import { IoClose } from "react-icons/io5";
 
 function DeleteDocPopup({
@@ -45,7 +41,7 @@ function DeleteDocPopup({
       }
     });
 
-    deleteServicesDoc(
+    deleteServicesAndProductsDoc(
       rootprevious,
       beforeprevious,
       previous,

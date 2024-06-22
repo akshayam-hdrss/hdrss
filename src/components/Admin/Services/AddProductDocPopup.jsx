@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { addDocument } from "@/firebase/firestore/addData";
+import { addServicesAndProductsDoc } from "@/firebase/firestore/servicesProducts";
 import {
   Button,
   Dialog,
@@ -44,7 +44,7 @@ function AddProductDocPopup({
     const id = name.replace(/\s+/g, "").toLowerCase();
 
     setOpen(!open);
-    addDocument(
+    addServicesAndProductsDoc(
       rootprevious,
       beforeprevious,
       previous,

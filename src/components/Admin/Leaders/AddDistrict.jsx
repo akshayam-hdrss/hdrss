@@ -9,7 +9,7 @@ import {
   Typography,
   Input,
 } from "@material-tailwind/react";
-import { addLeadersDistrict } from "@/firebase/firestore/addLeaders";
+import { addLeadersDistrict } from "@/firebase/firestore/leaders";
 function AddDistrict({ open, setOpen }) {
   const [district, setDistrict] = useState();
   const handleOpen = () => setOpen(!open);

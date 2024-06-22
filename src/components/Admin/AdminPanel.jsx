@@ -4,23 +4,16 @@ import { useState, useEffect } from "react";
 import auth from "@/firebase/config";
 import ServiceCard from "../ui/ServiceCard";
 import AddServicePopup from "@/components/Admin/Services/AddServicePopup";
-import {
-  getServicesList,
-  subscribeToProducts,
-  subscribeToServices,
-} from "@/firebase/firestore/getData";
+import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import EditServicePopup from "./Services/EditServicePopup";
 import DeleteServicePopup from "./Services/DeleteServicePopup";
 import Link from "next/link";
 import EditExplorePopup from "./Explore/EditExplorePopup";
 import DeleteExplorePopup from "./Explore/DeleteExplorePopup";
 import AddExplorePopup from "./Explore/AddExplorePopup";
-import { subscribeToExplore } from "../../firebase/firestore/getExplore";
-import {
-  uploadAdvertisements,
-  uploadFilesAndSaveURLs,
-} from "@/firebase/firestore/addData";
-import { addRamadass, getRamadass } from "../../firebase/firestore/addData";
+import { subscribeToExplore } from "@/firebase/firestore/explore";
+import { uploadHomeAdvertisements } from "@/firebase/firestore/advertisements";
+import { addRamadass, getRamadass } from "@/firebase/firestore/ramadass";
 import AdminNews from "@/components/Admin/AdminNews";
 function AdminPanel() {
   const [addOpen, setAddOpen] = useState(false);
@@ -49,20 +42,20 @@ function AdminPanel() {
   };
   const handleAds = async (e) => {
     e.preventDefault();
-    const ads = await uploadFilesAndSaveURLs(photos);
-    await uploadAdvertisements(ads);
+
+    await uploadHomeAdvertisements(photos);
     setPhotos([]);
   };
 
   const handleLeader = async (e) => {
     e.preventDefault();
     const data = {};
-    data.name = leaderName == "" ? exisitingLeader.name : leaderName;
-    data.about = leaderAbout == "" ? exisitingLeader.about : leaderAbout;
-    data.social = leaderSocial == "" ? exisitingLeader.social : leaderSocial;
-    data.email = leaderEmail == "" ? exisitingLeader.email : leaderEmail;
-    data.mobile = leaderMobile == 0 ? exisitingLeader.mobile : leaderMobile;
-    data.profile = exisitingLeader.profile;
+    data.name = leaderName == "" ? exisitingLeader?.name : leaderName;
+    data.about = leaderAbout == "" ? exisitingLeader?.about : leaderAbout;
+    data.social = leaderSocial == "" ? exisitingLeader?.social : leaderSocial;
+    data.email = leaderEmail == "" ? exisitingLeader?.email : leaderEmail;
+    data.mobile = leaderMobile == 0 ? exisitingLeader?.mobile : leaderMobile;
+    data.profile = exisitingLeader?.profile;
     await addRamadass(data, leaderPhoto);
   };
   const handleSignOut = () => {
@@ -75,20 +68,19 @@ function AdminPanel() {
   };
 
   useEffect(() => {
-    const unsubscribe1 = subscribeToServices(setServices);
-    const unsubscribe2 = subscribeToProducts(setProducts);
+    const unsubscribe1 = subscribeToServicesAndProducts(setServices,null,null,"services");
+    const unsubscribe2 = subscribeToServicesAndProducts(setProducts,null,null,"products");
     const unsubscribe3 = subscribeToExplore(setExplore);
     const fetchData = async () => {
       const data = await getRamadass();
       setExistingLeader(data);
     };
-    const items = getServicesList();
-
+    // const items = getServicesList();
+    fetchData();
     return () => {
       unsubscribe1();
       unsubscribe2();
       unsubscribe3();
-      fetchData();
     };
   }, []);
 

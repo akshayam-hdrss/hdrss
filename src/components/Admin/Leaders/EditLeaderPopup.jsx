@@ -14,7 +14,7 @@ import {
   editStateLeaders,
   getDistrictLeaders,
   getStateLeaders,
-} from "../../../firebase/firestore/addLeaders";
+} from "@/firebase/firestore/leaders";
 
 function EditLeaderPopup({ open, setOpen, districts }) {
   const [name, setName] = useState();

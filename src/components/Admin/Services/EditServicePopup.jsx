@@ -7,7 +7,7 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
-import { editProducts, editServices } from "@/firebase/firestore/editData";
+import { editServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import { IoClose } from "react-icons/io5";
 
 function EditServicePopup({
@@ -34,27 +34,17 @@ function EditServicePopup({
         iconUrl = item.iconUrl;
       }
     });
-    if (type == "services") {
-      editServices(
-        rootprevious,
-        beforeprevious,
-        previous,
-        editOption,
-        editName,
-        editIcon,
-        iconUrl
-      );
-    } else if (type == "products") {
-      editProducts(
-        rootprevious,
-        beforeprevious,
-        previous,
-        editOption,
-        editName,
-        editIcon,
-        iconUrl
-      );
-    }
+
+    editServicesAndProducts(
+      rootprevious,
+      beforeprevious,
+      previous,
+      editOption,
+      editName,
+      editIcon,
+      iconUrl,
+      type
+    );
 
     console.log("edited successfully");
   };
@@ -66,7 +56,6 @@ function EditServicePopup({
   };
   const handleIconChange = (e) => {
     setEditIcon(e.target.files[0]);
-
   };
   return (
     <>

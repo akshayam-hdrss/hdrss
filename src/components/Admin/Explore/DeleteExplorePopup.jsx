@@ -7,7 +7,7 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
-import { deleteExplore } from "@/firebase/firestore/deleteExplore";
+import { deleteExplore } from "@/firebase/firestore/explore";
 import { IoClose } from "react-icons/io5";
 
 function DeleteExplorePopup({

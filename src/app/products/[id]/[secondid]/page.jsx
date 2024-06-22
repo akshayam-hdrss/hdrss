@@ -1,5 +1,8 @@
 import React from "react";
-import { getProductsDocs, getProductsList } from "@/firebase/firestore/getData";
+import {
+  getServiceAndProductDocs,
+  getServicesAndProductsList,
+} from "@/firebase/firestore/servicesProducts";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
@@ -7,10 +10,15 @@ import ServiceCard from "@/components/ui/ServiceCard";
 import BackButton from "@/components/ui/BackButton";
 
 export async function generateStaticParams() {
-  const list = await getProductsList(null, null, null);
+  const list = await getServicesAndProductsList(null, null, null, "products");
   const paths = await Promise.all(
     list.map(async (item) => {
-      const list2 = await getProductsList(null, null, item);
+      const list2 = await getServicesAndProductsList(
+        null,
+        null,
+        item,
+        "products"
+      );
       return list2.map((subitem) => ({
         id: item,
         secondid: subitem,
@@ -23,7 +31,13 @@ export async function generateStaticParams() {
 
 async function ProductLevel2Page({ params }) {
   const { id, secondid } = params;
-  const data = await getProductsDocs(null, id, secondid);
+  const data = await getServiceAndProductDocs(
+    null,
+    id,
+    secondid,
+    null,
+    "products"
+  );
   const capitalized = secondid.charAt(0).toUpperCase() + secondid.slice(1);
   return (
     <div>

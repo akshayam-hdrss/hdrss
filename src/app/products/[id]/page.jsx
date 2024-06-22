@@ -1,4 +1,7 @@
-import { getProductsDocs, getProductsList } from "@/firebase/firestore/getData";
+import {
+  getServiceAndProductDocs,
+  getServicesAndProductsList,
+} from "@/firebase/firestore/servicesProducts";
 import React from "react";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
@@ -6,10 +9,10 @@ import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import ServiceCard from "@/components/ui/ServiceCard";
 import BackButton from "@/components/ui/BackButton";
 import AdCarousel from "../../../components/ui/AdCarousel";
-import { getAdvertisements } from "@/firebase/firestore/getData";
+import { getHomeAdvertisements } from "@/firebase/firestore/advertisements";
 
 export async function generateStaticParams() {
-  const list = await getProductsList();
+  const list = await getServicesAndProductsList(null, null, null, "products");
   return list.map((item) => ({
     id: item,
   }));
@@ -17,10 +20,10 @@ export async function generateStaticParams() {
 
 export default async function ProductPages({ params }) {
   const { id } = params;
-  const data = await getProductsDocs(null, null, id);
+  const data = await getServiceAndProductDocs(null, null, id, null, "products");
   const capitalized = id.charAt(0).toUpperCase() + id.slice(1);
 
-  const ads = await getAdvertisements();
+  const ads = await getHomeAdvertisements();
   return (
     <div>
       <Header />

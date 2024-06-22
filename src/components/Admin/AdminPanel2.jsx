@@ -3,10 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import ServiceCard from "@/components/ui/ServiceCard";
-import {
-  subscribeToProducts,
-  subscribeToServices,
-} from "@/firebase/firestore/getData";
+import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import BackButton from "@/components/ui/BackButton";
 import AddServicePopup from "@/components/Admin/Services/AddServicePopup";
 import EditServicePopup from "@/components/Admin/Services/EditServicePopup";
@@ -14,7 +11,7 @@ import DeleteServicePopup from "@/components/Admin/Services/DeleteServicePopup";
 import EditExplorePopup from "@/components/Admin/Explore/EditExplorePopup";
 import DeleteExplorePopup from "@/components/Admin/Explore/DeleteExplorePopup";
 import AddExplorePopup from "@/components/Admin/Explore/AddExplorePopup";
-import { subscribeToExplore } from "@/firebase/firestore/getExplore";
+import { subscribeToExplore } from "@/firebase/firestore/explore";
 function AdminPanel2() {
   const [open, setOpen] = useState(false);
   const [services, setServices] = useState(null);
@@ -57,8 +54,18 @@ function AdminPanel2() {
       />
     ));
   useEffect(() => {
-    const unsubscribe1 = subscribeToServices(setServices, previous);
-    const unsubscribe2 = subscribeToProducts(setProducts, previous);
+    const unsubscribe1 = subscribeToServicesAndProducts(
+      setServices,
+      previous,
+      null,
+      "services"
+    );
+    const unsubscribe2 = subscribeToServicesAndProducts(
+      setProducts,
+      previous,
+      null,
+      "products"
+    );
     const unsubscribe3 = subscribeToExplore(setExplore, previous);
     return () => {
       unsubscribe1();

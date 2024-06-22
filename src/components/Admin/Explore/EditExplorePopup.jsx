@@ -7,7 +7,7 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
-import { editExplore } from "@/firebase/firestore/editExplore";
+import { editExplore } from "@/firebase/firestore/explore";
 import { IoClose } from "react-icons/io5";
 
 function EditExplorePopup({

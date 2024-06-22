@@ -7,7 +7,7 @@ import {
   getLeadersDistrict,
   getMaxSno,
   getStateLeaders,
-} from "@/firebase/firestore/addLeaders";
+} from "@/firebase/firestore/leaders";
 import EditLeaderPopup from "@/components/Admin/Leaders/EditLeaderPopup";
 import DeleteLeaderPopup from "@/components/Admin/Leaders/DeleteLeaderPopup";
 import BackButton from "@/components/ui/BackButton";

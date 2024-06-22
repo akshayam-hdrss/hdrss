@@ -3,10 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import AddServiceDocPopup from "@/components/Admin/Services/AddServiceDocPopup";
 import BackButton from "@/components/ui/BackButton";
-import {
-  subscribeToProductsDocuments,
-  subscribeToServiceDocuments,
-} from "@/firebase/firestore/getData";
+import { subscribeToServiceAndProductDocs } from "@/firebase/firestore/servicesProducts";
 import AddProductDocPopup from "@/components/Admin/Services/AddProductDocPopup";
 import DeleteDocPopup from "@/components/Admin/Services/DeleteDocPopup";
 import EditDocPopup from "@/components/Admin/Services/EditDocPopup";
@@ -56,17 +53,19 @@ function AdminPanel4() {
       </div>
     ));
   useEffect(() => {
-    const unsubscribe1 = subscribeToServiceDocuments(
+    const unsubscribe1 = subscribeToServiceAndProductDocs(
       setServices,
       previous,
       beforeprevious,
-      rootprevious
+      rootprevious,
+      "services"
     );
-    const unsubscribe2 = subscribeToProductsDocuments(
+    const unsubscribe2 = subscribeToServiceAndProductDocs(
       setProducts,
       previous,
       beforeprevious,
-      rootprevious
+      rootprevious,
+      "products"
     );
     return () => {
       unsubscribe1();

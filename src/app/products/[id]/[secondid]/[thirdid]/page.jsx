@@ -1,18 +1,18 @@
 import React from "react";
-import { getProductsDocs, getProductsList } from "@/firebase/firestore/getData";
+import { getServiceAndProductDocs, getServicesAndProductsList } from "@/firebase/firestore/servicesProducts";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 import BackButton from "@/components/ui/BackButton";
 
 export async function generateStaticParams() {
-  const list = await getProductsList(null, null);
+  const list = await getServicesAndProductsList(null, null,null,"products");
   const paths = await Promise.all(
     list.map(async (item) => {
-      const list2 = await getProductsList(null, null, item);
+      const list2 = await getServicesAndProductsList(null, null, item,"products");
       const subPaths = await Promise.all(
         list2.map(async (subitem) => {
-          const list3 = await getProductsList(null, item, subitem);
+          const list3 = await getServicesAndProductsList(null, item, subitem,"products");
           return list3.map((subitem2) => ({
             id: item,
             secondid: subitem,
@@ -28,7 +28,7 @@ export async function generateStaticParams() {
 
 async function ProductLevel3Page({ params }) {
   const { id, secondid, thirdid } = params;
-  const data = await getProductsDocs(id, secondid, thirdid, null);
+  const data = await getServiceAndProductDocs(id, secondid, thirdid, null,"products");
   const capitalized = thirdid.charAt(0).toUpperCase() + thirdid.slice(1);
   return (
     <div>

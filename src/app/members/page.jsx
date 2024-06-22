@@ -10,7 +10,7 @@ import {
   getDistrictLeaders,
   getLeadersDistrict,
   getStateLeaders,
-} from "@/firebase/firestore/addLeaders";
+} from "@/firebase/firestore/leaders";
 import {
   collection,
   query,
@@ -124,11 +124,7 @@ function MembersPage() {
         <div className="grid grid-cols-2 gap-x-5 gap-y-8">
           {stateLeaders &&
             stateLeaders.map((doc, index) => (
-              <a
-                href={`tel:${doc.data.mobile}`}
-                key={index}
-                className="flex flex-col items-center"
-              >
+              <div key={index} className="flex flex-col items-center">
                 <div className="w-[130px] h-fit mb-1">
                   <img
                     src={doc.data.profile}
@@ -138,21 +134,24 @@ function MembersPage() {
                 </div>
                 <p className="font-bold text-center text-lg">{doc.data.name}</p>
                 <p className="text-center">{doc.data.position}</p>
-              </a>
+                <a
+                  href={`tel:${doc.data.mobile}`}
+                  className="text-grey text-center text-sm mt-1 font-medium"
+                >
+                  {doc.data.mobile}
+                </a>
+              </div>
             ))}
           <div className="flex flex-row text-kaavi w-full justify-evenly ml-[50%] mt-4 items-center">
-            <button
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-            >
-              <FaCircleArrowLeft fontSize={25}/>
+            <button onClick={handlePrevPage} disabled={currentPage === 1}>
+              <FaCircleArrowLeft fontSize={25} />
             </button>
             <span className="font-bold text-2xl"> {currentPage}</span>
             <button
               onClick={handleNextPage}
               disabled={stateLeaders && stateLeaders.length < pageSize}
             >
-              <FaCircleArrowRight fontSize={25}/>
+              <FaCircleArrowRight fontSize={25} />
             </button>
           </div>
         </div>

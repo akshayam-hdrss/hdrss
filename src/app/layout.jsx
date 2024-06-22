@@ -1,7 +1,6 @@
 import { Inter, Koulen } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +21,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${koulen.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
       </head>
       <body className={inter.className}>
         <main className="bg-white h-full">{children}</main>

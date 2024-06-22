@@ -25,16 +25,16 @@ const YoutubeEmbed = ({ embedId }) => {
     fetch();
   }, [embedId]);
   return (
-    <div className="overflow-hidden pb-[56.25%] relative h-0">
+    <div className="overflow-hidden relative h-fit">
       {id && (
         <iframe
-          width="853"
-          height="480"
+          width="353"
+          height="200"
           src={id}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           title="Embedded youtube"
-          className="left-0 top-0 h-[100%] absolute w-[100%]"
+          className="rounded-lg mx-auto"
         />
       )}
     </div>

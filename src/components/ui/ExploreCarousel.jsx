@@ -50,10 +50,10 @@ function ExploreCarousel() {
       <swiper-container
         slides-per-view="1.7"
         slides-per-group="1"
-        speed="3000"
         space-between="0"
         grab-cursor="true"
-        autoplay="true"
+        autoplay="false"
+        lazy="true"
         ref={swiperElRef}
       >
         {explorecontent.map((item, index) => (
@@ -62,31 +62,27 @@ function ExploreCarousel() {
               className="border border-[#808080] m-1 rounded-2xl relative overflow-hidden h-80"
               key={index}
             >
-              <swiper-slide-transform>
-                <div className="object-cover w-full h-[60%] rounded-2xl">
-                  <Image
-                    src={`/${item}.jpg`}
-                    alt="explore"
-                    className=" h-full w-full object-cover rounded-t-2xl"
-                    width={100}
-                    height={100}
-                  ></Image>
-                </div>
+              <div className="object-cover w-full h-[60%]  rounded-2xl">
+                <image
+                  src={`/${item}.jpg`}
+                  alt="explore"
+                  className=" h-full w-full object-cover rounded-t-2xl"
+                />
+              </div>
 
-                <div className="h-[50%] px-3 py-2">
-                  <h2 className="font-bold text-2xl">{item}</h2>
-                  <Link
-                    href={`/explore/${item.toLowerCase()}`}
-                    className="text-sm bg-kaavi text-white px-3 py-2 rounded-xl mt-4"
-                  >
-                    Learn more
-                  </Link>
-                  <div className="absolute top-[65%] right-3 border-[#acacac] border py-3 px-3 rounded-lg text-center">
-                    <p className="font-bold text-lg">{day}</p>
-                    <p className="font-medium text-xs">{monthName}</p>
-                  </div>
+              <div className="h-[50%] px-3 py-2">
+                <h2 className="font-bold text-2xl">{item}</h2>
+                <Link
+                  href={`/explore/${item.toLowerCase()}`}
+                  className="text-sm bg-kaavi text-white px-3 py-2 rounded-xl mt-4"
+                >
+                  Learn more
+                </Link>
+                <div className="absolute top-[65%] right-3 border-[#acacac] border py-3 px-3 rounded-lg text-center">
+                  <p className="font-bold text-lg">{day}</p>
+                  <p className="font-medium text-xs">{monthName}</p>
                 </div>
-              </swiper-slide-transform>
+              </div>
             </div>
           </swiper-slide>
         ))}

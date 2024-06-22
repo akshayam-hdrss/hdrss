@@ -4,8 +4,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { GrLocation } from "react-icons/gr";
 import Link from "next/link";
-import getLocation from "@/firebase/firestore/getLocation";
-import { updateUserDoc } from "@/firebase/firestore/getData";
+import {getLocation} from "@/firebase/firestore/servicesProducts";
+import { updateUserDoc } from "@/firebase/firestore/user";
 import { onAuthStateChanged } from "firebase/auth";
 import auth from "@/firebase/config";
 

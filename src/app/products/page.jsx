@@ -5,13 +5,13 @@ import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import BackButton from "@/components/ui/BackButton";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
-import { subscribeToProducts } from "@/firebase/firestore/getData";
+import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import ServiceCard from "@/components/ui/ServiceCard";
 
 function Products() {
   const [data, setData] = useState(null);
   useEffect(() => {
-    const unsubscribe = subscribeToProducts(setData);
+    const unsubscribe = subscribeToServicesAndProducts(setData,null,null,"products");
     return () => unsubscribe();
   }, []);
   return (

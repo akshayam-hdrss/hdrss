@@ -21,6 +21,8 @@ export default withMT({
       },
       backgroundImage: {
         pattern: "url('/om.svg')",
+        "gradient-w-b":
+          "linear-gradient(180deg, hsla(0, 0%, 100%, 1) 11%, hsla(0, 0%, 0%, 1) 86%)",
       },
     },
   },

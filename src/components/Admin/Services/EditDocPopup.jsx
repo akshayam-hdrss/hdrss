@@ -8,7 +8,7 @@ import {
   Input,
   Typography,
 } from "@material-tailwind/react";
-import { editServicesDoc } from "@/firebase/firestore/editData";
+import { editServiceAndProductDocs } from "@/firebase/firestore/servicesProducts";
 import { IoClose } from "react-icons/io5";
 
 function EditDocPopup({
@@ -51,15 +51,9 @@ function EditDocPopup({
   const handleAdd = async () => {
     setOpen(!open);
     let updatedData = {
-      ...(editName
-        ? { name: editName }
-        : { name: deleteDoc.name }),
-      ...(editNumber
-        ? { mobile: editNumber }
-        : { mobile: deleteDoc.mobile }),
-      ...(editAbout
-        ? { about: editAbout }
-        : { about: deleteDoc.about }),
+      ...(editName ? { name: editName } : { name: deleteDoc.name }),
+      ...(editNumber ? { mobile: editNumber } : { mobile: deleteDoc.mobile }),
+      ...(editAbout ? { about: editAbout } : { about: deleteDoc.about }),
       ...(editDistrict
         ? { district: editDistrict }
         : { district: deleteDoc.district }),
@@ -75,7 +69,7 @@ function EditDocPopup({
         oldphotos = item.photos;
       }
     });
-    editServicesDoc(
+    editServiceAndProductDocs(
       rootprevious,
       beforeprevious,
       previous,

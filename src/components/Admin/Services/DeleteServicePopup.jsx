@@ -7,19 +7,16 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
-import {
-  deleteProducts,
-  deleteServices,
-} from "@/firebase/firestore/deleteData";
+import { deleteServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import { IoClose } from "react-icons/io5";
 
 function DeleteServicePopup({
   open,
   setOpen,
   data,
-  rootprevious=null,
-  beforeprevious=null,
-  previous=null,
+  rootprevious = null,
+  beforeprevious = null,
+  previous = null,
   type,
 }) {
   const [deleteOption, setDeleteOption] = useState(null);
@@ -37,23 +34,16 @@ function DeleteServicePopup({
         iconUrl = item.iconUrl;
       }
     });
-    if (type == "services") {
-      deleteServices(
-        rootprevious,
-        beforeprevious,
-        previous,
-        deleteOption,
-        iconUrl
-      );
-    } else if (type == "products") {
-      deleteProducts(
-        rootprevious,
-        beforeprevious,
-        previous,
-        deleteOption,
-        iconUrl
-      );
-    }
+
+    deleteServicesAndProducts(
+      rootprevious,
+      beforeprevious,
+      previous,
+      deleteOption,
+      iconUrl,
+      type
+    );
+
     console.log("deleted successfully");
   };
   return (

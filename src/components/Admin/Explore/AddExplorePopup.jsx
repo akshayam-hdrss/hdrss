@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { useState } from "react";
 import { MdAdd } from "react-icons/md";
-import { addExplore } from "@/firebase/firestore/addExplore";
+import { addExplore } from "@/firebase/firestore/explore";
 
 function AddExplorePopup({ open, setOpen, beforeprevious, previous }) {
   const [name, setName] = useState("");
