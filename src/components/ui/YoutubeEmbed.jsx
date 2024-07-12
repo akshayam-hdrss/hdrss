@@ -28,13 +28,11 @@ const YoutubeEmbed = ({ embedId }) => {
     <div className="overflow-hidden relative h-fit">
       {id && (
         <iframe
-          width="353"
-          height="200"
           src={id}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           title="Embedded youtube"
-          className="rounded-lg mx-auto"
+          className="rounded-lg mx-auto w-[353px] h-[200px] md:w-[100vw] md:h-[500px] md:rounded-none"
         />
       )}
     </div>

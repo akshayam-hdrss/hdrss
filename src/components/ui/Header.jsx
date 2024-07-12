@@ -55,10 +55,9 @@ function Header() {
         background: "linear-gradient(to right, #FF4D14 0%, #FF1F00 100%)",
       }}
     >
-      <Link href="/">
-        <Image src="/hdrss.png" alt="logo" width={40} height={40} />
+      <Link href="/" className="mr-28">
+<h1 className="font-lena font-medium text-2xl">akshayam</h1>
       </Link>
-      <h1 className="font-bold text-xl uppercase mr-10">Akshayam</h1>
 
       <IoToggle fontSize={35} className="cursor-pointer" />
       <React.Fragment>

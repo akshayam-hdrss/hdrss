@@ -1,4 +1,4 @@
-import Image from "next/image";
+"use client";
 import React from "react";
 import { useRef, useEffect } from "react";
 import { register } from "swiper/element/bundle";
@@ -62,15 +62,15 @@ function ExploreCarousel() {
               className="border border-[#808080] m-1 rounded-2xl relative overflow-hidden h-80"
               key={index}
             >
-              <div className="object-cover w-full h-[60%]  rounded-2xl">
-                <image
+              <div className="object-cover w-full h-[60%] rounded-2xl">
+                <img
                   src={`/${item}.jpg`}
                   alt="explore"
                   className=" h-full w-full object-cover rounded-t-2xl"
                 />
               </div>
 
-              <div className="h-[50%] px-3 py-2">
+              <div className="h-[40%] px-3 py-2">
                 <h2 className="font-bold text-2xl">{item}</h2>
                 <Link
                   href={`/explore/${item.toLowerCase()}`}

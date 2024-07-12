@@ -18,7 +18,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import AdCarousel from "@/components/ui/AdCarousel";
 import { getEvents } from "@/firebase/firestore/events";
 import News from "@/components/Home/News";
-import Products from "@/components/Home/Products"
+import Products from "@/components/Home/Products";
 export default function Home() {
   const [isEventActive, setIsEventActive] = useState(true);
   const [randomData, setRandomData] = useState();
@@ -36,15 +36,13 @@ export default function Home() {
   useEffect(() => {
     const fetchdata = async () => {
       const data = await getStateLeaders();
-      const randomIndex = Math.floor(Math.random() * data.length);
-      const random = data[randomIndex];
+      const random = data[0];
       setRandomData(random);
       const data2 = await getHomeAdvertisements();
       setAds(data2);
     };
     fetchdata();
   }, []);
-
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -120,7 +118,7 @@ export default function Home() {
 
         {/* Services Section */}
 
-        <div className="bg-[#FFFAF8] text-black relative w-full h-max pt-10 px-6 z-10 overflow-hidden rounded-[30px] -mt-10">
+        <div className="bg-[#FFFAF8] text-black relative w-full h-max pt-6 px-6 z-10 overflow-hidden rounded-[30px] -mt-10">
           <Image
             src="/om.svg"
             alt="om"
@@ -144,13 +142,23 @@ export default function Home() {
         {/* News Section */}
         <News />
 
+        {/* Products Section */}
+        <div className="p-6">
+          <h1 className="font-koulen text-4xl text-grey mb-6">Products</h1>
+          <Products />
+          <div className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer">
+            <Link href="/products">See all products</Link>
+            <IoIosArrowDown className="ml-1" />
+          </div>
+        </div>
+
         {/* Events Section */}
         <div className="p-6 text-center">
           <div
             className={`bg-[#FBE9E9] inline p-5 rounded-lg mr-10 pt-7 cursor-pointer ${
               isEventActive ? "text-kaavi" : "text-[#ACACAC]"
             }`}
-          >
+          >   
             <button
               className="font-koulen text-4xl inline"
               onClick={handleEventClick}
@@ -173,16 +181,6 @@ export default function Home() {
           <button className="p-2 bg-kaavi text-white my-5 mt-8 rounded-md">
             Load More
           </button>
-        </div>
-
-        {/* Products Section */}
-        <div className="p-6">
-          <h1 className="font-koulen text-4xl text-grey mb-6">Products</h1>
-         <Products />
-          <div className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer">
-            <Link href="/products">See all products</Link>
-            <IoIosArrowDown className="ml-1" />
-          </div>
         </div>
 
         {/* Explore Section */}
@@ -243,12 +241,12 @@ export default function Home() {
           <h1 className="font-koulen text-4xl text-grey mb-2">Members</h1>
           <h2 className="text-lg text-grey font-bold">State Level Leaders</h2>
           {randomData && (
-            <div className="p-6 flex justify-evenly items-center my-2">
+            <div className="p-6 flex justify-evenly gap-x-4 items-center my-2">
               <img
                 src={randomData.data.profile}
                 alt="user profile"
-                height={60}
-                width={60}
+                height={70}
+                width={70}
               />
               <div>
                 <h1 className="font-medium text-xl">{randomData.data.name}</h1>

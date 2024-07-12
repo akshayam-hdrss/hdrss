@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Component } from "react";
 import { useState, useEffect } from "react";
 import auth from "@/firebase/config";
 import ServiceCard from "../ui/ServiceCard";
@@ -11,10 +11,18 @@ import Link from "next/link";
 import EditExplorePopup from "./Explore/EditExplorePopup";
 import DeleteExplorePopup from "./Explore/DeleteExplorePopup";
 import AddExplorePopup from "./Explore/AddExplorePopup";
+import EditSno from "@/components/Admin/Services/EditSno";
 import { subscribeToExplore } from "@/firebase/firestore/explore";
-import { uploadHomeAdvertisements } from "@/firebase/firestore/advertisements";
+import {
+  getLevel1ServiceAds,
+  uploadHomeAdvertisements,
+} from "@/firebase/firestore/advertisements";
 import { addRamadass, getRamadass } from "@/firebase/firestore/ramadass";
 import AdminNews from "@/components/Admin/AdminNews";
+import Slider from "react-slick";
+import { Carousel } from "@material-tailwind/react";
+import AllServiceAds from "@/components/Admin/Advertisements/AllServiceAds";
+import EditYt from "./Services/EditYt";
 function AdminPanel() {
   const [addOpen, setAddOpen] = useState(false);
   const [addServiceOpen, setAddServiceOpen] = useState(false);
@@ -28,6 +36,8 @@ function AdminPanel() {
   const [exploreAdd, setExploreAdd] = useState();
   const [editExploreOpen, setEditExploreOpen] = useState();
   const [deleteExploreOpen, setDeleteExploreOpen] = useState();
+  const [snoOpen, setSnoOpen] = useState();
+  const [snoProductsOpen, setSnoProductsOpen] = useState();
 
   const [leaderName, setLeaderName] = useState("");
   const [leaderAbout, setLeaderAbout] = useState("");
@@ -37,6 +47,16 @@ function AdminPanel() {
   const [leaderEmail, setLeaderEmail] = useState("");
   const [exisitingLeader, setExistingLeader] = useState();
   const [photos, setPhotos] = useState([]);
+  const [serviceAds, setServiceAds] = useState();
+  const [updateAdsOpen, setUpdateAdsOpen] = useState(false);
+  const [ytOpen, setYtOpen] = useState();
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    swipeToSlide: true,
+  };
   const handlePhotos = async (e) => {
     setPhotos([...e.target.files]);
   };
@@ -68,8 +88,25 @@ function AdminPanel() {
   };
 
   useEffect(() => {
-    const unsubscribe1 = subscribeToServicesAndProducts(setServices,null,null,"services");
-    const unsubscribe2 = subscribeToServicesAndProducts(setProducts,null,null,"products");
+    const fetchServiceAds = async () => {
+      const data = await getLevel1ServiceAds();
+      setServiceAds(data);
+    };
+    fetchServiceAds();
+  }, [updateAdsOpen]);
+  useEffect(() => {
+    const unsubscribe1 = subscribeToServicesAndProducts(
+      setServices,
+      null,
+      null,
+      "services"
+    );
+    const unsubscribe2 = subscribeToServicesAndProducts(
+      setProducts,
+      null,
+      null,
+      "products"
+    );
     const unsubscribe3 = subscribeToExplore(setExplore);
     const fetchData = async () => {
       const data = await getRamadass();
@@ -99,6 +136,11 @@ function AdminPanel() {
         <div className="flex justify-between items-center mb-14">
           <h1 className="font-bold text-2xl md:text-4xl">Services</h1>
           <div className="gap-x-10 flex ">
+            <EditSno
+              open={snoProductsOpen}
+              setOpen={setSnoProductsOpen}
+              type="services"
+            />
             <EditServicePopup
               open={editOpen}
               setOpen={setEditOpen}
@@ -119,7 +161,20 @@ function AdminPanel() {
             />
           </div>
         </div>
-
+        <div>
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-medium">Advertisement</h2>
+            <AllServiceAds
+              open={updateAdsOpen}
+              setOpen={setUpdateAdsOpen}
+              data={serviceAds}
+            />
+          </div>
+          <div className="flex justify-between my-4 items-center">
+            <h2 className="text-xl font-medium">Youtube Link</h2>
+            <EditYt open={ytOpen} setOpen={setYtOpen} type="services" />
+          </div>
+        </div>
         <div className="grid grid-cols-3 place-items-center md:grid-cols-4 mt-10 gap-y-10 gap-x-10">
           {services &&
             services.map((item) => (
@@ -142,6 +197,7 @@ function AdminPanel() {
         <div className="flex justify-between items-center mb-14">
           <h1 className="font-bold text-2xl md:text-4xl">Products</h1>
           <div className=" flex gap-x-10">
+            <EditSno open={snoOpen} setOpen={setSnoOpen} type="products" />
             <EditServicePopup
               open={editProductsOpen}
               setOpen={setEditProductsOpen}

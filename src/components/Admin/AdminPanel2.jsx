@@ -12,46 +12,87 @@ import EditExplorePopup from "@/components/Admin/Explore/EditExplorePopup";
 import DeleteExplorePopup from "@/components/Admin/Explore/DeleteExplorePopup";
 import AddExplorePopup from "@/components/Admin/Explore/AddExplorePopup";
 import { subscribeToExplore } from "@/firebase/firestore/explore";
+import Ads from "./Advertisements/Ads";
+import { getLevel2ServiceAds } from "@/firebase/firestore/advertisements";
+import EditSno from "./Services/EditSno";
+import Link from "next/link";
+import EditYt from "./Services/EditYt";
 function AdminPanel2() {
   const [open, setOpen] = useState(false);
   const [services, setServices] = useState(null);
   const [products, setProducts] = useState([]);
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-
+  const [adsOpen, setAdsOpen] = useState(false);
   const [explore, setExplore] = useState();
   const [exploreAdd, setExploreAdd] = useState();
   const [editExploreOpen, setEditExploreOpen] = useState();
   const [deleteExploreOpen, setDeleteExploreOpen] = useState();
+  const [ytOpen, setYtOpen] = useState();
+  const [ads, setAds] = useState();
+  const [snoOpen, setSnoOpen] = useState();
   const searchparam = useSearchParams();
   const previous = searchparam.get("previous");
   const type = searchparam.get("type");
   const content1 =
     services &&
-    services.map((item) => (
-      <ServiceCard
-        name={item.name}
-        url={item.iconUrl}
-        slug={`/admin/level3?previous=${item.id}&beforeprevious=${previous}&type=services`}
-      />
+    services.map((item, index) => (
+      <Link
+        href={`/admin/level3?previous=${item.id}&beforeprevious=${previous}&type=services`}
+        key={index}
+        className="flex items-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
+      >
+        <div className="w-1/3 md:w-1/5 h-fit mr-3">
+          <img
+            src={item.iconUrl}
+            alt="Icon"
+            className="object-scale-down aspect-square"
+          />
+        </div>
+        <h1 className="w-2/3 md:w-4/5 md:text-xl md:font-medium mr-0">
+          {item.name}
+        </h1>
+      </Link>
     ));
   const content2 =
     products &&
-    products.map((item) => (
-      <ServiceCard
-        name={item.name}
-        url={item.iconUrl}
-        slug={`/admin/level3?previous=${item.id}&beforeprevious=${previous}&type=products`}
-      />
+    products.map((item, index) => (
+      <Link
+        href={`/admin/level3?previous=${item.id}&beforeprevious=${previous}&type=products`}
+        key={index}
+        className="flex items-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
+      >
+        <div className="w-1/3 md:w-1/5 h-fit mr-3">
+          <img
+            src={item.iconUrl}
+            alt="Icon"
+            className="object-scale-down aspect-square"
+          />
+        </div>
+        <h1 className="w-2/3 md:w-4/5 md:text-xl md:font-medium mr-0">
+          {item.name}
+        </h1>
+      </Link>
     ));
   const content3 =
     explore &&
     explore.map((item) => (
-      <ServiceCard
-        name={item.name}
-        url={item.iconUrl}
-        slug={`/admin/level3?previous=${item.id}&beforeprevious=${previous}&type=explore`}
-      />
+      <Link
+        href={`/admin/level3?previous=${item.id}&beforeprevious=${previous}&type=explore`}
+        key={index}
+        className="flex items-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
+      >
+        <div className="w-1/3 md:w-1/5 h-fit mr-3">
+          <img
+            src={item.iconUrl}
+            alt="Icon"
+            className="object-scale-down aspect-square"
+          />
+        </div>
+        <h1 className="w-2/3 md:w-4/5 md:text-xl md:font-medium mr-0">
+          {item.name}
+        </h1>
+      </Link>
     ));
   useEffect(() => {
     const unsubscribe1 = subscribeToServicesAndProducts(
@@ -73,6 +114,13 @@ function AdminPanel2() {
       unsubscribe3();
     };
   }, []);
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getLevel2ServiceAds(previous,type);
+      setAds(data);
+    };
+    fetch();
+  }, [adsOpen]);
   return (
     <div className="p-10">
       <BackButton route="/admin" />
@@ -102,6 +150,13 @@ function AdminPanel2() {
             </>
           ) : (
             <>
+              <EditSno
+                beforeprevious={null}
+                previous={previous}
+                open={snoOpen}
+                setOpen={setSnoOpen}
+                type={type}
+              />
               <EditServicePopup
                 open={editOpen}
                 setOpen={setEditOpen}
@@ -125,7 +180,7 @@ function AdminPanel2() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 place-items-center gap-y-10 gap-x-10">
+      <div className="grid grid-cols-2 gap-y-10 gap-x-14 items-center justify-center py-6 px-10">
         {type == "services" ? content1 : content2}
         {type == "explore" && content3}
         {type == "explore" ? (
@@ -149,6 +204,30 @@ function AdminPanel2() {
             />
           </>
         )}
+      </div>
+
+      <div>
+        <div className="flex justify-between items-center">
+          <h1>Advertisements</h1>
+          <Ads
+            open={adsOpen}
+            setOpen={setAdsOpen}
+            rootprevious={null}
+            beforeprevious={null}
+            previous={previous}
+            type={type}
+            data={ads}
+          />
+        </div>
+        <div className="flex justify-between items-center my-4">
+          <h1>Youtube Link</h1>
+          <EditYt
+            open={ytOpen}
+            setOpen={setYtOpen}
+            type={type}
+            previous={previous}
+          />
+        </div>
       </div>
     </div>
   );

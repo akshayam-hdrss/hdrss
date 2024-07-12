@@ -43,7 +43,7 @@ export default async function ServiceLevel4Page({ params }) {
       <BackButton route="/" />
       <div className="p-6">
         <div className="flex flex-col items-center justify-evenly py-6">
-          <img src={data.profilepicture} alt="profile" />
+          <img src={data.profile} alt="profile" />
           <h1 className="font-bold text-3xl pt-6">{data.name}</h1>
           <p className="text-grey font-medium">{data.location}</p>
           <p className="text-grey font-medium">{data.district}</p>

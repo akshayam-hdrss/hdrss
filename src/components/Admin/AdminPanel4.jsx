@@ -7,6 +7,9 @@ import { subscribeToServiceAndProductDocs } from "@/firebase/firestore/servicesP
 import AddProductDocPopup from "@/components/Admin/Services/AddProductDocPopup";
 import DeleteDocPopup from "@/components/Admin/Services/DeleteDocPopup";
 import EditDocPopup from "@/components/Admin/Services/EditDocPopup";
+import { getLevel4ServiceAds } from "@/firebase/firestore/advertisements";
+import Ads from "@/components/Admin/Advertisements/Ads";
+import EditYt from "@/components/Admin/Services/EditYt";
 function AdminPanel4() {
   const [open, setOpen] = useState(false);
   const [productopen, setProductOpen] = useState(false);
@@ -15,6 +18,9 @@ function AdminPanel4() {
   const [editOpen, setEditOpen] = useState();
   const [products, setProducts] = useState();
   const [productEditOpen, setProductEditOpen] = useState();
+  const [adsOpen, setAdsOpen] = useState();
+  const [ytOpen, setYtOpen] = useState();
+  const [ads, setAds] = useState();
   const searchparam = useSearchParams();
   const previous = searchparam.get("previous");
   const beforeprevious = searchparam.get("beforeprevious");
@@ -71,6 +77,19 @@ function AdminPanel4() {
       unsubscribe1();
       unsubscribe2();
     };
+  }, []);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getLevel4ServiceAds(
+        rootprevious,
+        beforeprevious,
+        previous,
+        type
+      );
+      setAds(data);
+    };
+    fetch();
   }, []);
 
   return (
@@ -146,6 +165,32 @@ function AdminPanel4() {
           />
         )}
         {type == "services" ? content1 : content2}
+      </div>
+      <div>
+        <div className="flex justify-between items-center">
+          <h1>Advertisements</h1>
+          <Ads
+            open={adsOpen}
+            setOpen={setAdsOpen}
+            rootprevious={rootprevious}
+            beforeprevious={beforeprevious}
+            previous={previous}
+            type={type}
+            data={ads}
+          />
+        </div>
+
+        <div className="flex justify-between items-center my-4">
+          <h1>Youtube Link</h1>
+          <EditYt
+            open={ytOpen}
+            setOpen={setYtOpen}
+            type={type}
+            previous={previous}
+            beforeprevious={beforeprevious}
+            rootprevious={rootprevious}
+          />
+        </div>
       </div>
     </>
   );

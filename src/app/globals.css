@@ -24,6 +24,13 @@
   }
 }
 
+@font-face {
+  font-family: 'lena-400';
+  src: url('/lena-400.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   overflow-x: hidden;
   box-sizing: border-box;

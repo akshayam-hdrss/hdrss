@@ -14,7 +14,7 @@ function News() {
     fetch();
   }, []);
   return (
-    <div className="px-0 py-8 relative z-0">
+    <div className="px-0 pt-8 relative z-0">
       <h1 className="font-koulen text-4xl text-grey mb-4 px-6">News</h1>
 
       <Carousel
@@ -33,7 +33,7 @@ function News() {
                 <h1 className="px-6 text-lg font-bold">
                   {doc.title.slice(0, 40)}...
                 </h1>
-                <button className="text-center mx-auto mb-20 px-3 rounded-md bg-kaavi text-white w-fit">
+                <button className="text-center mx-auto mb-12 px-3 rounded-md bg-kaavi text-white w-fit">
                   Read More
                 </button>
               </div>

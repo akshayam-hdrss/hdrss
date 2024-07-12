@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
@@ -15,47 +15,33 @@ function Footer() {
     const fetchdata = async () => {
       const data = await getRamadass();
       setLeader(data);
-      console.log(leader);
+     
     };
     fetchdata();
   }, []);
   return (
     <div className="bg-kaavi text-primary px-4 py-10 pb-4">
-      <div className="flex mb-10 items-center">
-        <Link href="/ramdass">
-          <img src="/ramdass.png" alt="Ram Dass" width={80} height={80} />
-        </Link>
-        <div className="ml-3">
-          <h1 className="font-bold text-xl leading-6 mb-1">
-          {leader.name}
-          </h1>
-          <h2 className="text-sm">Founder/President</h2>
+      <div className="grid grid-cols-2 gap-2 grid-rows-1 mb-6">
+        <div className="flex flex-col items-center">
+          <Link href="/ramdass">
+            <img src="/ramdass.png" alt="Ram Dass" width={80} height={80} />
+          </Link>
+          <div>
+            <h1 className="font-bold text-lg leading-6 mb-1">{leader.name}</h1>
+            <h2 className="text-sm text-center">Founder/President</h2>
+          </div>
         </div>
-        <Image src="/hdrss.png" alt="logo" width={60} height={60} className="ml-16" />
+        <div className="flex flex-col items-center justify-center text-center">
+          <Image src="/hdrss.png" alt="logo" width={80} height={80} />
+          <p className="text-xs text-center">இந்து தர்ம ரக்ஷ சேனா</p>
+          <p className="text-xs text-center">हिंदू धर्म रक्षा सेना</p>
+          <p className="text-xs text-center">Hindu Dharma Raksha Sena</p>
+        </div>
       </div>
-      <div className="flex flex-col justify-center items-start">
-        <h2 className="text-2xl font-bold pb-2">Resources</h2>
-        <a className="text-base/7" href="">
-          Photo Gallery
-        </a>
-        <a className="text-base/7" href="">
-          News and Events
-        </a>
-        <a className="text-base/7" href="">
-          List your Services
-        </a>
-        <a className="text-base/7" href="">
-          To advertise
-        </a>
-      </div>
+
+
       <div className="flex flex-col">
-        <h2 className="text-2xl font-bold pb-2 pt-8">Address</h2>
-        <p className="text-base/7">
-          No: 13, Bhairavai 2nd Street,
-          <br /> Edayarpalayam,
-          <br /> Coimbatore - 641 025
-        </p>
-        <div className="flex text-base/7 flex-col justify-center items-center pt-20">
+        <div className="flex text-base/7 flex-col justify-center items-center">
           <a href="">Privacy Policy</a>
           <a href="">Terms and Conditions</a>
         </div>

@@ -8,11 +8,18 @@ import Footer from "@/components/ui/Footer";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import BackButton from "@/components/ui/BackButton";
 import Link from "next/link";
+import { getLevel3ServicesYt } from "@/firebase/firestore/servicesyt";
+import { getLevel3ServiceAds } from "@/firebase/firestore/advertisements";
 export async function generateStaticParams() {
-  const list = await getServicesAndProductsList(null, null, null,"services");
+  const list = await getServicesAndProductsList(null, null, null, "services");
   const paths = await Promise.all(
     list.map(async (item) => {
-      const list2 = await getServicesAndProductsList(null, null, item,"services");
+      const list2 = await getServicesAndProductsList(
+        null,
+        null,
+        item,
+        "services"
+      );
       return list2.map((subitem) => ({
         id: item,
         secondid: subitem,
@@ -25,34 +32,45 @@ export async function generateStaticParams() {
 
 async function ServiceLevel2Page({ params }) {
   const { id, secondid } = params;
-  const data = await getServiceAndProductDocs(null, id, secondid,null,"services");
+  const data = await getServiceAndProductDocs(
+    null,
+    id,
+    secondid,
+    null,
+    "services"
+  );
   const capitalized = secondid.charAt(0).toUpperCase() + secondid.slice(1);
+  const link = await getLevel3ServicesYt("services", id, secondid);
+  const ads = await getLevel3ServiceAds(id, secondid, "services");
   return (
     <div>
       <Header />
       <BackButton route={`/services/${id}/`} />
-      <YoutubeEmbed embedId="#" />
+
       <div className="p-6 py-20">
-        <h1 className="font-bold text-3xl text-center pb-20">{capitalized}</h1>
+        <h1 className="font-bold text-2xl md:text-4xl text-center pb-20">
+          {capitalized}
+        </h1>
         <div className="grid grid-cols-2 gap-y-10 gap-x-4 items-center justify-center">
-          {data.map((doc) => (
+          {data.map((doc, index) => (
             <Link
               href={`/services/${id}/${secondid}/${doc.id}`}
-              className="flex items-center justify-center bg-[#F4F5F5] rounded-xl h-20 p-6 px-3"
+              key={index}
+              className="flex items-center justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 md:gap-x-6 p-6 px-3"
             >
-              <div className="w-1/3 h-fit mr-3">
+              <div className="w-1/3 md:w-1/5 h-fit mr-3">
                 <img
                   src={doc.data.iconUrl}
                   alt="Icon"
                   className="object-scale-down aspect-square"
                 />
               </div>
-              <h1 className="w-2/3 mr-0">{doc.data.name}</h1>
+              <h1 className="w-2/3 md:w-4/5 mr-0">{doc.data.name}</h1>
             </Link>
           ))}
         </div>
       </div>
-      <YoutubeEmbed embedId="#" />
+      <YoutubeEmbed embedId={link} />
       <Footer />
     </div>
   );

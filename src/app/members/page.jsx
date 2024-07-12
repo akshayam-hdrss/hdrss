@@ -76,6 +76,7 @@ function MembersPage() {
     setFirstDoc(querySnapshot.docs[0]);
     setCurrentPage(currentPage - 1);
   };
+
   useEffect(() => {
     const fetchData = async () => {
       const q = query(
@@ -96,27 +97,24 @@ function MembersPage() {
 
     fetchData();
   }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       const data2 = await getDistrictLeaders(selectedDistrict);
       setDistrictLeaders(data2);
-
-      // const data1 = await getStateLeaders();
-      // setStateLeaders(data1);
 
       const data3 = await getLeadersDistrict();
       setDistrict(data3);
     };
 
     fetchData();
-    console.log(stateLeaders);
   }, [selectedDistrict]);
 
   return (
     <div>
       <Header />
       <BackButton route="/" />
-      <div className="p-6">
+      <div className="p-6 overflow-hidden">
         <h1 className="font-koulen text-3xl text-grey">HDRSS - MEMBERS</h1>
         <h2 className="text-grey font-bold text-xl mt-3 mb-6">
           State Level Leaders
@@ -124,7 +122,10 @@ function MembersPage() {
         <div className="grid grid-cols-2 gap-x-5 gap-y-8">
           {stateLeaders &&
             stateLeaders.map((doc, index) => (
-              <div key={index} className="flex flex-col items-center">
+              <div
+                key={index}
+                className="flex flex-col items-center overflow-hidden"
+              >
                 <div className="w-[130px] h-fit mb-1">
                   <img
                     src={doc.data.profile}
@@ -142,20 +143,19 @@ function MembersPage() {
                 </a>
               </div>
             ))}
-          <div className="flex flex-row text-kaavi w-full justify-evenly ml-[50%] mt-4 items-center">
-            <button onClick={handlePrevPage} disabled={currentPage === 1}>
-              <FaCircleArrowLeft fontSize={25} />
-            </button>
-            <span className="font-bold text-2xl"> {currentPage}</span>
-            <button
-              onClick={handleNextPage}
-              disabled={stateLeaders && stateLeaders.length < pageSize}
-            >
-              <FaCircleArrowRight fontSize={25} />
-            </button>
-          </div>
         </div>
-
+        <div className="flex flex-row text-kaavi justify-center gap-x-6 mt-4 items-center">
+          <button onClick={handlePrevPage} disabled={currentPage === 1}>
+            <FaCircleArrowLeft fontSize={25} />
+          </button>
+          <span className="font-bold text-2xl"> {currentPage}</span>
+          <button
+            onClick={handleNextPage}
+            disabled={stateLeaders && stateLeaders.length < pageSize}
+          >
+            <FaCircleArrowRight fontSize={25} />
+          </button>
+        </div>
         <h2 className="text-xl text-grey font-bold mt-10 mb-4">
           District Level Leaders
         </h2>

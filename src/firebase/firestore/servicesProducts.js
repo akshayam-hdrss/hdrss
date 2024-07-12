@@ -1,4 +1,3 @@
-import { update } from "firebase/database";
 import { app } from "../config";
 import {
   getFirestore,
@@ -9,15 +8,13 @@ import {
   onSnapshot,
   updateDoc,
   getDoc,
-  getDocs
+  getDocs,
+  where,
+  query,
+  orderBy,
 } from "firebase/firestore";
-import {
-  ref,
-  uploadBytes,
-  uploadBytesResumable,
-  getDownloadURL,
-  getStorage,
-} from "firebase/storage";
+import { ref, deleteObject, getStorage, getMetadata } from "firebase/storage";
+import { uploadIcons, uploadFilesAndSaveURLs } from "./common";
 
 const db = getFirestore(app);
 const storage = getStorage(app);
@@ -238,14 +235,29 @@ export async function editServicesAndProducts(
         iconUrl: fileUrl,
       });
     } else if (icon != null) {
-      const fileRef = ref(storage, iconUrl);
-      deleteObject(fileRef)
-        .then(() => {
-          console.log("deleted successfully");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      if (iconUrl) {
+        const fileRef = ref(storage, iconUrl);
+
+        getMetadata(fileRef)
+          .then(() => {
+            // File exists, proceed to delete
+            deleteObject(fileRef)
+              .then(() => {
+                console.log("deleted successfully");
+              })
+              .catch((e) => {
+                console.log("Error deleting file:", e);
+              });
+          })
+          .catch((e) => {
+            if (e.code === "storage/object-not-found") {
+              console.log("File does not exist");
+            } else {
+              console.log("Error checking file:", e);
+            }
+          });
+      }
+
       fileUrl = await uploadIcons(icon, id);
       await updateDoc(doc(db, docUrl, id), {
         iconUrl: fileUrl,
@@ -328,7 +340,7 @@ export const subscribeToServicesAndProducts = (
 ) => {
   try {
     if (beforedocid != null) {
-      const unsubscribe = onSnapshot(
+      const q = query(
         collection(
           db,
           type,
@@ -337,29 +349,36 @@ export const subscribeToServicesAndProducts = (
           docid,
           `${docid}col`
         ),
-        (snapshot) => {
-          let data = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          callback(data);
-        }
+        orderBy("sno")
       );
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        let data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        callback(data);
+      });
       return unsubscribe;
     } else if (docid != null) {
-      const unsubscribe = onSnapshot(
+      const q = query(
         collection(db, type, docid, `${docid}col`),
-        (snapshot) => {
-          let data = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          callback(data);
-        }
+        orderBy("sno")
       );
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        let data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        callback(data);
+      });
       return unsubscribe;
     } else {
-      const unsubscribe = onSnapshot(collection(db, type), (snapshot) => {
+      const q = query(
+        collection(db, type),
+        orderBy("sno"),
+        where("__name__", "not-in", ["ads", "yt"])
+      );
+      const unsubscribe = onSnapshot(q, (snapshot) => {
         let data = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),

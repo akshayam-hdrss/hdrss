@@ -11,7 +11,6 @@ import {
 const storage = getStorage(app);
 
 export async function uploadFilesAndSaveURLs(files) {
-  // Create an array of promises to upload each file and get its download URL
   const uploadPromises = files.map((file) => {
     const storageRef = ref(storage, `servicegallery/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -36,6 +35,7 @@ export async function uploadIcons(file, id) {
     const storageRef = ref(storage, `icons/${id}`);
     await uploadBytes(storageRef, file);
     const url = await getDownloadURL(storageRef);
+    console.log("uploaded icon")
     return url;
   } catch (e) {
     console.log(e);

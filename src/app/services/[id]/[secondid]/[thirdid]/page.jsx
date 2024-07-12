@@ -7,6 +7,10 @@ import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 import BackButton from "@/components/ui/BackButton";
+import { getLevel4ServicesYt } from "@/firebase/firestore/servicesyt";
+import { getLevel4ServiceAds } from "@/firebase/firestore/advertisements";
+import Advertisement from "@/components/ui/Advertisement";
+import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 
 export async function generateStaticParams() {
   const list = await getServicesAndProductsList(null, null, null, "services");
@@ -49,10 +53,13 @@ async function ServiceLevel3Page({ params }) {
     "services"
   );
   const capitalized = thirdid.charAt(0).toUpperCase() + thirdid.slice(1);
+  const link = await getLevel4ServicesYt("services", id, secondid, thirdid);
+  const ads = await getLevel4ServiceAds(id, secondid, thirdid, "services");
   return (
     <div>
       <Header />
       <BackButton route={`/services/${id}/${secondid}`} />
+      <Advertisement ads={ads} />
       <div>
         <h1 className="font-bold text-2xl pb-20 p-6">{capitalized}</h1>
 
@@ -81,6 +88,7 @@ async function ServiceLevel3Page({ params }) {
             </Link>
           ))}
       </div>
+      <YoutubeEmbed embedId={link} />
       <Footer />
     </div>
   );
