@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>
-        <main className="bg-[#FFFAF8] h-full">{children}</main>
+        <main className="h-full">{children}</main>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
       </body>
     </html>

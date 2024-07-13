@@ -85,19 +85,19 @@ async function ServiceLevel3Page({ params }) {
               key={item.id}
               className="flex justify-center px-6 items-start border-b border-grey pb-3 mb-5 mx-0"
             >
-              <div className="w-1/3 h-fit">
+              <div className="w-[30%] h-10">
                 <img
                   src={item.data.profile}
                   alt="Profile"
-                  className="aspect-square object-cover rounded-xl"
+                  className="aspect-[1/2] object-cover rounded-xl"
                 />
               </div>
-              <div className="flex flex-col justify-between items-center w-2/3">
+              <div className="flex flex-col justify-between items-center w-[70%]">
                 <h1 className="font-bold text-3xl">{item.data.name}</h1>
-                <h2 className="text-lg font-medium">{item.data.position}</h2>
+                <h2 className="text-lg font-medium">{item.data.businessname}</h2>
 
                 <p className="font-medium text-grey mt-0 pt-0">
-                  {item.data.district}
+                  {item.data.area}
                 </p>
               </div>
             </Link>

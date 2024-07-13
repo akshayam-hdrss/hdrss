@@ -1,9 +1,7 @@
 "use client";
 import React from "react";
-import { useRef, useEffect } from "react";
-import { register } from "swiper/element/bundle";
-register();
 import Link from "next/link";
+import Slider from "react-slick";
 const explorecontent = [
   "Library",
   "Astrology",
@@ -12,17 +10,6 @@ const explorecontent = [
   "Ayurveda",
 ];
 function ExploreCarousel() {
-  const swiperElRef = useRef(null);
-
-  useEffect(() => {
-    // listen for Swiper events using addEventListener
-    swiperElRef.current.addEventListener("swiperprogress", (e) => {
-      const [swiper, progress] = e.detail;
-    });
-
-    swiperElRef.current.addEventListener("swiperslidechange", (e) => {});
-  }, [explorecontent]);
-
   const months = [
     "January",
     "February",
@@ -44,22 +31,21 @@ function ExploreCarousel() {
   const monthName = months[monthIndex];
   const day = String(today.getDate()).padStart(2, "0");
   const date = `${day} ${monthName} ${year}`;
-
+  var settings = {
+    infinite: true,
+    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    slidesToShow: 1.7,
+    slidesToScroll: 1,
+  };
   return (
     <div>
-      <swiper-container
-        slides-per-view="1.7"
-        slides-per-group="1"
-        space-between="0"
-        grab-cursor="true"
-        autoplay="false"
-        lazy="true"
-        ref={swiperElRef}
-      >
-        {explorecontent.map((item, index) => (
-          <swiper-slide>
+      <div>
+        <Slider {...settings}>
+          {explorecontent.map((item, index) => (
             <div
-              className="border border-[#808080] m-1 rounded-2xl relative overflow-hidden h-80"
+              className="border border-[#808080] rounded-2xl relative overflow-hidden h-80"
               key={index}
             >
               <div className="object-cover w-full h-[60%] rounded-2xl">
@@ -84,9 +70,9 @@ function ExploreCarousel() {
                 </div>
               </div>
             </div>
-          </swiper-slide>
-        ))}
-      </swiper-container>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 }

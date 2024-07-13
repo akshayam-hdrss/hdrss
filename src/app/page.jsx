@@ -19,6 +19,7 @@ import AdCarousel from "@/components/ui/AdCarousel";
 import { getEvents } from "@/firebase/firestore/events";
 import News from "@/components/Home/News";
 import Products from "@/components/Home/Products";
+import Daily from "@/components/Home/Daily";
 export default function Home() {
   const [isEventActive, setIsEventActive] = useState(true);
   const [randomData, setRandomData] = useState();
@@ -158,7 +159,7 @@ export default function Home() {
             className={`bg-[#FBE9E9] inline p-5 rounded-lg mr-10 pt-7 cursor-pointer ${
               isEventActive ? "text-kaavi" : "text-[#ACACAC]"
             }`}
-          >   
+          >
             <button
               className="font-koulen text-4xl inline"
               onClick={handleEventClick}
@@ -183,6 +184,7 @@ export default function Home() {
           </button>
         </div>
 
+        <Daily />
         {/* Explore Section */}
         <div className="py-6">
           <h1 className="px-6 font-koulen text-4xl text-grey mb-6">explore</h1>

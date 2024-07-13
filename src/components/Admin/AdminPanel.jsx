@@ -23,6 +23,7 @@ import Slider from "react-slick";
 import { Carousel } from "@material-tailwind/react";
 import AllServiceAds from "@/components/Admin/Advertisements/AllServiceAds";
 import EditYt from "./Services/EditYt";
+import AdminDaily from "@/components/Admin/AdminDaily";
 function AdminPanel() {
   const [addOpen, setAddOpen] = useState(false);
   const [addServiceOpen, setAddServiceOpen] = useState(false);
@@ -382,6 +383,7 @@ function AdminPanel() {
       </div>
 
       <AdminNews />
+      <AdminDaily />
     </div>
   );
 }

@@ -4,7 +4,6 @@ import {
   Dialog,
   Typography,
   DialogBody,
-  DialogFooter,
 } from "@material-tailwind/react";
 import { IoClose } from "react-icons/io5";
 import {
