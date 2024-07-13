@@ -22,7 +22,9 @@ function AdminPanel4() {
   const [ytOpen, setYtOpen] = useState();
   const [ads, setAds] = useState();
   const searchparam = useSearchParams();
-  const previous = searchparam.get("previous");
+  const tempprevious = searchparam.get("previous");
+
+  const previous = decodeURIComponent(tempprevious);
   const beforeprevious = searchparam.get("beforeprevious");
   const rootprevious = searchparam.get("rootprevious");
   const type = searchparam.get("type");
@@ -32,13 +34,18 @@ function AdminPanel4() {
     services.map((item) => (
       <div
         key={item.id}
-        className="flex items-center justify-evenly mt-20 border border-black p-3"
+        className="flex items-start py-4 justify-evenly mt-20 border border-black p-3 h-64"
       >
-        <img src={item.profilepicture} alt="profile picture" />
-        <div>
+        <div className="w-1/4">
+          <img
+            src={item.profile}
+            alt="profile picture"
+            className="object-contain aspect-square"
+          />
+        </div>
+        <div className="w-3/4 ml-10">
           <h1 className="text-2xl font-bold">{item.name}</h1>
           <p className="text-base text-grey">{item.location}</p>
-          <p>{item.position}</p>
           <p>{item.mobile}</p>
         </div>
       </div>
@@ -51,7 +58,7 @@ function AdminPanel4() {
         key={item.id}
         className="flex items-center justify-evenly mt-20 border border-black p-3"
       >
-        <img src={item.profilepicture} alt="profile picture" />
+        <img src={item.profile} alt="profile picture" />
         <div>
           <h1 className="text-2xl font-bold">{item.name}</h1>
           <p>{item.price}</p>

@@ -2,6 +2,7 @@ import React from "react";
 import {
   getServiceAndProductDocs,
   getServicesAndProductsList,
+  getName,
 } from "@/firebase/firestore/servicesProducts";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
@@ -45,16 +46,30 @@ export async function generateStaticParams() {
 
 async function ServiceLevel3Page({ params }) {
   const { id, secondid, thirdid } = params;
+  const decodedfirst = decodeURIComponent(id);
+  const decodedsecond = decodeURIComponent(secondid);
+  const decodedthird = decodeURIComponent(thirdid);
+
   const data = await getServiceAndProductDocs(
-    id,
-    secondid,
-    thirdid,
+    decodedfirst,
+    decodedsecond,
+    decodedthird,
     null,
     "services"
   );
-  const capitalized = thirdid.charAt(0).toUpperCase() + thirdid.slice(1);
-  const link = await getLevel4ServicesYt("services", id, secondid, thirdid);
-  const ads = await getLevel4ServiceAds(id, secondid, thirdid, "services");
+  const capitalized = await getName(decodedfirst, decodedsecond, decodedthird);
+  const link = await getLevel4ServicesYt(
+    decodedfirst,
+    decodedsecond,
+    decodedthird,
+    "services"
+  );
+  const ads = await getLevel4ServiceAds(
+    decodedfirst,
+    decodedsecond,
+    decodedthird,
+    "services"
+  );
   return (
     <div>
       <Header />

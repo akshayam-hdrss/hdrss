@@ -125,7 +125,7 @@ export const updateLevel2ServiceAds = async (level1, ads, type) => {
 export const updateLevel3ServiceAds = async (level1, level2, ads, type) => {
   try {
     const adUrls = await uploadFilesAndSaveURLs(ads);
-    await setDoc(doc(db, `${type}/${level1}/${level1}col/${level2}`), {
+    await updateDoc(doc(db, `${type}/${level1}/${level1}col/${level2}`), {
       ads: adUrls,
     });
   } catch (e) {
@@ -141,7 +141,7 @@ export const updateLevel4ServiceAds = async (
 ) => {
   try {
     const adUrls = await uploadFilesAndSaveURLs(ads);
-    await setDoc(
+    await updateDoc(
       doc(
         db,
         `${type}/${level1}/${level1}col/${level2}/${level2}col/${level3}`

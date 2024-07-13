@@ -2,6 +2,7 @@ import React from "react";
 import {
   getServicesAndProductsList,
   getServiceAndProductDocs,
+  getName,
 } from "@/firebase/firestore/servicesProducts";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
@@ -10,6 +11,7 @@ import BackButton from "@/components/ui/BackButton";
 import Link from "next/link";
 import { getLevel3ServicesYt } from "@/firebase/firestore/servicesyt";
 import { getLevel3ServiceAds } from "@/firebase/firestore/advertisements";
+import Advertisement from "@/components/ui/Advertisement";
 export async function generateStaticParams() {
   const list = await getServicesAndProductsList(null, null, null, "services");
   const paths = await Promise.all(
@@ -32,21 +34,23 @@ export async function generateStaticParams() {
 
 async function ServiceLevel2Page({ params }) {
   const { id, secondid } = params;
+  const decodedfirst = decodeURIComponent(id);
+  const decodedsecond = decodeURIComponent(secondid);
   const data = await getServiceAndProductDocs(
     null,
-    id,
-    secondid,
+    decodedfirst,
+    decodedsecond,
     null,
     "services"
   );
-  const capitalized = secondid.charAt(0).toUpperCase() + secondid.slice(1);
-  const link = await getLevel3ServicesYt("services", id, secondid);
-  const ads = await getLevel3ServiceAds(id, secondid, "services");
+  const capitalized = await getName(null,decodedfirst, decodedsecond);
+  const link = await getLevel3ServicesYt(decodedfirst, decodedsecond, "services");
+  const ads = await getLevel3ServiceAds(decodedfirst, decodedsecond, "services");
   return (
     <div>
       <Header />
       <BackButton route={`/services/${id}/`} />
-
+      <Advertisement ads={ads} />
       <div className="p-6 py-20">
         <h1 className="font-bold text-2xl md:text-4xl text-center pb-20">
           {capitalized}

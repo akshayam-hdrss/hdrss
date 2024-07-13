@@ -7,6 +7,7 @@ import {
   CardFooter,
   Input,
   Typography,
+  DialogBody,
 } from "@material-tailwind/react";
 import { editServiceAndProductDocs } from "@/firebase/firestore/servicesProducts";
 import { IoClose } from "react-icons/io5";
@@ -23,12 +24,19 @@ function EditDocPopup({
 }) {
   const [editOption, setEditOption] = useState(null);
   const [editName, setEditName] = useState();
+  const [editBusinessName, setEditBusinessName] = useState();
+  const [editWhatsapp, setEditWhatsapp] = useState();
+  const [editAddLine1, setEditAddLine1] = useState();
+  const [editAddLine2, setEditAddLine2] = useState();
+  const [editArea, setEditArea] = useState();
+  const [editPincode, setEditPincode] = useState();
+  const [editLandmark, setEditLandmark] = useState();
+  const [editMapUrl, setEditMapUrl] = useState();
   const [editNumber, setEditNumber] = useState();
   const [editAbout, setEditAbout] = useState();
   const [editDistrict, setEditDistrict] = useState();
-  const [editLocation, setEditLocation] = useState();
-  const [editProfile, setEditProfile] = useState();
-  const [editPhotos, setEditPhotos] = useState();
+  const [editProfile, setEditProfile] = useState(null);
+  const [editPhotos, setEditPhotos] = useState(null);
   const [deleteDoc, setDeleteDoc] = useState();
   const handleOpen = () => {
     setOpen(!open);
@@ -37,35 +45,43 @@ function EditDocPopup({
     setOpen(!open);
   };
 
-  let profilepic;
+  let oldprofile;
   let oldphotos;
-  const handleEditOption = (e) => {
-    setEditOption(e.target.value);
-  };
-  const handleProfile = (e) => {
-    setEditProfile(e.target.files[0]);
-  };
-  const handlePhotos = (e) => {
-    setEditPhotos([...e.target.files]);
-  };
+
   const handleAdd = async () => {
     setOpen(!open);
     let updatedData = {
       ...(editName ? { name: editName } : { name: deleteDoc.name }),
+      ...(editBusinessName
+        ? { businessname: editBusinessName }
+        : { businessname: deleteDoc.businessname }),
       ...(editNumber ? { mobile: editNumber } : { mobile: deleteDoc.mobile }),
-      ...(editAbout ? { about: editAbout } : { about: deleteDoc.about }),
+      ...(editWhatsapp
+        ? { whatsapp: editWhatsapp }
+        : { whatsapp: deleteDoc.whatsapp }),
+      ...(editAddLine1
+        ? { addline1: editAddLine1 }
+        : { addline1: deleteDoc.addline1 }),
+      ...(editAddLine2
+        ? { addline2: editAddLine2 }
+        : { addline2: deleteDoc.addline2 }),
+      ...(editLandmark
+        ? { landmark: editLandmark }
+        : { landmark: deleteDoc.landmark }),
+      ...(editArea ? { location: editArea } : { location: deleteDoc.area }),
+      ...(editPincode
+        ? { pincode: editPincode }
+        : { pincode: deleteDoc.pincode }),
       ...(editDistrict
         ? { district: editDistrict }
         : { district: deleteDoc.district }),
-      ...(editLocation
-        ? { location: editLocation }
-        : { location: deleteDoc.location }),
-      ...(editProfile ? {} : { profile: deleteDoc.profile }),
-      ...(editProfile ? {} : { photos: deleteDoc.photos }),
+      ...(editMapUrl ? { mapurl: editMapUrl } : { mapurl: deleteDoc.mapurl }),
+
+      ...(editAbout ? { about: editAbout } : { about: deleteDoc.about }),
     };
     data.map((item) => {
       if (item.id === editOption) {
-        profilepic = item.profilepicture;
+        oldprofile = item.profile;
         oldphotos = item.photos;
       }
     });
@@ -75,14 +91,14 @@ function EditDocPopup({
       previous,
       editOption,
       updatedData,
-      profilepic,
-      oldphotos,
-      type,
       editProfile,
-      editPhotos
+      editPhotos,
+      oldprofile,
+      oldphotos,
+      type
     );
 
-    console.log("deleted successfully");
+    console.log("edited successfully");
   };
   useEffect(() => {
     const fetch = () => {
@@ -100,12 +116,17 @@ function EditDocPopup({
       <Button onClick={handleOpen} className="bg-kaavi mx-2 my-3">
         Edit
       </Button>
-      <Dialog open={open} handler={handleOpen} className="overflow-scroll">
-        <Card className="mx-auto w-full max-w-[24rem] font-inter overflow-y-scroll">
-          <CardBody className="flex flex-col gap-4">
+      <Dialog
+        open={open}
+        handler={handleOpen}
+        className="overflow-scroll"
+        style={{ maxHeight: "calc(100vh - 200px)" }}
+      >
+        <DialogBody className="mx-auto w-full font-inter">
+          <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
               <Typography variant="h4" color="blue-gray">
-                Delete a Service
+                Edit a Service
               </Typography>
               <IoClose fontSize={30} onClick={handleClose} />
             </div>
@@ -117,8 +138,8 @@ function EditDocPopup({
               name="servicename"
               id="name"
               value={editOption}
-              onChange={handleEditOption}
-              className="p-3 border-deep-orange-200 border rounded-xl"
+              onChange={(e) => setEditOption(e.target.value)}
+              className="p-3 border-deep-orange-200 border rounded-md"
             >
               <option value="">Select any option</option>
               {data &&
@@ -133,7 +154,7 @@ function EditDocPopup({
                 <p className="text-xl font-medium mb-1">Profile Picture</p>
                 <Input
                   type="file"
-                  onChange={handleProfile}
+                  onChange={(e) => setEditProfile(e.target.files[0])}
                   className="border border-kaavi mb-6 w-60"
                   accept="image/*"
                 />
@@ -145,11 +166,12 @@ function EditDocPopup({
                   placeholder="Name"
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />
-                <p className="text-xl font-medium mb-1">Position</p>
+                <p className="text-xl font-medium mb-1">Business Name</p>
                 <Input
                   type="text"
-                  defaultValue={previousname}
-                  placeholder="position"
+                  defaultValue={deleteDoc?.businessname}
+                  onChange={(e) => setEditBusinessName(e.target.value)}
+                  placeholder="Business Name"
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />
                 <p className="text-xl font-medium mb-1">Mobile Number</p>
@@ -160,6 +182,67 @@ function EditDocPopup({
                   placeholder="Mobile Number"
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />
+                <p className="text-xl font-medium mb-1">Whatsapp Number</p>
+                <Input
+                  type="number"
+                  defaultValue={deleteDoc?.whatsapp}
+                  onChange={(e) => setEditWhatsapp(e.target.value)}
+                  placeholder="Mobile Number"
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+                <p className="text-xl font-medium mb-1">Address Line 1</p>
+                <Input
+                  type="text"
+                  defaultValue={deleteDoc?.addline1}
+                  onChange={(e) => setEditAddLine1(e.target.value)}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+                <p className="text-xl font-medium mb-1">Address Line 2</p>
+                <Input
+                  type="text"
+                  defaultValue={deleteDoc?.addline2}
+                  onChange={(e) => setEditAddLine2(e.target.value)}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+                <p className="text-xl font-medium mb-1">Landmark</p>
+                <Input
+                  type="text"
+                  defaultValue={deleteDoc?.landmark}
+                  onChange={(e) => setEditLandmark(e.target.value)}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+                <p className="text-xl font-medium mb-1">Area</p>
+                <Input
+                  type="text"
+                  defaultValue={deleteDoc?.area}
+                  onChange={(e) => setEditArea(e.target.value)}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+
+                <p className="text-xl font-medium mb-1">Pincode</p>
+                <Input
+                  type="text"
+                  defaultValue={deleteDoc?.pincode}
+                  onChange={(e) => setEditPincode(e.target.value)}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+
+                <p className="text-xl font-medium mb-1">District</p>
+                <input
+                  type="text"
+                  defaultValue={deleteDoc?.district}
+                  onChange={(e) => setEditDistrict(e.target.value)}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+
+                <p className="text-xl font-medium mb-1">Google Maps Link</p>
+                <input
+                  type="text"
+                  defaultValue={deleteDoc?.mapurl}
+                  onChange={(e) => setEditMapUrl(e.target.value)}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+
                 <p className="text-xl font-medium mb-1">About</p>
                 <textarea
                   name="about"
@@ -174,41 +257,23 @@ function EditDocPopup({
                 <Input
                   type="file"
                   placeholder="photos"
-                  onChange={handlePhotos}
+                  onChange={(e) => setEditPhotos([...e.target.files])}
                   className="border border-kaavi mb-6 w-60"
                   accept="image/*"
                   multiple
                 />
-                <p className="text-xl font-medium mb-1">District</p>
-                <input
-                  type="text"
-                  placeholder="District"
-                  defaultValue={deleteDoc?.district}
-                  onChange={(e) => setEditDistrict(e.target.value)}
-                  className="border border-kaavi pl-4 py-3 mb-6"
-                />
-                <p className="text-xl font-medium mb-1">Area and Pincode</p>
-                <input
-                  type="text"
-                  placeholder="Eg: RS Puram, 641002"
-                  defaultValue={deleteDoc?.location}
-                  onChange={(e) => setEditLocation(e.target.value)}
-                  className="border border-kaavi pl-4 py-3 mb-6"
-                />
               </div>
             </form>
-          </CardBody>
-          <CardFooter className="pt-0">
-            <Button
-              className="bg-kaavi text-white"
-              type="submit"
-              onClick={handleAdd}
-              fullWidth
-            >
-              Enter
-            </Button>
-          </CardFooter>
-        </Card>
+          </div>
+          <Button
+            className="bg-kaavi text-white"
+            type="submit"
+            onClick={handleAdd}
+            fullWidth
+          >
+            Enter
+          </Button>
+        </DialogBody>
       </Dialog>
     </>
   );

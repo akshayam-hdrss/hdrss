@@ -32,14 +32,21 @@ function AdminPanel3() {
   const [adsOpen, setAdsOpen] = useState();
   const [ads, setAds] = useState();
   const searchparam = useSearchParams();
-  const previous = searchparam.get("previous");
+  const tempprevious = searchparam.get("previous");
+  const previous = decodeURIComponent(tempprevious);
+  const temppname = searchparam.get("name");
+  const name = decodeURIComponent(temppname);
   const beforeprevious = searchparam.get("beforeprevious");
   const type = searchparam.get("type");
   const content1 =
     services &&
     services.map((item, index) => (
       <Link
-        href={`/admin/level4?previous=${item.id}&beforeprevious=${previous}&rootprevious=${beforeprevious}&type=services&name=${item.name}`}
+        href={`/admin/level4?previous=${encodeURIComponent(
+          item.id
+        )}&beforeprevious=${previous}&rootprevious=${beforeprevious}&type=services&name=${encodeURIComponent(
+          item.name
+        )}`}
         key={index}
         className="flex items-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
       >
@@ -136,7 +143,7 @@ function AdminPanel3() {
       />
       <div className="flex justify-between items-center mb-14">
         <h1 className="font-bold text-2xl md:text-4xl mr-10">
-          {previous.charAt(0).toUpperCase() + previous.slice(1)}
+          {name}
         </h1>
         <div className="flex gap-x-10">
           {type === "explore" ? (

@@ -42,25 +42,41 @@ export const updateLevel4ServicesYt = async (
 };
 
 export const getLevel1ServicesYt = async (type) => {
-  const link = await getDoc(doc(db, `${type}/yt`));
-  return link.data().link;
+  try {
+    const link = await getDoc(doc(db, `${type}/yt`));
+    return link.data().link;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-export const getLevel2ServicesYt = async (type, level1) => {
-  const link = await getDoc(doc(db, `${type}/${level1}`));
-  return link.data().link;
+export const getLevel2ServicesYt = async (level1, type) => {
+  try {
+    const link = await getDoc(doc(db, `${type}/${level1}`));
+    return link.data().link;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-export const getLevel3ServicesYt = async (type, level1, level2) => {
-  const link = await getDoc(
-    doc(db, `${type}/${level1}/${level1}col/${level2}`)
-  );
-  return link.data().link;
+export const getLevel3ServicesYt = async (level1, level2, type) => {
+  try {
+    const link = await getDoc(
+      doc(db, `${type}/${level1}/${level1}col/${level2}`)
+    );
+    return link.data().link;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-export const getLevel4ServicesYt = async (type, level1, level2, level3) => {
-  const link = await getDoc(
-    doc(db, `services/${level1}/${level1}col/${level2}/${level2}col/${level3}`)
-  );
-  return link.data().link;
+export const getLevel4ServicesYt = async (level1, level2, level3, type) => {
+  try {
+    const link = await getDoc(
+      doc(db, `${type}/${level1}/${level1}col/${level2}/${level2}col/${level3}`)
+    );
+    return link.data().link;
+  } catch (e) {
+    console.log(e);
+  }
 };

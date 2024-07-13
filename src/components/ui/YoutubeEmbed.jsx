@@ -32,7 +32,7 @@ const YoutubeEmbed = ({ embedId }) => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           title="Embedded youtube"
-          className="rounded-lg mx-auto w-[353px] h-[200px] md:w-[100vw] md:h-[500px] md:rounded-none"
+          className="aspect-video w-full md:h-[500px]"
         />
       )}
     </div>

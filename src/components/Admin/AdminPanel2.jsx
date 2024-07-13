@@ -38,7 +38,11 @@ function AdminPanel2() {
     services &&
     services.map((item, index) => (
       <Link
-        href={`/admin/level3?previous=${item.id}&beforeprevious=${previous}&type=services`}
+        href={`/admin/level3?previous=${encodeURIComponent(
+          item.id
+        )}&beforeprevious=${previous}&type=services&name=${encodeURIComponent(
+          item.name
+        )}`}
         key={index}
         className="flex items-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
       >
@@ -58,7 +62,11 @@ function AdminPanel2() {
     products &&
     products.map((item, index) => (
       <Link
-        href={`/admin/level3?previous=${item.id}&beforeprevious=${previous}&type=products`}
+        href={`/admin/level3?previous=${
+          item.id
+        }&beforeprevious=${previous}&type=products&name=${encodeURIComponent(
+          item.name
+        )}`}
         key={index}
         className="flex items-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
       >
@@ -78,7 +86,11 @@ function AdminPanel2() {
     explore &&
     explore.map((item) => (
       <Link
-        href={`/admin/level3?previous=${item.id}&beforeprevious=${previous}&type=explore`}
+        href={`/admin/level3?previous=${
+          item.id
+        }&beforeprevious=${previous}&type=explore&name=${encodeURIComponent(
+          item.name
+        )}`}
         key={index}
         className="flex items-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
       >
@@ -116,7 +128,7 @@ function AdminPanel2() {
   }, []);
   useEffect(() => {
     const fetch = async () => {
-      const data = await getLevel2ServiceAds(previous,type);
+      const data = await getLevel2ServiceAds(previous, type);
       setAds(data);
     };
     fetch();

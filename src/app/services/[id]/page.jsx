@@ -1,6 +1,7 @@
 import {
   getServicesAndProductsList,
   getServiceAndProductDocs,
+  getName,
 } from "@/firebase/firestore/servicesProducts";
 import React from "react";
 import Header from "@/components/ui/Header";
@@ -21,10 +22,11 @@ export async function generateStaticParams() {
 
 export default async function ServicePages({ params }) {
   const { id } = params;
-  const data = await getServiceAndProductDocs(null, null, id, null, "services");
-  const capitalized = id.charAt(0).toUpperCase() + id.slice(1);
-  const ads = await getLevel2ServiceAds(id);
-  const link = await getLevel2ServicesYt("services", id);
+  const decoded = decodeURIComponent(id)
+  const data = await getServiceAndProductDocs(null, null, decoded, null, "services");
+  const capitalized = getName(null,null,decoded)
+  const ads = await getLevel2ServiceAds(id,"services");
+  const link = await getLevel2ServicesYt(id, "services");
   return (
     <div>
       <Header />

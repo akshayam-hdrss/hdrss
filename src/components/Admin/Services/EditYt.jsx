@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import {
   Button,
   Dialog,
   Typography,
   DialogBody,
 } from "@material-tailwind/react";
+import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import { IoClose } from "react-icons/io5";
 import {
   updateLevel1ServicesYt,
   updateLevel2ServicesYt,
   updateLevel3ServicesYt,
   updateLevel4ServicesYt,
-} from "../../../firebase/firestore/servicesyt";
+  getLevel1ServicesYt,
+  getLevel2ServicesYt,
+  getLevel3ServicesYt,
+  getLevel4ServicesYt,
+} from "@/firebase/firestore/servicesyt";
 
 function EditYt({
   rootprevious = null,
@@ -22,6 +27,7 @@ function EditYt({
   type,
 }) {
   const [link, setLink] = useState();
+  const [preview, setPreview] = useState();
   const handleOpen = () => {
     setOpen(true);
   };
@@ -30,9 +36,14 @@ function EditYt({
   };
   const handleSubmit = async () => {
     if (rootprevious != null) {
-      await updateLevel4ServicesYt(rootprevious,beforeprevious,previous,link,type)
-    }
-    if (beforeprevious != null) {
+      await updateLevel4ServicesYt(
+        rootprevious,
+        beforeprevious,
+        previous,
+        link,
+        type
+      );
+    } else if (beforeprevious != null) {
       await updateLevel3ServicesYt(beforeprevious, previous, link, type);
     } else if (previous != null) {
       await updateLevel2ServicesYt(previous, link, type);
@@ -42,6 +53,29 @@ function EditYt({
     }
     setOpen(false);
   };
+
+  useEffect(() => {
+    const fetch = async () => {
+      let data;
+      if (rootprevious != null) {
+        data = await getLevel4ServicesYt(
+          rootprevious,
+          beforeprevious,
+          previous,
+          type
+        );
+      } else if (beforeprevious != null) {
+        data = await getLevel3ServicesYt(beforeprevious, previous, type);
+      } else if (previous != null) {
+        data = await getLevel2ServicesYt(previous, type);
+      } else {
+        data = await getLevel1ServicesYt(type);
+      }
+      setPreview(data);
+    };
+    fetch();
+  }, [open]);
+
   return (
     <>
       <Button onClick={handleOpen} className="bg-kaavi">
@@ -62,6 +96,7 @@ function EditYt({
               <IoClose fontSize={30} onClick={handleClose} />
             </div>
             <div>
+              <YoutubeEmbed embedId={preview} />  
               <Typography>Enter the Youtube Link</Typography>
               <input type="text" onChange={(e) => setLink(e.target.value)} />
               <button

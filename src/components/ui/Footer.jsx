@@ -20,7 +20,7 @@ function Footer() {
     fetchdata();
   }, []);
   return (
-    <div className="bg-kaavi text-primary px-4 py-10 pb-4">
+    <div className="bg-kaavi text-primary px-4 py-10 pb-4 mt-4">
       <div className="grid grid-cols-2 gap-2 grid-rows-1 mb-6">
         <div className="flex flex-col items-center">
           <Link href="/ramdass">
