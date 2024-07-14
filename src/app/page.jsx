@@ -4,10 +4,10 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
 import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
-import EventCarousel from "@/components/ui/EventCarousel";
 import { useState, useEffect } from "react";
 import ExploreCarousel from "@/components/ui/ExploreCarousel";
 import Header from "@/components/ui/Header";
+import Events from "@/components/Home/Events"
 import Footer from "@/components/ui/Footer";
 import { getUser } from "@/firebase/firestore/user";
 import Level1Services from "@/components/ui/Level1Services";
@@ -16,24 +16,15 @@ import { getHomeAdvertisements } from "@/firebase/firestore/advertisements";
 import auth from "@/firebase/config.js";
 import { onAuthStateChanged } from "firebase/auth";
 import AdCarousel from "@/components/ui/AdCarousel";
-import { getEvents } from "@/firebase/firestore/events";
 import News from "@/components/Home/News";
 import Products from "@/components/Home/Products";
 import Daily from "@/components/Home/Daily";
 export default function Home() {
-  const [isEventActive, setIsEventActive] = useState(true);
   const [randomData, setRandomData] = useState();
   const [ads, setAds] = useState();
   const [user, setUser] = useState();
   const [userDoc, setUserDoc] = useState();
-  const [events, setEvents] = useState();
-  const handleArchiveClick = () => {
-    setIsEventActive(false);
-  };
-  const handleEventClick = () => {
-    setIsEventActive(true);
-  };
-
+ 
   useEffect(() => {
     const fetchdata = async () => {
       const data = await getStateLeaders();
@@ -55,13 +46,7 @@ export default function Home() {
     });
     return unsubscribe;
   }, []);
-  useEffect(() => {
-    const fetchdata = async () => {
-      const data = await getEvents();
-      setEvents(data);
-    };
-    fetchdata();
-  }, []);
+ 
 
   return (
     <>
@@ -154,35 +139,7 @@ export default function Home() {
         </div>
 
         {/* Events Section */}
-        <div className="p-6 text-center">
-          <div
-            className={`bg-[#FBE9E9] inline p-5 rounded-lg mr-10 pt-7 cursor-pointer ${
-              isEventActive ? "text-kaavi" : "text-[#ACACAC]"
-            }`}
-          >
-            <button
-              className="font-koulen text-4xl inline"
-              onClick={handleEventClick}
-            >
-              Events
-            </button>
-          </div>
-          <div className="bg-[#FBE9E9] inline p-5 rounded-lg pt-7">
-            <button
-              className={`font-koulen text-4xl ${
-                isEventActive ? "text-[#ACACAC]" : "text-kaavi"
-              }`}
-              onClick={handleArchiveClick}
-            >
-              archive
-            </button>
-          </div>
-          <EventCarousel content={isEventActive ? events : events} />
-
-          <button className="p-2 bg-kaavi text-white my-5 mt-8 rounded-md">
-            Load More
-          </button>
-        </div>
+        <Events />
 
         <Daily />
         {/* Explore Section */}

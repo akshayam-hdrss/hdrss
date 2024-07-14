@@ -100,11 +100,12 @@ function EditSno({
             <div>
               {sno &&
                 sno.map((doc, index) => (
-                  <div className="flex justify-evenly my-2">
+                  <div className="flex justify-evenly my-2" key={index}>
                     <div>
                       <input
                         type="number"
                         className="border-kaavi border-2 p-2 w-1/3 text-2xl"
+                        defaultValue={doc.sno}
                         onChange={(e) => handleSno(e, doc.id)}
                       />
                     </div>

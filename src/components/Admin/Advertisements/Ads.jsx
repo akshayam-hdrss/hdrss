@@ -7,9 +7,11 @@ import {
 } from "@material-tailwind/react";
 import { IoClose } from "react-icons/io5";
 import {
+  deleteLevel1ServiceAds,
   deleteLevel2ServiceAds,
   deleteLevel3ServiceAds,
   deleteLevel4ServiceAds,
+  updateLevel1ServiceAds,
   updateLevel2ServiceAds,
   updateLevel3ServiceAds,
   updateLevel4ServiceAds,
@@ -38,14 +40,18 @@ function Ads({
         rootprevious,
         beforeprevious,
         previous,
-        adToDelete
+        adToDelete,
+        type
       );
     } else if (beforeprevious != null) {
-      await deleteLevel3ServiceAds(beforeprevious, previous, adToDelete);
+      await deleteLevel3ServiceAds(beforeprevious, previous, adToDelete, type);
     } else if (previous != null) {
-      await deleteLevel2ServiceAds(previous, adToDelete);
+      await deleteLevel2ServiceAds(previous, adToDelete, type);
+    } else {
+      await deleteLevel1ServiceAds(adToDelete, type);
     }
     console.log("added");
+    setOpen(!open);
   };
 
   const handleSubmit = async () => {
@@ -61,6 +67,9 @@ function Ads({
       await updateLevel3ServiceAds(beforeprevious, previous, ads, type);
     } else if (previous != null) {
       await updateLevel2ServiceAds(previous, ads, type);
+    } else {
+      console.log("level1");
+      await updateLevel1ServiceAds(ads, type);
     }
     console.log("added");
     setOpen(!open);

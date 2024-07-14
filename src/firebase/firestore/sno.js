@@ -12,6 +12,7 @@ import {
   updateDoc,
   where,
   query,
+  orderBy,
 } from "firebase/firestore";
 import { ref, deleteObject, getStorage } from "firebase/storage";
 
@@ -25,7 +26,8 @@ export async function getSnoLevel1ServicesProducts(type) {
     let data = [];
     const q = query(
       collection(db, type),
-      where("__name__", "not-in", ["ads", "yt"])
+      where("__name__", "not-in", ["ads", "yt"]),
+      orderBy("sno")
     );
     const snapshot = await getDocs(q);
     snapshot.forEach((doc) => {
@@ -59,7 +61,8 @@ export async function getSnoLevel2ServicesProducts(level1, type) {
     let data = [];
     const q = query(
       collection(db, `${type}/${level1}/${level1}col`),
-      where("__name__", "not-in", ["ads", "yt"])
+      where("__name__", "not-in", ["ads", "yt"]),
+      orderBy("sno")
     );
     const snapshot = await getDocs(q);
     snapshot.forEach((doc) => {
@@ -93,7 +96,8 @@ export async function getSnoLevel3ServicesProducts(level1, level2, type) {
     let data = [];
     const q = query(
       collection(db, `${type}/${level1}/${level1}col/${level2}/${level2}col`),
-      where("__name__", "not-in", ["ads", "yt"])
+      where("__name__", "not-in", ["ads", "yt"]),
+      orderBy("sno")
     );
     const snapshot = await getDocs(q);
     snapshot.forEach((doc) => {

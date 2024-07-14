@@ -19,11 +19,10 @@ import {
 } from "@/firebase/firestore/advertisements";
 import { addRamadass, getRamadass } from "@/firebase/firestore/ramadass";
 import AdminNews from "@/components/Admin/AdminNews";
-import Slider from "react-slick";
-import { Carousel } from "@material-tailwind/react";
-import AllServiceAds from "@/components/Admin/Advertisements/AllServiceAds";
+
 import EditYt from "./Services/EditYt";
 import AdminDaily from "@/components/Admin/AdminDaily";
+import Ads from "./Advertisements/Ads";
 function AdminPanel() {
   const [addOpen, setAddOpen] = useState(false);
   const [addServiceOpen, setAddServiceOpen] = useState(false);
@@ -49,8 +48,11 @@ function AdminPanel() {
   const [exisitingLeader, setExistingLeader] = useState();
   const [photos, setPhotos] = useState([]);
   const [serviceAds, setServiceAds] = useState();
+  const [productAds, setProductAds] = useState();
+
   const [updateAdsOpen, setUpdateAdsOpen] = useState(false);
   const [ytOpen, setYtOpen] = useState();
+  const [productsytOpen, setProductsytOpen] = useState();
   const settings = {
     dots: true,
     infinite: true,
@@ -90,8 +92,10 @@ function AdminPanel() {
 
   useEffect(() => {
     const fetchServiceAds = async () => {
-      const data = await getLevel1ServiceAds();
+      const data = await getLevel1ServiceAds("services");
       setServiceAds(data);
+      const data2 = await getLevel1ServiceAds("products");
+      setProductAds(data2);
     };
     fetchServiceAds();
   }, [updateAdsOpen]);
@@ -165,10 +169,11 @@ function AdminPanel() {
         <div>
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-medium">Advertisement</h2>
-            <AllServiceAds
+            <Ads
               open={updateAdsOpen}
               setOpen={setUpdateAdsOpen}
               data={serviceAds}
+              type="services"
             />
           </div>
           <div className="flex justify-between my-4 items-center">
@@ -215,6 +220,25 @@ function AdminPanel() {
               rootprevious={null}
               beforeprevious={null}
               previous={null}
+              type="products"
+            />
+          </div>
+        </div>
+        <div>
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-medium">Advertisement</h2>
+            <Ads
+              open={updateAdsOpen}
+              setOpen={setUpdateAdsOpen}
+              data={productAds}
+              type="products"
+            />
+          </div>
+          <div className="flex justify-between my-4 items-center">
+            <h2 className="text-xl font-medium">Youtube Link</h2>
+            <EditYt
+              open={productsytOpen}
+              setOpen={setProductsytOpen}
               type="products"
             />
           </div>

@@ -19,7 +19,7 @@ function Products() {
     <div className="grid grid-cols-2 gap-y-10 gap-x-10 mt-8">
       {products &&
         products.map((item) => (
-          <div className="h-40 relative rounded-xl drop-shadow-xl">
+          <a href={`/products/${item.id}`} className="h-40 relative rounded-xl drop-shadow-xl">
             <img
               src={item.iconUrl}
               alt=""
@@ -31,7 +31,7 @@ function Products() {
                 {item.id}
               </h1>
             
-          </div>
+          </a>
         ))}
     </div>
   );

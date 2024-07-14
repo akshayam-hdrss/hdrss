@@ -57,9 +57,9 @@ export const getHomeAdvertisements = async () => {
   }
 };
 
-export const getLevel1ServiceAds = async () => {
+export const getLevel1ServiceAds = async (type) => {
   try {
-    const snapshot = await getDoc(doc(db, "services/ads"));
+    const snapshot = await getDoc(doc(db, `${type}/ads`));
     const data = snapshot.data().ads;
     return data;
   } catch (e) {

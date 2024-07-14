@@ -21,7 +21,7 @@ function Daily() {
     fetch();
   }, []);
   return (
-    <div className="py-6 px-4">
+    <div className="py-6 px-4 overflow-hidden">
       <h1 className="font-koulen text-grey text-4xl mb-4">Day's Special</h1>
       <div>
         <Slider {...settings}>

@@ -41,7 +41,7 @@ function ExploreCarousel() {
   };
   return (
     <div>
-      <div>
+      <div className="overflow-hidden">
         <Slider {...settings}>
           {explorecontent.map((item, index) => (
             <div
