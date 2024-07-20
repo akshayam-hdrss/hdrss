@@ -26,7 +26,7 @@ function AdCarousel({ ads }) {
         {ads &&
           ads.map((ad, index) => (
             <img
-              src={ad.data.ad}
+              src={ad}
               alt={`ad ${index}`}
               className="h-full w-full object-cover"
             />

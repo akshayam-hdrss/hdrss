@@ -1,0 +1,71 @@
+"use client";
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+function SideBar() {
+  const path = usePathname();
+  return (
+    <div className="p-6 fixed flex justify-start items-center flex-col gap-y-6 w-[20vw] bg-[#F4F4F5] h-screen overflow-y-scroll overflow-x-hidden">
+      <h1 className="font-lena my-4 text-2xl lg:text-4xl">akshayam</h1>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path === "/admin/" ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/"}
+      >
+        Dashboard
+      </Link>
+
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path === "/admin/services/" ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/services"}
+      >
+        Services
+      </Link>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path === "/admin/products/" ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/products"}
+      >
+        Products
+      </Link>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path === "/admin/events/" ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/events"}
+      >
+        Events
+      </Link>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg  lg:text-lg my-2 ${
+          path === "/admin/news/" ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/news"}
+      >
+        News
+      </Link>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path === "/admin/daily/" ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/daily"}
+      >
+        Day's special
+      </Link>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg  my-2 ${
+          path === "/admin/leaders/" ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/leaders"}
+      >
+        Leaders
+      </Link>
+    </div>
+  );
+}
+
+export default SideBar;

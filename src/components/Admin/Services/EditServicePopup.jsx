@@ -6,6 +6,7 @@ import {
   CardBody,
   CardFooter,
   Typography,
+  DialogBody,
 } from "@material-tailwind/react";
 import { editServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import { IoClose } from "react-icons/io5";
@@ -62,9 +63,14 @@ function EditServicePopup({
       <Button onClick={handleOpen} className="bg-kaavi">
         Edit
       </Button>
-      <Dialog open={open} handler={handleOpen}>
-        <Card className="mx-auto w-full max-w-[24rem] font-inter">
-          <CardBody className="flex flex-col gap-4">
+      <Dialog
+        open={open}
+        handler={handleOpen}
+        className="overflow-scroll"
+        style={{ maxHeight: "calc(100vh - 200px)" }}
+      >
+        <DialogBody className="mx-auto w-full h-full font-inter">
+          <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
               <Typography variant="h4" color="blue-gray">
                 Edit a Service
@@ -87,7 +93,7 @@ function EditServicePopup({
               id="name"
               value={editOption}
               onChange={handleEditOption}
-              className="p-3 border-deep-orange-200 border rounded-xl"
+              className="p-3 border-deep-orange-200 border rounded-md"
             >
               <option value=" ">Select any option</option>
               {data &&
@@ -110,18 +116,17 @@ function EditServicePopup({
               Give Icon
             </Typography>
             <input type="file" onChange={handleIconChange} />
-          </CardBody>
-          <CardFooter className="pt-0">
+          </div>
+          
             <Button
-              className="bg-kaavi text-white"
+              className="bg-kaavi text-white mt-8"
               type="submit"
               onClick={handleEdit}
               fullWidth
             >
               Enter
             </Button>
-          </CardFooter>
-        </Card>
+        </DialogBody>
       </Dialog>
     </>
   );

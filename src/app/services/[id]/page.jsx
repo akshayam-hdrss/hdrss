@@ -10,7 +10,7 @@ import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import ServiceCard from "@/components/ui/ServiceCard";
 import BackButton from "@/components/ui/BackButton";
 import Link from "next/link";
-import { getLevel2ServiceAds } from "@/firebase/firestore/advertisements";
+import { getServiceAds } from "@/firebase/firestore/advertisements";
 import Advertisement from "@/components/ui/Advertisement";
 import { getLevel2ServicesYt } from "../../../firebase/firestore/servicesyt";
 export async function generateStaticParams() {
@@ -22,10 +22,16 @@ export async function generateStaticParams() {
 
 export default async function ServicePages({ params }) {
   const { id } = params;
-  const decoded = decodeURIComponent(id)
-  const data = await getServiceAndProductDocs(null, null, decoded, null, "services");
-  const capitalized = getName(null,null,decoded)
-  const ads = await getLevel2ServiceAds(id,"services");
+  const decoded = decodeURIComponent(id);
+  const data = await getServiceAndProductDocs(
+    null,
+    null,
+    decoded,
+    null,
+    "services"
+  );
+  const capitalized = getName(null, null, decoded);
+  const ads = await getServiceAds("services", null, null, id, null);
   const link = await getLevel2ServicesYt(id, "services");
   return (
     <div>

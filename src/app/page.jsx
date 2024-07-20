@@ -7,12 +7,15 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useState, useEffect } from "react";
 import ExploreCarousel from "@/components/ui/ExploreCarousel";
 import Header from "@/components/ui/Header";
-import Events from "@/components/Home/Events"
+import Events from "@/components/Home/Events";
 import Footer from "@/components/ui/Footer";
 import { getUser } from "@/firebase/firestore/user";
 import Level1Services from "@/components/ui/Level1Services";
 import { getStateLeaders } from "@/firebase/firestore/leaders";
-import { getHomeAdvertisements } from "@/firebase/firestore/advertisements";
+import {
+  getHomeAdvertisements,
+  getServiceAds,
+} from "@/firebase/firestore/advertisements";
 import auth from "@/firebase/config.js";
 import { onAuthStateChanged } from "firebase/auth";
 import AdCarousel from "@/components/ui/AdCarousel";
@@ -24,13 +27,13 @@ export default function Home() {
   const [ads, setAds] = useState();
   const [user, setUser] = useState();
   const [userDoc, setUserDoc] = useState();
- 
+
   useEffect(() => {
     const fetchdata = async () => {
       const data = await getStateLeaders();
       const random = data[0];
       setRandomData(random);
-      const data2 = await getHomeAdvertisements();
+      const data2 = await getServiceAds(null, null, null, null, "home");
       setAds(data2);
     };
     fetchdata();
@@ -46,7 +49,6 @@ export default function Home() {
     });
     return unsubscribe;
   }, []);
- 
 
   return (
     <>

@@ -5,7 +5,7 @@ import Footer from "@/components/ui/Footer";
 import BackButton from "@/components/ui/BackButton";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import { Carousel } from "@material-tailwind/react";
-import { getLevel1ServiceAds } from "@/firebase/firestore/advertisements";
+import { getServiceAds } from "@/firebase/firestore/advertisements";
 import { getLevel1ServicesYt } from "@/firebase/firestore/servicesyt";
 import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import ServiceCard from "@/components/ui/ServiceCard";
@@ -24,7 +24,7 @@ function Services() {
   }, []);
   useEffect(() => {
     const fetch = async () => {
-      const ads = await getLevel1ServiceAds();
+      const ads = await getServiceAds("services", null, null, null, null);
 
       setAds(ads);
 

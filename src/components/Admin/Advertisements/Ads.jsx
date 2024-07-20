@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -7,14 +8,9 @@ import {
 } from "@material-tailwind/react";
 import { IoClose } from "react-icons/io5";
 import {
-  deleteLevel1ServiceAds,
-  deleteLevel2ServiceAds,
-  deleteLevel3ServiceAds,
-  deleteLevel4ServiceAds,
-  updateLevel1ServiceAds,
-  updateLevel2ServiceAds,
-  updateLevel3ServiceAds,
-  updateLevel4ServiceAds,
+  deleteServiceAds,
+  getServiceAds,
+  updateServiceAds,
 } from "@/firebase/firestore/advertisements";
 
 function Ads({
@@ -23,9 +19,10 @@ function Ads({
   rootprevious = null,
   beforeprevious = null,
   previous = null,
+  home = null,
   type,
-  data,
 }) {
+  const [existingAds, setExistingAds] = useState();
   const [ads, setAds] = useState([]);
   const handleOpen = () => {
     setOpen(true);
@@ -35,45 +32,45 @@ function Ads({
     setAds([...e.target.files]);
   };
   const handleDelete = async (adToDelete) => {
-    if (rootprevious != null) {
-      await deleteLevel4ServiceAds(
-        rootprevious,
-        beforeprevious,
-        previous,
-        adToDelete,
-        type
-      );
-    } else if (beforeprevious != null) {
-      await deleteLevel3ServiceAds(beforeprevious, previous, adToDelete, type);
-    } else if (previous != null) {
-      await deleteLevel2ServiceAds(previous, adToDelete, type);
-    } else {
-      await deleteLevel1ServiceAds(adToDelete, type);
-    }
+    await deleteServiceAds(
+      rootprevious,
+      beforeprevious,
+      previous,
+      home,
+      adToDelete,
+      type
+    );
+
     console.log("added");
     setOpen(!open);
   };
 
   const handleSubmit = async () => {
-    if (rootprevious != null) {
-      await updateLevel4ServiceAds(
-        rootprevious,
-        beforeprevious,
-        previous,
-        ads,
-        type
-      );
-    } else if (beforeprevious != null) {
-      await updateLevel3ServiceAds(beforeprevious, previous, ads, type);
-    } else if (previous != null) {
-      await updateLevel2ServiceAds(previous, ads, type);
-    } else {
-      console.log("level1");
-      await updateLevel1ServiceAds(ads, type);
-    }
+    await updateServiceAds(
+      ads,
+      type,
+      rootprevious,
+      beforeprevious,
+      previous,
+      home
+    );
     console.log("added");
     setOpen(!open);
   };
+
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getServiceAds(
+        type,
+        rootprevious,
+        beforeprevious,
+        previous,
+        home
+      );
+      setExistingAds(data);
+    };
+    fetch();
+  });
   return (
     <>
       <Button onClick={handleOpen} className="bg-kaavi">
@@ -89,12 +86,12 @@ function Ads({
           <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
               <Typography variant="h4" color="blue-gray">
-                Update {previous} Page Ads
+                Update {home ? "Home" : { previous }} Page Ads
               </Typography>
               <IoClose fontSize={30} onClick={handleClose} />
             </div>
-            {data &&
-              data.map((ad, index) => (
+            {existingAds &&
+              existingAds.map((ad, index) => (
                 <div key={index} className="relative">
                   <img
                     src={ad}

@@ -9,7 +9,10 @@ import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 import BackButton from "@/components/ui/BackButton";
 import { getLevel4ServicesYt } from "@/firebase/firestore/servicesyt";
-import { getLevel4ServiceAds } from "@/firebase/firestore/advertisements";
+import {
+  getLevel4ServiceAds,
+  getServiceAds,
+} from "@/firebase/firestore/advertisements";
 import Advertisement from "@/components/ui/Advertisement";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 
@@ -64,11 +67,12 @@ async function ServiceLevel3Page({ params }) {
     decodedthird,
     "services"
   );
-  const ads = await getLevel4ServiceAds(
+  const ads = await getServiceAds(
+    "services",
     decodedfirst,
     decodedsecond,
     decodedthird,
-    "services"
+    null
   );
   return (
     <div>
@@ -94,7 +98,9 @@ async function ServiceLevel3Page({ params }) {
               </div>
               <div className="flex flex-col justify-between items-center w-[70%]">
                 <h1 className="font-bold text-3xl">{item.data.name}</h1>
-                <h2 className="text-lg font-medium">{item.data.businessname}</h2>
+                <h2 className="text-lg font-medium">
+                  {item.data.businessname}
+                </h2>
 
                 <p className="font-medium text-grey mt-0 pt-0">
                   {item.data.area}

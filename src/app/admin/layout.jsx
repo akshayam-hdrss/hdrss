@@ -3,7 +3,7 @@ import AdminGaurd from "@/components/Admin/AdminGaurd";
 import auth from "@/firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-
+import SideBar from "@/components/Admin/SideBar";
 function AdminLayout({ children }) {
   const [admin, setAdmin] = useState();
   useEffect(() => {
@@ -17,7 +17,15 @@ function AdminLayout({ children }) {
     });
   });
   if (!admin) return <AdminGaurd />;
-  return <> {children} </>;
+  return (
+    <div className="flex w-max">
+      <SideBar />
+
+      <div className="flex-1 px-6 w-[80vw] py-8 overflow-y-auto ml-[20vw] overflow-x-hidden">
+        {children}
+      </div>
+    </div>
+  );
 }
 
 export default AdminLayout;
