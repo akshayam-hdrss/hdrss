@@ -30,12 +30,14 @@ function News() {
             <div key={index} className="relative h-full w-full">
               <div className="absolute inset-0 grid h-full w-full bg-kaavi/0">
                 <YoutubeEmbed embedId={doc.video} />
-                <h1 className="px-6 text-lg font-bold">
+                <div className="grid grid-cols-5 px-5 ">
+                <h1 className=" col-span-3 text-lg font-bold">
                   {doc.title.slice(0, 40)}...
                 </h1>
-                <button className="text-center mx-auto mb-12 px-3 rounded-md bg-kaavi text-white w-fit">
+                <button className="text-center col-span-2 w-fit mx-auto h-fit py-2 px-4 rounded-md bg-kaavi text-white ">
                   Read More
                 </button>
+                </div>
               </div>
             </div>
           ))}

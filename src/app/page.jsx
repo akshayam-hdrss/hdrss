@@ -129,19 +129,27 @@ export default function Home() {
 
         {/* News Section */}
         <News />
-
-        {/* Products Section */}
-        <div className="p-6">
-          <h1 className="font-koulen text-4xl text-grey mb-6">Products</h1>
-          <Products />
-          <div className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer">
-            <Link href="/products">See all products</Link>
-            <IoIosArrowDown className="ml-1" />
-          </div>
-        </div>
-
         {/* Events Section */}
         <Events />
+        {/* Products Section */}
+        <div className="bgom overflow-hidden">
+          <div className="p-6 relative ">
+            <Image
+              src="/om.svg"
+              alt="om"
+              width={300}
+              height={300}
+              className="rotate-45 opacity-[0.04] absolute right-7 -top-4 -z-10"
+            ></Image>
+
+            <h1 className="font-koulen text-4xl text-grey mb-6">Products</h1>
+            <Products />
+            <div className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer">
+              <Link href="/products">See all products</Link>
+              <IoIosArrowDown className="ml-1" />
+            </div>
+          </div>
+        </div>
 
         <Daily />
         {/* Explore Section */}

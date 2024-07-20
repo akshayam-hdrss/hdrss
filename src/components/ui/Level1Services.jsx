@@ -19,7 +19,7 @@ function Level1Services() {
   return (
     <>
       {data &&
-        data.map((item) => (
+        data.slice(0,6).map((item) => (
           <ServiceCard
             name={item.id}
             url={item.iconUrl}
