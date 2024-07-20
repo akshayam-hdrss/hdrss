@@ -3,7 +3,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import AddServicePopup from "@/components/Admin/Services/AddServicePopup";
-import ServiceCard from "@/components/ui/ServiceCard";
 import BackButton from "@/components/ui/BackButton";
 import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import EditServicePopup from "@/components/Admin/Services/EditServicePopup";
@@ -16,7 +15,7 @@ import EditSno from "./Services/EditSno";
 import EditYt from "./Services/EditYt";
 import Link from "next/link";
 import Ads from "@/components/Admin/Advertisements/Ads";
-import { getLevel3ServiceAds } from "@/firebase/firestore/advertisements";
+import { getServiceAds } from "@/firebase/firestore/advertisements";
 function AdminPanel3() {
   const [open, setOpen] = useState(false);
   const [services, setServices] = useState(null);
@@ -42,7 +41,7 @@ function AdminPanel3() {
     services &&
     services.map((item, index) => (
       <Link
-        href={`/admin/level4?previous=${encodeURIComponent(
+        href={`/admin/services/level4?previous=${encodeURIComponent(
           item.id
         )}&beforeprevious=${previous}&rootprevious=${beforeprevious}&type=services&name=${encodeURIComponent(
           item.name
@@ -66,7 +65,7 @@ function AdminPanel3() {
     products &&
     products.map((item, index) => (
       <Link
-        href={`/admin/level4?previous=${item.id}&beforeprevious=${previous}&rootprevious=${beforeprevious}&type=products&name=${item.name}`}
+        href={`/admin/products/level4?previous=${item.id}&beforeprevious=${previous}&rootprevious=${beforeprevious}&type=products&name=${item.name}`}
         key={index}
         className="flex items-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
       >
@@ -86,7 +85,7 @@ function AdminPanel3() {
     explore &&
     explore.map((item, index) => (
       <Link
-        href={`/admin/level4?previous=${item.id}&beforeprevious=${previous}&rootprevious=${beforeprevious}&type=explore&name=${item.name}`}
+        href={`/admin/explore/level4?previous=${item.id}&beforeprevious=${previous}&rootprevious=${beforeprevious}&type=explore&name=${item.name}`}
         key={index}
         className="flex items-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
       >
@@ -130,7 +129,13 @@ function AdminPanel3() {
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await getLevel3ServiceAds(beforeprevious, previous, type);
+      const data = await getServiceAds(
+        type,
+        null,
+        beforeprevious,
+        previous,
+        null
+      );
       setAds(data);
     };
     fetch();
@@ -139,12 +144,10 @@ function AdminPanel3() {
   return (
     <div className="p-10">
       <BackButton
-        route={`/admin/level2?previous=${beforeprevious}&type=${type}`}
+        route={`/admin/${type}/level2?previous=${beforeprevious}&type=${type}`}
       />
       <div className="flex justify-between items-center mb-14">
-        <h1 className="font-bold text-2xl md:text-4xl mr-10">
-          {name}
-        </h1>
+        <h1 className="font-bold text-2xl md:text-4xl mr-10">{name}</h1>
         <div className="flex gap-x-10">
           {type === "explore" ? (
             <>

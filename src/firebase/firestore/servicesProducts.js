@@ -238,24 +238,24 @@ export async function editServicesAndProducts(
       if (iconUrl) {
         const fileRef = ref(storage, iconUrl);
 
-        getMetadata(fileRef)
-          .then(() => {
-            // File exists, proceed to delete
-            deleteObject(fileRef)
-              .then(() => {
-                console.log("deleted successfully");
-              })
-              .catch((e) => {
-                console.log("Error deleting file:", e);
-              });
-          })
-          .catch((e) => {
-            if (e.code === "storage/object-not-found") {
-              console.log("File does not exist");
-            } else {
-              console.log("Error checking file:", e);
-            }
-          });
+      //   getMetadata(fileRef)
+      //     .then(() => {
+      //       // File exists, proceed to delete
+      //       deleteObject(fileRef)
+      //         .then(() => {
+      //           console.log("deleted successfully");
+      //         })
+      //         .catch((e) => {
+      //           console.log("Error deleting file:", e);
+      //         });
+      //     })
+      //     .catch((e) => {
+      //       if (e.code === "storage/object-not-found") {
+      //         console.log("File does not exist");
+      //       } else {
+      //         console.log("Error checking file:", e);
+      //       }
+      //     });
       }
 
       fileUrl = await uploadIcons(icon, id);
