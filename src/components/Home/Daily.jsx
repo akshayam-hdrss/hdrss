@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getDaily } from "../../firebase/firestore/daily";
 import Slider from "react-slick";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
+import Image from "next/image";
 function Daily() {
   const [daily, setDaily] = useState();
   var settings = {
@@ -21,7 +22,14 @@ function Daily() {
     fetch();
   }, []);
   return (
-    <div className="py-6 px-4 overflow-hidden">
+    <div className="py-6 px-4 overflow-hidden relative">
+    <Image
+              src="/om.svg"
+              alt="om"
+              width={300}
+              height={300}
+              className="rotate-45 opacity-[0.04] absolute right-7 -top-4 -z-10"
+            ></Image>
       <h1 className="font-koulen text-grey text-4xl mb-4">Day's Special</h1>
       <div>
         <Slider {...settings}>
