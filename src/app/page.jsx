@@ -176,11 +176,11 @@ export default function Home() {
             submitting your complaint, you will be contacted by our members and
             the complaint will be resolved by us as soon as possible.
           </p>
-          <div className="text-center">
+          <Link href={"/complaint"} className="text-center">
             <button className="bg-kaavi text-white p-3 mt-6 rounded-xl">
               Make a complaint
             </button>
-          </div>
+          </Link>
         </div>
 
         {/* Join us */}
@@ -198,11 +198,11 @@ export default function Home() {
             community and beyond. Let's collaborate to build a stronger Tamil
             Nadu.
           </p>
-          <div className="text-center">
-            <button className="bg-kaavi text-white p-3 mt-6 rounded-xl">
+          <Link href={"/membership/1"} className="text-center">
+            <h1 className="bg-kaavi text-white p-3 mt-6 rounded-xl">
               Become a member
-            </button>
-          </div>
+            </h1>
+          </Link>
         </div>
 
         {/* Members */}
