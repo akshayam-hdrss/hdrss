@@ -14,7 +14,7 @@ function Events() {
     fetchdata();
   }, []);
   return (
-    <div className="p-6 relative">
+    <div className="p-6 relative overflow-hidden">
       <Image
         src="/om.svg"
         alt="om"

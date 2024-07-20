@@ -23,7 +23,8 @@ function Daily() {
   }, []);
   return (
     <div className="py-6 px-4 overflow-hidden relative">
-    <Image
+    <div className="">
+      <Image
               src="/om.svg"
               alt="om"
               width={300}
@@ -49,6 +50,7 @@ function Daily() {
             ))}
         </Slider>
       </div>
+    </div>
     </div>
   );
 }
