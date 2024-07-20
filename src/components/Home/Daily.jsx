@@ -29,9 +29,14 @@ function Daily() {
             daily.map((doc, index) => (
               <div key={index}>
                 <YoutubeEmbed embedId={doc.data.link} />
-                <h1 className="text-lg font-bold px-4 mt-6">
+                <div className="grid grid-cols-3 pt-5">
+                <h1 className="text-lg col-span-2 font-bold ">
                   {doc.data.title}
                 </h1>
+                <div className="">
+                <h1 className="py-2 px-3 rounded-xl h-fit w-fit bg-kaavi text-white">Read More</h1>
+                </div>
+                </div>
               </div>
             ))}
         </Slider>

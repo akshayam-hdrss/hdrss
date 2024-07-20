@@ -44,11 +44,12 @@ function ExploreCarousel() {
       <div className="overflow-hidden">
         <Slider {...settings}>
           {explorecontent.map((item, index) => (
+            <div className="px-2">
             <div
-              className="border border-[#808080] rounded-2xl relative overflow-hidden h-80"
+              className="border  border-[#808080] rounded-2xl relative overflow-hidden h-72 "
               key={index}
             >
-              <div className="object-cover w-full h-[60%] rounded-2xl">
+              <div className="object-cover w-full h-[65%] rounded-2xl">
                 <img
                   src={`/${item}.jpg`}
                   alt="explore"
@@ -56,19 +57,24 @@ function ExploreCarousel() {
                 />
               </div>
 
-              <div className="h-[40%] px-3 py-2">
-                <h2 className="font-bold text-2xl">{item}</h2>
+              <div className="h-[35%] px-3 flex flex-col justify-center">
+               <div className="flex  justify-between">
+               <div className="">
+               <h2 className="font-bold text-2xl pb-3">{item}</h2>
                 <Link
                   href={`/explore/${item.toLowerCase()}`}
-                  className="text-sm bg-kaavi text-white px-3 py-2 rounded-xl mt-4"
+                  className="text-sm bg-kaavi text-white px-3 py-2 rounded-xl w-fit"
                 >
                   Learn more
                 </Link>
-                <div className="absolute top-[65%] right-3 border-[#acacac] border py-3 px-3 rounded-lg text-center">
+               </div>
+                <div className=" border-[#acacac] border py-3 px-3 rounded-lg text-center">
                   <p className="font-bold text-lg">{day}</p>
                   <p className="font-medium text-xs">{monthName}</p>
                 </div>
+               </div>
               </div>
+            </div>
             </div>
           ))}
         </Slider>
