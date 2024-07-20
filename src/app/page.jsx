@@ -236,28 +236,33 @@ export default function Home() {
           <h1 className="font-koulen text-4xl text-grey mb-2">
             Offers and rewards
           </h1>
-          <div className="flex justify-between items-center mt-6 ml-5">
-            <div className="bg-[#FBE9E9] rounded-full p-4">
-              <img src="/games.svg" alt="games" width={40} height={40} />
-            </div>
-            <div></div>
-            <div className="bg-[#FBE9E9] mr-5 rounded-full p-4">
-              <img src="/offers.svg" alt="offers" width={40} height={40} />
-            </div>
-            <div className="bg-[#FBE9E9] mr-6 rounded-full p-4">
-              <img
-                src="/referrals.svg"
-                alt="referrals"
-                width={40}
-                height={40}
-              />
-            </div>
+          <div className="flex justify-around items-center mt-6 ml-5">
+            <Link href={"/games"} className="text-center grid gap-2">
+              <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
+                <img src="/games.svg" alt="games" width={40} height={40} />
+              </div>
+              <h2>Games</h2>
+            </Link>
+
+            <Link href={"/offers"} className="text-center grid gap-2">
+              <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
+                <img src="/offers.svg" alt="offers" width={40} height={40} />
+              </div>
+              <h2>Offers</h2>
+            </Link>
+            <Link href={"/referrals"} className="text-center grid gap-2">
+              <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
+                <img
+                  src="/referrals.svg"
+                  alt="referrals"
+                  width={40}
+                  height={40}
+                />
+              </div>
+              <h2>Referrals</h2>
+            </Link>
           </div>
-          <div className="flex justify-around items-center mt-1">
-            <h2>Games</h2>
-            <h2>Offers</h2>
-            <h2>Referrals</h2>
-          </div>
+          <div className="flex justify-around items-center mt-1"></div>
         </div>
       </div>
       <Footer />
