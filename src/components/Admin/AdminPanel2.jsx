@@ -13,7 +13,7 @@ import DeleteExplorePopup from "@/components/Admin/Explore/DeleteExplorePopup";
 import AddExplorePopup from "@/components/Admin/Explore/AddExplorePopup";
 import { subscribeToExplore } from "@/firebase/firestore/explore";
 import Ads from "./Advertisements/Ads";
-import { getLevel2ServiceAds } from "@/firebase/firestore/advertisements";
+import { getServiceAds } from "@/firebase/firestore/advertisements";
 import EditSno from "./Services/EditSno";
 import Link from "next/link";
 import EditYt from "./Services/EditYt";
@@ -38,7 +38,7 @@ function AdminPanel2() {
     services &&
     services.map((item, index) => (
       <Link
-        href={`/admin/level3?previous=${encodeURIComponent(
+        href={`/admin/services/level3?previous=${encodeURIComponent(
           item.id
         )}&beforeprevious=${previous}&type=services&name=${encodeURIComponent(
           item.name
@@ -62,7 +62,7 @@ function AdminPanel2() {
     products &&
     products.map((item, index) => (
       <Link
-        href={`/admin/level3?previous=${
+        href={`/admin/products/level3?previous=${
           item.id
         }&beforeprevious=${previous}&type=products&name=${encodeURIComponent(
           item.name
@@ -86,7 +86,7 @@ function AdminPanel2() {
     explore &&
     explore.map((item) => (
       <Link
-        href={`/admin/level3?previous=${
+        href={`/admin/explore/level3?previous=${
           item.id
         }&beforeprevious=${previous}&type=explore&name=${encodeURIComponent(
           item.name
@@ -128,14 +128,14 @@ function AdminPanel2() {
   }, []);
   useEffect(() => {
     const fetch = async () => {
-      const data = await getLevel2ServiceAds(previous, type);
+      const data = await getServiceAds(type, null, null, previous, null);
       setAds(data);
     };
     fetch();
   }, [adsOpen]);
   return (
     <div className="p-10">
-      <BackButton route="/admin" />
+      <BackButton route={`/admin/${type}`} />
       <div className="flex justify-between items-center mb-14">
         <h1 className=" font-bold text-2xl md:text-4xl mr-10">
           {previous.charAt(0).toUpperCase() + previous.slice(1)}

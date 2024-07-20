@@ -18,7 +18,7 @@ function SideBar() {
 
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
-          path === "/admin/services/" ? "bg-kaavi text-white" : " "
+          path.includes("services") ? "bg-kaavi text-white" : " "
         }`}
         href={"/admin/services"}
       >
@@ -26,7 +26,7 @@ function SideBar() {
       </Link>
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
-          path === "/admin/products/" ? "bg-kaavi text-white" : " "
+          path.includes("products") ? "bg-kaavi text-white" : " "
         }`}
         href={"/admin/products"}
       >
@@ -34,7 +34,7 @@ function SideBar() {
       </Link>
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
-          path === "/admin/events/" ? "bg-kaavi text-white" : " "
+          path.includes("events") ? "bg-kaavi text-white" : " "
         }`}
         href={"/admin/events"}
       >
@@ -42,7 +42,7 @@ function SideBar() {
       </Link>
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg  lg:text-lg my-2 ${
-          path === "/admin/news/" ? "bg-kaavi text-white" : " "
+          path.includes("news/") ? "bg-kaavi text-white" : " "
         }`}
         href={"/admin/news"}
       >
@@ -50,7 +50,7 @@ function SideBar() {
       </Link>
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
-          path === "/admin/daily/" ? "bg-kaavi text-white" : " "
+          path.includes("/admin/daily/") ? "bg-kaavi text-white" : " "
         }`}
         href={"/admin/daily"}
       >
@@ -58,7 +58,7 @@ function SideBar() {
       </Link>
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg  my-2 ${
-          path === "/admin/leaders/" ? "bg-kaavi text-white" : " "
+          path.includes("/admin/leaders/") ? "bg-kaavi text-white" : " "
         }`}
         href={"/admin/leaders"}
       >

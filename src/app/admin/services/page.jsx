@@ -73,7 +73,7 @@ function page() {
             <ServiceCard
               name={item.name}
               url={item.iconUrl}
-              slug={`/admin/level2?previous=${item.id}&type=services`}
+              slug={`/admin/services/level2?previous=${item.id}&type=services`}
             />
           ))}
         <AddServicePopup
