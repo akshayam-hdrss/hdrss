@@ -10,7 +10,6 @@ import Link from "next/link";
 import BackButton from "@/components/ui/BackButton";
 import { getLevel4ServicesYt } from "@/firebase/firestore/servicesyt";
 import {
-  getLevel4ServiceAds,
   getServiceAds,
 } from "@/firebase/firestore/advertisements";
 import Advertisement from "@/components/ui/Advertisement";

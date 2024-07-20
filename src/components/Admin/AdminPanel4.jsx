@@ -7,7 +7,7 @@ import { subscribeToServiceAndProductDocs } from "@/firebase/firestore/servicesP
 import AddProductDocPopup from "@/components/Admin/Services/AddProductDocPopup";
 import DeleteDocPopup from "@/components/Admin/Services/DeleteDocPopup";
 import EditDocPopup from "@/components/Admin/Services/EditDocPopup";
-import { getLevel4ServiceAds } from "@/firebase/firestore/advertisements";
+import { getServiceAds } from "@/firebase/firestore/advertisements";
 import Ads from "@/components/Admin/Advertisements/Ads";
 import EditYt from "@/components/Admin/Services/EditYt";
 function AdminPanel4() {
@@ -88,11 +88,12 @@ function AdminPanel4() {
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await getLevel4ServiceAds(
+      const data = await getServiceAds(
+        type,
         rootprevious,
         beforeprevious,
         previous,
-        type
+        null
       );
       setAds(data);
     };

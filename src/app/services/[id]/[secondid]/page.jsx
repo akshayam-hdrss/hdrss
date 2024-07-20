@@ -44,17 +44,17 @@ async function ServiceLevel2Page({ params }) {
     "services"
   );
   const capitalized = await getName(null, decodedfirst, decodedsecond);
-  const link = await getServiceAds(
+  const link = await getLevel3ServicesYt(
+    decodedfirst,
+    decodedsecond,
+    "services"
+  );
+  const ads = await getServiceAds(
     "services",
     null,
     decodedfirst,
     decodedsecond,
     null
-  );
-  const ads = await getLevel3ServiceAds(
-    decodedfirst,
-    decodedsecond,
-    "services"
   );
   return (
     <div>

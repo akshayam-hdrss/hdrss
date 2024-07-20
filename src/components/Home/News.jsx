@@ -28,9 +28,9 @@ function News() {
         {news &&
           news.map((doc, index) => (
             <div key={index} className="relative h-full w-full">
-              <div className="absolute inset-0 grid h-full w-full bg-kaavi/0">
+              <div className="absolute inset-0 flex flex-col gap-y-4 h-full w-full bg-kaavi/0">
                 <YoutubeEmbed embedId={doc.video} />
-                <div className="grid grid-cols-5 px-5 ">
+                <div className="grid grid-cols-5 px-5 mt-0">
                 <h1 className=" col-span-3 text-lg font-bold">
                   {doc.title.slice(0, 40)}...
                 </h1>
