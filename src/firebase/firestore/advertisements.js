@@ -32,185 +32,98 @@ export async function deleteAdImages(ad) {
     console.log(e);
   }
 }
-export async function uploadHomeAdvertisements(photos) {
-  try {
-    const ads = await uploadFilesAndSaveURLs(photos);
-    ads.map(async (ad, index) => {
-      const result = await setDoc(doc(db, "advertisements", `ad${index}`), {
-        ad: ad,
-      });
-    });
-    console.log("ads added");
-  } catch (e) {
-    console.log(e);
-  }
-}
 
-export const getHomeAdvertisements = async () => {
+export const getServiceAds = async (
+  type,
+  level1 = null,
+  level2 = null,
+  level3 = null,
+  home = null
+) => {
   try {
-    let ads = [];
-    const snapshot = await getDocs(collection(db, "advertisements"));
-    snapshot.forEach((doc) => ads.push({ id: doc.id, data: doc.data() }));
-    return ads;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const getLevel1ServiceAds = async (type) => {
-  try {
-    const snapshot = await getDoc(doc(db, `${type}/ads`));
+    let docRef;
+    if (level1 && level2 && level3) {
+      docRef = doc(
+        db,
+        `${type}/${level1}/${level1}col/${level2}/${level2}col/${level3}`
+      );
+    } else if (level1 && level2) {
+      docRef = doc(db, `${type}/${level1}/${level1}col/${level2}`);
+    } else if (level1) {
+      docRef = doc(db, `${type}/${level1}`);
+    } else if (home) {
+      docRef = doc(db, "advertisements/ads");
+    } else {
+      docRef = doc(db, `${type}/ads`);
+    }
+    const snapshot = await getDoc(docRef);
     const data = snapshot.data().ads;
     return data;
   } catch (e) {
     console.log(e);
   }
 };
-
-export const getLevel2ServiceAds = async (level1, type) => {
-  try {
-    const snapshot = await getDoc(doc(db, `${type}/${level1}`));
-    const data = snapshot.data().ads;
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const getLevel3ServiceAds = async (level1, level2, type) => {
-  try {
-    const snapshot = await getDoc(
-      doc(db, `${type}/${level1}/${level1}col/${level2}`)
-    );
-    const data = snapshot.data().ads;
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const getLevel4ServiceAds = async (level1, level2, level3, type) => {
-  try {
-    const snapshot = await getDoc(
-      doc(db, `${type}/${level1}/${level1}col/${level2}/${level2}col/${level3}`)
-    );
-    const data = snapshot.data().ads;
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const updateLevel1ServiceAds = async (ads, type) => {
-  try {
-    const adUrls = await uploadFilesAndSaveURLs(ads);
-    adUrls.map(async (ad) => {
-      await updateDoc(doc(db, `${type}/ads`), { ads: arrayUnion(ad) });
-    });
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const updateLevel2ServiceAds = async (level1, ads, type) => {
-  try {
-    const adUrls = await uploadFilesAndSaveURLs(ads);
-    adUrls.map(async (ad) => {
-      await updateDoc(doc(db, `${type}/${level1}`), { ads: arrayUnion(ad) });
-    });
-  } catch (e) {
-    console.log(e);
-  }
-};
-export const updateLevel3ServiceAds = async (level1, level2, ads, type) => {
-  try {
-    const adUrls = await uploadFilesAndSaveURLs(ads);
-    await updateDoc(doc(db, `${type}/${level1}/${level1}col/${level2}`), {
-      ads: adUrls,
-    });
-  } catch (e) {
-    console.log(e);
-  }
-};
-export const updateLevel4ServiceAds = async (
-  level1,
-  level2,
-  level3,
+export const updateServiceAds = async (
   ads,
-  type
+  type,
+  level1 = null,
+  level2 = null,
+  level3 = null,
+  home = null
 ) => {
   try {
+    let docRef;
+    if (level1 && level2 && level3) {
+      docRef = doc(
+        db,
+        `${type}/${level1}/${level1}col/${level2}/${level2}col/${level3}`
+      );
+    } else if (level1 && level2) {
+      docRef = doc(db, `${type}/${level1}/${level1}col/${level2}`);
+    } else if (level1) {
+      docRef = doc(db, `${type}/${level1}`);
+    } else if (home) {
+      docRef = doc(db, "advertisements/ads");
+    } else {
+      docRef = doc(db, `${type}/ads`);
+    }
     const adUrls = await uploadFilesAndSaveURLs(ads);
-    await updateDoc(
-      doc(
-        db,
-        `${type}/${level1}/${level1}col/${level2}/${level2}col/${level3}`
-      ),
-      { ads: adUrls }
-    );
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const deleteLevel1ServiceAds = async (valueToDelete, type) => {
-  try {
-    await updateDoc(doc(db, `${type}/ads`), {
-      ads: arrayRemove(valueToDelete),
+    adUrls.map(async (ad) => {
+      await updateDoc(docRef, { ads: arrayUnion(ad) });
     });
-    console.log("ad removed");
-    await deleteAdImages(valueToDelete);
   } catch (e) {
     console.log(e);
   }
 };
-
-export const deleteLevel2ServiceAds = async (level1, valueToDelete, type) => {
-  try {
-    await updateDoc(doc(db, `${type}/${level1}`), {
-      ads: arrayRemove(valueToDelete),
-    });
-    console.log("ad removed");
-    await deleteAdImages(valueToDelete);
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const deleteLevel3ServiceAds = async (
-  level1,
-  level2,
+export const deleteServiceAds = async (
   valueToDelete,
-  type
+  type,
+  level1 = null,
+  level2 = null,
+  level3 = null,
+  home = null
 ) => {
   try {
-    await updateDoc(doc(db, `${type}/${level1}/${level1}col/${level2}`), {
-      ads: arrayRemove(valueToDelete),
-    });
-    console.log("ad removed");
-    await deleteAdImages(valueToDelete);
-  } catch (e) {
-    console.log(e);
-  }
-};
+    let docRef;
 
-export const deleteLevel4ServiceAds = async (
-  level1,
-  level2,
-  level3,
-  valueToDelete,
-  type
-) => {
-  try {
-    await updateDoc(
-      doc(
+    if (level1 && level2 && level3) {
+      docRef = doc(
         db,
         `${type}/${level1}/${level1}col/${level2}/${level2}col/${level3}`
-      ),
-      {
-        ads: arrayRemove(valueToDelete),
-      }
-    );
+      );
+    } else if (level1 && level2) {
+      docRef = doc(db, `${type}/${level1}/${level1}col/${level2}`);
+    } else if (level1) {
+      docRef = doc(db, `${type}/${level1}`);
+    } else if (home) {
+      docRef = doc(db, "advertisements/ads");
+    } else {
+      docRef = doc(db, `${type}/ads`);
+    }
+
+    await updateDoc(docRef, {
+      ads: arrayRemove(valueToDelete),
+    });
     console.log("ad removed");
     await deleteAdImages(valueToDelete);
   } catch (e) {

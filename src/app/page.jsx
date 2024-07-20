@@ -12,7 +12,10 @@ import Footer from "@/components/ui/Footer";
 import { getUser } from "@/firebase/firestore/user";
 import Level1Services from "@/components/ui/Level1Services";
 import { getStateLeaders } from "@/firebase/firestore/leaders";
-import { getHomeAdvertisements } from "@/firebase/firestore/advertisements";
+import {
+  getHomeAdvertisements,
+  getServiceAds,
+} from "@/firebase/firestore/advertisements";
 import auth from "@/firebase/config.js";
 import { onAuthStateChanged } from "firebase/auth";
 import AdCarousel from "@/components/ui/AdCarousel";
@@ -30,7 +33,7 @@ export default function Home() {
       const data = await getStateLeaders();
       const random = data[0];
       setRandomData(random);
-      const data2 = await getHomeAdvertisements();
+      const data2 = await getServiceAds(null, null, null, null, "home");
       setAds(data2);
     };
     fetchdata();
