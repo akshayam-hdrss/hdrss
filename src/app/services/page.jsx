@@ -2,15 +2,26 @@
 import React, { useEffect, useState } from "react";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
-import Level1Services from "@/components/ui/Level1Services";
 import BackButton from "@/components/ui/BackButton";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import { Carousel } from "@material-tailwind/react";
 import { getLevel1ServiceAds } from "@/firebase/firestore/advertisements";
 import { getLevel1ServicesYt } from "@/firebase/firestore/servicesyt";
+import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
+import ServiceCard from "@/components/ui/ServiceCard";
 function Services() {
   const [ads, setAds] = useState([]);
   const [link, setLink] = useState();
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    const unsubscribe = subscribeToServicesAndProducts(
+      setData,
+      null,
+      null,
+      "services"
+    );
+    return () => unsubscribe();
+  }, []);
   useEffect(() => {
     const fetch = async () => {
       const ads = await getLevel1ServiceAds();
@@ -45,7 +56,14 @@ function Services() {
       <div className="mt-4 p-6 text-center">
         <h1 className="font-koulen uppercase text-4xl text-grey">services</h1>
         <div className="grid grid-cols-3 gap-y-10 gap-x-10 mt-8 place-items-center">
-          <Level1Services />
+          {data &&
+            data.map((item) => (
+              <ServiceCard
+                name={item.id}
+                url={item.iconUrl}
+                slug={`/services/${item.id}`}
+              />
+            ))}
         </div>
       </div>
       <div className="my-4">
