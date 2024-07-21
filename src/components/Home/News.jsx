@@ -14,11 +14,11 @@ function News() {
     fetch();
   }, []);
   return (
-    <div className="px-0 pt-8 relative z-0">
+    <div className="px-0 md:px-5 pt-8 relative z-0">
       <h1 className="font-koulen text-4xl text-grey mb-4 px-6">News</h1>
 
       <Carousel
-        className="h-[400px]"
+        className="h-[400px] md:h-fit"
         prevArrow={false}
         nextArrow={false}
         navigation={false}
@@ -28,15 +28,25 @@ function News() {
         {news &&
           news.map((doc, index) => (
             <div key={index} className="relative h-full w-full">
-              <div className="absolute inset-0 grid h-full w-full bg-kaavi/0">
-                <YoutubeEmbed embedId={doc.video} />
-                <div className="grid grid-cols-5 px-5 ">
-                <h1 className=" col-span-3 text-lg font-bold">
-                  {doc.title.slice(0, 40)}...
-                </h1>
-                <button className="text-center col-span-2 w-fit mx-auto h-fit py-2 px-4 rounded-md bg-kaavi text-white ">
-                  Read More
-                </button>
+              <div className="grid md:grid-cols-3 h-full w-full bg-kaavi/0">
+                <div className="col-span-2 object-contain">
+                  <YoutubeEmbed embedId={doc.video} />
+                </div>
+                <div className="grid grid-cols-5 md:flex flex-col justify-between md:py-5 px-5 ">
+                  <h1 className="md:hidden col-span-3 text-lg font-bold">
+                    {doc.title.slice(0, 40)}...
+                  </h1>
+                  <h1 className="hidden md:flex col-span-3 text-lg font-bold">
+                    {doc.title.slice(0, 80)}...
+                  </h1>
+                  <div className="md:flex justify-between items-center w-full">
+                    <div className="md:flex hidden">
+                      <h1 className="font-semibold">21-3-2004</h1>
+                    </div>
+                    <button className="text-center col-span-2 w-fit mx-auto md:m-0 h-fit py-2 px-4 rounded-md bg-kaavi text-white ">
+                      Read More
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

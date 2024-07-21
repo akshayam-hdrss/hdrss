@@ -19,12 +19,14 @@ function Level1Services() {
   return (
     <>
       {data &&
-        data.slice(0,6).map((item) => (
-          <ServiceCard
-            name={item.id}
-            url={item.iconUrl}
-            slug={`/services/${item.id}`}
-          />
+        data.slice(0, 6).map((item) => (
+          <div key={item.id} className="mx-auto">
+            <ServiceCard
+              name={item.id}
+              url={item.iconUrl}
+              slug={`/services/${item.id}`}
+            />
+          </div>
         ))}
     </>
   );
