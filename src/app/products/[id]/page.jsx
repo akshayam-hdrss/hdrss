@@ -9,7 +9,7 @@ import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import ServiceCard from "@/components/ui/ServiceCard";
 import BackButton from "@/components/ui/BackButton";
 import AdCarousel from "../../../components/ui/AdCarousel";
-import { getHomeAdvertisements } from "@/firebase/firestore/advertisements";
+import { getServiceAds } from "@/firebase/firestore/advertisements";
 
 export async function generateStaticParams() {
   const list = await getServicesAndProductsList(null, null, null, "products");
@@ -23,7 +23,7 @@ export default async function ProductPages({ params }) {
   const data = await getServiceAndProductDocs(null, null, id, null, "products");
   const capitalized = id.charAt(0).toUpperCase() + id.slice(1);
 
-  const ads = await getHomeAdvertisements();
+  const ads = await getServiceAds("products", null, null, null, null);
   return (
     <div>
       <Header />

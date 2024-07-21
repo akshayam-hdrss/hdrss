@@ -1,11 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
+import LiteYouTubeEmbed from "react-lite-youtube-embed";
+import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 const handleEmbed = (embedId) => {
   const videoId = extractVideoId(embedId);
-  if (videoId) {
-    return `https://www.youtube.com/embed/${videoId}`;
-  }
+  return videoId;
+  // if (videoId) {
+  //   return `https://www.youtube.com/embed/${videoId}`;
+  // }
 };
 
 const extractVideoId = (url) => {
@@ -16,6 +18,7 @@ const extractVideoId = (url) => {
 };
 const YoutubeEmbed = ({ embedId }) => {
   const [id, setId] = useState();
+
   useEffect(() => {
     const fetch = () => {
       if (embedId) {
@@ -24,17 +27,20 @@ const YoutubeEmbed = ({ embedId }) => {
     };
     fetch();
   }, [embedId]);
+
   return (
     <div className="overflow-hidden relative h-fit object-contain">
       {id && (
-        <iframe
+        
+        <LiteYouTubeEmbed id={id} iframeClass="lite-yt" />
+      )}
+      {/* <iframe
           src={id}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           title="Embedded youtube"
           className="aspect-video w-full md:h-auto object-contain"
-        />
-      )}
+        /> */}
     </div>
   );
 };
