@@ -29,18 +29,18 @@ const YoutubeEmbed = ({ embedId }) => {
   }, [embedId]);
 
   return (
-    <div className="overflow-hidden relative h-fit mb-0">
+    <div className="overflow-hidden relative h-fit object-contain">
       {id && (
-        // <iframe
-        //   src={id}
-        //   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        //   allowFullScreen
-        //   title="Embedded youtube"
-        //   className="aspect-video w-full md:h-[500px]"
-        // />
-
+        
         <LiteYouTubeEmbed id={id} iframeClass="lite-yt" />
       )}
+      {/* <iframe
+          src={id}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          title="Embedded youtube"
+          className="aspect-video w-full md:h-auto object-contain"
+        /> */}
     </div>
   );
 };

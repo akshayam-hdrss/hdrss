@@ -87,7 +87,7 @@ export default function Page() {
                 className="px-3 py-2 border border-black rounded-md"
               />
             </div>
-            
+
             <div className="grid gap-1 num-input">
               <label htmlFor="pincode" className="font-semibold">
                 Pin Code
@@ -104,8 +104,11 @@ export default function Page() {
               <label htmlFor="raddress" className="font-semibold">
                 Residentail Address
               </label>
-              <textarea name="raddress" id="raddress"                 className="px-3 py-2 border border-black rounded-md min-h-[200px]"
-></textarea>
+              <textarea
+                name="raddress"
+                id="raddress"
+                className="px-3 py-2 border border-black rounded-md min-h-[200px]"
+              ></textarea>
             </div>
 
             <input

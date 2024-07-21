@@ -12,6 +12,8 @@ import Footer from "@/components/ui/Footer";
 import { getUser } from "@/firebase/firestore/user";
 import Level1Services from "@/components/ui/Level1Services";
 import { getStateLeaders } from "@/firebase/firestore/leaders";
+import { IoIosArrowForward } from "react-icons/io";
+
 import {
   getHomeAdvertisements,
   getServiceAds,
@@ -27,6 +29,7 @@ export default function Home() {
   const [ads, setAds] = useState();
   const [user, setUser] = useState();
   const [userDoc, setUserDoc] = useState();
+  
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -52,88 +55,169 @@ export default function Home() {
 
   return (
     <>
-      <Header />
-      <div>
-        {/* Hero Section */}
+      <div className="fixed w-full top-0 z-[50]">
+        <Header />
+      </div>
+      <div className="lg:grid lg:grid-cols-5 relative z-[0]">
+        <aside className="sticky hidden lg:block top-20 left-0 h-screen">
+          <div className="p-5">
+            <div className="flex justify-center">
+              <div className="">
+                <div className="flex justify-center py-2">
+                <div className="w-[100px] h-[100px] bg-grey rounded-full"></div>
+                </div>
+                <h1 className="font-semibold text-2xl text-center">User Name</h1>
+                <h5 className="text-center">user@gmail.com</h5>
+                <div className="pt-5">
+                <Link href="/" className="flex mb-4 items-center justify-between">
+              <p className="font-medium">Home</p>
+              <IoIosArrowForward />
+            </Link>
+            <div className="flex mb-4 items-center justify-between">
+              <p className="font-medium">Select Location</p>
+              <IoIosArrowForward />
+            </div>
+            <Link
+              href="/all-services"
+              className="flex mb-4 items-center justify-between"
+            >
+              <p className="font-medium">Explore Services</p>
+              <IoIosArrowForward />
+            </Link>
+            <Link
+              href="/directory"
+              className="flex mb-4 items-center justify-between"
+            >
+              <p className="font-medium">Telephone Directory</p>
+              <IoIosArrowForward />
+            </Link>
+            <div className="flex mb-4 items-center justify-between">
+              <a className="font-medium">Contact Us</a>
+              <IoIosArrowForward />
+            </div>
+                </div>
+              </div>
 
-        <div
-          style={{
-            background:
-              "linear-gradient(180deg, hsla(172, 73%, 94%, 1) 0%, hsla(18, 92%, 62%, 1) 100%)",
-          }}
-          className="relative pt-30 h-[45vh] pb-0 flex flex-row items-center justify-center z-0"
-        >
-          {/* Location */}
-
-          <Link
-            href="/district"
-            className="bg-white z-10 absolute top-5 left-2 px-2 py-2 flex items-center justify-around rounded-3xl cursor-pointer shadow-md"
-          >
-            <MdLocationOn fontSize={28} className="pr-1 text-[#E53700]" />
-            <p className="font-bold text-secondary">
-              {userDoc ? userDoc.district : "District"}
-            </p>
-            <RiArrowDropDownLine fontSize={30} />
-          </Link>
-
-          <Link
-            href="/location"
-            className="bg-white z-10 absolute top-5 right-2 px-2 py-2 flex items-center justify-around rounded-3xl cursor-pointer shadow-md"
-          >
-            <MdLocationOn fontSize={28} className="pr-1 text-[#E53700]" />
-            <p className="font-bold text-secondary">
-              {userDoc ? userDoc.location : " Select Location"}
-            </p>
-            <RiArrowDropDownLine fontSize={30} />
-          </Link>
-          <Image
-            src="/temple-bells.png"
-            alt="temple-bells"
-            width={150}
-            height={150}
-            className="opacity-30 absolute top-0 right-0 z-0"
-          />
-          <AdCarousel ads={ads} />
-
-          <Image
-            src="/ram-temple.png"
-            alt="ram-temple"
-            width={150}
-            height={150}
-            className="z-0 opacity-30 absolute left-0 bottom-0"
-          />
-        </div>
-
-        {/* Services Section */}
-
-        <div className="bg-[#FFFAF8] text-black relative w-full h-max pt-6 px-6 z-10 overflow-hidden rounded-[30px] -mt-10">
-          <Image
-            src="/om.svg"
-            alt="om"
-            width={300}
-            height={300}
-            className="rotate-45 opacity-5 absolute -right-7 -top-16 -z-10"
-          />
-          <h1 className="font-koulen text-4xl text-grey mb-8">Services</h1>
-          <div className="grid grid-cols-3 gap-y-10 gap-x-4 items-center justify-center">
-            <Level1Services />
+            </div>
           </div>
-          <Link
-            href="/services"
-            className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer"
-          >
-            <p>See all services</p>
-            <IoIosArrowDown className="ml-1" />
-          </Link>
-        </div>
+        </aside>
+        <div className="lg:col-span-4 lg:order-2 relative w-full lg:pt-[70px]">
+          {/* Hero Section */}
 
-        {/* News Section */}
-        <News />
-        {/* Events Section */}
-        <Events />
-        {/* Products Section */}
-        <div className="bgom overflow-hidden">
-          <div className="p-6 relative ">
+          <div
+            style={{
+              background:
+                "linear-gradient(180deg, hsla(172, 73%, 94%, 1) 0%, hsla(18, 92%, 62%, 1) 100%)",
+            }}
+            className="relative pt-30 h-[45vh] md:h-screen pb-0 flex flex-row items-center justify-center z-0"
+          >
+            {/* Location */}
+
+            <Link
+              href="/district"
+              className="bg-white z-10 absolute top-5 left-2 px-2 py-2 flex items-center justify-around rounded-3xl cursor-pointer shadow-md"
+            >
+              <MdLocationOn fontSize={28} className="pr-1 text-[#E53700]" />
+              <p className="font-bold text-secondary">
+                {userDoc ? userDoc.district : "District"}
+              </p>
+              <RiArrowDropDownLine fontSize={30} />
+            </Link>
+
+            <Link
+              href="/location"
+              className="bg-white z-10 absolute top-5 right-2 px-2 py-2 flex items-center justify-around rounded-3xl cursor-pointer shadow-md"
+            >
+              <MdLocationOn fontSize={28} className="pr-1 text-[#E53700]" />
+              <p className="font-bold text-secondary">
+                {userDoc ? userDoc.location : " Select Location"}
+              </p>
+              <RiArrowDropDownLine fontSize={30} />
+            </Link>
+            <Image
+              src="/temple-bells.png"
+              alt="temple-bells"
+              width={150}
+              height={150}
+              className="opacity-30 absolute top-0 right-0 z-0 md:w-[200px]"
+            />
+            <AdCarousel ads={ads} />
+
+            <Image
+              src="/ram-temple.png"
+              alt="ram-temple"
+              width={150}
+              height={150}
+              className="z-0 opacity-30 absolute left-0 bottom-0 md:w-[250px]"
+            />
+          </div>
+
+          {/* Services Section */}
+
+          <div className="bg-[#FFFAF8] text-black relative w-full h-max py-6 px-6 z-10 overflow-hidden rounded-[30px] -mt-10">
+            <Image
+              src="/om.svg"
+              alt="om"
+              width={300}
+              height={300}
+              className="rotate-45 md:w-[400px] opacity-5 absolute -right-7 -top-16 -z-10"
+            />
+            <h1 className="font-koulen text-4xl text-grey mb-8">Services</h1>
+            <div className="grid grid-cols-3 gap-y-10 gap-x-4 items-center justify-center">
+              <Level1Services />
+            </div>
+            <Link
+              href="/services"
+              className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer"
+            >
+              <p>See all services</p>
+              <IoIosArrowDown className="ml-1" />
+            </Link>
+          </div>
+
+          {/* News Section */}
+          <News />
+          {/* Events Section */}
+          <Events />
+          {/* Products Section */}
+          <div className="bgom overflow-hidden">
+            <div className="p-6 relative ">
+              <Image
+                src="/om.svg"
+                alt="om"
+                width={300}
+                height={300}
+                className="rotate-45 opacity-[0.04] absolute left-16 -top-4 -z-10"
+              ></Image>
+
+              <h1 className="font-koulen text-4xl text-grey mb-6">Products</h1>
+              <Products />
+              <div className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer">
+                <Link href="/products">See all products</Link>
+                <IoIosArrowDown className="ml-1" />
+              </div>
+            </div>
+          </div>
+
+          <Daily />
+          {/* Explore Section */}
+          <div className="py-6 relative overflow-hidden">
+          <Image
+          src="/om.svg"
+          alt="om"
+          width={300}
+          height={300}
+          className="rotate-45 opacity-[0.04] absolute left-16 -top-2 -z-10"
+        ></Image>
+            <h1 className="px-6 font-koulen text-4xl text-grey mb-6">
+              explore
+            </h1>
+
+            <ExploreCarousel />
+          </div>
+
+          {/* Social complaints */}
+          <div className="p-6 relative overflow-hidden z-0">
             <Image
               src="/om.svg"
               alt="om"
@@ -141,128 +225,169 @@ export default function Home() {
               height={300}
               className="rotate-45 opacity-[0.04] absolute right-7 -top-4 -z-10"
             ></Image>
+            <h1 className="font-koulen text-4xl text-grey mb-6">
+              Social Complaints
+            </h1>
+            <div className="grid md:grid-cols-2">
+              <div className="hidden  md:flex">
+                <div className="h-[300px] bg-grey w-full"></div>
+              </div>
+              <div className="md:p-5 px-2 flex flex-col justify-between">
+                <p className="text-justify ">
+                  Complaint if you have any problem in your area or location.
+                  After submitting your complaint, you will be contacted by our
+                  members and the complaint will be resolved by us as soon as
+                  possible.
+                </p>
+                <div className="md:flex hidden pt-5">
+                  <div className="">
+                    <h1 className="text-4xl font-semibold">1000+</h1>
+                    <h5>Complaints Raised</h5>
+                  </div>
+                </div>
+                <Link
+                  href={"/complaint"}
+                  className="text-center md:flex justify-start"
+                >
+                  <button className="bg-kaavi text-white p-3 mt-6 rounded-xl">
+                    Make a complaint
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
 
-            <h1 className="font-koulen text-4xl text-grey mb-6">Products</h1>
-            <Products />
-            <div className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer">
-              <Link href="/products">See all products</Link>
+          {/* Join us */}
+          <div className="p-6 md:p-0 relative overflow-hidden z-0">
+            <Image
+              src="/om.svg"
+              alt="om"
+              width={300}
+              height={300}
+              className="rotate-45 opacity-[0.04] absolute right-7 -top-4 -z-10"
+            ></Image>
+            <div className="md:hidden ">
+              <h1 className="font-koulen text-4xl text-grey mb-6">Join us</h1>
+              <p className="text-justify px-2">
+                Sign up to become a member and make a positive impact in your
+                community and beyond. Let's collaborate to build a stronger
+                Tamil Nadu.
+              </p>
+              <Link href={"/membership/1"} className="text-center">
+                <h1 className="bg-kaavi text-white p-3 mt-6 rounded-xl">
+                  Become a member
+                </h1>
+              </Link>
+            </div>
+            <div
+              className="hidden md:flex items-center md:h-[600px] lg:h-screen bg-cover bg-center bg-no-repeat"
+              style={{ background: `url(/membermd.png)` }}
+            >
+              <div className="p-10 w-full grid gap-8">
+                <div className="">
+                  <div className="font-koulen flex justify-center text-white text-5xl">
+                    <h1>BECOME A MEMBER</h1>
+                  </div>
+                  <div className="flex justify-center w-full pt-5">
+                    <h5 className="text-center text-white text-xl max-w-[800px]">
+                      Lorem ipsum dolor sit amet consectetur. Eleifend dis
+                      pellentesque malesuada sed est. Nunc id sem tincidunt
+                      turpis cras. Nulla neque lorem massa at. Odio consequat
+                      nibh imperdiet euismod dolor velit. Amet curabitur felis
+                      pellentesque sapien ultricies egestas nulla. Natoque
+                      maecenas eu in est. Duis metus id vulputate nulla.
+                    </h5>
+                  </div>
+                </div>
+                <div className="flex justify-center">
+                  <div className="grid grid-cols-3 gap-x-10">
+                    <div className="text-white">
+                      <h1 className=" text-5xl font-semibold">500+</h1>
+                      <h5>Member</h5>
+                    </div>
+                    <div className="text-white">
+                      <h1 className=" text-5xl font-semibold">100+</h1>
+                      <h5>Social Changes</h5>
+                    </div>
+                    <div className="text-white">
+                      <h1 className=" text-5xl font-semibold">100+</h1>
+                      <h5>Lorem ipsum dolo</h5>
+                    </div>
+                  </div>
+                </div>
+                <div className="">
+                  <Link href={"/membership/1"} className="text-center justify-center flex">
+                    <h1 className="bg-white text-3xl p-3 px-8 rounded-xl font-semibold">
+                      Join Our Family
+                    </h1>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Members */}
+          <div className="p-6 md:py-10">
+            <h1 className="font-koulen text-4xl text-grey mb-2">Members</h1>
+            <h2 className="text-lg text-grey font-bold">State Level Leaders</h2>
+            <div className="grid md:grid-cols-4">
+            {randomData && (
+              <div className="p-6 flex md:grid justify-evenly gap-x-4 items-center my-2">
+                <img
+                  src={randomData.data.profile}
+                  alt="user profile"
+                className="w-[70px]"
+                />
+                <div>
+                  <h1 className="font-medium text-xl">
+                    {randomData.data.name}
+                  </h1>
+                  <h2 className="text-base">{randomData.data.position}</h2>
+                  <p className="text-grey text-sm">{randomData.data.mobile}</p>
+                </div>
+              </div>
+            )}
+
+            </div>
+            <div className="flex justify-center items-center w-fit bg-kaavi text-white mx-auto py-2 px-4 rounded-xl">
+              <Link href="/members">All members</Link>
               <IoIosArrowDown className="ml-1" />
             </div>
           </div>
-        </div>
 
-        <Daily />
-        {/* Explore Section */}
-        <div className="py-6">
-          <h1 className="px-6 font-koulen text-4xl text-grey mb-6">explore</h1>
-
-          <ExploreCarousel />
-        </div>
-
-        {/* Social complaints */}
-        <div className="p-6 relative overflow-hidden z-0">
-          <Image
-            src="/om.svg"
-            alt="om"
-            width={300}
-            height={300}
-            className="rotate-45 opacity-[0.04] absolute right-7 -top-4 -z-10"
-          ></Image>
-          <h1 className="font-koulen text-4xl text-grey mb-6">
-            Social Complaints
-          </h1>
-          <p className="text-justify px-2">
-            Complaint if you have any problem in your area or location. After
-            submitting your complaint, you will be contacted by our members and
-            the complaint will be resolved by us as soon as possible.
-          </p>
-          <Link href={"/complaint"} className="text-center">
-            <button className="bg-kaavi text-white p-3 mt-6 rounded-xl">
-              Make a complaint
-            </button>
-          </Link>
-        </div>
-
-        {/* Join us */}
-        <div className="p-6 relative overflow-hidden z-0">
-          <Image
-            src="/om.svg"
-            alt="om"
-            width={300}
-            height={300}
-            className="rotate-45 opacity-[0.04] absolute right-7 -top-4 -z-10"
-          ></Image>
-          <h1 className="font-koulen text-4xl text-grey mb-6">Join us</h1>
-          <p className="text-justify px-2">
-            Sign up to become a member and make a positive impact in your
-            community and beyond. Let's collaborate to build a stronger Tamil
-            Nadu.
-          </p>
-          <Link href={"/membership/1"} className="text-center">
-            <h1 className="bg-kaavi text-white p-3 mt-6 rounded-xl">
-              Become a member
+          {/* Offers and rewards */}
+          <div className="p-6">
+            <h1 className="font-koulen text-4xl text-grey mb-2">
+              Offers and rewards
             </h1>
-          </Link>
-        </div>
+            <div className="flex justify-around items-center mt-6 ml-5 md:py-10">
+              <Link href={"/games"} className="text-center grid gap-2 md:scale-125">
+                <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
+                  <img src="/games.svg" alt="games" width={40} height={40} />
+                </div>
+                <h2>Games</h2>
+              </Link>
 
-        {/* Members */}
-        <div className="p-6">
-          <h1 className="font-koulen text-4xl text-grey mb-2">Members</h1>
-          <h2 className="text-lg text-grey font-bold">State Level Leaders</h2>
-          {randomData && (
-            <div className="p-6 flex justify-evenly gap-x-4 items-center my-2">
-              <img
-                src={randomData.data.profile}
-                alt="user profile"
-                height={70}
-                width={70}
-              />
-              <div>
-                <h1 className="font-medium text-xl">{randomData.data.name}</h1>
-                <h2 className="text-base">{randomData.data.position}</h2>
-                <p className="text-grey text-sm">{randomData.data.mobile}</p>
-              </div>
+              <Link href={"/offers"} className="text-center grid gap-2 md:scale-125">
+                <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
+                  <img src="/offers.svg" alt="offers" width={40} height={40} />
+                </div>
+                <h2>Offers</h2>
+              </Link>
+              <Link href={"/referrals"} className="text-center grid gap-2 md:scale-125">
+                <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
+                  <img
+                    src="/referrals.svg"
+                    alt="referrals"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <h2>Referrals</h2>
+              </Link>
             </div>
-          )}
-
-          <div className="flex justify-center items-center w-fit bg-kaavi text-white mx-auto py-2 px-4 rounded-xl">
-            <Link href="/members">All members</Link>
-            <IoIosArrowDown className="ml-1" />
+            <div className="flex justify-around items-center mt-1"></div>
           </div>
-        </div>
-
-        {/* Offers and rewards */}
-        <div className="p-6">
-          <h1 className="font-koulen text-4xl text-grey mb-2">
-            Offers and rewards
-          </h1>
-          <div className="flex justify-around items-center mt-6 ml-5">
-            <Link href={"/games"} className="text-center grid gap-2">
-              <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
-                <img src="/games.svg" alt="games" width={40} height={40} />
-              </div>
-              <h2>Games</h2>
-            </Link>
-
-            <Link href={"/offers"} className="text-center grid gap-2">
-              <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
-                <img src="/offers.svg" alt="offers" width={40} height={40} />
-              </div>
-              <h2>Offers</h2>
-            </Link>
-            <Link href={"/referrals"} className="text-center grid gap-2">
-              <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
-                <img
-                  src="/referrals.svg"
-                  alt="referrals"
-                  width={40}
-                  height={40}
-                />
-              </div>
-              <h2>Referrals</h2>
-            </Link>
-          </div>
-          <div className="flex justify-around items-center mt-1"></div>
         </div>
       </div>
       <Footer />

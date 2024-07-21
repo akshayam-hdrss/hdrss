@@ -17,7 +17,7 @@ function Products() {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="grid grid-cols-2  gap-5 mt-8 p-5">
+    <div className="grid grid-cols-2 md:grid-cols-4  gap-5 mt-8 p-5">
       {products &&
         products.slice(0, 4).map((item) => (
           <Link

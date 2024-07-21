@@ -55,18 +55,21 @@ function Header() {
         background: "linear-gradient(to right, #FF4D14 0%, #FF1F00 100%)",
       }}
     >
-      <Link href="/" className="mr-28">
-<h1 className="font-lena font-medium text-2xl">akshayam</h1>
+      <div className="hidden lg:flex"></div>
+      <Link href="/" className="">
+        <h1 className="font-lena font-medium text-2xl">akshayam</h1>
       </Link>
 
-      <IoToggle fontSize={35} className="cursor-pointer" />
-      <React.Fragment>
+      <div className="flex items-center gap-5">
+        <IoToggle fontSize={35} className="cursor-pointer " />
         <button
           onClick={toggleDrawer}
-          className="bg-inherit m-0 p-0 shadow-none"
+          className="bg-inherit m-0 p-0 shadow-none lg:hidden"
         >
           <IoMenu fontSize={40} />
         </button>
+      </div>
+      <React.Fragment>
         <ThemeProvider theme={theme}>
           <Drawer
             anchor="right"
