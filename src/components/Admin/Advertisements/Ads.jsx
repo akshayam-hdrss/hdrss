@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -9,7 +9,6 @@ import {
 import { IoClose } from "react-icons/io5";
 import {
   deleteServiceAds,
-  getServiceAds,
   updateServiceAds,
 } from "@/firebase/firestore/advertisements";
 
@@ -21,8 +20,8 @@ function Ads({
   previous = null,
   home = null,
   type,
+  data,
 }) {
-  const [existingAds, setExistingAds] = useState();
   const [ads, setAds] = useState([]);
   const handleOpen = () => {
     setOpen(true);
@@ -33,12 +32,12 @@ function Ads({
   };
   const handleDelete = async (adToDelete) => {
     await deleteServiceAds(
+      adToDelete,
+      type,
       rootprevious,
       beforeprevious,
       previous,
-      home,
-      adToDelete,
-      type
+      home
     );
 
     console.log("added");
@@ -58,19 +57,6 @@ function Ads({
     setOpen(!open);
   };
 
-  useEffect(() => {
-    const fetch = async () => {
-      const data = await getServiceAds(
-        type,
-        rootprevious,
-        beforeprevious,
-        previous,
-        home
-      );
-      setExistingAds(data);
-    };
-    fetch();
-  });
   return (
     <>
       <Button onClick={handleOpen} className="bg-kaavi">
@@ -86,12 +72,26 @@ function Ads({
           <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
               <Typography variant="h4" color="blue-gray">
-                Update {home ? "Home" : { previous }} Page Ads
+                Update Ads
               </Typography>
               <IoClose fontSize={30} onClick={handleClose} />
             </div>
-            {existingAds &&
-              existingAds.map((ad, index) => (
+            <ul className="list-disc pl-5">
+              <li>
+                Aspect Ratio: <strong>16:9</strong>
+              </li>
+              <li>
+                Resolution: <strong>1920x1080 pixels</strong>
+              </li>
+              <li>
+                File Format: <strong>JPEG or PNG</strong>
+              </li>
+              <li>
+                File Size: <strong>Less than 1MB</strong>
+              </li>
+            </ul>
+            {data &&
+              data.map((ad, index) => (
                 <div key={index} className="relative">
                   <img
                     src={ad}

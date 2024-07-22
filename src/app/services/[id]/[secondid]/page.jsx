@@ -9,7 +9,7 @@ import Footer from "@/components/ui/Footer";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import BackButton from "@/components/ui/BackButton";
 import Link from "next/link";
-import { getLevel3ServicesYt } from "@/firebase/firestore/servicesyt";
+import { getYt } from "@/firebase/firestore/servicesyt";
 import { getServiceAds } from "@/firebase/firestore/advertisements";
 import Advertisement from "@/components/ui/Advertisement";
 export async function generateStaticParams() {
@@ -44,11 +44,7 @@ async function ServiceLevel2Page({ params }) {
     "services"
   );
   const capitalized = await getName(null, decodedfirst, decodedsecond);
-  const link = await getLevel3ServicesYt(
-    decodedfirst,
-    decodedsecond,
-    "services"
-  );
+  const link = await getYt("services", null, decodedfirst, decodedsecond);
   const ads = await getServiceAds(
     "services",
     null,
@@ -72,14 +68,14 @@ async function ServiceLevel2Page({ params }) {
               key={index}
               className="flex items-center justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 md:gap-x-6 p-6 px-3"
             >
-              <div className="w-1/3 md:w-1/5 h-fit mr-3">
+              <div className="w-1/3 md:w-1/5 lg:w-1/6 h-fit mr-3">
                 <img
                   src={doc.data.iconUrl}
                   alt="Icon"
                   className="object-scale-down aspect-square"
                 />
               </div>
-              <h1 className="w-2/3 md:w-4/5 mr-0">{doc.data.name}</h1>
+              <h1 className="w-2/3 md:w-4/5 lg:w-5/6 mr-0">{doc.data.name}</h1>
             </Link>
           ))}
         </div>

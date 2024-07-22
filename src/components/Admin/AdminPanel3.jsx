@@ -12,12 +12,15 @@ import DeleteExplorePopup from "@/components/Admin/Explore/DeleteExplorePopup";
 import AddExplorePopup from "@/components/Admin/Explore/AddExplorePopup";
 import { subscribeToExplore } from "@/firebase/firestore/explore";
 import EditSno from "./Services/EditSno";
+import { getYt } from "@/firebase/firestore/servicesyt";
 import EditYt from "./Services/EditYt";
 import Link from "next/link";
 import Ads from "@/components/Admin/Advertisements/Ads";
 import { getServiceAds } from "@/firebase/firestore/advertisements";
 function AdminPanel3() {
   const [open, setOpen] = useState(false);
+    const [link, setLink] = useState();
+
   const [services, setServices] = useState(null);
   const [products, setProducts] = useState(null);
   const [editOpen, setEditOpen] = useState(false);
@@ -137,6 +140,8 @@ function AdminPanel3() {
         null
       );
       setAds(data);
+       const data2 = await getYt("services", null, beforeprevious, previous);
+       setLink(data2);
     };
     fetch();
   }, [adsOpen]);
@@ -235,6 +240,7 @@ function AdminPanel3() {
           previous={previous}
           type={type}
           data={ads}
+          home={null}
         />
       </div>
       <div className="flex justify-between items-center my-4">
@@ -245,6 +251,8 @@ function AdminPanel3() {
           type={type}
           previous={previous}
           beforeprevious={beforeprevious}
+          rootprevious={null}
+          data={link}
         />
       </div>
     </div>

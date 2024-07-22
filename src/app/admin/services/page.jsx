@@ -8,15 +8,19 @@ import DeleteServicePopup from "@/components/Admin/Services/DeleteServicePopup";
 import Ads from "@/components/Admin/Advertisements/Ads";
 import EditSno from "@/components/Admin/Services/EditSno";
 import EditYt from "@/components/Admin/Services/EditYt";
+import { getServiceAds } from "@/firebase/firestore/advertisements";
+import { getYt } from "@/firebase/firestore/servicesyt";
 
 function page() {
   const [snoOpen, setSnoOpen] = useState();
   const [ytOpen, setYtOpen] = useState();
+  const [link, setLink] = useState();
   const [editOpen, setEditOpen] = useState();
   const [deleteOpen, setDeleteOpen] = useState();
   const [addOpen, setAddOpen] = useState();
   const [services, setServices] = useState();
   const [adsOpen, setAdsOpen] = useState();
+  const [ads, setAds] = useState();
 
   useEffect(() => {
     const unsubscribe = subscribeToServicesAndProducts(
@@ -31,6 +35,15 @@ function page() {
     };
   }, []);
 
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getServiceAds("services", null, null, null, null);
+      setAds(data);
+      const data2 = await getYt("services", null, null, null);
+      setLink(data2);
+    };
+    fetch();
+  }, [adsOpen]);
   return (
     <div className="my-8 mt-14">
       <div className="flex justify-between gap-x-10 items-center mb-14">
@@ -60,11 +73,28 @@ function page() {
       <div>
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-medium">Advertisement</h2>
-          <Ads open={adsOpen} setOpen={setAdsOpen} type="services" />
+          <Ads
+            open={adsOpen}
+            setOpen={setAdsOpen}
+            type="services"
+            rootprevious={null}
+            beforeprevious={null}
+            previous={null}
+            home={null}
+            data={ads}
+          />
         </div>
         <div className="flex justify-between my-4 items-center">
           <h2 className="text-xl font-medium">Youtube Link</h2>
-          <EditYt open={ytOpen} setOpen={setYtOpen} type="services" />
+          <EditYt
+            open={ytOpen}
+            setOpen={setYtOpen}
+            type="services"
+            rootprevious={null}
+            beforeprevious={null}
+            previous={null}
+            data={link}
+          />
         </div>
       </div>
       <div className="grid grid-cols-3 place-items-center md:grid-cols-4 mt-10 gap-y-10 gap-x-10">

@@ -35,22 +35,25 @@ export async function deleteAdImages(ad) {
 
 export const getServiceAds = async (
   type,
-  level1 = null,
-  level2 = null,
-  level3 = null,
+  rootprevious = null,
+  beforeprevious = null,
+  previous = null,
   home = null
 ) => {
   try {
     let docRef;
-    if (level1 && level2 && level3) {
+    if (rootprevious) {
       docRef = doc(
         db,
-        `${type}/${level1}/${level1}col/${level2}/${level2}col/${level3}`
+        `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}`
       );
-    } else if (level1 && level2) {
-      docRef = doc(db, `${type}/${level1}/${level1}col/${level2}`);
-    } else if (level1) {
-      docRef = doc(db, `${type}/${level1}`);
+    } else if (beforeprevious) {
+      docRef = doc(
+        db,
+        `${type}/${beforeprevious}/${beforeprevious}col/${previous}`
+      );
+    } else if (previous) {
+      docRef = doc(db, `${type}/${previous}`);
     } else if (home) {
       docRef = doc(db, "advertisements/ads");
     } else {
@@ -63,25 +66,29 @@ export const getServiceAds = async (
     console.log(e);
   }
 };
+
 export const updateServiceAds = async (
   ads,
   type,
-  level1 = null,
-  level2 = null,
-  level3 = null,
+  rootprevious = null,
+  beforeprevious = null,
+  previous = null,
   home = null
 ) => {
   try {
     let docRef;
-    if (level1 && level2 && level3) {
+    if (rootprevious) {
       docRef = doc(
         db,
-        `${type}/${level1}/${level1}col/${level2}/${level2}col/${level3}`
+        `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}`
       );
-    } else if (level1 && level2) {
-      docRef = doc(db, `${type}/${level1}/${level1}col/${level2}`);
-    } else if (level1) {
-      docRef = doc(db, `${type}/${level1}`);
+    } else if (beforeprevious) {
+      docRef = doc(
+        db,
+        `${type}/${beforeprevious}/${beforeprevious}col/${previous}`
+      );
+    } else if (previous) {
+      docRef = doc(db, `${type}/${previous}`);
     } else if (home) {
       docRef = doc(db, "advertisements/ads");
     } else {
@@ -98,28 +105,31 @@ export const updateServiceAds = async (
 export const deleteServiceAds = async (
   valueToDelete,
   type,
-  level1 = null,
-  level2 = null,
-  level3 = null,
+  rootprevious = null,
+  beforeprevious = null,
+  previous = null,
   home = null
 ) => {
   try {
     let docRef;
 
-    if (level1 && level2 && level3) {
-      docRef = doc(
-        db,
-        `${type}/${level1}/${level1}col/${level2}/${level2}col/${level3}`
-      );
-    } else if (level1 && level2) {
-      docRef = doc(db, `${type}/${level1}/${level1}col/${level2}`);
-    } else if (level1) {
-      docRef = doc(db, `${type}/${level1}`);
-    } else if (home) {
-      docRef = doc(db, "advertisements/ads");
-    } else {
-      docRef = doc(db, `${type}/ads`);
-    }
+     if (rootprevious) {
+       docRef = doc(
+         db,
+         `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}`
+       );
+     } else if (beforeprevious) {
+       docRef = doc(
+         db,
+         `${type}/${beforeprevious}/${beforeprevious}col/${previous}`
+       );
+     } else if (previous) {
+       docRef = doc(db, `${type}/${previous}`);
+     } else if (home) {
+       docRef = doc(db, "advertisements/ads");
+     } else {
+       docRef = doc(db, `${type}/ads`);
+     }
 
     await updateDoc(docRef, {
       ads: arrayRemove(valueToDelete),

@@ -2,7 +2,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import ServiceCard from "@/components/ui/ServiceCard";
 import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import BackButton from "@/components/ui/BackButton";
 import AddServicePopup from "@/components/Admin/Services/AddServicePopup";
@@ -14,11 +13,15 @@ import AddExplorePopup from "@/components/Admin/Explore/AddExplorePopup";
 import { subscribeToExplore } from "@/firebase/firestore/explore";
 import Ads from "./Advertisements/Ads";
 import { getServiceAds } from "@/firebase/firestore/advertisements";
+import { getYt } from "@/firebase/firestore/servicesyt";
 import EditSno from "./Services/EditSno";
 import Link from "next/link";
 import EditYt from "./Services/EditYt";
 function AdminPanel2() {
   const [open, setOpen] = useState(false);
+  const [link, setLink] = useState();
+
+  const [ads, setAds] = useState();
   const [services, setServices] = useState(null);
   const [products, setProducts] = useState([]);
   const [editOpen, setEditOpen] = useState(false);
@@ -29,7 +32,6 @@ function AdminPanel2() {
   const [editExploreOpen, setEditExploreOpen] = useState();
   const [deleteExploreOpen, setDeleteExploreOpen] = useState();
   const [ytOpen, setYtOpen] = useState();
-  const [ads, setAds] = useState();
   const [snoOpen, setSnoOpen] = useState();
   const searchparam = useSearchParams();
   const previous = searchparam.get("previous");
@@ -126,13 +128,17 @@ function AdminPanel2() {
       unsubscribe3();
     };
   }, []);
+
   useEffect(() => {
     const fetch = async () => {
       const data = await getServiceAds(type, null, null, previous, null);
       setAds(data);
+      const data2 = await getYt("services", null, null, previous);
+      setLink(data2);
     };
     fetch();
-  }, [adsOpen]);
+  }, [adsOpen, ytOpen]);
+
   return (
     <div className="p-10">
       <BackButton route={`/admin/${type}`} />
@@ -229,6 +235,7 @@ function AdminPanel2() {
             previous={previous}
             type={type}
             data={ads}
+            home={null}
           />
         </div>
         <div className="flex justify-between items-center my-4">
@@ -238,6 +245,9 @@ function AdminPanel2() {
             setOpen={setYtOpen}
             type={type}
             previous={previous}
+            beforeprevious={null}
+            rootprevious={null}
+            data={link}
           />
         </div>
       </div>
