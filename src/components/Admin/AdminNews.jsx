@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import AddNews from "./News/AddNews";
 import EditNews from "./News/EditNews";
@@ -24,12 +25,10 @@ function AdminNews() {
         <Button className="bg-kaavi mx-2" onClick={() => setAddOpen(true)}>
           Add
         </Button>
-        <Button className="bg-kaavi mx-2">Edit</Button>
-        <Button className="bg-kaavi mx-2">Delete</Button>
+        <EditNews open={editOpen} setOpen={setEditOpen} />
+        <DeleteNews open={deleteOpen} setOpen={setDeleteOpen} />
       </div>
       {addOpen && <AddNews open={addOpen} setOpen={setAddOpen} />}
-      {/* <EditNews open={editOpen} setOpen={setEditOpen} />
-      <DeleteNews open={deleteOpen} setOpen={setDeleteOpen} /> */}
     </div>
   );
 }

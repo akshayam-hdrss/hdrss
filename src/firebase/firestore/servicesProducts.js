@@ -9,6 +9,7 @@ import {
   updateDoc,
   getDoc,
   getDocs,
+  deleteDoc,
   where,
   query,
   orderBy,
@@ -39,8 +40,9 @@ export async function addServiceAndProduct(
     } else {
       docUrl = `${type}`;
     }
+    const sno = Math.floor(Math.random() * 100);
     const fileUrl = await uploadIcons(file, id);
-    const docData = { ...data, iconUrl: fileUrl };
+    const docData = { ...data, iconUrl: fileUrl, sno: sno };
     result = await setDoc(doc(db, docUrl, id), docData);
     console.log("added service");
   } catch (e) {
@@ -238,24 +240,24 @@ export async function editServicesAndProducts(
       if (iconUrl) {
         const fileRef = ref(storage, iconUrl);
 
-      //   getMetadata(fileRef)
-      //     .then(() => {
-      //       // File exists, proceed to delete
-      //       deleteObject(fileRef)
-      //         .then(() => {
-      //           console.log("deleted successfully");
-      //         })
-      //         .catch((e) => {
-      //           console.log("Error deleting file:", e);
-      //         });
-      //     })
-      //     .catch((e) => {
-      //       if (e.code === "storage/object-not-found") {
-      //         console.log("File does not exist");
-      //       } else {
-      //         console.log("Error checking file:", e);
-      //       }
-      //     });
+        //   getMetadata(fileRef)
+        //     .then(() => {
+        //       // File exists, proceed to delete
+        //       deleteObject(fileRef)
+        //         .then(() => {
+        //           console.log("deleted successfully");
+        //         })
+        //         .catch((e) => {
+        //           console.log("Error deleting file:", e);
+        //         });
+        //     })
+        //     .catch((e) => {
+        //       if (e.code === "storage/object-not-found") {
+        //         console.log("File does not exist");
+        //       } else {
+        //         console.log("Error checking file:", e);
+        //       }
+        //     });
       }
 
       fileUrl = await uploadIcons(icon, id);
@@ -293,7 +295,7 @@ export async function editServiceAndProductDocs(
     // check for old profile
     if (newprofile != null) {
       //delete old profile pic
-      if ( oldprofile != undefined) {
+      if (oldprofile != undefined) {
         const oldprofileRef = ref(storage, oldprofile);
         await getMetadata(oldprofileRef)
           .then(() => {
