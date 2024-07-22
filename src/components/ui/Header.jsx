@@ -7,6 +7,8 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import Drawer from "@mui/material/Drawer";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { IoPersonCircleOutline } from "react-icons/io5";
+
 import { IoClose } from "react-icons/io5";
 import auth from "@/firebase/config.js";
 import { onAuthStateChanged } from "firebase/auth";
@@ -49,30 +51,34 @@ function Header() {
   }, []);
 
   return (
-    <div
-      className="w-full px-4 py-4 text-primary flex flex-row justify-between items-center"
-      style={{
-        background: "linear-gradient(to right, #FF4D14 0%, #FF1F00 100%)",
-      }}
-    >
-      <div className="hidden lg:flex"></div>
-      <Link href="/" className="">
-        <h1 className="font-lena font-medium text-2xl">akshayam</h1>
-      </Link>
+    <div className="">
+      <div
+        className="w-full px-4 py-4 text-primary flex justify-between items-center"
+        style={{
+          background: "linear-gradient(to right, #FF4D14 0%, #FF1F00 100%)",
+        }}
+      >
+        <div className="flex items-center gap-5">
+          {/* <IoToggle fontSize={35} className="cursor-pointer " /> */}
+          <button
+            onClick={toggleDrawer}
+            className="bg-inherit m-0 p-0 shadow-none lg:hidden"
+          >
+            <IoMenu fontSize={40} />
+          </button>
+        </div>
+        <Link href="/" className="">
+          <h1 className="font-medium text-3xl">Akshayam</h1>
+        </Link>
+        <div className="text-4xl text-white">
+        <IoPersonCircleOutline />
 
-      <div className="flex items-center gap-5">
-        <IoToggle fontSize={35} className="cursor-pointer " />
-        <button
-          onClick={toggleDrawer}
-          className="bg-inherit m-0 p-0 shadow-none lg:hidden"
-        >
-          <IoMenu fontSize={40} />
-        </button>
+        </div>
       </div>
       <React.Fragment>
         <ThemeProvider theme={theme}>
           <Drawer
-            anchor="right"
+            anchor="left"
             open={open}
             onClose={toggleDrawer}
             sx={{

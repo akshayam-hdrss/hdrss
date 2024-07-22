@@ -7,6 +7,8 @@ import Link from "next/link";
 function Products() {
   const [products, setProducts] = useState();
 
+  console.log(products);
+
   useEffect(() => {
     const unsubscribe = subscribeToServicesAndProducts(
       setProducts,
@@ -23,17 +25,18 @@ function Products() {
           <Link
             key={item.id}
             href={`/products/${item.id}`}
-            className="h-36 relative rounded-xl drop-shadow-xl"
+            className=" relative "
           >
-            <img
-              src={item.iconUrl}
-              alt=""
-              className="object-cover w-full h-full rounded-xl"
-            />
-            <div className="absolute inset-0 bg-gradient-w-b from-white to-black opacity-60 h-full w-full rounded-xl"></div>
+            <div className="h-36 border border-black rounded-2xl bg-gradient-to-br from-white to-black/40">
+              <img
+                src={item.iconUrl}
+                alt="product"
+                className="object-cover w-full h-full rounded-2xl"
+              />
+            </div>
 
-            <div className="flex justify-center">
-              <h1 className="font-bold capitalize mt-[-40px] h-fit z-[2] text-xl left-2 text-white bg-kaavi px-1 rounded-md">
+            <div className="flex justify-center relative pt-5">
+              <h1 className="font-semibold capitalize z-[2] text-2xl text-black">
                 {item.id}
               </h1>
             </div>
