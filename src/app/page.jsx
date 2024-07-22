@@ -12,7 +12,6 @@ import Footer from "@/components/ui/Footer";
 import { getUser } from "@/firebase/firestore/user";
 import Level1Services from "@/components/ui/Level1Services";
 import { getStateLeaders } from "@/firebase/firestore/leaders";
-import { IoIosArrowForward } from "react-icons/io";
 
 import {
   getHomeAdvertisements,
@@ -22,6 +21,7 @@ import auth from "@/firebase/config.js";
 import { onAuthStateChanged } from "firebase/auth";
 import AdCarousel from "@/components/ui/AdCarousel";
 import News from "@/components/Home/News";
+import Navbar from "@/components/Navbar";
 import Products from "@/components/Home/Products";
 import Daily from "@/components/Home/Daily";
 export default function Home() {
@@ -58,52 +58,7 @@ export default function Home() {
         <Header />
       </div>
       <div className="lg:grid lg:grid-cols-5 relative z-[0]">
-        <aside className="sticky hidden lg:block top-20 left-0 h-screen">
-          <div className="p-5">
-            <div className="flex justify-center">
-              <div className="">
-                <div className="flex justify-center py-2">
-                  <div className="w-[100px] h-[100px] bg-grey rounded-full"></div>
-                </div>
-                <h1 className="font-semibold text-2xl text-center">
-                  User Name
-                </h1>
-                <h5 className="text-center">user@gmail.com</h5>
-                <div className="pt-5">
-                  <Link
-                    href="/"
-                    className="flex mb-4 items-center justify-between"
-                  >
-                    <p className="font-medium">Home</p>
-                    <IoIosArrowForward />
-                  </Link>
-                  <div className="flex mb-4 items-center justify-between">
-                    <p className="font-medium">Select Location</p>
-                    <IoIosArrowForward />
-                  </div>
-                  <Link
-                    href="/all-services"
-                    className="flex mb-4 items-center justify-between"
-                  >
-                    <p className="font-medium">Explore Services</p>
-                    <IoIosArrowForward />
-                  </Link>
-                  <Link
-                    href="/directory"
-                    className="flex mb-4 items-center justify-between"
-                  >
-                    <p className="font-medium">Telephone Directory</p>
-                    <IoIosArrowForward />
-                  </Link>
-                  <div className="flex mb-4 items-center justify-between">
-                    <a className="font-medium">Contact Us</a>
-                    <IoIosArrowForward />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
+        <Navbar/>
         <div className="lg:col-span-4 lg:order-2 relative w-full pt-[70px]">
           {/* Hero Section */}
 

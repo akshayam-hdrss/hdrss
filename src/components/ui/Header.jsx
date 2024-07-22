@@ -70,8 +70,8 @@ function Header() {
         <Link href="/" className="">
           <h1 className="font-medium text-3xl">Akshayam</h1>
         </Link>
-        <div className="text-4xl text-white">
-        <IoPersonCircleOutline />
+        <div className="text-4xl text-white  ">
+        <IoPersonCircleOutline className="lg:hidden" />
 
         </div>
       </div>
