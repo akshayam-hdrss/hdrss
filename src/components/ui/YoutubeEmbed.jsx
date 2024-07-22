@@ -29,10 +29,12 @@ const YoutubeEmbed = ({ embedId }) => {
   }, [embedId]);
 
   return (
-    <div className="overflow-hidden relative h-fit object-contain">
+    <div className="overflow-hidden relative h-full object-contain grid">
       {id && (
         
-        <LiteYouTubeEmbed id={id} iframeClass="lite-yt" />
+       <div className=" my-auto">
+       <LiteYouTubeEmbed id={id} iframeClass="lite-yt" />
+       </div>
       )}
       {/* <iframe
           src={id}

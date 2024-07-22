@@ -29,7 +29,6 @@ export default function Home() {
   const [ads, setAds] = useState();
   const [user, setUser] = useState();
   const [userDoc, setUserDoc] = useState();
-  
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -64,44 +63,48 @@ export default function Home() {
             <div className="flex justify-center">
               <div className="">
                 <div className="flex justify-center py-2">
-                <div className="w-[100px] h-[100px] bg-grey rounded-full"></div>
+                  <div className="w-[100px] h-[100px] bg-grey rounded-full"></div>
                 </div>
-                <h1 className="font-semibold text-2xl text-center">User Name</h1>
+                <h1 className="font-semibold text-2xl text-center">
+                  User Name
+                </h1>
                 <h5 className="text-center">user@gmail.com</h5>
                 <div className="pt-5">
-                <Link href="/" className="flex mb-4 items-center justify-between">
-              <p className="font-medium">Home</p>
-              <IoIosArrowForward />
-            </Link>
-            <div className="flex mb-4 items-center justify-between">
-              <p className="font-medium">Select Location</p>
-              <IoIosArrowForward />
-            </div>
-            <Link
-              href="/all-services"
-              className="flex mb-4 items-center justify-between"
-            >
-              <p className="font-medium">Explore Services</p>
-              <IoIosArrowForward />
-            </Link>
-            <Link
-              href="/directory"
-              className="flex mb-4 items-center justify-between"
-            >
-              <p className="font-medium">Telephone Directory</p>
-              <IoIosArrowForward />
-            </Link>
-            <div className="flex mb-4 items-center justify-between">
-              <a className="font-medium">Contact Us</a>
-              <IoIosArrowForward />
-            </div>
+                  <Link
+                    href="/"
+                    className="flex mb-4 items-center justify-between"
+                  >
+                    <p className="font-medium">Home</p>
+                    <IoIosArrowForward />
+                  </Link>
+                  <div className="flex mb-4 items-center justify-between">
+                    <p className="font-medium">Select Location</p>
+                    <IoIosArrowForward />
+                  </div>
+                  <Link
+                    href="/all-services"
+                    className="flex mb-4 items-center justify-between"
+                  >
+                    <p className="font-medium">Explore Services</p>
+                    <IoIosArrowForward />
+                  </Link>
+                  <Link
+                    href="/directory"
+                    className="flex mb-4 items-center justify-between"
+                  >
+                    <p className="font-medium">Telephone Directory</p>
+                    <IoIosArrowForward />
+                  </Link>
+                  <div className="flex mb-4 items-center justify-between">
+                    <a className="font-medium">Contact Us</a>
+                    <IoIosArrowForward />
+                  </div>
                 </div>
               </div>
-
             </div>
           </div>
         </aside>
-        <div className="lg:col-span-4 lg:order-2 relative w-full lg:pt-[70px]">
+        <div className="lg:col-span-4 lg:order-2 relative w-full pt-[70px]">
           {/* Hero Section */}
 
           <div
@@ -202,13 +205,13 @@ export default function Home() {
           <Daily />
           {/* Explore Section */}
           <div className="py-6 relative overflow-hidden">
-          <Image
-          src="/om.svg"
-          alt="om"
-          width={300}
-          height={300}
-          className="rotate-45 opacity-[0.04] absolute left-16 -top-2 -z-10"
-        ></Image>
+            <Image
+              src="/om.svg"
+              alt="om"
+              width={300}
+              height={300}
+              className="rotate-45 opacity-[0.04] absolute left-16 -top-2 -z-10"
+            ></Image>
             <h1 className="px-6 font-koulen text-4xl text-grey mb-6">
               explore
             </h1>
@@ -228,12 +231,14 @@ export default function Home() {
             <h1 className="font-koulen text-4xl text-grey mb-6">
               Social Complaints
             </h1>
-            <div className="grid md:grid-cols-2">
+            <div className="grid md:flex gap-5">
               <div className="hidden  md:flex">
-                <div className="h-[300px] bg-grey w-full"></div>
+                <div className=" w-full">
+                  <img src="/complaint.png" alt="" className=" w-[350px]" />
+                </div>
               </div>
-              <div className="md:p-5 px-2 flex flex-col justify-between">
-                <p className="text-justify ">
+              <div className="md:p-5 px-2 flex flex-col justify-between max-w-[500px]">
+                <p className=" ">
                   Complaint if you have any problem in your area or location.
                   After submitting your complaint, you will be contacted by our
                   members and the complaint will be resolved by us as soon as
@@ -273,8 +278,8 @@ export default function Home() {
                 community and beyond. Let's collaborate to build a stronger
                 Tamil Nadu.
               </p>
-              <Link href={"/membership/1"} className="text-center">
-                <h1 className="bg-kaavi text-white p-3 mt-6 rounded-xl">
+              <Link href={"/membership/1"} className="text-center flex justify-center">
+                <h1 className="bg-kaavi text-white p-3 mt-6 rounded-xl px-5">
                   Become a member
                 </h1>
               </Link>
@@ -285,7 +290,7 @@ export default function Home() {
             >
               <div className="p-10 w-full grid gap-8">
                 <div className="">
-                  <div className="font-koulen flex justify-center text-white text-5xl">
+                  <div className="font-koulen flex justify-center text-white text-5xl ">
                     <h1>BECOME A MEMBER</h1>
                   </div>
                   <div className="flex justify-center w-full pt-5">
@@ -316,7 +321,10 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="">
-                  <Link href={"/membership/1"} className="text-center justify-center flex">
+                  <Link
+                    href={"/membership/1"}
+                    className="text-center justify-center flex"
+                  >
                     <h1 className="bg-white text-3xl p-3 px-8 rounded-xl font-semibold">
                       Join Our Family
                     </h1>
@@ -331,23 +339,24 @@ export default function Home() {
             <h1 className="font-koulen text-4xl text-grey mb-2">Members</h1>
             <h2 className="text-lg text-grey font-bold">State Level Leaders</h2>
             <div className="grid md:grid-cols-4">
-            {randomData && (
-              <div className="p-6 flex md:grid justify-evenly gap-x-4 items-center my-2">
-                <img
-                  src={randomData.data.profile}
-                  alt="user profile"
-                className="w-[70px]"
-                />
-                <div>
-                  <h1 className="font-medium text-xl">
-                    {randomData.data.name}
-                  </h1>
-                  <h2 className="text-base">{randomData.data.position}</h2>
-                  <p className="text-grey text-sm">{randomData.data.mobile}</p>
+              {randomData && (
+                <div className="p-6 flex md:grid justify-evenly gap-x-4 items-center my-2">
+                  <img
+                    src={randomData.data.profile}
+                    alt="user profile"
+                    className="w-[70px]"
+                  />
+                  <div>
+                    <h1 className="font-medium text-xl">
+                      {randomData.data.name}
+                    </h1>
+                    <h2 className="text-base">{randomData.data.position}</h2>
+                    <p className="text-grey text-sm">
+                      {randomData.data.mobile}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            )}
-
+              )}
             </div>
             <div className="flex justify-center items-center w-fit bg-kaavi text-white mx-auto py-2 px-4 rounded-xl">
               <Link href="/members">All members</Link>
@@ -361,20 +370,29 @@ export default function Home() {
               Offers and rewards
             </h1>
             <div className="flex justify-around items-center mt-6 ml-5 md:py-10">
-              <Link href={"/games"} className="text-center grid gap-2 md:scale-125">
+              <Link
+                href={"/games"}
+                className="text-center grid gap-2 md:scale-125"
+              >
                 <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
                   <img src="/games.svg" alt="games" width={40} height={40} />
                 </div>
                 <h2>Games</h2>
               </Link>
 
-              <Link href={"/offers"} className="text-center grid gap-2 md:scale-125">
+              <Link
+                href={"/offers"}
+                className="text-center grid gap-2 md:scale-125"
+              >
                 <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
                   <img src="/offers.svg" alt="offers" width={40} height={40} />
                 </div>
                 <h2>Offers</h2>
               </Link>
-              <Link href={"/referrals"} className="text-center grid gap-2 md:scale-125">
+              <Link
+                href={"/referrals"}
+                className="text-center grid gap-2 md:scale-125"
+              >
                 <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
                   <img
                     src="/referrals.svg"

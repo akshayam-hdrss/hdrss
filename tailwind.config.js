@@ -11,7 +11,7 @@ export default withMT({
       primary: "#FFFFFF",
       secondary: "#801F00",
       grey: "#727272",
-      kaavi: "#FF8D3A",
+      kaavi: "#FF3B10",
     },
     plugins: [],
     extend: {
