@@ -19,17 +19,21 @@ function Ads({
   beforeprevious = null,
   previous = null,
   home = null,
-  type,
+  type = null,
   data,
 }) {
   const [ads, setAds] = useState([]);
+
   const handleOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => setOpen(false);
+
   const handleAds = (e) => {
     setAds([...e.target.files]);
   };
+
   const handleDelete = async (adToDelete) => {
     await deleteServiceAds(
       adToDelete,

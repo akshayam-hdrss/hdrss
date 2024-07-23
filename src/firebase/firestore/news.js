@@ -3,6 +3,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
   updateDoc,
@@ -52,6 +53,15 @@ export async function deleteNews(id) {
   try {
     await deleteDoc(doc(db, "news", id));
     console.log("deleted news");
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getOneNews(id) {
+  try {
+    const snapshot = await getDoc(doc(db, `news/${id}`));
+    return snapshot.data();
   } catch (e) {
     console.log(e);
   }

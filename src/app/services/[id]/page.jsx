@@ -31,8 +31,9 @@ export default async function ServicePages({ params }) {
     "services"
   );
   const capitalized = getName(null, null, decoded);
-  const ads = await getServiceAds("services", null, null, id, null);
+  const ads = await getServiceAds("services", null, null, decoded, null);
   const link = await getYt("services", null, null, id);
+  console.log(ads);
   return (
     <div>
       <Header />
@@ -43,12 +44,12 @@ export default async function ServicePages({ params }) {
           {capitalized}
         </h1>
         <Image
-              src="/om.svg"
-              alt="om"
-              width={300}
-              height={300}
-              className="rotate-45 opacity-[0.04] absolute left-16 -top-2 -z-10"
-            ></Image>
+          src="/om.svg"
+          alt="om"
+          width={300}
+          height={300}
+          className="rotate-45 opacity-[0.04] absolute left-16 -top-2 -z-10"
+        ></Image>
         <div className="grid grid-cols-2 gap-y-10 gap-x-4 items-center justify-center">
           {data.map((doc, index) => (
             <Link

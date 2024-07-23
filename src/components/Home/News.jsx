@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Carousel, IconButton } from "@material-tailwind/react";
 import { getNews } from "@/firebase/firestore/news";
 import YoutubeEmbed from "../ui/YoutubeEmbed";
+import Link from "next/link";
 
 function News() {
   const [news, setNews] = useState();
@@ -46,9 +47,12 @@ function News() {
                     <div className="md:flex hidden">
                       <h1 className="font-semibold">21-3-2004</h1>
                     </div>
-                    <button className="text-center col-span-2 mx-auto md:m-0 h-fit w-fit py-1 px-3 rounded-md bg-kaavi text-white ">
-                     Read More
-                    </button>
+                    <Link
+                      href={`news/${doc.id}`}
+                      className="text-center col-span-2 mx-auto md:m-0 h-fit w-fit py-1 px-3 rounded-md bg-kaavi text-white "
+                    >
+                      Read More
+                    </Link>
                   </div>
                 </div>
               </div>

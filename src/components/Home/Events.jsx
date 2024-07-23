@@ -48,7 +48,7 @@ function Events() {
       </div>
 
       <a
-        href=""
+        href="/all-events"
         className="py-1 px-3 bg-kaavi text-white my-5 mt-8 rounded-md block mx-auto w-fit"
       >
         Load More

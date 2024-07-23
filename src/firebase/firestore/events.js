@@ -9,7 +9,8 @@ import {
   addDoc,
   query,
   setDoc,
-  deleteDoc
+  deleteDoc,
+  where,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
@@ -102,6 +103,15 @@ export const deleteEvent = async (id, pfp, images) => {
   try {
     await deleteDoc(doc(db, "events", id));
     console.log("event deleted");
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getEventData = async (id) => {
+  try {
+    const snap = await getDoc(doc(db, `events/${id}`));
+    return snap.data();
   } catch (e) {
     console.log(e);
   }

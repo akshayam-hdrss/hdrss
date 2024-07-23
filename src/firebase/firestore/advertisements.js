@@ -34,7 +34,7 @@ export async function deleteAdImages(ad) {
 }
 
 export const getServiceAds = async (
-  type,
+  type = null,
   rootprevious = null,
   beforeprevious = null,
   previous = null,
@@ -113,23 +113,23 @@ export const deleteServiceAds = async (
   try {
     let docRef;
 
-     if (rootprevious) {
-       docRef = doc(
-         db,
-         `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}`
-       );
-     } else if (beforeprevious) {
-       docRef = doc(
-         db,
-         `${type}/${beforeprevious}/${beforeprevious}col/${previous}`
-       );
-     } else if (previous) {
-       docRef = doc(db, `${type}/${previous}`);
-     } else if (home) {
-       docRef = doc(db, "advertisements/ads");
-     } else {
-       docRef = doc(db, `${type}/ads`);
-     }
+    if (rootprevious) {
+      docRef = doc(
+        db,
+        `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}`
+      );
+    } else if (beforeprevious) {
+      docRef = doc(
+        db,
+        `${type}/${beforeprevious}/${beforeprevious}col/${previous}`
+      );
+    } else if (previous) {
+      docRef = doc(db, `${type}/${previous}`);
+    } else if (home) {
+      docRef = doc(db, "advertisements/ads");
+    } else {
+      docRef = doc(db, `${type}/ads`);
+    }
 
     await updateDoc(docRef, {
       ads: arrayRemove(valueToDelete),
