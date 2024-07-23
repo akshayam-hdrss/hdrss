@@ -73,7 +73,7 @@ function Header() {
         <div className="  ">
           <IoPersonCircleOutline className="lg:hidden text-4xl text-white " />
           
-          <Link href={"/"} className="bg-gradient-to-br text-black font-semibold from-white to-kaavi/80 py-1 px-5 rounded-md ">Contact</Link>
+          <Link href={"/"} className="bg-gradient-to-br text-black font-semibold from-white to-kaavi/80 py-1 px-5 rounded-md hidden lg:flex">Contact</Link>
         </div>
       </div>
       <React.Fragment>
