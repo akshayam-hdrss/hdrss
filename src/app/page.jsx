@@ -189,11 +189,11 @@ export default function Home() {
             <div className="grid md:flex gap-5">
               <div className="hidden  md:flex">
                 <div className=" w-full">
-                  <img src="/complaint.png" alt="" className=" w-[350px]" />
+                  <img src="/complaint.png" alt="" className=" w-[450px]" />
                 </div>
               </div>
-              <div className="md:p-5 px-2 flex flex-col justify-between max-w-[500px]">
-                <p className=" ">
+              <div className="md:p-5 px-2 flex flex-col justify-between max-w-[600px]">
+                <p className="text-xl ">
                   Complaint if you have any problem in your area or location.
                   After submitting your complaint, you will be contacted by our
                   members and the complaint will be resolved by us as soon as
@@ -201,7 +201,7 @@ export default function Home() {
                 </p>
                 <div className="md:flex hidden pt-5">
                   <div className="">
-                    <h1 className="text-4xl font-semibold">1000+</h1>
+                    <h1 className="text-4xl font-semibold">100+</h1>
                     <h5>Complaints Raised</h5>
                   </div>
                 </div>
@@ -209,7 +209,7 @@ export default function Home() {
                   href={"/complaint"}
                   className="text-center md:flex justify-start"
                 >
-                  <button className="bg-kaavi text-white p-3 mt-6 rounded-xl">
+                  <button className="bg-kaavi text-white py-2 px-8 mt-6 rounded-md font-medium">
                     Make a complaint
                   </button>
                 </Link>

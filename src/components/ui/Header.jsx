@@ -55,7 +55,7 @@ function Header() {
       <div
         className="w-full px-4 py-4 text-primary flex justify-between items-center"
         style={{
-          background: "linear-gradient(to right, #FF4D14 0%, #FF1F00 100%)",
+          background: "linear-gradient(to right, #FF5912 0%, #D30000 100%)",
         }}
       >
         <div className="flex items-center gap-5">
@@ -70,9 +70,10 @@ function Header() {
         <Link href="/" className="">
           <h1 className="font-medium text-3xl">Akshayam</h1>
         </Link>
-        <div className="text-4xl text-white  ">
-        <IoPersonCircleOutline className="lg:hidden" />
-
+        <div className="  ">
+          <IoPersonCircleOutline className="lg:hidden text-4xl text-white " />
+          
+          <Link href={"/"} className="bg-gradient-to-br text-black font-semibold from-white to-kaavi/80 py-1 px-5 rounded-md ">Contact</Link>
         </div>
       </div>
       <React.Fragment>

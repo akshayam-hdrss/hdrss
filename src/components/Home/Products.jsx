@@ -27,11 +27,11 @@ function Products() {
             href={`/products/${item.id}`}
             className=" relative "
           >
-            <div className="h-36 border border-black rounded-2xl bg-gradient-to-br from-white to-black/40">
+            <div className="h-36 w-36 border border-black rounded-2xl bg-gradient-to-br from-white to-black/40 mx-auto">
               <img
                 src={item.iconUrl}
                 alt="product"
-                className="object-cover w-full h-full rounded-2xl"
+                className="object-contain w-full h-full rounded-2xl object-center "
               />
             </div>
 

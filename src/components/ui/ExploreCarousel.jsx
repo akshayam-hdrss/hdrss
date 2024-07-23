@@ -152,7 +152,7 @@ function ExploreCarousel() {
                         <h2 className="font-bold text-2xl pb-3">{item}</h2>
                         <Link
                           href={`/explore/${item.toLowerCase()}`}
-                          className="text-sm bg-kaavi text-white px-3 py-2 rounded-xl w-fit"
+                          className="text-sm bg-kaavi text-white px-3 py-[7px] rounded-md w-fit"
                         >
                           Learn more
                         </Link>

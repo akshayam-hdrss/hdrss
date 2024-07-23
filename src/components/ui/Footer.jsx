@@ -48,7 +48,7 @@ function Footer() {
         </div>
       </div>
       <section className="md:grid flex flex-col grid-cols-2 lg:grid-cols-4 gap-5 md:pt-8">
-        <div className="mx-auto lg:m-0">
+        <div className="md:mx-auto lg:m-0">
           <h1 className="text-white text-xl font-semibold">Navigations</h1>
           <div className="grid gap-3 pt-5 text-sm  md:text-[16px] text-white">
             <Link href={"/"} className="">
@@ -66,7 +66,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="mx-auto lg:m-0">
+        <div className="md:mx-auto lg:m-0">
           <h1 className="text-white text-xl font-semibold">
             Contact Information
           </h1>

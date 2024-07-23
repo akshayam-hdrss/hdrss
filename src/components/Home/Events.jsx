@@ -26,18 +26,18 @@ function Events() {
       <div className="border border-grey md:border-none mx-auto w-[80vw] md:w-full rounded-md bg-white md:bg-inherit">
         {events && (
           <>
-            <div className="md:grid grid-cols-2">
-              <div className="bg-white">
+            <div className="md:grid grid-cols-7">
+              <div className="bg-white col-span-4">
               <img
                 src={events[0].data.pfp}
                 alt="event image"
                 className="w-full object-contain m-auto"
               />
               </div>
-              <div className="px-5 py-5 md:py-10 flex flex-col justify-between">
+              <div className="col-span-3 px-5 py-5 md:py-10 flex flex-col justify-between">
                 <p>{events[0].data.title}</p>
                 <div className="flex justify-end">
-                  <h1 className="py-2 px-3 rounded-xl bg-kaavi text-white">
+                  <h1 className="py-1 px-3 rounded-md bg-kaavi text-white">
                     Read More
                   </h1>
                 </div>
@@ -49,7 +49,7 @@ function Events() {
 
       <a
         href=""
-        className="p-2 bg-kaavi text-white my-5 mt-8 rounded-md block mx-auto w-fit"
+        className="py-1 px-3 bg-kaavi text-white my-5 mt-8 rounded-md block mx-auto w-fit"
       >
         Load More
       </a>
