@@ -5,13 +5,18 @@ import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import BackButton from "@/components/ui/BackButton";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
-import { subscribeToExplore } from "@/firebase/firestore/explore";
 import ServiceCard from "@/components/ui/ServiceCard";
+import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 
 function Products() {
   const [data, setData] = useState(null);
   useEffect(() => {
-    const unsubscribe = subscribeToExplore(setData);
+    const unsubscribe = subscribeToServicesAndProducts(
+      setData,
+      null,
+      null,
+      "explore"
+    );
     return () => unsubscribe();
   }, []);
   return (

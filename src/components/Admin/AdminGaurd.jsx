@@ -8,7 +8,11 @@ function AdminGaurd() {
     <div className="py-32 text-center text-3xl">
       <h1 className="mb-7">You're trying to access Protected Admin Panel</h1>
       <h1>
-        Please <Link href="/admin/login" className="text-blue-800 font-bold uppercase">login </Link>to continue
+        Please{" "}
+        <Link href="/login/admin" className="text-blue-800 font-bold uppercase">
+          login{" "}
+        </Link>
+        to continue
       </h1>
     </div>
   );
