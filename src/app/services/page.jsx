@@ -6,7 +6,7 @@ import BackButton from "@/components/ui/BackButton";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import { Carousel } from "@material-tailwind/react";
 import { getServiceAds } from "@/firebase/firestore/advertisements";
-import { getLevel1ServicesYt } from "@/firebase/firestore/servicesyt";
+import { getYt } from "@/firebase/firestore/servicesyt";
 import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import ServiceCard from "@/components/ui/ServiceCard";
 function Services() {
@@ -28,7 +28,7 @@ function Services() {
 
       setAds(ads);
 
-      const link = await getLevel1ServicesYt("services");
+      const link = await getYt("services", null, null, null);
       setLink(link);
     };
     fetch();

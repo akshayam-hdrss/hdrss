@@ -10,9 +10,11 @@ import EditYt from "@/components/Admin/Services/EditYt";
 import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import ServiceCard from "@/components/ui/ServiceCard";
 import { getServiceAds } from "@/firebase/firestore/advertisements";
+import { getYt } from "@/firebase/firestore/servicesyt";
 
 function page() {
   const [products, setProducts] = useState();
+  const [link, setLink] = useState();
   const [snoOpen, setSnoOpen] = useState();
   const [addOpen, setAddOpen] = useState();
   const [editProductsOpen, setEditProductsOpen] = useState();
@@ -24,6 +26,8 @@ function page() {
     const fetchAds = async () => {
       const data = await getServiceAds("products", null, null, null, null);
       setAds(data);
+      const data2 = await getYt("products", null, null, null);
+      setLink(data2);
     };
     const unsubscribe = subscribeToServicesAndProducts(
       setProducts,
@@ -72,7 +76,15 @@ function page() {
         </div>
         <div className="flex justify-between my-4 items-center">
           <h2 className="text-xl font-medium">Youtube Link</h2>
-          <EditYt open={ytOpen} setOpen={setYtOpen} type="products" />
+          <EditYt
+            open={ytOpen}
+            setOpen={setYtOpen}
+            type="products"
+            rootprevious={null}
+            beforeprevious={null}
+            previous={null}
+            data={link}
+          />
         </div>
       </div>
       <div className="grid grid-cols-3 place-items-center md:grid-cols-4 mt-10 gap-y-10 gap-x-10">

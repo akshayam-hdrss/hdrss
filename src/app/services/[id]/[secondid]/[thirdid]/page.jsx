@@ -8,10 +8,8 @@ import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import Link from "next/link";
 import BackButton from "@/components/ui/BackButton";
-import { getLevel4ServicesYt } from "@/firebase/firestore/servicesyt";
-import {
-  getServiceAds,
-} from "@/firebase/firestore/advertisements";
+import { getYt } from "@/firebase/firestore/servicesyt";
+import { getServiceAds } from "@/firebase/firestore/advertisements";
 import Advertisement from "@/components/ui/Advertisement";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 
@@ -60,11 +58,11 @@ async function ServiceLevel3Page({ params }) {
     "services"
   );
   const capitalized = await getName(decodedfirst, decodedsecond, decodedthird);
-  const link = await getLevel4ServicesYt(
+  const link = await getYt(
+    "services",
     decodedfirst,
     decodedsecond,
-    decodedthird,
-    "services"
+    decodedthird
   );
   const ads = await getServiceAds(
     "services",

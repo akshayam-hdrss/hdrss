@@ -73,7 +73,7 @@ function EditServicePopup({
           <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
               <Typography variant="h4" color="blue-gray">
-                Edit a Service
+                Edit a {type}
               </Typography>
               <IoClose fontSize={30} onClick={handleClose} />
             </div>
@@ -83,7 +83,7 @@ function EditServicePopup({
               variant="paragraph"
               color="gray"
             >
-              Enter details for the Level 1 service.
+              Enter details for the {type}.
             </Typography>
             <Typography className="-mb-2" variant="h6">
               Select the Service you want to change
@@ -117,15 +117,15 @@ function EditServicePopup({
             </Typography>
             <input type="file" onChange={handleIconChange} />
           </div>
-          
-            <Button
-              className="bg-kaavi text-white mt-8"
-              type="submit"
-              onClick={handleEdit}
-              fullWidth
-            >
-              Enter
-            </Button>
+
+          <Button
+            className="bg-kaavi text-white mt-8"
+            type="submit"
+            onClick={handleEdit}
+            fullWidth
+          >
+            Enter
+          </Button>
         </DialogBody>
       </Dialog>
     </>

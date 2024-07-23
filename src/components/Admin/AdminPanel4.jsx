@@ -8,6 +8,7 @@ import AddProductDocPopup from "@/components/Admin/Services/AddProductDocPopup";
 import DeleteDocPopup from "@/components/Admin/Services/DeleteDocPopup";
 import EditDocPopup from "@/components/Admin/Services/EditDocPopup";
 import { getServiceAds } from "@/firebase/firestore/advertisements";
+import { getYt } from "@/firebase/firestore/servicesyt";
 import Ads from "@/components/Admin/Advertisements/Ads";
 import EditYt from "@/components/Admin/Services/EditYt";
 function AdminPanel4() {
@@ -23,6 +24,7 @@ function AdminPanel4() {
   const [ads, setAds] = useState();
   const searchparam = useSearchParams();
   const tempprevious = searchparam.get("previous");
+  const [link, setLink] = useState();
 
   const previous = decodeURIComponent(tempprevious);
   const beforeprevious = searchparam.get("beforeprevious");
@@ -96,6 +98,13 @@ function AdminPanel4() {
         null
       );
       setAds(data);
+      const data2 = await getYt(
+        "services",
+        rootprevious,
+        beforeprevious,
+        previous
+      );
+      setLink(data2);
     };
     fetch();
   }, []);
@@ -197,6 +206,7 @@ function AdminPanel4() {
             previous={previous}
             beforeprevious={beforeprevious}
             rootprevious={rootprevious}
+            data={link}
           />
         </div>
       </div>

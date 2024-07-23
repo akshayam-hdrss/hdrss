@@ -18,7 +18,7 @@ function DeleteNews({ open, setOpen }) {
   return (
     <>
       <Button onClick={handleOpen} className="bg-kaavi mx-2">
-        Add
+        Delete
       </Button>
       <Dialog
         open={open}

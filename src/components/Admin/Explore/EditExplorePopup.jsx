@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import {
   Button,
   Dialog,
-  Card,
-  CardBody,
-  CardFooter,
   Typography,
+  DialogBody,
 } from "@material-tailwind/react";
 import { editExplore } from "@/firebase/firestore/explore";
 import { IoClose } from "react-icons/io5";
@@ -60,9 +58,14 @@ function EditExplorePopup({
       <Button onClick={handleOpen} className="bg-kaavi">
         Edit
       </Button>
-      <Dialog open={open} handler={handleOpen}>
-        <Card className="mx-auto w-full max-w-[24rem] font-inter">
-          <CardBody className="flex flex-col gap-4">
+      <Dialog
+        open={open}
+        handler={handleOpen}
+        className="overflow-scroll"
+        style={{ maxHeight: "calc(100vh - 200px)" }}
+      >
+        <DialogBody className="mx-auto w-full h-full font-inter">
+          <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
               <Typography variant="h4" color="blue-gray">
                 Edit a Explore
@@ -108,8 +111,8 @@ function EditExplorePopup({
               Give Icon
             </Typography>
             <input type="file" onChange={handleIconChange} />
-          </CardBody>
-          <CardFooter className="pt-0">
+          </div>
+          <div className="pt-0">
             <Button
               className="bg-kaavi text-white"
               type="submit"
@@ -118,8 +121,8 @@ function EditExplorePopup({
             >
               Enter
             </Button>
-          </CardFooter>
-        </Card>
+          </div>
+        </DialogBody>
       </Dialog>
     </>
   );
