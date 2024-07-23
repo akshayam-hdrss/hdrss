@@ -7,10 +7,6 @@ import BackButton from "@/components/ui/BackButton";
 import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import EditServicePopup from "@/components/Admin/Services/EditServicePopup";
 import DeleteServicePopup from "@/components/Admin/Services/DeleteServicePopup";
-import EditExplorePopup from "@/components/Admin/Explore/EditExplorePopup";
-import DeleteExplorePopup from "@/components/Admin/Explore/DeleteExplorePopup";
-import AddExplorePopup from "@/components/Admin/Explore/AddExplorePopup";
-import { subscribeToExplore } from "@/firebase/firestore/explore";
 import EditSno from "./Services/EditSno";
 import { getYt } from "@/firebase/firestore/servicesyt";
 import EditYt from "./Services/EditYt";
@@ -97,48 +93,45 @@ function AdminPanel3() {
       <div className="flex justify-between items-center mb-14">
         <h1 className="font-bold text-2xl md:text-4xl mr-10">{name}</h1>
         <div className="flex gap-x-10">
-         
-              <EditSno
-                beforeprevious={beforeprevious}
-                previous={previous}
-                open={snoOpen}
-                setOpen={setSnoOpen}
-                type={type}
-              />
-              <EditServicePopup
-                open={editOpen}
-                setOpen={setEditOpen}
-                data={data}
-                rootprevious={null}
-                beforeprevious={beforeprevious}
-                previous={previous}
-                type={type}
-              />
-              <DeleteServicePopup
-                open={deleteOpen}
-                setOpen={setDeleteOpen}
-                data={data}
-                rootprevious={null}
-                beforeprevious={beforeprevious}
-                previous={previous}
-                type={type}
-              />
-          
+          <EditSno
+            beforeprevious={beforeprevious}
+            previous={previous}
+            open={snoOpen}
+            setOpen={setSnoOpen}
+            type={type}
+          />
+          <EditServicePopup
+            open={editOpen}
+            setOpen={setEditOpen}
+            data={data}
+            rootprevious={null}
+            beforeprevious={beforeprevious}
+            previous={previous}
+            type={type}
+          />
+          <DeleteServicePopup
+            open={deleteOpen}
+            setOpen={setDeleteOpen}
+            data={data}
+            rootprevious={null}
+            beforeprevious={beforeprevious}
+            previous={previous}
+            type={type}
+          />
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-y-10 gap-x-14 items-center justify-center py-6 px-10">
-       {content}
-        
-            <AddServicePopup
-              open={open}
-              setOpen={setOpen}
-              rootprevious={null}
-              beforeprevious={beforeprevious}
-              previous={previous}
-              type={type}
-            />
-         
+        {content}
+
+        <AddServicePopup
+          open={open}
+          setOpen={setOpen}
+          rootprevious={null}
+          beforeprevious={beforeprevious}
+          previous={previous}
+          type={type}
+        />
       </div>
       <div className="flex justify-between items-center">
         <h1>Advertisements</h1>
