@@ -28,14 +28,14 @@ function Events() {
           <>
             <div className="md:grid grid-cols-7">
               <div className="bg-white col-span-4">
-              <img
-                src={events[0].data.pfp}
-                alt="event image"
-                className="w-full object-contain m-auto"
-              />
+                <img
+                  src={events[0].data.pfp}
+                  alt="event image"
+                  className="w-full object-contain m-auto"
+                />
               </div>
               <div className="col-span-3 px-5 py-5 md:py-10 flex flex-col justify-between">
-                <p>{events[0].data.title}</p>
+                <p>{events[0].data.title.slice(0, 100)}</p>
                 <div className="flex justify-end">
                   <h1 className="py-1 px-3 rounded-md bg-kaavi text-white">
                     Read More

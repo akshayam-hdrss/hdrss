@@ -52,3 +52,13 @@
 .lite-yt {
   aspect-ratio: 16/9;
 }
+
+.nosc::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.nosc {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}

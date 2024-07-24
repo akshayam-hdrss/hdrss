@@ -19,7 +19,7 @@ function Products() {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="flex justify-center">
+    <div className="flex md:block justify-center">
       <div className="grid grid-cols-2 md:grid-cols-4  gap-5 mt-8">
       {products &&
         products.slice(0, 4).map((item) => (
