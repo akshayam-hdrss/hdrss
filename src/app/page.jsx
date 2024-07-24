@@ -228,7 +228,7 @@ export default function Home() {
             ></Image>
             <div className="md:hidden ">
               <h1 className="font-koulen text-4xl text-grey mb-6">Join us</h1>
-              <p className="text-justify px-2">
+              <p className="text-xl">
                 Sign up to become a member and make a positive impact in your
                 community and beyond. Let's collaborate to build a stronger
                 Tamil Nadu.

@@ -20,7 +20,7 @@ function Events() {
   return (
     <div>
       <Header />
-      <BackButton  />
+      <BackButton />
       <div className="p-6 flex justify-between items-center">
         <div>
           <h1 className="font-koulen text-4xl uppercase text-grey">Events</h1>
@@ -34,7 +34,11 @@ function Events() {
         {events &&
           events.map((event, index) => (
             <>
-              <Link href={`/events/${event.id}`} key={index} className="md:grid grid-cols-7 block mx-10 my-4 border border-kaavi">
+              <Link
+                href={`/events/${event.id}`}
+                key={index}
+                className="md:grid grid-cols-7 block mx-10 my-4 border border-kaavi"
+              >
                 <div className="bg-white col-span-4">
                   <img
                     src={event.data.pfp}
@@ -43,7 +47,7 @@ function Events() {
                   />
                 </div>
                 <div className="col-span-3 px-5 py-5 md:py-10 flex flex-col justify-between">
-                  <p>{event.data.title}</p>
+                  <p>{event.data.title.slice(0, 100)}</p>
                   <div className="flex justify-end">
                     <h1 className="py-1 px-3 rounded-md bg-kaavi text-white">
                       Read More
