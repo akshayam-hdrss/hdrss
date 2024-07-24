@@ -122,6 +122,10 @@ function Header() {
               <p className="font-medium">Home</p>
               <IoIosArrowForward />
             </Link>
+            <Link href="/about" className="flex mb-4 items-center justify-between">
+              <p className="font-medium">About us</p>
+              <IoIosArrowForward />
+            </Link>
             <div className="flex mb-4 items-center justify-between">
               <p className="font-medium">Select Location</p>
               <IoIosArrowForward />

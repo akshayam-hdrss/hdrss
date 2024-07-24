@@ -29,7 +29,7 @@ const YoutubeEmbed = ({ embedId }) => {
   }, [embedId]);
 
   return (
-    <div>
+    <div className="">
       {id && (
         
        <div className=" my-auto">

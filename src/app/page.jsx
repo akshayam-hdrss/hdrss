@@ -59,7 +59,7 @@ export default function Home() {
       </div>
       <div className="lg:grid lg:grid-cols-5 relative z-[0]">
         <Navbar/>
-        <div className="lg:col-span-4 lg:order-2 relative w-full pt-[70px]">
+        <div className="lg:col-span-4 lg:order-2 relative w-full pt-[70px] bg-[#FFFAF8]">
           {/* Hero Section */}
 
           <div
@@ -156,7 +156,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-
+{/* daily */}
           <Daily />
           {/* Explore Section */}
           <div className="py-6 relative overflow-hidden">
@@ -193,7 +193,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="md:p-5 px-2 flex flex-col justify-between max-w-[600px]">
-                <p className="text-xl ">
+                <p className="md:text-xl text-md text-justify md:text-start">
                   Complaint if you have any problem in your area or location.
                   After submitting your complaint, you will be contacted by our
                   members and the complaint will be resolved by us as soon as
@@ -228,7 +228,7 @@ export default function Home() {
             ></Image>
             <div className="md:hidden ">
               <h1 className="font-koulen text-4xl text-grey mb-6">Join us</h1>
-              <p className="text-justify px-2">
+              <p className="text-justify px-2 text-md">
                 Sign up to become a member and make a positive impact in your
                 community and beyond. Let's collaborate to build a stronger
                 Tamil Nadu.

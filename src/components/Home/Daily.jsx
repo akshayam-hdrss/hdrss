@@ -38,19 +38,19 @@ function Daily() {
               daily.map((doc, index) => (
                 <div key={index} className="relative">
                   <div className="grid md:grid-cols-7">
-                  <div className="col-span-4 w-full object-contain max-h-[500px]">
-                    <YoutubeEmbed embedId={doc.data.link} />
-                  </div>
-                  <div className="col-span-3 grid grid-cols-3 md:flex flex-col justify-between w-full pt-5 md:p-5 gap-2">
-                    <h1 className="text-[15px] col-span-2 font-bold text-justify ">
-                      {doc.data.title.slice(0,80)}..
-                    </h1>
-                    <div className="flex justify-end">
-                      <h1 className="py-1 px-3 rounded-md h-fit w-fit bg-kaavi text-white">
-                        Read More
-                      </h1>
+                    <div className="col-span-4 w-full object-contain max-h-[500px]">
+                      <YoutubeEmbed embedId={doc.data.link} />
                     </div>
-                  </div>
+                    <div className="col-span-3 grid grid-cols-3 md:flex flex-col justify-between w-full pt-5 md:p-5 gap-2">
+                      <h1 className="text-[15px] col-span-2 font-bold text-justify ">
+                        {doc.data.title.slice(0, 80)}..
+                      </h1> 
+                      <div className="flex justify-end w-[110px]">
+                        <h1 className="py-1 px-3 rounded-md h-fit w-fit bg-kaavi text-white">
+                          Read More
+                        </h1>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}

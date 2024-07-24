@@ -19,7 +19,7 @@ function Footer() {
     fetchdata();
   }, []);
   return (
-    <div className="bg-kaavi text-primary lg:px-20 px-10 py-10 pb-4 mt-4">
+    <div className="bg-[#AC1F00] text-primary lg:px-20 px-10 py-10 pb-4 mt-4">
       <div className="grid grid-cols-2 gap-2 grid-rows-1 mb-6">
         <div className="lg:mr-auto">
           <div className="text-center">
