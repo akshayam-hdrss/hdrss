@@ -27,7 +27,7 @@ export default async function ProductPages({ params }) {
   return (
     <div>
       <Header />
-      <BackButton route={`/products`} />
+      <BackButton />
       <AdCarousel ads={ads} />
 
       <div className="p-6 py-20">

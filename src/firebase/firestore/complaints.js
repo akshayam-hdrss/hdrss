@@ -17,10 +17,9 @@ import {
   deleteObject,
   getStorage,
   getMetadata,
+  uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-
-import { uploadFilesAndSaveURLs } from "@/firebase/firestore/common";
 
 const db = getFirestore(app);
 const storage = getStorage(app);
@@ -46,6 +45,8 @@ export async function uploadComplaintPhotos(files) {
 }
 export async function submitComplaint(data, photos) {
   try {
+    const urls = await uploadComplaintPhotos(photos);
+    data.photos = urls;
     await addDoc(collection(db, "complaints"), data);
   } catch (e) {
     console.log(e);
@@ -59,6 +60,7 @@ export async function getComplaints() {
     snap.forEach((doc) => {
       data.push({ id: doc.id, data: doc.data() });
     });
+    return data;
   } catch (e) {
     console.log(e);
   }

@@ -7,7 +7,7 @@ export default function Page() {
     <div>
       <Header />
       <main>
-        <BackButton route="/" />
+        <BackButton />
         <div className="px-8  ">
           <h1 className="font-koulen text-grey text-3xl">QUIZ AND GAMES</h1>
           <div className="flex justify-between pt-5">

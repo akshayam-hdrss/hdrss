@@ -111,9 +111,7 @@ function AdminPanel4() {
 
   return (
     <>
-      <BackButton
-        route={`/admin/level3?previous=${beforeprevious}&beforeprevious=${rootprevious}&type=${type}`}
-      />
+      <BackButton />
       <div className="p-10 overflow-y-scroll">
         <h1 className="text-3xl font-bold pb-20">{previousname}</h1>
         <div>

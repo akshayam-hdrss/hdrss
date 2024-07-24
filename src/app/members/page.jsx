@@ -113,7 +113,7 @@ function MembersPage() {
   return (
     <div>
       <Header />
-      <BackButton route="/" />
+      <BackButton />
       <div className="p-6 overflow-hidden">
         <h1 className="font-koulen text-3xl text-grey">HDRSS - MEMBERS</h1>
         <h2 className="text-grey font-bold text-xl mt-3 mb-6">

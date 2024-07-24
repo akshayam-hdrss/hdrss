@@ -4,15 +4,19 @@ import BackButton from "@/components/ui/BackButton";
 import Image from "next/image";
 import { useState } from "react";
 import { submitComplaint } from "@/firebase/firestore/complaints";
+import { useRouter } from "next/navigation";
 export default function Page() {
   const [complaint, setComplaint] = useState({});
   const [photos, setPhotos] = useState();
+  const router = useRouter();
   const handleChange = (e) => {
     const { id, value } = e.target;
     setComplaint((prev) => ({ ...prev, [id]: value }));
   };
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     await submitComplaint(complaint, photos);
+    router.push("/");
   };
   return (
     <div>
@@ -25,7 +29,7 @@ export default function Page() {
           height={300}
           className="rotate-45 opacity-[0.04] absolute right-7 -top-4 -z-10"
         ></Image>
-        <BackButton route="/" />
+        <BackButton />
         <div className="px-8">
           <h1 className="font-koulen text-grey text-3xl">MAKE A COMPLAINT</h1>
           <h5>
@@ -75,11 +79,8 @@ export default function Page() {
                   className="w-full placeholder:text-black/80 rounded-xl border-2 border-black px-2 py-2 focus:outline-none "
                 />
                 <input
-                  type="image"
-                  name=""
-                  id=""
-                  onChange={(e)=>setPhotos([...e.target.value])}
-                  className="file:px-5 file:py-2 file:bg-white file:rounded-l-xl file:border-r file:outline-none pr-5 border rounded-2xl  border-black"
+                  type="file"
+                  onChange={(e) => setPhotos([...e.target.files])}
                 />
                 <input
                   type="submit"

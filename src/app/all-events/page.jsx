@@ -20,7 +20,7 @@ function Events() {
   return (
     <div>
       <Header />
-      <BackButton route="/" />
+      <BackButton  />
       <div className="p-6 flex justify-between items-center">
         <div>
           <h1 className="font-koulen text-4xl uppercase text-grey">Events</h1>

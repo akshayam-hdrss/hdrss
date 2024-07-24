@@ -33,7 +33,7 @@ async function ProductLevel3Page({ params }) {
   return (
     <div>
       <Header />
-      <BackButton route={`/products/${id}/${secondid}`} />
+      <BackButton />
 
       <div>
         <h1 className="font-bold text-2xl pb-20 p-6">{capitalized}</h1>

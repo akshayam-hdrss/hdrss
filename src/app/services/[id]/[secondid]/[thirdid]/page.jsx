@@ -74,7 +74,7 @@ async function ServiceLevel3Page({ params }) {
   return (
     <div>
       <Header />
-      <BackButton route={`/services/${id}/${secondid}`} />
+      <BackButton />
       <Advertisement ads={ads} />
       <div>
         <h1 className="font-bold text-2xl pb-20 p-6">{capitalized}</h1>
@@ -84,13 +84,13 @@ async function ServiceLevel3Page({ params }) {
             <Link
               href={`/services/${id}/${secondid}/${thirdid}/${item.id}`}
               key={item.id}
-              className="flex justify-center px-6 items-start border-b border-grey pb-3 mb-5 mx-0"
+              className="flex justify-start px-6 items-start border-b border-grey pb-3 mb-5 mx-0"
             >
-              <div className="w-[30%] h-10">
+              <div className="h-fit w-[130px] inline-block">
                 <img
                   src={item.data.profile}
                   alt="Profile"
-                  className="aspect-[1/2] object-cover rounded-xl"
+                  className=" rounded-xl object-cover aspect-[4/5]"
                 />
               </div>
               <div className="flex flex-col justify-between items-center w-[70%]">
@@ -106,7 +106,7 @@ async function ServiceLevel3Page({ params }) {
             </Link>
           ))}
       </div>
-      <YoutubeEmbed embedId={link} />
+      {/* <YoutubeEmbed embedId={link} /> */}
       <Footer />
     </div>
   );

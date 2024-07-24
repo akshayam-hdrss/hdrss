@@ -17,7 +17,7 @@ async function eventspage({ params }) {
   return (
     <div>
       <Header />
-      <BackButton route={"/all-events"} />
+      <BackButton />
       {events && (
         <div key={events.id} className="event-card px-6">
           <h1 className="font-bold text-xl mt-6 mb-2">{events.title}</h1>

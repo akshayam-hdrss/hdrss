@@ -40,7 +40,7 @@ export default async function ProductLevel4Page({ params }) {
   return (
     <div>
       <Header />
-      <BackButton route="/" />
+      <BackButton />
       <div className="p-6">
         <div className="flex flex-col items-center justify-evenly py-6">
           <img src={data.profile} alt="profile" />

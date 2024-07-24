@@ -84,7 +84,7 @@ function Directory() {
     <div>
       <Header />
 
-      <BackButton route="/" />
+      <BackButton />
       <div className="p-6">
         <h1 className="font-koulen text-4xl text-grey">Telephone directory</h1>
         <div className="flex my-6 bg-white rounded-xl items-center shadow-[100px_100px_80px_rgba(0,0,0,0.08)] p-3">

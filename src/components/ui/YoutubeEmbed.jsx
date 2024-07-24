@@ -29,7 +29,7 @@ const YoutubeEmbed = ({ embedId }) => {
   }, [embedId]);
 
   return (
-    <div className="overflow-hidden relative h-full object-contain grid">
+    <div>
       {id && (
         
        <div className=" my-auto">

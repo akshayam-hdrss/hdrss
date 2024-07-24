@@ -14,7 +14,7 @@ import Advertisement from "@/components/ui/Advertisement";
 import { getYt } from "@/firebase/firestore/servicesyt";
 import Image from "next/image";
 export async function generateStaticParams() {
-  const list = await getServicesAndProductsList(null, null, null, "services");
+  const list = await getServicesAndProductsList(null, null, null, "explore");
   return list.map((item) => ({
     id: item,
   }));
@@ -28,11 +28,11 @@ export default async function ServicePages({ params }) {
     null,
     decoded,
     null,
-    "services"
+    "explore"
   );
   const capitalized = getName(null, null, decoded);
-  const ads = await getServiceAds("services", null, null, decoded, null);
-  const link = await getYt("services", null, null, id);
+  const ads = await getServiceAds("explore", null, null, decoded, null);
+  const link = await getYt("explore", null, null, id);
   console.log(ads);
   return (
     <div>
@@ -53,7 +53,7 @@ export default async function ServicePages({ params }) {
         <div className="grid grid-cols-2 gap-y-10 gap-x-4 items-center justify-center">
           {data.map((doc, index) => (
             <Link
-              href={`/services/${id}/${doc.id}`}
+              href={`/explore/${id}/${doc.id}`}
               key={index}
               className="flex items-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
             >

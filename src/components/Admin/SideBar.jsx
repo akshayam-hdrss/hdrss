@@ -72,6 +72,14 @@ function SideBar() {
       >
         Leaders
       </Link>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg  my-2 ${
+          path.includes("complaints") ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/complaints"}
+      >
+        Complaints
+      </Link>
     </div>
   );
 }

@@ -10,7 +10,7 @@ function Healthcare() {
     <div>
       <Header />
       <div className="p-6 pt-0">
-        <BackButton route="/all-services" />
+        <BackButton />
         <YoutubeEmbed embedId="1Cl6ST2hbdg" />
         <h1 className="font-koulen text-4xl text-grey mt-12 mb-6">
           Healthcare

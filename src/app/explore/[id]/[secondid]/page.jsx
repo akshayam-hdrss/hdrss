@@ -12,15 +12,16 @@ import Link from "next/link";
 import { getYt } from "@/firebase/firestore/servicesyt";
 import { getServiceAds } from "@/firebase/firestore/advertisements";
 import Advertisement from "@/components/ui/Advertisement";
+
 export async function generateStaticParams() {
-  const list = await getServicesAndProductsList(null, null, null, "services");
+  const list = await getServicesAndProductsList(null, null, null, "explore");
   const paths = await Promise.all(
     list.map(async (item) => {
       const list2 = await getServicesAndProductsList(
         null,
         null,
         item,
-        "services"
+        "explore"
       );
       return list2.map((subitem) => ({
         id: item,
@@ -41,12 +42,12 @@ async function ServiceLevel2Page({ params }) {
     decodedfirst,
     decodedsecond,
     null,
-    "services"
+    "explore"
   );
   const capitalized = await getName(null, decodedfirst, decodedsecond);
-  const link = await getYt("services", null, decodedfirst, decodedsecond);
+  const link = await getYt("explore", null, decodedfirst, decodedsecond);
   const ads = await getServiceAds(
-    "services",
+    "explore",
     null,
     decodedfirst,
     decodedsecond,
@@ -64,7 +65,7 @@ async function ServiceLevel2Page({ params }) {
         <div className="grid grid-cols-2 gap-y-10 gap-x-4 items-center justify-center">
           {data.map((doc, index) => (
             <Link
-              href={`/services/${id}/${secondid}/${doc.id}`}
+              href={`/explore/${id}/${secondid}/${doc.id}`}
               key={index}
               className="flex items-center justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 md:gap-x-6 p-6 px-3"
             >

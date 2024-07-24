@@ -64,10 +64,16 @@ export default async function ServiceLevel4Page({ params }) {
   return (
     <div>
       <Header />
-      <BackButton route="/" />
+      <BackButton />
       <div className="p-6">
         <div className="flex flex-col items-center justify-evenly py-6">
-          <img src={data.profile} alt="profile" />
+          <div className="w-[130px] h-fit">
+            <img
+              src={data.profile}
+              alt="profile"
+              className="rounded-md object-cover aspect-[4/5]"
+            />
+          </div>
           <h1 className="font-bold text-3xl pt-6">{data.name}</h1>
           <p className="text-grey font-medium">{data.addline1}</p>
           <p className="text-grey font-medium">{data.addline2}</p>

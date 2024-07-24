@@ -24,7 +24,7 @@ const Signup = () => {
   return (
     <div className="p-10 overflow-hidden">
       <PiFlowerLotus fontSize={80} className="mx-auto mb-10 mt-5" />
-      <BackButton route="/" />
+      <BackButton />
       <div className="py-6 px-4 z-10 relative">
         <h1 className="font-bold uppercase text-3xl mb-12">Sign up</h1>
         <Image

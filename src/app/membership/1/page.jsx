@@ -17,7 +17,7 @@ export default function Page() {
     <div>
       <Header />
       <main>
-        <BackButton route="/" />
+        <BackButton />
         <div className="px-8">
           <div className="">
             <h1 className="text-kaavi font-semibold text-center text-xl">

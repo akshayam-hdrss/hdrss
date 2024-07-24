@@ -37,7 +37,7 @@ function Services() {
   return (
     <div>
       <Header />
-      <BackButton route="/" />
+      <BackButton />
       <Carousel>
         {ads &&
           ads.map((ad, index) => (

@@ -5,7 +5,7 @@ export default function Page() {
     <div>
       <Header />
       <main>
-        <BackButton route="/" />
+        <BackButton />
         <div className="px-8">
           <h1 className="font-koulen text-grey text-3xl">REWARD COUPONS</h1>
           <div className="grid gap-2 pt-5">

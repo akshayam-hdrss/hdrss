@@ -42,7 +42,7 @@ async function ProductLevel2Page({ params }) {
   return (
     <div>
       <Header />
-      <BackButton route={`/products/${id}/`} />
+      <BackButton />
       <YoutubeEmbed embedId="#" />
       <div className="p-6 py-20">
         <h1 className="font-bold text-3xl text-center pb-20">{capitalized}</h1>

@@ -57,7 +57,7 @@ function LeadersPage() {
   }, [addOpen, editOpen]);
   return (
     <div className="p-10">
-      <BackButton route="/admin" />
+      <BackButton />
       <h1 className="text-2xl mb-10 font-bold">Leaders</h1>
       <AddLeaderPopup
         open={addOpen}

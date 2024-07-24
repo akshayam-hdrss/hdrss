@@ -19,7 +19,7 @@ async function newsPage({ params }) {
     <div>
       <Header />
       <main>
-        <BackButton route={"/"} />
+        <BackButton  />
         <h1 className="text-4xl font-bold font-koulen text-grey pl-4 mb-10">News</h1>
         <h2 className="px-4 font-bold mb-6 text-lg">{news.title}</h2>
         <YoutubeEmbed embedId={news.video} />

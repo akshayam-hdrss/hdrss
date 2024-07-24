@@ -17,7 +17,7 @@ function Products() {
   return (
     <div>
       <Header />
-      <BackButton route="/" />
+      <BackButton />
       <YoutubeEmbed href="#" />
       <div className="mt-12 p-6">
         <h1 className="font-koulen uppercase text-4xl text-grey">products</h1>

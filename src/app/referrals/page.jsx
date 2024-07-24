@@ -5,7 +5,7 @@ export default function Page() {
     <div>
       <Header />
       <main>
-        <BackButton route="/" />
+        <BackButton />
         <div className="px-10">
           <div className="flex justify-center">
             <img src="/refer.png" alt="" className="w-[200px]" />

@@ -23,7 +23,7 @@ function Ramdass() {
   return (
     <div>
       <Header />
-      <BackButton route="/" />
+      <BackButton />
       <div className="p-6">
         <div className="flex flex-col justify-evenly items-center mb-10">
           <Image
