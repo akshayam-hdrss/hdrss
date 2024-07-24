@@ -13,6 +13,8 @@ import { getServiceAds } from "@/firebase/firestore/advertisements";
 import Advertisement from "@/components/ui/Advertisement";
 import { getYt } from "@/firebase/firestore/servicesyt";
 import Image from "next/image";
+
+
 export async function generateStaticParams() {
   const list = await getServicesAndProductsList(null, null, null, "services");
   return list.map((item) => ({
