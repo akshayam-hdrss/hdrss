@@ -130,9 +130,8 @@ function ExploreCarousel() {
             ))}
           </Slider>
         </div> */}
-        <section className=" overflow-hidden w-full my-10 text-center py-5">
-          <Marquee pauseOnClick pauseOnHover>
-          {explorecontent.map((item, index) => (
+        <div className="flex gap-5 overflow-x-scroll p-5 nosc ">
+        {explorecontent.map((item, index) => (
               <div key={index} className="px-2 ">
                 <div
                   className="border  min-w-[200px] lg:min-w-[300px] border-[#808080] rounded-2xl relative overflow-hidden h-72 "
@@ -166,8 +165,12 @@ function ExploreCarousel() {
                 </div>
               </div>
             ))}
+        </div>
+        {/* <section className=" overflow-hidden w-full my-10 text-center py-5">
+          <Marquee pauseOnClick pauseOnHover>
+          
           </Marquee>
-        </section>
+        </section> */}
       </div>
     </div>
   );

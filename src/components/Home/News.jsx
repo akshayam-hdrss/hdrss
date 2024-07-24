@@ -30,7 +30,7 @@ function News() {
           news.map((doc, index) => (
             <div key={index} className="relative h-full w-full">
               <div className="grid md:grid-cols-7 h-full w-full bg-kaavi/0">
-                <div className="col-span-4 object-contain ">
+                <div className="col-span-4 object-contain flex flex-col justify-center">
                   <YoutubeEmbed embedId={doc.video} />
                 </div>
                 <div className="col-span-3 grid grid-cols-5 md:flex flex-col justify-between md:py-5 px-5 ">
