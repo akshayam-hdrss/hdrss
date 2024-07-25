@@ -45,7 +45,7 @@ export async function addSnoLevel1ServicesProducts(type, data) {
       await setDoc(
         doc(db, `${type}/${value.id}`),
         {
-          sno: value.sno,
+          sno: Number(value.sno),
         },
         { merge: true }
       );
@@ -80,7 +80,7 @@ export async function addSnoLevel2ServicesProducts(level1, type, data) {
       await setDoc(
         doc(db, `${type}/${level1}/${level1}col/${value.id}`),
         {
-          sno: value.sno,
+          sno: Number(value.sno),
         },
         { merge: true }
       );
@@ -118,7 +118,7 @@ export async function addSnoLevel3ServicesProducts(level1, level2, type, data) {
           `${type}/${level1}/${level1}col/${level2}/${level2}col/${value.id}`
         ),
         {
-          sno: value.sno,
+          sno: Number(value.sno),
         },
         { merge: true }
       );

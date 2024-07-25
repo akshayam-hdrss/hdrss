@@ -57,7 +57,7 @@ export default async function ServicePages({ params }) {
             <Link
               href={`/services/${id}/${doc.id}`}
               key={index}
-              className="flex items-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
+              className="flex items-center text-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
             >
               <div className="w-1/3 md:w-1/5 lg:w-1/6 h-fit mr-3">
                 <img

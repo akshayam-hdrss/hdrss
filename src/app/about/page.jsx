@@ -1,3 +1,4 @@
+"use client"
 import Header from "@/components/ui/Header";
 import Navbar from "@/components/Navbar";
 import { IoLogoWhatsapp } from "react-icons/io";
