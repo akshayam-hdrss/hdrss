@@ -1,9 +1,11 @@
+"use client";
 import {
   getServicesAndProductsList,
   getServiceAndProductDocs,
   getName,
 } from "@/firebase/firestore/servicesProducts";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
@@ -13,29 +15,48 @@ import { getServiceAds } from "@/firebase/firestore/advertisements";
 import Advertisement from "@/components/ui/Advertisement";
 import { getYt } from "@/firebase/firestore/servicesyt";
 import Image from "next/image";
+import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
+// export async function generateStaticParams() {
+//   const list = await getServicesAndProductsList(null, null, null, "services");
+//   return list.map((item) => ({
+//     id: item,
+//   }));
+// }
 
-
-export async function generateStaticParams() {
-  const list = await getServicesAndProductsList(null, null, null, "services");
-  return list.map((item) => ({
-    id: item,
-  }));
-}
-
-export default async function ServicePages({ params }) {
-  const { id } = params;
+export default function ServicePages() {
+  const [data, setData] = useState();
+  const router = useRouter();
+  const { id } = router.query;
   const decoded = decodeURIComponent(id);
-  const data = await getServiceAndProductDocs(
-    null,
-    null,
-    decoded,
-    null,
-    "services"
-  );
+  // useEffect(() => {
+  //   const fetch = async () => {
+  //     const data = await getServiceAndProductDocs(
+  //       null,
+  //       null,
+  //       decoded,
+  //       null,
+  //       "services"
+  //     );
+  //     const ads = await getServiceAds("services", null, null, decoded, null);
+  //     const link = await getYt("services", null, null, id);
+  //   };
+  //   fetch();
+  // });
+
   const capitalized = getName(null, null, decoded);
-  const ads = await getServiceAds("services", null, null, decoded, null);
-  const link = await getYt("services", null, null, id);
-  console.log(ads);
+
+  useEffect(() => {
+    const unsubscribe = subscribeToServicesAndProducts(
+      setData,
+      null,
+      null,
+      "services"
+    );
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
   return (
     <div>
       <Header />
