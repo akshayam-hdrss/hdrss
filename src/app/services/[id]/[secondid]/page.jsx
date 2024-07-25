@@ -62,7 +62,7 @@ async function ServiceLevel2Page({ params }) {
           {capitalized}
         </h1>
         <div className="grid grid-cols-2 gap-y-10 gap-x-4 items-center justify-center">
-          {data.map((doc, index) => (
+          {data && data.map((doc, index) => (
             <Link
               href={`/services/${id}/${secondid}/${doc.id}`}
               key={index}
