@@ -15,11 +15,11 @@ function News() {
     fetch();
   }, []);
   return (
-    <div className="px-0 md:px-5 pt-8 relative z-0">
-      <h1 className="font-koulen text-4xl text-grey mb-4 px-6">News</h1>
+    <div className="px-0 md:px-5 pt-2 relative z-0">
+      <h1 className="font-koulen text-4xl text-grey  px-6 pb-0 mb-0">News</h1>
 
       <Carousel
-        className="h-[400px] md:h-fit"
+        className="h-[400px] md:h-fit my-0 py-0"
         prevArrow={false}
         nextArrow={false}
         navigation={false}

@@ -2,8 +2,22 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { getAuth, signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
+const auth = getAuth();
 function SideBar() {
   const path = usePathname();
+  const router = useRouter();
+  const handleLogout = (e) => {
+    e.preventDefault();
+    signOut(auth)
+      .then(() => {
+        router.push("/login/admin");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
   return (
     <div className="p-6 fixed flex justify-start items-center flex-col gap-y-6 w-[20vw] bg-[#F4F4F5] h-screen overflow-y-scroll overflow-x-hidden">
       <h1 className="font-lena my-4 text-2xl lg:text-4xl">akshayam</h1>
@@ -80,6 +94,12 @@ function SideBar() {
       >
         Complaints
       </Link>
+      <button
+        onClick={handleLogout}
+        className="font-medium w-fit px-4 py-2 rounded-lg lg:text-lg bg-blue-gray-700 text-white  my-2"
+      >
+        Log out
+      </button>
     </div>
   );
 }

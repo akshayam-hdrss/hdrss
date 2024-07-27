@@ -141,7 +141,7 @@ export default function Home() {
           <News />
           
           {/* Products Section */}
-          <div className="bgom overflow-hidden pb-5 pt-5">
+          <div className="bgom overflow-hidden pb-5 pt-0">
             <div className="px-6 relative ">
               <Image
                 src="/om.svg"
@@ -224,7 +224,7 @@ export default function Home() {
           <Events />
 
           {/* Join us */}
-          <div className="p-6 md:p-0 relative overflow-hidden z-0">
+          <div className="p-6 pt-0 md:p-0 relative overflow-hidden z-0">
             <Image
               src="/om.svg"
               alt="om"
