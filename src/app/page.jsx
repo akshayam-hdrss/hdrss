@@ -58,7 +58,7 @@ export default function Home() {
         <Header />
       </div>
       <div className="lg:grid lg:grid-cols-5 relative z-[0]">
-        <Navbar/>
+        <Navbar />
         <div className="lg:col-span-4 lg:order-2 relative w-full pt-[70px] bg-[#FFFAF8]">
           {/* Hero Section */}
 
@@ -67,7 +67,7 @@ export default function Home() {
               background:
                 "linear-gradient(180deg, hsla(172, 73%, 94%, 1) 0%, hsla(18, 92%, 62%, 1) 100%)",
             }}
-            className="relative pt-30 h-[45vh] md:h-screen pb-0 flex flex-row items-center justify-center z-0"
+            className="relative pt-30 h-[45vh] md:h-screen pb-0 flex flex-row items-center justify-center z-0 "
           >
             {/* Location */}
 
@@ -120,26 +120,29 @@ export default function Home() {
               height={300}
               className="rotate-45 md:w-[400px] opacity-5 absolute -right-7 -top-16 -z-10"
             />
-            <h1 className="font-koulen text-4xl text-grey mb-8">Services</h1>
+            <div className="flex justify-between mb-8">
+              <h1 className="font-koulen text-4xl text-grey ">Services</h1>
+              <div className="">
+                <Link
+                  href="/services"
+                  className="flex flex-row justify-center bg-kaavi text-white font-semibold items-center w-fit mx-auto px-5 py-1.5 rounded-2xl cursor-pointer"
+                >
+                  <p>See all</p>
+
+                </Link>
+              </div>
+            </div>
             <div className="grid grid-cols-3 gap-y-10 gap-x-4 items-center justify-center">
               <Level1Services />
             </div>
-            <Link
-              href="/services"
-              className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer"
-            >
-              <p>See all services</p>
-              <IoIosArrowDown className="ml-1" />
-            </Link>
           </div>
 
           {/* News Section */}
           <News />
-          {/* Events Section */}
-          <Events />
+          
           {/* Products Section */}
-          <div className="bgom overflow-hidden">
-            <div className="p-6 relative ">
+          <div className="bgom overflow-hidden pb-5 pt-5">
+            <div className="px-6 relative ">
               <Image
                 src="/om.svg"
                 alt="om"
@@ -148,18 +151,18 @@ export default function Home() {
                 className="rotate-45 opacity-[0.04] absolute left-16 -top-4 -z-10"
               ></Image>
 
-              <h1 className="font-koulen text-4xl text-grey mb-6">Products</h1>
+              <h1 className="font-koulen text-4xl text-grey ">Products</h1>
               <Products />
-              <div className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-10 px-3 py-2 rounded-2xl cursor-pointer">
+              <div className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-5 px-3 py-2 rounded-2xl cursor-pointer">
                 <Link href="/products">See all products</Link>
                 <IoIosArrowDown className="ml-1" />
               </div>
             </div>
           </div>
-{/* daily */}
+          {/* daily */}
           <Daily />
           {/* Explore Section */}
-          <div className="py-6 relative overflow-hidden">
+          <div className="py-2 relative overflow-hidden">
             <Image
               src="/om.svg"
               alt="om"
@@ -167,7 +170,7 @@ export default function Home() {
               height={300}
               className="rotate-45 opacity-[0.04] absolute left-16 -top-2 -z-10"
             ></Image>
-            <h1 className="px-6 font-koulen text-4xl text-grey mb-6">
+            <h1 className="px-6 font-koulen text-4xl text-grey">
               explore
             </h1>
 
@@ -175,7 +178,7 @@ export default function Home() {
           </div>
 
           {/* Social complaints */}
-          <div className="p-6 relative overflow-hidden z-0">
+          <div className="px-6  relative overflow-hidden z-0">
             <Image
               src="/om.svg"
               alt="om"
@@ -217,6 +220,9 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Events Section */}
+          <Events />
+
           {/* Join us */}
           <div className="p-6 md:p-0 relative overflow-hidden z-0">
             <Image
@@ -233,7 +239,10 @@ export default function Home() {
                 community and beyond. Let's collaborate to build a stronger
                 Tamil Nadu.
               </p>
-              <Link href={"/membership/1"} className="text-center flex justify-center">
+              <Link
+                href={"/membership/1"}
+                className="text-center flex justify-center"
+              >
                 <h1 className="bg-kaavi text-white p-3 mt-6 rounded-xl px-5">
                   Become a member
                 </h1>
@@ -290,7 +299,7 @@ export default function Home() {
           </div>
 
           {/* Members */}
-          <div className="p-6 md:py-10">
+          <div className="px-6 md:py-10">
             <h1 className="font-koulen text-4xl text-grey mb-2">Members</h1>
             <h2 className="text-lg text-grey font-bold">State Level Leaders</h2>
             <div className="grid md:grid-cols-4">
@@ -320,11 +329,11 @@ export default function Home() {
           </div>
 
           {/* Offers and rewards */}
-          <div className="p-6">
+          <div className="px-6">
             <h1 className="font-koulen text-4xl text-grey mb-2">
               Offers and rewards
             </h1>
-            <div className="flex justify-around items-center mt-6 ml-5 md:py-10">
+            <div className="flex justify-around items-center mt-2 ml-5 md:py-10">
               <Link
                 href={"/games"}
                 className="text-center grid gap-2 md:scale-125"
