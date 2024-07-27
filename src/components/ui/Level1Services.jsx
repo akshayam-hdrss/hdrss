@@ -20,7 +20,7 @@ function Level1Services() {
     <>
       {data &&
         data.slice(0, 6).map((item) => (
-          <div key={item.id} className="mx-auto">
+          <div key={item.id} className="mx-auto text-center">
             <ServiceCard
               name={item.id}
               url={item.iconUrl}

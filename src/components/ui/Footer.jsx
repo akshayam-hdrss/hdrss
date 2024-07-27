@@ -34,7 +34,10 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div className="lg:flex items-center justify-center text-center lg:ml-auto">
+        <Link
+          href={"/about"}
+          className="lg:flex items-center justify-center text-center lg:ml-auto"
+        >
           <div className="flex justify-center">
             <Image src="/hdrss.png" alt="logo" width={80} height={80} />
           </div>
@@ -45,7 +48,7 @@ function Footer() {
               <p>hdrss.cbe@gmail.com</p>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
       <section className="md:grid flex flex-col grid-cols-2 lg:grid-cols-4 gap-5 md:pt-8">
         <div className="md:mx-auto lg:m-0">
@@ -123,8 +126,8 @@ function Footer() {
 
       <div className="flex justify-center text-center py-8">
         <div className="lg:flex items-center gap-2">
-          <h1>Copyright 2020@ All rights reserved | </h1>
-          <h1>This website was Build by</h1>
+          <h1>Copyright 2024@ All rights reserved | </h1>
+          <h1>This website was Built by</h1>
           <div className="flex justify-center pt-2 lg:pt-0">
             <img
               src="/companylogo.png"

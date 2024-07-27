@@ -1,17 +1,7 @@
 import React from "react";
-import {
-  getServiceAndProductDocs,
-  getServicesAndProductsList,
-  getName,
-} from "@/firebase/firestore/servicesProducts";
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import Link from "next/link";
-import BackButton from "@/components/ui/BackButton";
-import { getYt } from "@/firebase/firestore/servicesyt";
-import { getServiceAds } from "@/firebase/firestore/advertisements";
-import Advertisement from "@/components/ui/Advertisement";
-import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
+import { getServicesAndProductsList } from "@/firebase/firestore/servicesProducts";
+
+import ServiceLevel3 from "@/components/Services/ServiceLevel3";
 
 export async function generateStaticParams() {
   const list = await getServicesAndProductsList(null, null, null, "services");
@@ -49,66 +39,13 @@ async function ServiceLevel3Page({ params }) {
   const decodedfirst = decodeURIComponent(id);
   const decodedsecond = decodeURIComponent(secondid);
   const decodedthird = decodeURIComponent(thirdid);
-
-  const data = await getServiceAndProductDocs(
-    decodedfirst,
-    decodedsecond,
-    decodedthird,
-    null,
-    "services"
-  );
-  const capitalized = await getName(decodedfirst, decodedsecond, decodedthird);
-  const link = await getYt(
-    "services",
-    decodedfirst,
-    decodedsecond,
-    decodedthird
-  );
-  const ads = await getServiceAds(
-    "services",
-    decodedfirst,
-    decodedsecond,
-    decodedthird,
-    null
-  );
+console.log(decodedfirst)
   return (
-    <div>
-      <Header />
-      <BackButton />
-      <Advertisement ads={ads} />
-      <div>
-        <h1 className="font-bold text-2xl pb-20 p-6">{capitalized}</h1>
-
-        {data &&
-          data.map((item) => (
-            <Link
-              href={`/services/${id}/${secondid}/${thirdid}/${item.id}`}
-              key={item.id}
-              className="flex justify-start px-6 items-start border-b border-grey pb-3 mb-5 mx-0"
-            >
-              <div className="h-fit w-[130px] inline-block">
-                <img
-                  src={item.data.profile}
-                  alt="Profile"
-                  className=" rounded-xl object-cover aspect-[4/5]"
-                />
-              </div>
-              <div className="flex flex-col justify-between items-center w-[70%]">
-                <h1 className="font-bold text-3xl">{item.data.name}</h1>
-                <h2 className="text-lg font-medium">
-                  {item.data.businessname}
-                </h2>
-
-                <p className="font-medium text-grey mt-0 pt-0">
-                  {item.data.area}
-                </p>
-              </div>
-            </Link>
-          ))}
-      </div>
-      {/* <YoutubeEmbed embedId={link} /> */}
-      <Footer />
-    </div>
+    <ServiceLevel3
+      decodedfirst={decodedfirst}
+      decodedsecond={decodedsecond}
+      decodedthird={decodedthird}
+    />
   );
 }
 

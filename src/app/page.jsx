@@ -299,7 +299,7 @@ export default function Home() {
           </div>
 
           {/* Members */}
-          <div className="px-6 md:py-10">
+          <div className="p-6 md:py-10">
             <h1 className="font-koulen text-4xl text-grey mb-2">Members</h1>
             <h2 className="text-lg text-grey font-bold">State Level Leaders</h2>
             <div className="grid md:grid-cols-4">
