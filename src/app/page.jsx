@@ -125,17 +125,19 @@ export default function Home() {
             />
             <div className="flex justify-between mb-8">
               <h1 className="font-koulen text-4xl text-grey ">Services</h1>
-              <div className="">
-                <Link
-                  href="/services"
-                  className="flex flex-row justify-center bg-kaavi text-white font-semibold items-center w-fit mx-auto px-5 py-1.5 rounded-2xl cursor-pointer"
-                >
-                  <p>See all</p>
-                </Link>
-              </div>
             </div>
             <div className="grid grid-cols-3 gap-y-10 gap-x-4 items-center justify-center">
               <Level1Services />
+            </div>
+            <div className="flex justify-end w-full pt-5 lg:pr-5">
+              <div className="">
+              <Link
+                href="/services"
+                className="flex flex-row justify-center bg-kaavi text-white font-semibold items-center w-fit mx-auto px-5 py-1.5 rounded-xl cursor-pointer"
+              >
+                <p>See all</p>
+              </Link>
+              </div>
             </div>
           </div>
 
