@@ -10,6 +10,7 @@ import { getYt } from "@/firebase/firestore/servicesyt";
 import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import ServiceCard from "@/components/ui/ServiceCard";
 
+
 import Navbar from "@/components/Navbar";
 function Services() {
   const [ads, setAds] = useState([]);
@@ -41,7 +42,7 @@ function Services() {
       <div className="fixed w-full top-0 z-[50]">
         <Header />
       </div>
-      <div className="grid grid-cols-4 relative z-[0]">
+      <div className="grid lg:grid-cols-4 relative z-[0]">
         <Navbar />
         <div className="col-span-3 pt-[70px]">
           <BackButton />
