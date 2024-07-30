@@ -4,6 +4,7 @@ import Header from "@/components/ui/Header";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import { getEventData, getEvents } from "@/firebase/firestore/events";
 import React from "react";
+import AdCarousel from "@/components/ui/AdCarousel";
 
 export async function generateStaticParams() {
   const result = await getEvents();
@@ -24,6 +25,7 @@ async function eventspage({ params }) {
           <h2 className="font-medium">{events.date}</h2>
           <img className="my-4" src={events.pfp} alt="" />
           <p>{events.details}</p>
+          <AdCarousel ads={events.images} />
           <YoutubeEmbed embedId={events.video} />
         </div>
       )}

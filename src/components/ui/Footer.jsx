@@ -132,9 +132,9 @@ function Footer() {
             <img
               src="/companylogo.png"
               alt=""
-              className="lg:w-[150px] w-[100px]"
+              className="lg:w-[200px] w-[180px]"
             />
-          </div>
+          </div> 
         </div>
       </div>
 

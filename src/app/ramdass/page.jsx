@@ -16,47 +16,18 @@ import { FaPhoneAlt } from "react-icons/fa";
 import Marquee from "react-fast-marquee";
 
 function Ramdass() {
-  const [leader, setLeader] = useState([]);
-  const [para,setPara] = useState(false)
+  const [leader, setLeader] = useState();
+  const [para, setPara] = useState(false);
   useEffect(() => {
     const fetchdata = async () => {
       const data = await getRamadass();
       setLeader(data);
-      console.log(leader);
     };
     fetchdata();
   }, []);
+
   return (
     <div>
-      {/* <BackButton />
-      <div className="p-6">
-        <div className="flex flex-col justify-evenly items-center mb-10">
-          <Image
-            src={leader && leader.profile}
-            alt="ramdass"
-            height={100}
-            width={100}
-          ></Image>
-          <h1 className="font-bold text-lg mt-3">{leader && leader.name}</h1>
-          <h2 className="font-medium text-grey">HDRSS Leader</h2>
-        </div>
-        <p className="px-4 text-justify">{leader && leader.about}</p>
-        <div className="mt-10">
-          <h1 className="font-koulen text-4xl text-grey">Socials</h1>
-          <YoutubeEmbed embedId={leader?.social} />
-        </div>
-        <div className="mt-10">
-          <h1 className="font-koulen text-4xl text-grey">Contact</h1>
-          <div className="flex mb-4 mt-8 items-center justify-evenly">
-            <MdOutlineEmail fontSize={30} />
-            <p className="ml-3">{leader && leader.email}</p>
-          </div>
-          <div className="flex items-center justify-evenly">
-            <MdOutlineCall fontSize={30} />
-            <p className="mr-16">{leader && leader.mobile}</p>
-          </div>
-        </div>
-      </div> */}
       <div>
         <div className="fixed w-full top-0 z-[50]">
           <Header />
@@ -91,23 +62,35 @@ function Ramdass() {
                 </div>
                 <div className="">
                   <h1 className="font-koulen text-4xl text-grey ">ABOUT US</h1>
-                  <p className={para ? "pt-5 text-justify" : "pt-5 text-justify max-h-[400px] overflow-hidden mb-[-50px]"}>{leader && leader.about}</p>
+                  <p
+                    className={
+                      para
+                        ? "pt-5 text-justify"
+                        : "pt-5 text-justify max-h-[400px] overflow-hidden mb-[-50px]"
+                    }
+                  >
+                    {leader && leader.about}
+                  </p>
                   <div className="flex justify-center backdrop-blur-sm p-2 ">
-                    <h1 onClick={()=>setPara(!para)} className="border-2 px-2 py-1 rounded-xl bg-white cursor-pointer">{
-                      para ? "Show Less" : "Learn More"}</h1>
+                    <h1
+                      onClick={() => setPara(!para)}
+                      className="border-2 px-4 py-2 rounded-xl bg-kaavi text-white cursor-pointer"
+                    >
+                      {para ? "Show Less" : "Learn More"}
+                    </h1>
                   </div>
                 </div>
                 <div className="mt-10 ">
                   <h1 className="font-koulen text-4xl text-grey">Contact</h1>
                   <div className="pt-3">
-                  <div className="flex mb-4  items-center  gap-5">
-                    <MdOutlineEmail fontSize={30} />
-                    <p className="ml-3">{leader && leader.email}</p>
-                  </div>
-                  <div className="flex items-center  gap-5">
-                    <MdOutlineCall fontSize={30} />
-                    <p className="mr-16">{leader && leader.mobile}</p>
-                  </div>
+                    <div className="flex mb-4  items-center  gap-5">
+                      <MdOutlineEmail fontSize={30} />
+                      <p className="ml-3">{leader && leader.email}</p>
+                    </div>
+                    <div className="flex items-center  gap-5">
+                      <MdOutlineCall fontSize={30} />
+                      <p className="mr-16">{leader && leader.mobile}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -119,10 +102,15 @@ function Ramdass() {
                 <div className="py-5">
                   <section className=" overflow-hidden w-full text-center">
                     <Marquee pauseOnClick pauseOnHover>
-                      <img src="/ac1.jpeg" alt="" className="h-[200px] mx-2" />
-                      <img src="/ac2.jpg" alt="" className="h-[200px] mx-2" />
-                      <img src="/ac3.jpg" alt="" className="h-[200px] mx-2" />
-                      <img src="/ac4.jpg" alt="" className="h-[200px] mx-2" />
+                      {leader &&
+                        leader.gallery.map((photo, index) => (
+                          <img
+                            src={photo}
+                            alt="gallery"
+                            key={index}
+                            className="h-[200px] mx-2"
+                          />
+                        ))}
                     </Marquee>
                   </section>
                 </div>

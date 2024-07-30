@@ -80,11 +80,11 @@ function SideBar() {
       </Link>
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg  my-2 ${
-          path.includes("/admin/leaders/") ? "bg-kaavi text-white" : " "
+          path.includes("members") ? "bg-kaavi text-white" : " "
         }`}
-        href={"/admin/leaders"}
+        href={"/admin/members"}
       >
-        Leaders
+        Members
       </Link>
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg  my-2 ${
@@ -93,6 +93,22 @@ function SideBar() {
         href={"/admin/complaints"}
       >
         Complaints
+      </Link>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path.includes("hdrss") ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/hdrss"}
+      >
+        HDRSS
+      </Link>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path.includes("leader") ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/leader"}
+      >
+       About Leader
       </Link>
       <button
         onClick={handleLogout}

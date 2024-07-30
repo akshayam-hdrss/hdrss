@@ -4,7 +4,7 @@ import DeleteDaily from "@/components/Admin/Daily/DeleteDaily";
 import EditDaily from "@/components/Admin/Daily/EditDaily";
 import { getDaily } from "@/firebase/firestore/daily";
 import { useEffect, useState } from "react";
-
+import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 export default function Page() {
   const [addOpen, setAddOpen] = useState();
   const [editOpen, setEditOpen] = useState();
@@ -24,14 +24,16 @@ export default function Page() {
         <AddDaily open={addOpen} setOpen={setAddOpen} />
         <EditDaily open={editOpen} setOpen={setEditOpen} />
         <DeleteDaily open={deleteOpen} setOpen={setDeleteOpen} />
-          </div>
-          <div>
-              {data && data.map((daily) => (
-                  <div>
-                      <h1>{daily.data.title}</h1>
-                  </div>
-              ))}
-          </div>
+      </div>
+      <div>
+        {data &&
+          data.map((daily) => (
+            <div className="border border-kaavi my-14">
+              <YoutubeEmbed embedId={daily.data.link} />
+              <h1>{daily.data.title}</h1>
+            </div>
+          ))}
+      </div>
     </div>
   );
 }

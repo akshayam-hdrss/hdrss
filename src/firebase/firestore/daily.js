@@ -47,12 +47,24 @@ export async function deleteDaily(id) {
 export async function getDaily() {
   try {
     let data = [];
-    const q = query(collection(db, "dailyastrology"), orderBy("date", "desc"));
+    const q = query(
+      collection(db, "dailyastrology"),
+      orderBy("timestamp", "desc")
+    );
     const snap = await getDocs(q);
     snap.docs.map((doc) => {
       data.push({ id: doc.id, data: doc.data() });
     });
     return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getOneDaily(id) {
+  try {
+    const result = await getDoc(doc(db, `dailyastrology/${id}`));
+    return result.data();
   } catch (e) {
     console.log(e);
   }

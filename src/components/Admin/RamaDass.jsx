@@ -1,11 +1,26 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { addRamadass, getRamadass } from "@/firebase/firestore/ramadass";
+import {
+  addGallery,
+  addRamadass,
+  deleteGalleryPhoto,
+  getRamadass,
+} from "@/firebase/firestore/ramadass";
+import { Dialog, Typography, DialogBody } from "@material-tailwind/react";
+import { IoClose } from "react-icons/io5";
 
 function RamaDass() {
   const [leaderPhoto, setLeaderPhoto] = useState(null);
   const [leaderDetails, setLeaderDetails] = useState({});
   const [exisitingLeader, setExistingLeader] = useState();
+  const [leaderGallery, setLeaderGallery] = useState([]);
+  const [open, setOpen] = useState();
+  const [photos, setPhotos] = useState();
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -20,11 +35,18 @@ function RamaDass() {
     e.preventDefault();
     await addRamadass(leaderDetails, leaderPhoto);
   };
-
+  const handleDelete = async (photo) => {
+    await deleteGalleryPhoto(photo);
+  };
+  const handleAddGallery = async () => {
+    await addGallery(photos);
+    setOpen(false);
+  };
   useEffect(() => {
     const fetchData = async () => {
       const data = await getRamadass();
       setExistingLeader(data);
+      setLeaderGallery(data.gallery);
     };
     fetchData();
   });
@@ -99,12 +121,63 @@ function RamaDass() {
           onChange={(e) => setLeaderPhoto(e.target.files[0])}
         />
       </div>
+      <button
+        className="bg-kaavi text-white px-4 py-2 rounded-md"
+        onClick={handleOpen}
+      >
+        Edit Gallery
+      </button>
 
+      <Dialog
+        open={open}
+        handler={handleOpen}
+        className="overflow-scroll"
+        style={{ maxHeight: "calc(100vh - 200px)" }}
+      >
+        <DialogBody className=" mx-auto w-full h-full">
+          <div className="flex flex-col gap-4">
+            <div className="flex justify-between items-center">
+              <Typography variant="h4" color="blue-gray">
+                Preview
+              </Typography>
+              <IoClose fontSize={30} onClick={handleClose} />
+            </div>
+            <div>
+              {leaderGallery &&
+                leaderGallery.map((photo, index) => (
+                  <div key={index} className="relative">
+                    <img
+                      src={photo}
+                      alt="photo index"
+                      className="w-[85%] mx-auto rounded-xl my-2 border border-grey"
+                    />
+                    <IoClose
+                      className="bg-white rounded-full absolute top-0 right-4"
+                      fontSize={30}
+                      onClick={() => handleDelete(photo)}
+                    />
+                  </div>
+                ))}
+              <input
+                type="file"
+                multiple
+                onChange={(e) => setPhotos([...e.target.files])}
+              />
+              <button
+                className="bg-kaavi text-white rounded-md px-4 py-2 block mt-8"
+                onClick={handleAddGallery}
+              >
+                Submit photos
+              </button>
+            </div>
+          </div>
+        </DialogBody>
+      </Dialog>
       <button
         onClick={handleLeader}
-        className="bg-kaavi text-white px-4 py-2 rounded-md my-6"
+        className="bg-kaavi font-bold text-white px-4 py-2 rounded-md my-6"
       >
-        Update Details
+        Update
       </button>
     </div>
   );

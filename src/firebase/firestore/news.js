@@ -6,7 +6,10 @@ import {
   getDoc,
   getDocs,
   getFirestore,
+  orderBy,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { app } from "../config";
@@ -17,7 +20,8 @@ const storage = getStorage(app);
 export async function getNews() {
   try {
     const news = [];
-    const result = await getDocs(collection(db, "news"));
+    const q = query(collection(db, "news"), orderBy("timestamp", "desc"));
+    const result = await getDocs(q);
     result.forEach((doc) => {
       news.push({ id: doc.id, ...doc.data() });
     });

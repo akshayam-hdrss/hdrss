@@ -7,20 +7,29 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { IoClose } from "react-icons/io5";
-import { editDaily, getDaily } from "../../../firebase/firestore/daily";
-
+import {
+  editDaily,
+  getDaily,
+  getOneDaily,
+} from "../../../firebase/firestore/daily";
+function parseDate(dateString) {
+  const [day, month, year] = dateString.split("-").map(Number);
+  return new Date(year, month - 1, day); // Month is 0-based in JS Date
+}
 function EditDaily({ open, setOpen }) {
   const [editId, setEditId] = useState();
   const [daily, setDaily] = useState();
   const [title, setTitle] = useState(null);
   const [link, setLink] = useState(null);
   const [date, setDate] = useState(null);
+  const [existing, setExisting] = useState(null);
   let data = {};
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    setExisting(null);
   };
   const handleSubmit = async () => {
     console.log(editId);
@@ -29,6 +38,7 @@ function EditDaily({ open, setOpen }) {
     }
     if (date != null) {
       data.date = date;
+      data.timestamp = parseDate(date);
     }
     if (link != null) {
       data.link = link;
@@ -43,6 +53,14 @@ function EditDaily({ open, setOpen }) {
     };
     fetch();
   }, [open]);
+  useEffect(() => {
+    const fetch = async () => {
+      const ex = await getOneDaily(editId);
+      setExisting(ex);
+    };
+    fetch();
+  }, [editId]);
+
   return (
     <>
       <Button onClick={handleOpen} className="bg-kaavi">
@@ -81,17 +99,30 @@ function EditDaily({ open, setOpen }) {
               <Typography variant="h4" color="blue-gray">
                 Enter new title
               </Typography>
-              <input type="text" onChange={(e) => setTitle(e.target.value)} />
+              <input
+                type="text"
+                onChange={(e) => setTitle(e.target.value)}
+                defaultValue={existing && existing.title}
+                className="w-full"
+              />
 
               <Typography variant="h4" color="blue-gray">
-                Enter new Date
+                Enter new Date (DD-MM-YYYY)
               </Typography>
-              <input type="text" onChange={(e) => setDate(e.target.value)} />
+              <input
+                type="text"
+                onChange={(e) => setDate(e.target.value)}
+                defaultValue={existing && existing.date}
+              />
 
               <Typography variant="h4" color="blue-gray">
                 Enter new Link
               </Typography>
-              <input type="text" onChange={(e) => setLink(e.target.value)} />
+              <input
+                type="text"
+                onChange={(e) => setLink(e.target.value)}
+                defaultValue={existing && existing.link}
+              />
               <button
                 className="p-3 text-white bg-kaavi rounded-lg w-full"
                 onClick={handleSubmit}

@@ -12,7 +12,8 @@ import EditLeaderPopup from "@/components/Admin/Leaders/EditLeaderPopup";
 import DeleteLeaderPopup from "@/components/Admin/Leaders/DeleteLeaderPopup";
 import BackButton from "@/components/ui/BackButton";
 import AddDistrict from "@/components/Admin/Leaders/AddDistrict";
-
+import DeleteDistrict from "@/components/Admin/Leaders/DeleteDistrict";
+import EditDistrict from "@/components/Admin/Leaders/EditDistrict";
 function LeadersPage() {
   const [districtLeaders, setDistrictLeaders] = useState("");
   const [stateLeaders, setStateLeaders] = useState();
@@ -25,7 +26,8 @@ function LeadersPage() {
   const [existingSnos, setExistingSnos] = useState();
   const [stateAvailableSNos, setStateAvailableSnos] = useState();
   const [districtOpen, setDistrictOpen] = useState();
-
+  const [deleteDistrictOpen, setDeleteDistrictOpen] = useState();
+  const [editDistrictOpen, setEditDistrictOpen] = useState();
   useEffect(() => {
     const fetchData = async () => {
       const data2 = await getStateLeaders();
@@ -34,7 +36,14 @@ function LeadersPage() {
       setExistingDistricts(data3);
     };
     fetchData();
-  }, [addOpen, editOpen, deleteOpen, districtOpen]);
+  }, [
+    addOpen,
+    editOpen,
+    deleteOpen,
+    districtOpen,
+    editDistrictOpen,
+    deleteDistrictOpen,
+  ]);
   useEffect(() => {
     const fetchData = async () => {
       const data1 = await getDistrictLeaders(selectedDistrict);
@@ -111,6 +120,11 @@ function LeadersPage() {
             ))}
         </select>
         <AddDistrict open={districtOpen} setOpen={setDistrictOpen} />
+        <EditDistrict open={editDistrictOpen} setOpen={setEditDistrictOpen} />
+        <DeleteDistrict
+          open={deleteDistrictOpen}
+          setOpen={setDeleteDistrictOpen}
+        />
       </div>
 
       <div className="grid grid-cols-2 gap-x-6 gap-y-6 ">

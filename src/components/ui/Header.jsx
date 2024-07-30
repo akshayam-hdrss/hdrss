@@ -68,7 +68,7 @@ function Header() {
           </button>
         </div>
         <Link href="/" className="">
-          <h1 className="font-medium font-lena text-3xl">Akshayam</h1>
+          <h1 className="font-medium font-lena text-4xl">akshayam</h1>
         </Link>
         <div className="  ">
           <IoPersonCircleOutline className="lg:hidden text-4xl text-white " />

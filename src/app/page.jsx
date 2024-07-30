@@ -24,12 +24,13 @@ import News from "@/components/Home/News";
 import Navbar from "@/components/Navbar";
 import Products from "@/components/Home/Products";
 import Daily from "@/components/Home/Daily";
+import { getNumberofComplaints } from "@/firebase/firestore/complaints";
 export default function Home() {
   const [randomData, setRandomData] = useState();
   const [ads, setAds] = useState();
   const [user, setUser] = useState();
   const [userDoc, setUserDoc] = useState();
-
+  const [numberOfComplaints, setNumberOfComplaints] = useState();
   useEffect(() => {
     const fetchdata = async () => {
       const data = await getStateLeaders();
@@ -37,6 +38,8 @@ export default function Home() {
       setRandomData(random);
       const data2 = await getServiceAds(null, null, null, null, "home");
       setAds(data2);
+      const no = await getNumberofComplaints();
+      setNumberOfComplaints(no);
     };
     fetchdata();
   }, []);
@@ -128,7 +131,6 @@ export default function Home() {
                   className="flex flex-row justify-center bg-kaavi text-white font-semibold items-center w-fit mx-auto px-5 py-1.5 rounded-2xl cursor-pointer"
                 >
                   <p>See all</p>
-
                 </Link>
               </div>
             </div>
@@ -139,7 +141,7 @@ export default function Home() {
 
           {/* News Section */}
           <News />
-          
+
           {/* Products Section */}
           <div className="bgom overflow-hidden pb-5 pt-0">
             <div className="px-6 relative ">
@@ -170,9 +172,7 @@ export default function Home() {
               height={300}
               className="rotate-45 opacity-[0.04] absolute left-16 -top-2 -z-10"
             ></Image>
-            <h1 className="px-6 font-koulen text-4xl text-grey">
-              explore
-            </h1>
+            <h1 className="px-6 font-koulen text-4xl text-grey">explore</h1>
 
             <ExploreCarousel />
           </div>
@@ -202,20 +202,28 @@ export default function Home() {
                   members and the complaint will be resolved by us as soon as
                   possible.
                 </p>
-                <div className="md:flex hidden pt-5">
+                <div className="flex mx-auto text-center md:ml-0 md:text-left pt-5">
                   <div className="">
-                    <h1 className="text-4xl font-semibold">100+</h1>
+                    <h1 className="text-4xl font-semibold">
+                      {numberOfComplaints}+
+                    </h1>
                     <h5>Complaints Raised</h5>
                   </div>
                 </div>
-                <Link
-                  href={"/complaint"}
-                  className="text-center md:flex justify-start"
-                >
-                  <button className="bg-kaavi text-white py-2 px-8 mt-6 rounded-md font-medium">
+                <div className="flex justify-evenly mt-4">
+                  <Link
+                    href={"/complaint"}
+                    className=" bg-kaavi text-white p-2  rounded-md font-medium"
+                  >
                     Make a complaint
-                  </button>
-                </Link>
+                  </Link>
+                  <Link
+                    href={"/all-complaints"}
+                    className=" bg-kaavi text-white p-2  rounded-md font-medium"
+                  >
+                    See all complaints
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

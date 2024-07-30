@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { Button, Typography } from "@material-tailwind/react";
 import { addNews } from "@/firebase/firestore/news";
 
+function parseDate(dateString) {
+  const [day, month, year] = dateString.split("-").map(Number);
+  return new Date(year, month - 1, day); // Month is 0-based in JS Date
+}
+
 function AddNews({ open, setOpen }) {
   const [newsTitle, setNewsTitle] = useState("");
   const [newsDetails, setNewsDetails] = useState("");
@@ -13,7 +18,13 @@ function AddNews({ open, setOpen }) {
   };
   const handleAdd = async () => {
     setOpen(!open);
-    const data = { title: newsTitle, details: newsDetails, video: newsVideo };
+    const data = {
+      title: newsTitle,
+      details: newsDetails,
+      video: newsVideo,
+      date: newsDate,
+      timestamp: parseDate(newsDate),
+    };
     await addNews(data, newsPhotos);
   };
   return (

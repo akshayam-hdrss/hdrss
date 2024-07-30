@@ -7,6 +7,10 @@ import {
 } from "@material-tailwind/react";
 import { IoClose } from "react-icons/io5";
 import { addDaily } from "@/firebase/firestore/daily";
+function parseDate(dateString) {
+  const [day, month, year] = dateString.split("-").map(Number);
+  return new Date(year, month - 1, day); // Month is 0-based in JS Date
+}
 function AddDaily({ open, setOpen }) {
   const [title, setTitle] = useState();
   const [link, setLink] = useState();
@@ -19,9 +23,16 @@ function AddDaily({ open, setOpen }) {
     setOpen(false);
   };
   const handleSubmit = async () => {
-    data.title = title;
-    data.link = link;
-    data.date = date;
+    if (title != null) {
+      data.title = title;
+    }
+    if (date != null) {
+      data.date = date;
+      data.timestamp = parseDate(date);
+    }
+    if (link != null) {
+      data.link = link;
+    }
     await addDaily(data);
     setOpen(false);
   };

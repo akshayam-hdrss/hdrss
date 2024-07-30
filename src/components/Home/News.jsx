@@ -45,7 +45,7 @@ function News() {
                   </h1>
                   <div className="md:flex col-span-2 justify-between items-center w-full">
                     <div className="md:flex hidden">
-                      <h1 className="font-semibold">21-3-2004</h1>
+                      <h1 className="font-semibold">{doc.date}</h1>
                     </div>
                     <Link
                       href={`news/${doc.id}`}

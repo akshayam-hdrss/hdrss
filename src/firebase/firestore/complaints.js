@@ -65,3 +65,12 @@ export async function getComplaints() {
     console.log(e);
   }
 }
+
+export async function getNumberofComplaints() {
+  try {
+    const data = await getComplaints();
+    return data.length;
+  } catch (e) {
+    console.log(e);
+  }
+}

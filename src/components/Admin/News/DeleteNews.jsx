@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Dialog,
   Typography,
   DialogBody,
-  DialogFooter,
 } from "@material-tailwind/react";
 import { IoClose } from "react-icons/io5";
+import { deleteNews } from "@/firebase/firestore/news";
 
-function DeleteNews({ open, setOpen }) {
-  const [newsTitle, setNewsTitle] = useState();
-  const [newsDetails, setNewsDetails] = useState();
-  const [newsVideo, setNewsVideo] = useState();
+function DeleteNews({ open, setOpen, id }) {
   const handleOpen = () => setOpen(!open);
   const handleClose = () => setOpen(!open);
-  const handleAdd = () => {};
+  const handleDelete = async () => {
+    await deleteNews(id);
+    setOpen(!open);
+  };
   return (
     <>
-      <Button onClick={handleOpen} className="bg-kaavi mx-2">
+      <Button onClick={handleOpen} className="bg-kaavi mx-2 hidden">
         Delete
       </Button>
       <Dialog
@@ -30,58 +30,26 @@ function DeleteNews({ open, setOpen }) {
           <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
               <Typography variant="h4" color="blue-gray">
-                Add News
+                Are you sure?
               </Typography>
               <IoClose fontSize={30} onClick={handleClose} />
             </div>
-
-            <Typography className="-mb-2" variant="h6">
-              News Title
-            </Typography>
-            <input
-              type="text"
-              onChange={(e) => setNewsTitle(e.target.value)}
-              className="border mb-5 p-1 border-deep-orange-200"
-            />
-            <Typography className="-mb-2" variant="h6">
-              Event Description
-            </Typography>
-
-            <textarea
-              rows={4}
-              cols={50}
-              type="text"
-              onChange={(e) => setNewsDetails(e.target.value)}
-              className="border mb-5 p-1 border-deep-orange-200"
-            />
-            <Typography className="-mb-2" variant="h6">
-              News Video
-            </Typography>
-            <input
-              type="text"
-              onChange={(e) => setNewsVideo(e.target.value)}
-              className="border mb-5 p-1 border-deep-orange-200"
-            />
-            <Typography className="-mb-2" variant="h6">
-              News Date (DD-MM-YYYY)
-            </Typography>
-            <input
-              type="text"
-              onChange={(e) => setNewsDate(e.target.value)}
-              className="border mb-5 p-1 border-deep-orange-200"
-            />
+            <div className="flex justify-evenly gap-x-8">
+              <button
+                className="border w-1/2 border-black rounded-md px-4 py-2"
+                onClick={() => setOpen(!open)}
+              >
+                No
+              </button>
+              <button
+                className="bg-kaavi w-1/2 text-white rounded-md px-4 py-2"
+                onClick={handleDelete}
+              >
+                Yes
+              </button>
+            </div>
           </div>
         </DialogBody>
-        <DialogFooter className="pt-0">
-          <Button
-            className="bg-kaavi text-white"
-            type="submit"
-            onClick={handleAdd}
-            fullWidth
-          >
-            Enter
-          </Button>
-        </DialogFooter>
       </Dialog>
     </>
   );

@@ -11,6 +11,7 @@ import {
   query,
   orderBy,
   limit,
+  getDoc,
 } from "firebase/firestore";
 import {
   ref,
@@ -42,7 +43,7 @@ export async function addStateLeader(id, data, file) {
   try {
     let docData;
     let result;
-    console.log("before")
+    console.log("before");
     const membersRef = collection(db, "members/state/statecol");
     if (file != null) {
       const picUrl = await uploadProfile(file, id);
@@ -275,6 +276,48 @@ export async function addLeadersDistrict(district) {
     const id = district.toLowerCase();
     const result = setDoc(doc(db, districtUrl, id), { name: district });
     console.log("district added");
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getDistrictsOfLeaders() {
+  try {
+    let data = [];
+    const result = await getDocs(
+      collection(db, "members/district/districtcol")
+    );
+    result.forEach((district) => {
+      data.push({ name: district.data().name, id: district.id });
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function deleteDistrict(id) {
+  try {
+    await deleteDoc(doc(db, `members/district/districtcol/${id}`));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getOneDistrict(id) {
+  try {
+    const result = await getDoc(doc(db, `members/district/districtcol/${id}`));
+    return result.data().name;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function editDistrictofLeaders(id, name) {
+  try {
+    await updateDoc(doc(db, `members/district/districtcol/${id}`), {
+      name: name,
+    });
   } catch (e) {
     console.log(e);
   }
