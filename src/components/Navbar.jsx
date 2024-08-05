@@ -5,8 +5,8 @@ import Link from "next/link";
 const Navbar = () => {
   return (
     <div>
-      <aside className="sticky hidden lg:block top-20 left-0 h-screen">
-        <div className="p-5">
+      <aside className="sticky hidden lg:block top-16 left-0 h-screen">
+        <div className="p-5 pt-24">
           <div className="flex justify-center">
             <div className="">
               <div className="flex justify-center py-2">

@@ -3,7 +3,8 @@ import Sudoku from "@/components/Sudoku";
 import Header from "@/components/ui/Header";
 import BackButton from "@/components/ui/BackButton";
 import Navbar from "@/components/Navbar";
-function sudokupage() {
+import Quiz from "../../../components/Quiz";
+function page() {
   return (
     <div className="relative">
       <div className="fixed w-full top-0 z-[50]">
@@ -13,7 +14,7 @@ function sudokupage() {
         <Navbar />
         <div className="col-span-3 pt-[70px] ">
           <BackButton />
-          <Sudoku />
+          <Quiz />
         </div>
       </div>
       {/* <Footer/> */}
@@ -21,4 +22,4 @@ function sudokupage() {
   );
 }
 
-export default sudokupage;
+export default page;

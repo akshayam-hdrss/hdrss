@@ -10,6 +10,7 @@ import ServiceCard from "@/components/ui/ServiceCard";
 import BackButton from "@/components/ui/BackButton";
 import AdCarousel from "../../../components/ui/AdCarousel";
 import { getServiceAds } from "@/firebase/firestore/advertisements";
+import Navbar from "@/components/Navbar";
 
 export async function generateStaticParams() {
   const list = await getServicesAndProductsList(null, null, null, "products");
@@ -26,8 +27,13 @@ export default async function ProductPages({ params }) {
   const ads = await getServiceAds("products", null, null, null, null);
   return (
     <div>
-      <Header />
-      <BackButton />
+      <div className="fixed w-full top-0 z-[50]">
+        <Header />
+      </div>
+      <div className="grid lg:grid-cols-4">
+      <Navbar/>
+        <div className="col-span-3 pt-[70px]">
+        <BackButton />
       <AdCarousel ads={ads} />
 
       <div className="p-6 py-20">
@@ -43,6 +49,8 @@ export default async function ProductPages({ params }) {
         </div>
       </div>
       <YoutubeEmbed embedId="#" />
+        </div>
+      </div>
       <Footer />
     </div>
   );
