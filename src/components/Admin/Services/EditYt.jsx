@@ -18,6 +18,7 @@ function EditYt({
   type,
   data,
 }) {
+  const [link, setLink] = useState();
   const handleOpen = () => {
     setOpen(true);
   };

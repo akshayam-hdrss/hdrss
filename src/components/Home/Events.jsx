@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { getEvents } from "@/firebase/firestore/events";
 import Image from "next/image";
+import Link from "next/link";
 
 function Events() {
   const [events, setEvents] = useState();
@@ -36,10 +37,14 @@ function Events() {
               </div>
               <div className="col-span-3 px-5 py-5 md:py-10 flex flex-col justify-between">
                 <p>{events[0].data.title.slice(0, 100)}</p>
-                <div className="flex justify-end">
-                  <h1 className="py-1 px-3 rounded-md bg-kaavi text-white">
+                <div className="flex justify-between mt-2 items-center">
+                  <h1 className="font-bold">{events[0].data.date}</h1>
+                  <Link
+                    href={`/events/${events[0].id}`}
+                    className="py-1 px-3 rounded-md bg-kaavi text-white"
+                  >
                     Read More
-                  </h1>
+                  </Link>
                 </div>
               </div>
             </div>

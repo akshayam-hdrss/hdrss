@@ -21,6 +21,7 @@ function Daily() {
     };
     fetch();
   }, []);
+
   return (
     <div className="py-6 px-4 overflow-hidden relative">
       <div className="">
@@ -44,12 +45,7 @@ function Daily() {
                     <div className="col-span-3 grid grid-cols-3 md:flex flex-col justify-between w-full pt-5 md:p-5 gap-2">
                       <h1 className="text-[15px] col-span-2 font-bold text-justify ">
                         {doc.data.title.slice(0, 80)}..
-                      </h1> 
-                      <div className="flex justify-end w-[110px]">
-                        <h1 className="py-1 px-3 rounded-md h-fit w-fit bg-kaavi text-white">
-                          Read More
-                        </h1>
-                      </div>
+                      </h1>
                     </div>
                   </div>
                 </div>
