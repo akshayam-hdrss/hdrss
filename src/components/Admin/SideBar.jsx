@@ -79,6 +79,14 @@ function SideBar() {
         Day's special
       </Link>
       <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path.includes("quiz") ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/quiz"}
+      >
+        Quiz
+      </Link>
+      <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg  my-2 ${
           path.includes("members") ? "bg-kaavi text-white" : " "
         }`}
@@ -108,7 +116,7 @@ function SideBar() {
         }`}
         href={"/admin/leader"}
       >
-       About Leader
+        About Leader
       </Link>
       <button
         onClick={handleLogout}
