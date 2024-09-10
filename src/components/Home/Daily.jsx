@@ -42,8 +42,8 @@ function Daily() {
                     <div className="col-span-4 w-full object-contain max-h-[500px]">
                       <YoutubeEmbed embedId={doc.data.link} />
                     </div>
-                    <div className="col-span-3 grid grid-cols-3 md:flex flex-col justify-between w-full pt-5 md:p-5 gap-2">
-                      <h1 className="text-[15px] col-span-2 font-bold text-justify ">
+                    <div className="md:flex flex-col justify-between w-full pt-5 md:p-5 gap-2">
+                      <h1 className="text-[15px] font-bold">
                         {doc.data.title.slice(0, 80)}..
                       </h1>
                     </div>

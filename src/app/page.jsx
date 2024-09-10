@@ -131,12 +131,12 @@ export default function Home() {
             </div>
             <div className="flex justify-end w-full pt-5 lg:pr-5">
               <div className="">
-              <Link
-                href="/services"
-                className="flex flex-row justify-center bg-kaavi text-white font-semibold items-center w-fit mx-auto px-5 py-1.5 rounded-xl cursor-pointer"
-              >
-                <p>See all</p>
-              </Link>
+                <Link
+                  href="/services"
+                  className="flex flex-row justify-center bg-kaavi text-white font-semibold items-center w-fit mx-auto px-5 py-1.5 rounded-xl cursor-pointer"
+                >
+                  <p>See all</p>
+                </Link>
               </div>
             </div>
           </div>
@@ -157,9 +157,15 @@ export default function Home() {
 
               <h1 className="font-koulen text-4xl text-grey ">Products</h1>
               <Products />
-              <div className="flex flex-row justify-center items-center border-black border w-fit mx-auto mt-5 px-3 py-2 rounded-2xl cursor-pointer">
-                <Link href="/products">See all products</Link>
-                <IoIosArrowDown className="ml-1" />
+              <div className="flex justify-end w-full pt-5 lg:pr-5">
+                <div className="">
+                  <Link
+                    href="/products"
+                    className="flex flex-row justify-center bg-kaavi text-white font-semibold items-center w-fit mx-auto px-5 py-1.5 rounded-xl cursor-pointer"
+                  >
+                    <p>See all</p>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
