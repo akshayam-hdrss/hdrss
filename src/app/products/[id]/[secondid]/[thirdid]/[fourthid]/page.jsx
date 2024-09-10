@@ -8,6 +8,7 @@ import Footer from "@/components/ui/Footer";
 import BackButton from "@/components/ui/BackButton";
 import GalleryCarousel from "@/components/ui/GalleryCarousel";
 import Navbar from "@/components/Navbar";
+
 export async function generateStaticParams() {
   const list = await getServicesAndProductsList(null, null, null, "products");
   const paths = await Promise.all(
