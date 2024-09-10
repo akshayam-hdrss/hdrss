@@ -5,7 +5,7 @@ import { useState } from "react";
 function quizPage() {
   const [open, setOpen] = useState();
   const [n, setN] = useState(3);
-
+  const [questions, setQuestions] = useState({});
   const handleAdd = () => {
     setOpen(!open);
   };
@@ -20,6 +20,7 @@ function quizPage() {
           <input key={index} type="text" className="border border-kaavi" />
         ))}
         <button onClick={() => setN(n + 1)}>Add another option</button>
+        <button onClick={()=> setQuestions({question: })}>Submit the Question</button>
       </div>
     </div>
   );
