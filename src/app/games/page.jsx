@@ -2,7 +2,6 @@ import Header from "@/components/ui/Header";
 import BackButton from "@/components/ui/BackButton";
 import { IoIosArrowDown } from "react-icons/io";
 import Link from "next/link";
-
 import Navbar from "@/components/Navbar";
 export default function Page() {
   return (
@@ -27,7 +26,7 @@ export default function Page() {
                   Challenge your mind, Master the Grid
                 </h2>
                 <Link
-                  href={"/games/sudoku"}
+                  href="/games/sudoku"
                   className="bg-kaavi text-white px-4 py-2 rounded-md "
                 >
                   Play now

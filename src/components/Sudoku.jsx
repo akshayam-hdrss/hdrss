@@ -1,4 +1,3 @@
-// pages/sudoku.js
 "use client";
 import React, { useState, useEffect } from "react";
 import sudoku from "sudoku";
@@ -14,7 +13,7 @@ const Sudoku = () => {
     const newPuzzle = sudoku.makepuzzle();
     setPuzzle(newPuzzle);
     setSolution(sudoku.solvepuzzle(newPuzzle));
-    setUserGrid(newPuzzle.map((cell) => (cell === null ? "" : cell)));
+    setUserGrid(newPuzzle.map((cell) => (cell === null ? " " : cell)));
   }, []);
 
   const handleChange = (e, index) => {

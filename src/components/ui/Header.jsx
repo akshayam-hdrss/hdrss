@@ -5,7 +5,6 @@ import { IoIosArrowForward } from "react-icons/io";
 import Drawer from "@mui/material/Drawer";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { Link as ScrollLink } from "react-scroll";
 import { IoClose } from "react-icons/io5";
 import auth from "@/firebase/config.js";
 import { onAuthStateChanged } from "firebase/auth";
@@ -130,7 +129,10 @@ function Header() {
               <p className="font-medium">About us</p>
               <IoIosArrowForward />
             </Link>
-            <Link href="/location" className="flex mb-4 items-center justify-between">
+            <Link
+              href="/location"
+              className="flex mb-4 items-center justify-between"
+            >
               <p className="font-medium">Select Location</p>
               <IoIosArrowForward />
             </Link>
@@ -141,16 +143,11 @@ function Header() {
               <p className="font-medium">Explore Services</p>
               <IoIosArrowForward />
             </Link>
-            
+
             <div className="flex mb-4 items-center justify-between">
-              <ScrollLink
-                to="footer"
-                smooth={true}
-                duration={500}
-                onClick={() => setOpen(false)}
-              >
+              <Link href="#footer" onClick={() => setOpen(false)}>
                 Contact Us
-              </ScrollLink>
+              </Link>
               <IoIosArrowForward />
             </div>
           </Drawer>

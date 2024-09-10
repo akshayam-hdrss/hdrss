@@ -1,7 +1,6 @@
 import React from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import Link from "next/link";
-import { Link as ScrollLink } from "react-scroll";
 
 const Navbar = () => {
   return (
@@ -44,11 +43,9 @@ const Navbar = () => {
                   <p className="font-medium">Explore Services</p>
                   <IoIosArrowForward />
                 </Link>
-                
+
                 <div className="flex mb-4 items-center justify-between">
-                  <ScrollLink to="footer" smooth={true} duration={500}>
-                    Contact Us
-                  </ScrollLink>
+                  <Link href="#footer">Contact Us</Link>
                   <IoIosArrowForward />
                 </div>
               </div>

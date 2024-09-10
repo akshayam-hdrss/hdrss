@@ -11,7 +11,7 @@ function quizPage() {
   };
   return (
     <div>
-      <button onClick={handleAdd}>Add a Question</button>
+      {/* <button onClick={handleAdd}>Add a Question</button>
       <div className={open ? " " : "hidden"}>
         <p>Enter the question</p>
         <input type="text" />
@@ -21,7 +21,7 @@ function quizPage() {
         ))}
         <button onClick={() => setN(n + 1)}>Add another option</button>
         <button onClick={()=> setQuestions({question: })}>Submit the Question</button>
-      </div>
+      </div> */}
     </div>
   );
 }
