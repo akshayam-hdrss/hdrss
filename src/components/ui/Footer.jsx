@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { getRamadass } from "@/firebase/firestore/ramadass";
 import { submitFooterForm } from "../../firebase/firestore/footerform";
+import { IoIosDoneAll } from "react-icons/io";
 
 function Footer() {
   const [leader, setLeader] = useState([]);
@@ -88,37 +89,42 @@ function Footer() {
             <h1 className="font-semibold text-center lg:text-xl pb-5">
               For Advertisements and Service promotion{" "}
             </h1>
-            {submitted ? <div className="bg-[#D9D9D9] text-black rounded-xl p-8 pt-10">
-              <form action="" className="grid gap-8">
-                <input
-                  type="text"
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Name"
-                  className="w-full border-b-2 px-5 py-2 bg-transparent focus:outline-none border-black/40 placeholder:text-black/60"
-                />
-                <input
-                  type="tel"
-                  onChange={(e) => setNumber(e.target.value)}
-                  placeholder="Phone Number"
-                  className="w-full border-b-2 px-5 py-2 bg-transparent focus:outline-none border-black/40 placeholder:text-black/60"
-                />
-                <input
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
-                  className="w-full border-b-2 px-5 py-2 bg-transparent focus:outline-none border-black/40 placeholder:text-black/60"
-                />
-                <input
-                  type="submit"
-                  value="Send"
-                  onClick={handleSubmit}
-                  className="bg-kaavi text-white text-xl font-semibold text-center w-full rounded-xl py-2"
-                />
-              </form>
-            </div> : <div>
-                
-            </div> }
-            
+            {!submitted ? (
+              <div className="bg-[#D9D9D9] text-black rounded-xl p-8 pt-10">
+                <form action="" className="grid gap-8">
+                  <input
+                    type="text"
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Name"
+                    className="w-full border-b-2 px-5 py-2 bg-transparent focus:outline-none border-black/40 placeholder:text-black/60"
+                  />
+                  <input
+                    type="tel"
+                    onChange={(e) => setNumber(e.target.value)}
+                    placeholder="Phone Number"
+                    className="w-full border-b-2 px-5 py-2 bg-transparent focus:outline-none border-black/40 placeholder:text-black/60"
+                  />
+                  <input
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                    className="w-full border-b-2 px-5 py-2 bg-transparent focus:outline-none border-black/40 placeholder:text-black/60"
+                  />
+                  <input
+                    type="submit"
+                    value="Send"
+                    onClick={handleSubmit}
+                    className="bg-kaavi text-white text-xl font-semibold text-center w-full rounded-xl py-2"
+                  />
+                </form>
+              </div>
+            ) : (
+              <div className="bg-white flex items-center justify-center text-kaavi py-2 rounded-2xl font-bold text-center">
+                <IoIosDoneAll fontSize={40}/>
+
+                <h1>Your request form is submitted</h1>
+              </div>
+            )}
           </div>
         </div>
       </section>
