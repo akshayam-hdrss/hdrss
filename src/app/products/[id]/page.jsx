@@ -16,6 +16,7 @@ export async function generateStaticParams() {
 
 export default async function ProductPages({ params }) {
   const { id } = params;
+  const decoded = decodeURIComponent(id);
 
-  return <ProductsLevel1 id={id} />;
+  return <ProductsLevel1 id={decoded} />;
 }

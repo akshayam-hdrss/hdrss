@@ -39,12 +39,11 @@ async function ServiceLevel3Page({ params }) {
   const decodedfirst = decodeURIComponent(id);
   const decodedsecond = decodeURIComponent(secondid);
   const decodedthird = decodeURIComponent(thirdid);
-console.log(decodedfirst)
   return (
     <ServiceLevel3
-      decodedfirst={decodedfirst}
-      decodedsecond={decodedsecond}
-      decodedthird={decodedthird}
+      id={decodedfirst}
+      secondid={decodedsecond}
+      thirdid={decodedthird}
     />
   );
 }

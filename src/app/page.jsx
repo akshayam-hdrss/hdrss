@@ -315,10 +315,17 @@ export default function Home() {
           </div>
 
           {/* Members */}
-          <div className="p-6 md:py-10">
+          <div className="p-6 md:py-10 overflow-hidden relative">
+            <Image
+              src="/om.svg"
+              alt="om"
+              width={300}
+              height={300}
+              className="rotate-45 opacity-[0.04] absolute right-7 -bottom-4 -z-0"
+            ></Image>
             <h1 className="font-koulen text-4xl text-grey mb-2">Members</h1>
             <h2 className="text-lg text-grey font-bold">State Level Leaders</h2>
-            <div className="grid md:grid-cols-4">
+            <div className="grid md:grid-cols-4 z-50">
               {randomData && (
                 <div className="p-6 flex md:grid justify-evenly gap-x-4 items-center my-2">
                   <img
@@ -346,10 +353,10 @@ export default function Home() {
 
           {/* Offers and rewards */}
           <div className="px-6">
-            <h1 className="font-koulen text-4xl text-grey mb-2">
+            <h1 className="font-koulen text-4xl text-grey mb-2 z-50">
               Offers and rewards
             </h1>
-            <div className="flex justify-around items-center mt-2 ml-5 md:py-10">
+            <div className="flex justify-around items-center z-50 mt-2 ml-5 md:py-10">
               <Link
                 href={"/games"}
                 className="text-center grid gap-2 md:scale-125"

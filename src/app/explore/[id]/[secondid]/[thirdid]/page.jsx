@@ -1,16 +1,16 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { getServicesAndProductsList } from "@/firebase/firestore/servicesProducts";
-import ProductsLevel3 from "@/components/Products/ProductsLevel3";
+import ExploreLevel3 from "@/components/Explore/ExploreLevel3";
 
 export async function generateStaticParams() {
-  const list = await getServicesAndProductsList(null, null, null, "products");
+  const list = await getServicesAndProductsList(null, null, null, "explore");
   const paths = await Promise.all(
     list.map(async (item) => {
       const list2 = await getServicesAndProductsList(
         null,
         null,
         item,
-        "products"
+        "explore"
       );
       const subPaths = await Promise.all(
         list2.map(async (subitem) => {
@@ -18,7 +18,7 @@ export async function generateStaticParams() {
             null,
             item,
             subitem,
-            "products"
+            "explore"
           );
           return list3.map((subitem2) => ({
             id: item,
@@ -32,21 +32,9 @@ export async function generateStaticParams() {
   );
   return paths.flat();
 }
-
-async function ProductLevel3Page({ params }) {
+function explorethirdpage({ params }) {
   const { id, secondid, thirdid } = params;
-  const decodedfirst = decodeURIComponent(id);
-  const decodedsecond = decodeURIComponent(secondid);
-  const decodedthird = decodeURIComponent(thirdid);
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ProductsLevel3
-        id={decodedfirst}
-        secondid={decodedsecond}
-        thirdid={decodedthird}
-      />
-    </Suspense>
-  );
+  return <ExploreLevel3 id={id} secondid={secondid} thirdid={thirdid} />;
 }
 
-export default ProductLevel3Page;
+export default explorethirdpage;

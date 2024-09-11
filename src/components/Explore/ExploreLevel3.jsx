@@ -11,26 +11,25 @@ import Advertisement from "@/components/ui/Advertisement";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import { subscribeToServiceAndProductDocs } from "@/firebase/firestore/servicesProducts";
 
-function ServiceLevel3({ id, secondid, thirdid }) {
+function ExploreLevel3({ id, secondid, thirdid }) {
   const [data, setData] = useState();
   const [ads, setAds] = useState();
   const [capitalized, setCapitalized] = useState();
   const [link, setLink] = useState();
-
   useEffect(() => {
     const unsubscribe = subscribeToServiceAndProductDocs(
       setData,
       thirdid,
       secondid,
       id,
-      "services"
+      "explore"
     );
     const fetch = async () => {
-      const capitalized = await getName(id, secondid, thirdid, "services");
+      const capitalized = await getName(id, secondid, thirdid, "explore");
       setCapitalized(capitalized);
-      const link = await getYt("services", id, secondid, thirdid);
+      const link = await getYt("explore", id, secondid, thirdid);
       setLink(link);
-      const ads = await getServiceAds("services", id, secondid, thirdid, null);
+      const ads = await getServiceAds("explore", id, secondid, thirdid, null);
       setAds(ads);
     };
     fetch();
@@ -38,6 +37,7 @@ function ServiceLevel3({ id, secondid, thirdid }) {
       unsubscribe();
     };
   });
+
   return (
     <div>
       <Header />
@@ -45,29 +45,32 @@ function ServiceLevel3({ id, secondid, thirdid }) {
       <Advertisement ads={ads} />
       <div>
         <h1 className="font-bold text-2xl pb-20 p-6">{capitalized}</h1>
-
-        {data &&
-          data.map((item) => (
-            <Link
-              href={`/services/${id}/${secondid}/${thirdid}/${item.id}`}
-              key={item.id}
-              className="flex justify-start px-6 items-start border-b border-grey pb-3 mb-5 mx-0"
-            >
-              <div className="h-fit w-[130px] inline-block">
+        <div className="grid grid-cols-2 px-12 gap-x-2">
+          {data &&
+            data.map((item) => (
+              <div
+                key={item.id}
+                className="flex flex-col justify-center px-3 rounded-md items-center py-3 border border-grey mb-5 mx-0 h-max"
+              >
                 <img
-                  src={item.profile}
+                  src={item.photo}
                   alt="Profile"
-                  className=" rounded-xl object-cover aspect-[4/5]"
+                  className=" rounded-md object-cover h-2/3 w-full"
                 />
+                <div className="h-1/3 flex flex-col">
+                  <h1 className="mt-4 font-medium text-lg text-center">
+                    {item.name}
+                  </h1>
+                  <a
+                    href={item.link}
+                    className="bg-kaavi px-4 py-1 rounded-sm text-white mt-1"
+                  >
+                    Download
+                  </a>
+                </div>
               </div>
-              <div className="flex flex-col justify-between items-center w-[70%]">
-                <h1 className="font-bold text-3xl">{item.name}</h1>
-                <h2 className="text-lg font-medium">{item.businessname}</h2>
-
-                <p className="font-medium text-grey mt-0 pt-0">{item.area}</p>
-              </div>
-            </Link>
-          ))}
+            ))}
+        </div>
       </div>
       <YoutubeEmbed embedId={link} />
       <Footer />
@@ -75,4 +78,4 @@ function ServiceLevel3({ id, secondid, thirdid }) {
   );
 }
 
-export default ServiceLevel3;
+export default ExploreLevel3;

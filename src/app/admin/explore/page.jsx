@@ -17,7 +17,7 @@ function page() {
     "June",
     "July",
     "August",
-    "September",
+    "Sep",
     "October",
     "November",
     "December",

@@ -48,12 +48,14 @@ export async function generateStaticParams() {
 
 export default async function ProductLevel4Page({ params }) {
   const { id, secondid, thirdid, fourthid } = params;
-
+  const decodedfirst = decodeURIComponent(id);
+  const decodedsecond = decodeURIComponent(secondid);
+  const decodedthird = decodeURIComponent(thirdid);
   return (
     <ProductsLevel4
-      id={id}
-      secondid={secondid}
-      thirdid={thirdid}
+      id={decodedfirst}
+      secondid={decodedsecond}
+      thirdid={decodedthird}
       fourthid={fourthid}
     />
   );
