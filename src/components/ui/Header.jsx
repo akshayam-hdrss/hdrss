@@ -54,19 +54,23 @@ function Header() {
         }}
       >
         <div className="flex items-center gap-5">
-          {/* <IoToggle fontSize={35} className="cursor-pointer " /> */}
+          <IoPersonCircleOutline
+            fontSize={35}
+            className="cursor-pointer invisible"
+          />
+        </div>
+        <Link href="/" className="text-center">
+          <h1 className="font-medium text-center font-lena text-4xl">
+            akshayam
+          </h1>
+        </Link>
+        <div className="  ">
           <button
             onClick={toggleDrawer}
             className="bg-inherit m-0 p-0 shadow-none lg:hidden"
           >
             <IoMenu fontSize={40} />
           </button>
-        </div>
-        <Link href="/" className="">
-          <h1 className="font-medium font-lena text-4xl">akshayam</h1>
-        </Link>
-        <div className="  ">
-          <IoPersonCircleOutline className="lg:hidden text-4xl text-white " />
 
           <Link
             href={"/"}
@@ -137,7 +141,7 @@ function Header() {
               <IoIosArrowForward />
             </Link>
             <Link
-              href="/all-services"
+              href="/services"
               className="flex mb-4 items-center justify-between"
             >
               <p className="font-medium">Explore Services</p>
@@ -146,7 +150,7 @@ function Header() {
 
             <div className="flex mb-4 items-center justify-between">
               <Link href="#footer" onClick={() => setOpen(false)}>
-                Contact Us
+                <p className="font-medium">Contact Us</p>
               </Link>
               <IoIosArrowForward />
             </div>

@@ -41,3 +41,27 @@ export async function uploadIcons(file, id) {
     console.log(e);
   }
 }
+
+export async function uploadDocIcons(file, id) {
+  try {
+    const storageRef = ref(storage, `docs/${id}`);
+    await uploadBytes(storageRef, file);
+    const url = await getDownloadURL(storageRef);
+    console.log("uploaded icon");
+    return url;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function uploadDocPhotos(file, id) {
+  try {
+    const storageRef = ref(storage, `docPhotos/${id}`);
+    await uploadBytes(storageRef, file);
+    const url = await getDownloadURL(storageRef);
+    console.log("uploaded icon");
+    return url;
+  } catch (e) {
+    console.log(e);
+  }
+}

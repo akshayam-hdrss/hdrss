@@ -22,7 +22,7 @@ function Products() {
   }, []);
   return (
     <div className="flex md:block justify-center relative">
-      <div className="grid grid-cols-3 md:grid-cols-4  gap-5 mt-5">
+      <div className="grid grid-cols-3 md:grid-cols-4 gap-5 mt-5">
         {products &&
           products
             .slice(0, 6)
@@ -38,7 +38,7 @@ function Products() {
           alt="om"
           width={300}
           height={300}
-          className="rotate-45 opacity-[0.04] absolute right-16 -top-28 z-[1] "
+          className="rotate-45 opacity-[0.04] absolute right-16 -top-28 -z-0 "
         ></Image>
       </div>
     </div>

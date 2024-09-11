@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
@@ -10,10 +10,7 @@ import Advertisement from "@/components/ui/Advertisement";
 import { getYt } from "@/firebase/firestore/servicesyt";
 import Image from "next/image";
 import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
-import {
-  getServiceAndProductDocs,
-  getName,
-} from "@/firebase/firestore/servicesProducts";
+import { getName } from "@/firebase/firestore/servicesProducts";
 function ServiceLevel1({ id }) {
   const [data, setData] = useState();
   const [ads, setAds] = useState();
@@ -23,7 +20,7 @@ function ServiceLevel1({ id }) {
     const fetch = async () => {
       const ads = await getServiceAds("services", null, null, id, null);
       setAds(ads);
-      const capitalized = getName(null, null, id);
+      const capitalized = getName(null, null, id,"services");
       setCapitalized(capitalized);
       const link = await getYt("services", null, null, id);
       setLink(link);

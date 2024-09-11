@@ -21,6 +21,7 @@ function AddProductDocPopup({
 }) {
   const [profile, setProfile] = useState();
   const [name, setName] = useState();
+  const [number, setNumber] = useState();
   const [price, setPrice] = useState();
   const [about, setAbout] = useState();
   const [photos, setPhotos] = useState();
@@ -29,6 +30,7 @@ function AddProductDocPopup({
   };
   const handlePrice = (e) => setPrice(e.target.value);
   const handleName = (e) => setName(e.target.value);
+  const handleNumber = (e) => setNumber(e.target.value);
   const handleAbout = (e) => setAbout(e.target.value);
   const handlePhotos = (e) => {
     const files = Array.from(e.target.files);
@@ -52,16 +54,17 @@ function AddProductDocPopup({
         name: name,
         about: about,
         price: price,
+        mobile: number,
       },
       profile,
       photos,
       "products",
       id
     );
-    setName("")
-    setPrice()
-    setAbout("")
-    setPhotos()
+    setName("");
+    setPrice();
+    setAbout("");
+    setPhotos();
   };
   return (
     <>
@@ -107,6 +110,14 @@ function AddProductDocPopup({
                   cols={25}
                   className="border border-kaavi pl-4 py-3 mb-6"
                 ></textarea>
+                <p className="text-xl font-medium mb-1">Contact Number</p>
+                <Input
+                  type="number"
+                  value={number}
+                  onChange={handleNumber}
+                  placeholder="Contact Number"
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
                 <p className="text-xl font-medium mb-1">Photos</p>
                 <Input
                   type="file"

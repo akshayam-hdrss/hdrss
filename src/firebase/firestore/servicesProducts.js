@@ -15,7 +15,12 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { ref, deleteObject, getStorage, getMetadata } from "firebase/storage";
-import { uploadIcons, uploadFilesAndSaveURLs } from "./common";
+import {
+  uploadIcons,
+  uploadDocIcons,
+  uploadFilesAndSaveURLs,
+  uploadDocPhotos,
+} from "./common";
 
 const db = getFirestore(app);
 const storage = getStorage(app);
@@ -82,6 +87,7 @@ export async function addServicesAndProductsDoc(
       galleryUrls = await uploadFilesAndSaveURLs(photos);
       docData = {
         ...data,
+        profile: "",
         photos: galleryUrls,
       };
     } else if (profilepic != null) {
@@ -89,6 +95,7 @@ export async function addServicesAndProductsDoc(
       docData = {
         ...data,
         profile: pfpUrl,
+        photos: "",
       };
     } else {
       docData = { ...data };
@@ -223,14 +230,14 @@ export async function editServicesAndProducts(
       docUrl = type;
     }
     if (icon != null && name != null) {
-      const fileRef = ref(storage, iconUrl);
-      deleteObject(fileRef)
-        .then(() => {
-          console.log("deleted successfully");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      // const fileRef = ref(storage, iconUrl);
+      // deleteObject(fileRef)
+      //   .then(() => {
+      //     console.log("deleted successfully");
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
       fileUrl = await uploadIcons(icon, id);
       await updateDoc(doc(db, docUrl, id), {
         name: name,
@@ -283,8 +290,6 @@ export async function editServiceAndProductDocs(
   data,
   newprofile,
   newphotos,
-  oldprofile,
-  oldphotos,
   type
 ) {
   try {
@@ -295,48 +300,47 @@ export async function editServiceAndProductDocs(
     // check for old profile
     if (newprofile != null) {
       //delete old profile pic
-      if (oldprofile != undefined) {
-        const oldprofileRef = ref(storage, oldprofile);
-        await getMetadata(oldprofileRef)
-          .then(() => {
-            deleteObject(oldprofileRef)
-              .then(() => console.log("deleted old profile pic"))
-              .catch((e) => console.log(e));
-          })
-          .catch((e) => console.log(e));
-      }
+      // if (oldprofile != undefined) {
+      //   const oldprofileRef = ref(storage, id);
+      //   await getMetadata(oldprofileRef)
+      //     .then(() => {
+      //       deleteObject(oldprofileRef)
+      //         .then(() => console.log("deleted old profile pic"))
+      //         .catch((e) => console.log(e));
+      //     })
+      //     .catch((e) => console.log(e));
+      // }
 
-      const newprofileRef = ref(storage, newprofile);
-      const newprofileUrl = await uploadIcons(newprofileRef, id);
+      const newprofileUrl = await uploadDocIcons(newprofile, id);
       data.profile = newprofileUrl;
     }
 
     //check for old photos
     if (newphotos != null) {
       //delete old photos
-      if (oldphotos != []) {
-        oldphotos.map(async (oldphoto) => {
-          const oldphotoRef = ref(storage, oldphoto);
+      // if (oldphotos != []) {
+      //   oldphotos.map(async (oldphoto) => {
+      //     const oldphotoRef = ref(storage, id);
 
-          await getMetadata(oldphotoRef)
-            .then(() => {
-              deleteObject(oldphotoRef)
-                .then(() => console.log("deleted old photo"))
-                .catch((e) => console.log(e));
-            })
-            .catch((e) => console.log(e));
-        });
-      }
+      //     await getMetadata(oldphotoRef)
+      //       .then(() => {
+      //         deleteObject(oldphotoRef)
+      //           .then(() => console.log("deleted old photo"))
+      //           .catch((e) => console.log(e));
+      //       })
+      //       .catch((e) => console.log(e));
+      //   });
+      // }
 
-      let newphotosUrls = [];
-      newphotos.map(async (newphoto) => {
-        const newphotoRef = ref(storage, newphoto);
-        const newphotosUrl = uploadIcons(newphotoRef, id);
-        newphotosUrls.push(newphotosUrl);
-      });
+      const newphotosUrls = await Promise.all(
+        newphotos.map(async (newphoto, index) => {
+          const newphotosUrl = await uploadDocPhotos(newphoto, id + index);
+          return newphotosUrl;
+        })
+      );
       data.photos = newphotosUrls;
     }
-
+    console.log(data.photos);
     await updateDoc(doc(db, docUrl), data);
     console.log("doc updated");
   } catch (e) {
@@ -597,22 +601,27 @@ export async function getDistrict() {
   }
 }
 
-export async function getName(beforeprevious = null, previous = null, id) {
+export async function getName(
+  beforeprevious = null,
+  previous = null,
+  id,
+  type
+) {
   try {
     let document;
     if (beforeprevious != null) {
       document = await getDoc(
         doc(
           db,
-          `services/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col/${id}`
+          `${type}/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col/${id}`
         )
       );
     } else if (previous != null) {
       document = await getDoc(
-        doc(db, `services/${previous}/${previous}col/${id}`)
+        doc(db, `${type}/${previous}/${previous}col/${id}`)
       );
     } else {
-      document = await getDoc(doc(db, `services/${id}`));
+      document = await getDoc(doc(db, `${type}/${id}`));
     }
 
     return document.data().name;

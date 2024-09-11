@@ -36,7 +36,7 @@ function DeleteDocPopup({
     setOpen(!open);
     data.map((item) => {
       if (item.id === deleteOption) {
-        profilepic = item.profilepicture;
+        profilepic = item.profile;
         photos = item.photos;
       }
     });

@@ -186,7 +186,7 @@ export default function Home() {
           </div>
 
           {/* Social complaints */}
-          <div className="px-6  relative overflow-hidden z-0">
+          <div className="px-0 relative overflow-hidden z-0">
             <Image
               src="/om.svg"
               alt="om"
@@ -194,17 +194,17 @@ export default function Home() {
               height={300}
               className="rotate-45 opacity-[0.04] absolute right-7 -top-4 -z-10"
             ></Image>
-            <h1 className="font-koulen text-4xl text-grey mb-6">
+            <h1 className="px-6 font-koulen text-4xl text-grey mb-6">
               Social Complaints
             </h1>
             <div className="grid md:flex gap-5">
-              <div className="hidden  md:flex">
+              <div className="px-6 hidden  md:flex">
                 <div className=" w-full">
                   <img src="/complaint.png" alt="" className=" w-[450px]" />
                 </div>
               </div>
               <div className="md:p-5 px-2 flex flex-col justify-between max-w-[600px]">
-                <p className="md:text-xl text-md text-justify md:text-start">
+                <p className="md:text-xl text-md text-justify md:text-start px-6">
                   Complaint if you have any problem in your area or location.
                   After submitting your complaint, you will be contacted by our
                   members and the complaint will be resolved by us as soon as

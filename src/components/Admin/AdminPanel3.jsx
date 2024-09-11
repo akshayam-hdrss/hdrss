@@ -37,7 +37,7 @@ function AdminPanel3() {
       <Link
         href={`/admin/${type}/level4?previous=${encodeURIComponent(
           item.id
-        )}&beforeprevious=${previous}&rootprevious=${beforeprevious}&type=services&name=${encodeURIComponent(
+        )}&beforeprevious=${previous}&rootprevious=${beforeprevious}&type=${type}&name=${encodeURIComponent(
           item.name
         )}`}
         key={index}

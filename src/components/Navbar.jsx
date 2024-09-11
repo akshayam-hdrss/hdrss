@@ -37,7 +37,7 @@ const Navbar = () => {
                   <IoIosArrowForward />
                 </Link>
                 <Link
-                  href="/all-services"
+                  href="/services"
                   className="flex mb-4 items-center justify-between"
                 >
                   <p className="font-medium">Explore Services</p>
@@ -45,7 +45,9 @@ const Navbar = () => {
                 </Link>
 
                 <div className="flex mb-4 items-center justify-between">
-                  <Link href="#footer">Contact Us</Link>
+                  <Link href="#footer">
+                    <p className="font-medium">Contact Us</p>
+                  </Link>
                   <IoIosArrowForward />
                 </div>
               </div>

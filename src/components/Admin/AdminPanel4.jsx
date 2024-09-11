@@ -11,6 +11,10 @@ import { getServiceAds } from "@/firebase/firestore/advertisements";
 import { getYt } from "@/firebase/firestore/servicesyt";
 import Ads from "@/components/Admin/Advertisements/Ads";
 import EditYt from "@/components/Admin/Services/EditYt";
+import EditProductDocPopup from "./Services/EditProductDocPopup";
+import { MdLocalPhone } from "react-icons/md";
+import Link from "next/link";
+
 function AdminPanel4() {
   const [open, setOpen] = useState(false);
   const [productopen, setProductOpen] = useState(false);
@@ -58,12 +62,30 @@ function AdminPanel4() {
     products.map((item) => (
       <div
         key={item.id}
-        className="flex items-center justify-evenly mt-20 border border-black p-3"
+        className="flex items-start justify-normal gap-x-10 mt-20 rounded-lg"
       >
-        <img src={item.profile} alt="profile picture" />
+        <img
+          src={item.profile}
+          alt="profile picture"
+          height={100}
+          width={100}
+          className="rounded-lg"
+        />
         <div>
           <h1 className="text-2xl font-bold">{item.name}</h1>
-          <p>{item.price}</p>
+          <p className="font-medium text-lg my-2 mb-4">₹{item.price}</p>
+          <div className="flex items-center bg-[#D9D9D9] rounded-full pr-6">
+            <MdLocalPhone
+              fontSize={20}
+              className="bg-kaavi rounded-full text-white p-1 mr-4"
+            />
+            <a
+              href={`tel:${item.mobile}`}
+              className="font-medium text-[#454545]"
+            >
+              +91 {item.mobile.slice(0, 2)} ********
+            </a>
+          </div>
         </div>
       </div>
     ));
@@ -115,28 +137,16 @@ function AdminPanel4() {
       <div className="p-10 overflow-y-scroll">
         <h1 className="text-3xl font-bold pb-20">{previousname}</h1>
         <div>
-          {type === "services" ? (
-            <DeleteDocPopup
-              open={deleteOpen}
-              setOpen={setDeleteOpen}
-              data={services}
-              rootprevious={rootprevious}
-              beforeprevious={beforeprevious}
-              previous={previous}
-              type="services"
-            />
-          ) : (
-            <DeleteDocPopup
-              open={deleteOpen}
-              setOpen={setDeleteOpen}
-              data={products}
-              rootprevious={rootprevious}
-              beforeprevious={beforeprevious}
-              previous={previous}
-              type="products"
-            />
-          )}
-          {type === "services" ? (
+          <DeleteDocPopup
+            open={deleteOpen}
+            setOpen={setDeleteOpen}
+            data={type == "services" ? services : products}
+            rootprevious={rootprevious}
+            beforeprevious={beforeprevious}
+            previous={previous}
+            type={type}
+          />
+          {type == "services" ? (
             <EditDocPopup
               open={editOpen}
               setOpen={setEditOpen}
@@ -148,15 +158,14 @@ function AdminPanel4() {
               type="services"
             />
           ) : (
-            <EditDocPopup
-              open={productEditOpen}
-              setOpen={setProductEditOpen}
+            <EditProductDocPopup
+              open={editOpen}
+              setOpen={setEditOpen}
               data={products}
               rootprevious={rootprevious}
               beforeprevious={beforeprevious}
               previous={previous}
               previousname={previousname}
-              type="products"
             />
           )}
         </div>

@@ -1,9 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import {
-  getServiceAndProductDocs,
-  getServicesAndProductsList,
-} from "@/firebase/firestore/servicesProducts";
+import { getServiceAndProductDocs } from "@/firebase/firestore/servicesProducts";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import BackButton from "@/components/ui/BackButton";

@@ -1,13 +1,7 @@
-import React from "react";
-import {
-  getServiceAndProductDocs,
-  getServicesAndProductsList,
-} from "@/firebase/firestore/servicesProducts";
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
-import Link from "next/link";
-import BackButton from "@/components/ui/BackButton";
-import Navbar from "@/components/Navbar";
+import React, { Suspense } from "react";
+import { getServicesAndProductsList } from "@/firebase/firestore/servicesProducts";
+import ProductsLevel3 from "@/components/Products/ProductsLevel3";
+
 export async function generateStaticParams() {
   const list = await getServicesAndProductsList(null, null, null, "products");
   const paths = await Promise.all(
@@ -41,81 +35,11 @@ export async function generateStaticParams() {
 
 async function ProductLevel3Page({ params }) {
   const { id, secondid, thirdid } = params;
-  const data = await getServiceAndProductDocs(
-    id,
-    secondid,
-    thirdid,
-    null,
-    "products"
-  );
-  const capitalized = thirdid.charAt(0).toUpperCase() + thirdid.slice(1);
+
   return (
-    <div>
-      {/* <Header />
-      <BackButton />
-
-      <div>
-        <h1 className="font-bold text-2xl pb-20 p-6">{capitalized}</h1>
-
-        {data &&
-          data.map((item) => (
-            <Link
-              href={`/products/${id}/${secondid}/${thirdid}/${item.id}`}
-              key={item.id}
-              className="flex justify-evenly items-center border-b border-grey pb-10 px-0 mb-5 mx-0"
-            >
-              <img src={item.data.profile} alt="Profile" />
-              <div className="flex flex-col justify-between items-center">
-                <h1 className="font-bold text-xl">{item.data.name}</h1>
-                <h2 className="font-medium text-grey mb-0 pb-0">
-                  {item.data.location}
-                </h2>
-                <p className="font-medium text-grey mt-0 pt-0">
-                  {item.data.district}
-                </p>
-              </div>
-            </Link>
-          ))}
-      </div>
-
-      <Footer /> */}
-      <div>
-        <div className="fixed w-full top-0 z-[50]">
-          <Header />
-        </div>
-        <div className="grid lg:grid-cols-4">
-          <Navbar />
-          <div className="col-span-3 pt-[70px]">
-            <BackButton />
-
-            <div>
-              <h1 className="font-bold text-2xl pb-20 p-6">{capitalized}</h1>
-
-              {data &&
-                data.map((item) => (
-                  <Link
-                    href={`/products/${id}/${secondid}/${thirdid}/${item.id}`}
-                    key={item.id}
-                    className="flex justify-evenly items-center border-b border-grey pb-10 px-0 mb-5 mx-0"
-                  >
-                    <img src={item.data.profile} alt="Profile" />
-                    <div className="flex flex-col justify-between items-center">
-                      <h1 className="font-bold text-xl">{item.data.name}</h1>
-                      <h2 className="font-medium text-grey mb-0 pb-0">
-                        {item.data.location}
-                      </h2>
-                      <p className="font-medium text-grey mt-0 pt-0">
-                        {item.data.district}
-                      </p>
-                    </div>
-                  </Link>
-                ))}
-            </div>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProductsLevel3 id={id} secondid={secondid} thirdid={thirdid} />
+    </Suspense>
   );
 }
 
