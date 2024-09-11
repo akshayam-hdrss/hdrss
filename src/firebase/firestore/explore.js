@@ -26,9 +26,9 @@ import {
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-const uploadBook = async (book) => {
+const uploadBook = async (book, rootprevious) => {
   try {
-    const bookRef = ref(storage, `library/${book.name}`);
+    const bookRef = ref(storage, `${rootprevious}/${book.name}`);
     await uploadBytes(bookRef, book);
     const url = await getDownloadURL(bookRef);
     console.log("uploaded book");
@@ -38,9 +38,9 @@ const uploadBook = async (book) => {
   }
 };
 
-const uploadBookPhoto = async (photo, name) => {
+const uploadBookPhoto = async (photo, name, rootprevious) => {
   try {
-    const photoRef = ref(storage, `library/${name}`);
+    const photoRef = ref(storage, `${rootprevious}/${name}`);
     await uploadBytes(photoRef, photo);
     const photoUrl = await getDownloadURL(photoRef);
     console.log("uploaded photo");
@@ -58,8 +58,8 @@ export const addLibraryBook = async (
   photo
 ) => {
   try {
-    const url = await uploadBook(book);
-    const photoUrl = await uploadBookPhoto(photo, name);
+    const url = await uploadBook(book, rootprevious);
+    const photoUrl = await uploadBookPhoto(photo, name, rootprevious);
     await addDoc(
       collection(
         db,
@@ -71,5 +71,32 @@ export const addLibraryBook = async (
   } catch (e) {
     console.log(e);
     return "failure";
+  }
+};
+
+export const addAstrology = async (
+  rootprevious,
+  beforeprevious,
+  previous,
+  date,
+  description,
+  video
+) => {
+  try {
+    await addDoc(
+      collection(
+        db,
+        `explore/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`
+      ),
+      {
+        description: description,
+        video: video,
+        date: date,
+      }
+    );
+    console.log("added astrology");
+    return "success";
+  } catch (e) {
+    console.log(e);
   }
 };
