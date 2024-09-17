@@ -145,7 +145,7 @@ export default function Home() {
           <News />
 
           {/* Products Section */}
-          <div className="bgom overflow-hidden pb-5 pt-0">
+          <div className="bgom overflow-hidden pb-5 pt-5">
             <div className="px-6 relative ">
               <Image
                 src="/om.svg"

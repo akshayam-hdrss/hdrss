@@ -4,12 +4,12 @@ import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesPro
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import ServiceCard from "@/components/ui/ServiceCard";
+import ProductCard from "@/components/ui/ProductCard";
 
 function Products() {
   const [products, setProducts] = useState();
 
-  console.log(products);
+  console.log(products,"products");
 
   useEffect(() => {
     const unsubscribe = subscribeToServicesAndProducts(
@@ -22,12 +22,12 @@ function Products() {
   }, []);
   return (
     <div className="flex md:block justify-center relative">
-      <div className="grid grid-cols-3 md:grid-cols-4 gap-5 mt-5">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-5">
         {products &&
           products
             .slice(0, 6)
             .map((item) => (
-              <ServiceCard
+              <ProductCard
                 name={item.id}
                 url={item.iconUrl}
                 slug={`/products/${item.id}`}
