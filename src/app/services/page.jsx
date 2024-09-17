@@ -71,7 +71,7 @@ function Services() {
               {data &&
                 data.map((item) => (
                   <ServiceCard
-                    name={item.id}
+                    name={item.name}
                     url={item.iconUrl}
                     slug={`/services/${item.id}`}
                   />

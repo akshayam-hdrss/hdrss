@@ -1,69 +1,54 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { getProductDocs } from "@/firebase/firestore/products";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
-import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import BackButton from "@/components/ui/BackButton";
-import Link from "next/link";
-import Advertisement from "@/components/ui/Advertisement";
-import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
-import { getServiceAds } from "@/firebase/firestore/advertisements";
-import { getYt } from "@/firebase/firestore/servicesyt";
-import { getName } from "@/firebase/firestore/servicesProducts";
+import GalleryCarousel from "@/components/ui/GalleryCarousel";
 
 function ProductsLevel2({ id, secondid }) {
   const [data, setData] = useState();
-  const [ads, setAds] = useState();
-  const [capitalized, setCapitalized] = useState();
-  const [link, setLink] = useState();
   useEffect(() => {
     const fetch = async () => {
-      const capitalized = await getName(null, id, secondid, "products");
-      setCapitalized(capitalized);
-      const link = await getYt("products", null, id, secondid);
-      setLink(link);
-      const ads = await getServiceAds("products", null, id, secondid, null);
-      setAds(ads);
+      const res = await getProductDocs(id, secondid);
+      setData(res);
     };
-    const unsubscribe = subscribeToServicesAndProducts(
-      setData,
-      secondid,
-      id,
-      "products"
-    );
     fetch();
-    return () => {
-      unsubscribe();
-    };
   });
   return (
     <div>
       <Header />
       <BackButton />
-      <Advertisement ads={ads} />
-      <div className="p-6 py-20">
-        <h1 className="text-center font-bold text-2xl pb-10">{capitalized}</h1>
-        <div className="grid grid-cols-2 gap-y-10 gap-x-4 items-center justify-center">
-          {data && data.map((doc) => (
-            <Link
-              href={`/products/${id}/${secondid}/${doc.id}`}
-              key={doc.id}
-              className="flex items-center justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 md:gap-x-6 p-6 px-3"
-            >
-              <div className="w-1/3 md:w-1/5 lg:w-1/6 h-fit mr-3">
-                <img
-                  src={doc.iconUrl}
-                  alt="Icon"
-                  className="object-scale-down aspect-square"
-                />
-              </div>
-              <h1 className="w-2/3 md:w-4/5 lg:w-5/6 mr-0">{doc.name}</h1>
-            </Link>
-          ))}
-        </div>
-      </div>
-      <YoutubeEmbed embedId={link} />
+      {data && (
+        <div className="p-6">
+          <div className="flex flex-col items-center justify-evenly py-6">
+            <div className="w-[130px] h-fit">
+              <img
+                src={data.profile}
+                alt="profile"
+                className="rounded-md object-cover aspect-[4/5]"
+              />
+            </div>
+            <h1 className="font-bold text-3xl pt-6">{data.name}</h1>
+            <p className="text-grey font-medium">₹{data.price}</p>
+            <div className="my-4">
+              <a
+                href={`tel:${data.mobile}`}
+                className="my-6 mr-2 font-medium bg-kaavi text-white rounded-lg p-3 px-4"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
+          <h1 className="font-koulen text-3xl text-grey pb-4">About</h1>
+          <p className="px-4 text-justify">{data.about}</p>
 
+          <h1 className="font-koulen text-3xl pt-10 text-grey">Gallery</h1>
+          {data.photos && <GalleryCarousel data={data.photos} />}
+
+          <h1 className="font-koulen text-3xl pt-10 text-grey">Reviews</h1>
+        </div>
+      )}
       <Footer />
     </div>
   );

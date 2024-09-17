@@ -22,7 +22,7 @@ function Level1Services() {
         data.slice(0, 6).map((item) => (
           <div key={item.id} className="mx-auto text-center">
             <ServiceCard
-              name={item.id}
+              name={item.name}
               url={item.iconUrl}
               slug={`/services/${item.id}`}
             />

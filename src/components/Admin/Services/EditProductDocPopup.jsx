@@ -16,10 +16,7 @@ function EditProductDocPopup({
   open,
   setOpen,
   data,
-  rootprevious = null,
-  beforeprevious = null,
   previous = null,
-  previousname,
 }) {
   const [editOption, setEditOption] = useState(null);
   const [editName, setEditName] = useState();

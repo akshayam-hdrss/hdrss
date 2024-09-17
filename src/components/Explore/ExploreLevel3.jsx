@@ -36,10 +36,10 @@ function ExploreLevel3({ id, secondid, thirdid }) {
                 {item.name}
               </h1>
               <a
-                href={item.link}
+                href={`/explore/${id}/${secondid}/${thirdid}/${item.id}`}
                 className="bg-kaavi px-4 py-1 rounded-sm text-white mt-1"
               >
-                Download
+                View
               </a>
             </div>
           </div>
@@ -55,6 +55,32 @@ function ExploreLevel3({ id, secondid, thirdid }) {
           <h1 className="font-medium text-lg">{item.date}</h1>
           <IoIosArrowForward fontSize={30} />
         </Link>
+      );
+    } else {
+      return (
+        <div className="grid grid-cols-2 px-12 gap-x-2">
+          <div
+            key={item.id}
+            className="flex flex-col justify-center px-3 rounded-md items-center py-3 border border-grey mb-5 mx-0 h-max"
+          >
+            <img
+              src={item.photo}
+              alt="Profile"
+              className=" rounded-md object-cover h-2/3 w-full"
+            />
+            <div className="h-1/3 flex flex-col">
+              <h1 className="mt-4 font-medium text-lg text-center">
+                {item.name}
+              </h1>
+              <a
+                href={`/explore/${id}/${secondid}/${thirdid}/${item.id}`}
+                className="bg-kaavi px-4 py-1 rounded-sm text-white mt-1"
+              >
+                View
+              </a>
+            </div>
+          </div>
+        </div>
       );
     }
   };
@@ -88,7 +114,27 @@ function ExploreLevel3({ id, secondid, thirdid }) {
       <div>
         <h1 className="font-bold text-2xl pb-20 p-6">{capitalized}</h1>
 
-        {data && data.map((item) => renderData(item))}
+        {data &&
+          data.map((item) => (
+            <div className="grid grid-cols-2 px-12 gap-x-2">
+              <Link
+                href={`/explore/${id}/${secondid}/${thirdid}/${item.id}`}
+                key={item.id}
+                className="flex flex-col justify-center px-3 rounded-md items-center py-3 border border-grey mb-5 mx-0 h-max"
+              >
+                <img
+                  src={item.photo}
+                  alt="Profile"
+                  className=" rounded-md object-cover h-2/3 w-full"
+                />
+                <div className="h-1/3 flex flex-col">
+                  <h1 className="mt-4 font-medium text-lg text-center">
+                    {item.name}
+                  </h1>
+                </div>
+              </Link>
+            </div>
+          ))}
       </div>
       <YoutubeEmbed embedId={link} />
       <Footer />

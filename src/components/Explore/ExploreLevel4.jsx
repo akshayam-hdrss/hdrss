@@ -25,9 +25,26 @@ function ExploreLevel4({ id, secondid, thirdid, fourthid }) {
     <div>
       <Header />
       <BackButton />
-      <h1 className="font-bold text-2xl pb-8 p-6">{data && data.date}</h1>
+      <div className="relative">
+        <img
+          src={data && data.backgroundPhoto}
+          alt="Background Photo"
+          className="w-screen z-0"
+        />
+        <img
+          src={data && data.photo}
+          alt="Profile"
+          className="z-10 absolute -bottom-8 left-[40%] rounded-md object-cover h-[100px] w-[100px] md:w-[200px] md:h-[200px] mx-auto"
+        />
+      </div>
+
+      <h1 className="font-bold text-2xl mt-10 p-6">{data && data.name}</h1>
+      <h1 className="px-8 text-xl font-medium">About</h1>
+      <p className="p-8 pt-4 text-justify">{data && data.description}</p>
+      <h1 className="px-8 text-xl font-medium">Description</h1>
+      <p className="p-8 pt-4 text-justify">{data && data.fullDescription}</p>
+      <h1 className="px-8 text-xl font-medium pb-6">Video</h1>
       <YoutubeEmbed embedId={data && data.video} />
-      <p className="p-8 text-justify">{data && data.description}</p>
       <Footer />
     </div>
   );

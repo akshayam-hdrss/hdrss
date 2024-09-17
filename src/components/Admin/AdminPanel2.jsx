@@ -7,7 +7,9 @@ import BackButton from "@/components/ui/BackButton";
 import AddServicePopup from "@/components/Admin/Services/AddServicePopup";
 import EditServicePopup from "@/components/Admin/Services/EditServicePopup";
 import DeleteServicePopup from "@/components/Admin/Services/DeleteServicePopup";
-
+import AddProductDocPopup from "@/components/Admin/Services/AddProductDocPopup";
+import DeleteDocPopup from "@/components/Admin/Services/DeleteDocPopup";
+import EditProductDocPopup from "./Services/EditProductDocPopup";
 import Ads from "./Advertisements/Ads";
 import { getServiceAds } from "@/firebase/firestore/advertisements";
 import { getYt } from "@/firebase/firestore/servicesyt";
@@ -17,6 +19,7 @@ import EditYt from "./Services/EditYt";
 
 function AdminPanel2() {
   const [open, setOpen] = useState(false);
+  const [productopen, setProductOpen] = useState();
   const [link, setLink] = useState();
   const [ads, setAds] = useState();
   const [data, setData] = useState();
@@ -25,16 +28,20 @@ function AdminPanel2() {
   const [adsOpen, setAdsOpen] = useState(false);
   const [ytOpen, setYtOpen] = useState();
   const [snoOpen, setSnoOpen] = useState();
-
+  let level;
   const searchparam = useSearchParams();
   const previous = searchparam.get("previous");
   const type = searchparam.get("type");
-
+  if (type == "products") {
+    level = "level4";
+  } else {
+    level = "level3";
+  }
   const content =
     data &&
     data.map((item, index) => (
       <Link
-        href={`/admin/${type}/level3?previous=${encodeURIComponent(
+        href={`/admin/${type}/${level}?previous=${encodeURIComponent(
           item.id
         )}&beforeprevious=${previous}&type=${type}&name=${encodeURIComponent(
           item.name
@@ -93,40 +100,67 @@ function AdminPanel2() {
             setOpen={setSnoOpen}
             type={type}
           />
-          <EditServicePopup
-            open={editOpen}
-            setOpen={setEditOpen}
-            data={data}
-            rootprevious={null}
-            beforeprevious={null}
-            previous={previous}
-            type={type}
-          />
-          <DeleteServicePopup
-            open={deleteOpen}
-            setOpen={setDeleteOpen}
-            data={data}
-            rootprevious={null}
-            beforeprevious={null}
-            previous={previous}
-            type={type}
-          />
+          {type == "products" ? (
+            <>
+              <EditProductDocPopup
+                open={editOpen}
+                setOpen={setEditOpen}
+                data={data}
+                previous={previous}
+              />
+              <DeleteDocPopup
+                open={deleteOpen}
+                setOpen={setDeleteOpen}
+                data={data}
+                previous={previous}
+                type={type}
+              />
+            </>
+          ) : (
+            <>
+              <EditServicePopup
+                open={editOpen}
+                setOpen={setEditOpen}
+                data={data}
+                rootprevious={null}
+                beforeprevious={null}
+                previous={previous}
+                type={type}
+              />
+              <DeleteServicePopup
+                open={deleteOpen}
+                setOpen={setDeleteOpen}
+                data={data}
+                rootprevious={null}
+                beforeprevious={null}
+                previous={previous}
+                type={type}
+              />
+            </>
+          )}
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-y-10 gap-x-14 items-center justify-center py-6 px-10">
         {content}
-
-        <AddServicePopup
-          open={open}
-          setOpen={setOpen}
-          rootprevious={null}
-          beforeprevious={null}
-          previous={previous}
-          type={type}
-        />
+        {!type == "products" && (
+          <AddServicePopup
+            open={open}
+            setOpen={setOpen}
+            rootprevious={null}
+            beforeprevious={null}
+            previous={previous}
+            type={type}
+          />
+        )}
       </div>
-
+      {type == "products" && (
+        <AddProductDocPopup
+          open={productopen}
+          setOpen={setProductOpen}
+          previous={previous}
+        />
+      )}
       <div>
         <div className="flex justify-between items-center">
           <h1>Advertisements</h1>

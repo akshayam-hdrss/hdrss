@@ -240,15 +240,15 @@ export default function Home() {
           <Events />
 
           {/* Join us */}
-          <div className="p-6 pt-0 md:p-0 relative overflow-hidden z-0">
+          <div className="p-6 pt-0 md:p-0 relative overflow-hidden">
             <Image
               src="/om.svg"
               alt="om"
               width={300}
               height={300}
-              className="rotate-45 opacity-[0.04] absolute right-7 -top-4 -z-10"
+              className="rotate-45 opacity-[0.04] absolute right-7 -top-4 z-10"
             ></Image>
-            <div className="md:hidden ">
+            <div className="md:hidden">
               <h1 className="font-koulen text-4xl text-grey mb-6">Join us</h1>
               <p className="text-xl">
                 Sign up to become a member and make a positive impact in your
@@ -259,7 +259,7 @@ export default function Home() {
                 href={"/membership/1"}
                 className="text-center flex justify-center"
               >
-                <h1 className="bg-kaavi text-white p-3 mt-6 rounded-xl px-5">
+                <h1 className="bg-kaavi text-white p-3 mt-6 rounded-xl px-5 z-50">
                   Become a member
                 </h1>
               </Link>
@@ -315,13 +315,13 @@ export default function Home() {
           </div>
 
           {/* Members */}
-          <div className="p-6 md:py-10 overflow-hidden relative">
+          <div className="p-6 md:py-10 overflow-hidden relative z-0">
             <Image
               src="/om.svg"
               alt="om"
               width={300}
               height={300}
-              className="rotate-45 opacity-[0.04] absolute right-7 -bottom-4 -z-0"
+              className="rotate-45 opacity-[0.04] absolute right-7 -bottom-4 -z-10"
             ></Image>
             <h1 className="font-koulen text-4xl text-grey mb-2">Members</h1>
             <h2 className="text-lg text-grey font-bold">State Level Leaders</h2>
@@ -345,7 +345,7 @@ export default function Home() {
                 </div>
               )}
             </div>
-            <div className="flex justify-center items-center w-fit bg-kaavi text-white mx-auto py-2 px-4 rounded-xl">
+            <div className="flex z-50 justify-center items-center w-fit bg-kaavi text-white mx-auto py-2 px-4 rounded-xl">
               <Link href="/members">All members</Link>
               <IoIosArrowDown className="ml-1" />
             </div>
@@ -377,18 +377,18 @@ export default function Home() {
                 <h2>Offers</h2>
               </Link>
               <Link
-                href={"/referrals"}
+                href={"/charities"}
                 className="text-center grid gap-2 md:scale-125"
               >
                 <div className="bg-[#FBE9E9] rounded-full p-4 h-20 w-20 flex justify-center items-center ">
                   <img
-                    src="/referrals.svg"
-                    alt="referrals"
+                    src="/charities.svg"
+                    alt="charities"
                     width={40}
                     height={40}
                   />
                 </div>
-                <h2>Referrals</h2>
+                <h2>Charities</h2>
               </Link>
             </div>
             <div className="flex justify-around items-center mt-1"></div>

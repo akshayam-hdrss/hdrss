@@ -1,8 +1,5 @@
-import React, { Suspense } from "react";
-import {
-  getServiceAndProductDocs,
-  getServicesAndProductsList,
-} from "@/firebase/firestore/servicesProducts";
+import React from "react";
+import { getServicesAndProductsList } from "@/firebase/firestore/servicesProducts";
 import ProductsLevel2 from "@/components/Products/ProductsLevel2";
 
 export async function generateStaticParams() {
@@ -25,20 +22,9 @@ export async function generateStaticParams() {
   return paths.flat();
 }
 
-async function ProductLevel2Page({ params }) {
+function ProductLevel2Page({ params }) {
   const { id, secondid } = params;
-  const data = await getServiceAndProductDocs(
-    null,
-    id,
-    secondid,
-    null,
-    "products"
-  );
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ProductsLevel2 data={data} id={id} secondid={secondid} />
-    </Suspense>
-  );
+    return <ProductsLevel2 id={id} secondid={secondid} />;
 }
 
 export default ProductLevel2Page;

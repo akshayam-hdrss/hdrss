@@ -1,9 +1,7 @@
 import React from "react";
-import {
-  getServiceAndProductDocs,
-  getServicesAndProductsList,
-} from "@/firebase/firestore/servicesProducts";
+import { getServicesAndProductsList } from "@/firebase/firestore/servicesProducts";
 import ServiceLevel4 from "@/components/Services/ServiceLevel4";
+
 export async function generateStaticParams() {
   const list = await getServicesAndProductsList(null, null, null, "services");
   const paths = await Promise.all(
