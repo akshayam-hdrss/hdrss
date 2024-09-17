@@ -41,7 +41,7 @@ export default function Page() {
             voluptatibus nihil?
           </h5>
         </div>
-        <div className="">
+        <div className="pt-5">
           <h1>Choose amount</h1>
           <div className="grid gap-3 pt-5">
             <h1
