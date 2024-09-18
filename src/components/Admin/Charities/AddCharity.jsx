@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button, Dialog, DialogBody } from "@material-tailwind/react";
+import { addCharity } from "@/firebase/firestore/charity";
 
 function AddCharity({ open, setOpen }) {
   const [name, setName] = useState();
@@ -10,7 +11,12 @@ function AddCharity({ open, setOpen }) {
   const [background, setBackground] = useState();
 
   const handleOpen = () => setOpen(!open);
-  const handleSubmit = async () => {};
+  const handleSubmit = async () => {
+    await addCharity(name, description, video, profile, background);
+    setOpen(false);
+    
+  };
+
   return (
     <div className="p-6">
       <Button onClick={handleOpen} className="bg-kaavi">
@@ -52,7 +58,7 @@ function AddCharity({ open, setOpen }) {
                 <p className="font-medium">Enter the video link</p>
                 <input
                   type="text"
-                  onChange={(e)=>set}
+                  onChange={(e) => setVideo(e.target.value)}
                   placeholder="Youtube link"
                   className="border border-kaavi w-fit pr-6 pl-2 py-2"
                 />
@@ -62,6 +68,7 @@ function AddCharity({ open, setOpen }) {
                 <input
                   type="file"
                   accept="image/*"
+                  onChange={(e) => setProfile(e.target.files[0])}
                   className="border border-kaavi w-fit pr-6 pl-2 py-2"
                 />
               </div>
@@ -70,6 +77,7 @@ function AddCharity({ open, setOpen }) {
                 <input
                   type="file"
                   accept="image/*"
+                  onChange={(e) => setBackground(e.target.files[0])}
                   className="border border-kaavi w-fit pr-6 pl-2 py-2"
                 />
               </div>
