@@ -143,7 +143,7 @@ function AdminPanel2() {
 
       <div className="grid grid-cols-2 gap-y-10 gap-x-14 items-center justify-center py-6 px-10">
         {content}
-        {!type == "products" && (
+        {type != "products" && (
           <AddServicePopup
             open={open}
             setOpen={setOpen}

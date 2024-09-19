@@ -74,3 +74,16 @@ export const addCharityBackground = async (backgroundPhoto) => {
     console.log(e);
   }
 };
+
+export const getCharities = async () => {
+  try {
+    let charities = [];
+    const snapshot = await getDocs(collection(db, "charities"));
+    snapshot.docs.map((doc) => {
+      charities.push({ id: doc.id, data: doc.data() });
+    });
+    return charities;
+  } catch (e) {
+    console.log(e);
+  }
+};

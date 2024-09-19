@@ -61,7 +61,7 @@ function ServiceLevel3({ id, secondid, thirdid }) {
                 />
               </div>
               <div className="flex flex-col justify-between items-center w-[70%]">
-                <h1 className="font-bold text-3xl">{item.name}</h1>
+                <h1 className="font-bold text-xl">{item.name}</h1>
                 <h2 className="text-lg font-medium">{item.businessname}</h2>
 
                 <p className="font-medium text-grey mt-0 pt-0">{item.area}</p>

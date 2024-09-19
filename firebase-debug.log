@@ -1,0 +1,14 @@
+[debug] [2024-09-19T05:28:08.002Z] ----------------------------------------------------------------------
+[debug] [2024-09-19T05:28:08.005Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\rishi\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-09-19T05:28:08.005Z] CLI Version:   13.17.0
+[debug] [2024-09-19T05:28:08.006Z] Platform:      win32
+[debug] [2024-09-19T05:28:08.006Z] Node Version:  v20.9.0
+[debug] [2024-09-19T05:28:08.006Z] Time:          Thu Sep 19 2024 10:58:08 GMT+0530 (India Standard Time)
+[debug] [2024-09-19T05:28:08.007Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-09-19T05:28:08.098Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-09-19T05:28:08.099Z] > authorizing via signed-in user (developeract68@gmail.com)
+[debug] [2024-09-19T05:28:08.099Z] [iam] checking project hdrss-web for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-09-19T05:28:08.101Z] > refreshing access token with scopes: []
+[debug] [2024-09-19T05:28:08.103Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-09-19T05:28:08.103Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]

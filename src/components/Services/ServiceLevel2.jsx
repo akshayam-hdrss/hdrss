@@ -18,7 +18,7 @@ function ServiceLevel2({ id, secondid }) {
   const [link, setLink] = useState();
   useEffect(() => {
     const fetch = async () => {
-      const capitalized = await getName(null, id, secondid, "products");
+      const capitalized = await getName(null, id, secondid, "services");
       setCapitalized(capitalized);
       const link = await getYt("services", null, id, secondid);
       setLink(link);
