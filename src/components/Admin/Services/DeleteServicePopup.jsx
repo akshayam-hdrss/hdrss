@@ -23,19 +23,18 @@ function DeleteServicePopup({
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  let iconUrl;
+  let iconUrl = "";
   const handleDeleteOption = (e) => {
     setDeleteOption(e.target.value);
   };
   const handleDelete = async () => {
-    setOpen(!open);
     data.map((item) => {
       if (item.id === deleteOption) {
         iconUrl = item.iconUrl;
       }
     });
 
-    deleteServicesAndProducts(
+    await deleteServicesAndProducts(
       rootprevious,
       beforeprevious,
       previous,
@@ -45,6 +44,7 @@ function DeleteServicePopup({
     );
 
     console.log("deleted successfully");
+    setOpen(!open);
   };
   return (
     <>

@@ -8,7 +8,7 @@ import Ads from "@/components/Admin/Advertisements/Ads";
 import AddServicePopup from "@/components/Admin/Services/AddServicePopup";
 import EditYt from "@/components/Admin/Services/EditYt";
 import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
-import ServiceCard from "@/components/ui/ServiceCard";
+import ProductCard from "@/components/ui/ProductCard";
 import { getServiceAds } from "@/firebase/firestore/advertisements";
 import { getYt } from "@/firebase/firestore/servicesyt";
 
@@ -87,10 +87,10 @@ function page() {
           />
         </div>
       </div>
-      <div className="grid grid-cols-3 place-items-center md:grid-cols-4 mt-10 gap-y-10 gap-x-10">
+      <div className="grid grid-cols-2 md:grid-cols-3 mt-10 gap-5">
         {products &&
           products.map((item) => (
-            <ServiceCard
+            <ProductCard
               name={item.name}
               url={item.iconUrl}
               slug={`/admin/products/level2?previous=${item.id}&type=products`}

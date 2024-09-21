@@ -61,7 +61,21 @@ function AdminPanel2() {
         </h1>
       </Link>
     ));
-
+  const content2 =
+    data &&
+    data.map((doc, index) => (
+      <div key={index}>
+        <img
+          src={doc.profile}
+          alt="profile photo"
+          className="h-[150px] w-[150px] rounded-md"
+        />
+        <div className="pt-4">
+          <h1 className="font-medium text-lg">{doc.name}</h1>
+          <p className="text-grey font-medium">₹{doc.price}</p>
+        </div>
+      </div>
+    ));
   useEffect(() => {
     const unsubscribe = subscribeToServicesAndProducts(
       setData,
@@ -92,7 +106,7 @@ function AdminPanel2() {
         <h1 className=" font-bold text-2xl md:text-4xl mr-10">
           {previous.charAt(0).toUpperCase() + previous.slice(1)}
         </h1>
-        <div className="flex gap-x-10">
+        <div className="flex items-center gap-x-10">
           <EditSno
             beforeprevious={null}
             previous={previous}
@@ -142,7 +156,7 @@ function AdminPanel2() {
       </div>
 
       <div className="grid grid-cols-2 gap-y-10 gap-x-14 items-center justify-center py-6 px-10">
-        {content}
+        {type == "products" ? content2 : content}
         {type != "products" && (
           <AddServicePopup
             open={open}

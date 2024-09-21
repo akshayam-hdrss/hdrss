@@ -51,14 +51,24 @@ function AddServicePopup({ open, setOpen, beforeprevious, previous, type }) {
         <Card className="mx-auto w-full max-w-[24rem] font-inter">
           <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray">
-              Add a Service
+              Add a{" "}
+              {type == "services"
+                ? "Service"
+                : type == "products"
+                ? "Product"
+                : "Explore"}
             </Typography>
             <Typography
               className="mb-3 font-normal"
               variant="paragraph"
               color="gray"
             >
-              Enter details for the Level 1 service.
+              Enter details for the{" "}
+              {type == "services"
+                ? "Service"
+                : type == "products"
+                ? "Product"
+                : "Explore"}
             </Typography>
             <Typography className="-mb-2" variant="h6">
               Name of the Service

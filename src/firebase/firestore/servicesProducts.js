@@ -37,7 +37,7 @@ export async function addServiceAndProduct(
   let e = null;
   console.log("inside firebase");
   try {
-    let docUrl;
+    let docUrl, docData;
     if (beforeprevious != null) {
       docUrl = `${type}/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
     } else if (previous != null) {
@@ -46,8 +46,13 @@ export async function addServiceAndProduct(
       docUrl = `${type}`;
     }
     const sno = Math.floor(Math.random() * 100);
-    const fileUrl = await uploadIcons(file, id);
-    const docData = { ...data, iconUrl: fileUrl, sno: sno };
+
+    if (file != null) {
+      const fileUrl = await uploadIcons(file, id);
+      docData = { ...data, iconUrl: fileUrl, sno: sno };
+    } else {
+      docData = { ...data, iconUrl: "", sno: sno };
+    }
     result = await setDoc(doc(db, docUrl, id), docData);
     console.log("added service");
   } catch (e) {
@@ -129,9 +134,9 @@ export async function deleteServicesAndProducts(
     } else if (previous != null) {
       docUrl = `${type}/${previous}/${previous}col`;
     } else {
-      docUrl = "services";
+      docUrl = type;
     }
-    if (iconUrl != null) {
+    if (iconUrl !== "") {
       const fileRef = ref(storage, iconUrl);
       deleteObject(fileRef)
         .then(() => {
@@ -141,11 +146,10 @@ export async function deleteServicesAndProducts(
           console.log(e);
         });
       await deleteDoc(doc(db, docUrl, id));
-
       return "success";
     } else {
+      console.log(docUrl);
       await deleteDoc(doc(db, docUrl, id));
-
       return "success";
     }
   } catch (e) {

@@ -106,14 +106,14 @@ function EditSno({
                         type="number"
                         className="border-kaavi border-2 p-2 w-1/3 text-2xl"
                         defaultValue={doc.sno}
-                        onChange={(e) => handleSno(e, doc.id)}
+                        onChange={(e) => handleSno(e, doc.name)}
                       />
                     </div>
                     <div>
                       <input
                         type="text"
                         className="border-kaavi border-2 p-2 pl-4 w-2/3"
-                        value={doc.id}
+                        value={doc.name}
                       />
                     </div>
                   </div>

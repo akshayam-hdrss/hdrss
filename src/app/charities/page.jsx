@@ -28,6 +28,9 @@ export default function Page() {
                 name={doc.data.name}
                 description={doc.data.description}
                 id={doc.id}
+                admin={false}
+                setEdit={null}
+                setDelete={null}
               />
             ))}
         </div>

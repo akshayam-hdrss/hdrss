@@ -13,7 +13,7 @@ const CharityCard = ({ image, name, description, id }) => {
         <div className="w-full grid">
           <Link
             href={`/charities/${id}`}
-            className="text-center text-white bg-kaavi py-1 h-fit rounded-md w-full"
+            className={`text-center text-white bg-kaavi py-1 h-fit rounded-md w-full `}
           >
             Donate
           </Link>

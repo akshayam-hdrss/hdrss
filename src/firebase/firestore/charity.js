@@ -36,7 +36,7 @@ export const addCharity = async (
 ) => {
   try {
     const profileUrl = await addCharityPhoto(profile, name);
-    const backgroundUrl = await addCharityBackground(backgroundPhoto);
+    const backgroundUrl = await addCharityBackground(backgroundPhoto, name);
     const charityRef = collection(db, "charities");
     await addDoc(charityRef, {
       name: name,
@@ -61,12 +61,9 @@ export const addCharityPhoto = async (profile, name) => {
   }
 };
 
-export const addCharityBackground = async (backgroundPhoto) => {
+export const addCharityBackground = async (backgroundPhoto, name) => {
   try {
-    const backgroundRef = ref(
-      storage,
-      `charities/backgrounds/${backgroundPhoto.name}`
-    );
+    const backgroundRef = ref(storage, `charities/backgrounds/${name}`);
     await uploadBytes(backgroundRef, backgroundPhoto);
     const downloadURL = await getDownloadURL(backgroundRef);
     return downloadURL;
@@ -83,6 +80,55 @@ export const getCharities = async () => {
       charities.push({ id: doc.id, data: doc.data() });
     });
     return charities;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getCharity = async (id) => {
+  try {
+    const snapshot = await getDoc(doc(db, `charities/${id}`));
+
+    return snapshot.data();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const editCharity = async (
+  name,
+  description,
+  video,
+  profile = null,
+  backgroundPhoto = null,
+  id
+) => {
+  try {
+    const charityRef = doc(db, `charities/${id}`);
+    let data = { name: name, description: description, video: video };
+    if (profile) {
+      const profileUrl = await addCharityPhoto(profile, name);
+      data.profile = profileUrl;
+    }
+    if (backgroundPhoto) {
+      const backgroundUrl = await addCharityBackground(backgroundPhoto, name);
+      data.background = backgroundUrl;
+    }
+    await updateDoc(charityRef, data);
+    console.log("edited charity");
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const deleteCharity = async (id, name) => {
+  try {
+    const charityRef = doc(db, `charities/${id}`);
+    await deleteDoc(charityRef);
+    const profileRef = ref(storage, `charities/${name}`);
+    const bgRef = ref(storage, `charities/backgrounds/${name}`);
+    await deleteObject(profileRef).then(() => console.log("deleted profile"));
+    await deleteObject(bgRef).then(() => console.log("deleted background"));
   } catch (e) {
     console.log(e);
   }

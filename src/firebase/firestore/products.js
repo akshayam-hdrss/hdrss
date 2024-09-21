@@ -67,27 +67,37 @@ export const addProduct = async (
   about,
   gender,
   size,
-  profilepic,
-  photos
+  profilepic = null,
+  photos = null
 ) => {
   try {
-    const profileUrl = await addProductProfile(previous, profilepic);
-    const productPhotos = await uploadProductPhotosAndSaveURLs(
-      previous,
-      photos
-    );
-    const sno = Math.floor(Math.random() * 100);
-    await addDoc(collection(db, `products/${previous}/${previous}col`), {
+    let data = {
       name: name,
-      number: number,
-      about: about,
       price: price,
+      mobile: number,
+      about: about,
       gender: gender,
       size: size,
-      profile: profileUrl,
-      photos: productPhotos,
-      sno: sno,
-    });
+    };
+
+    if (profilepic != null) {
+      const profileUrl = await addProductProfile(previous, profilepic);
+      data.profile = profileUrl;
+    }
+
+    if (photos != null) {
+      const productPhotos = await uploadProductPhotosAndSaveURLs(
+        previous,
+        photos
+      );
+      data.photos = productPhotos;
+    } else {
+      data.photos = "";
+    }
+
+    const sno = Math.floor(Math.random() * 100);
+    data.sno = sno;
+    await addDoc(collection(db, `products/${previous}/${previous}col`), data);
   } catch (e) {
     console.log(e);
   }
@@ -151,6 +161,49 @@ export const applyProductFilters = async (
 
     console.log("Filtered Data:", filteredData);
     return filteredData;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const editProducts = async (
+  previous,
+  id,
+  updatedData,
+  profile = null,
+  photos = null,
+  oldProfile,
+  oldPhotos
+) => {
+  try {
+    const docRef = doc(db, `products/${previous}/${previous}col/${id}`);
+    if (profile != null) {
+      if (oldProfile !== "") {
+        const profileRef = ref(storage, oldProfile);
+        await deleteObject(profileRef)
+          .then(() => console.log("deleted profile"))
+          .catch((e) => console.log(e));
+      }
+
+      const profileUrl = await addProductProfile(previous, profile);
+      updatedData.profile = profileUrl;
+    }
+
+    if (photos != null) {
+      if (oldPhotos !== "") {
+        oldPhotos.map(async (oldPhoto) => {
+          const photoRef = ref(storage, oldPhoto);
+          await deleteObject(photoRef)
+            .then(() => console.log("deleted profile"))
+            .catch((e) => console.log(e));
+        });
+      }
+
+      const photosUrl = await uploadProductPhotosAndSaveURLs(previous, photos);
+      updatedData.photos = photosUrl;
+    }
+
+    await updateDoc(docRef, updatedData);
   } catch (e) {
     console.log(e);
   }

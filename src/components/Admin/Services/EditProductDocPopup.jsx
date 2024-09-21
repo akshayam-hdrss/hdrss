@@ -9,15 +9,10 @@ import {
   Typography,
   DialogBody,
 } from "@material-tailwind/react";
-import { editServiceAndProductDocs } from "@/firebase/firestore/servicesProducts";
+import { editProducts } from "@/firebase/firestore/products";
 import { IoClose } from "react-icons/io5";
 
-function EditProductDocPopup({
-  open,
-  setOpen,
-  data,
-  previous = null,
-}) {
+function EditProductDocPopup({ open, setOpen, data, previous = null }) {
   const [editOption, setEditOption] = useState(null);
   const [editName, setEditName] = useState();
   const [editNumber, setEditNumber] = useState();
@@ -25,8 +20,10 @@ function EditProductDocPopup({
   const [editAbout, setEditAbout] = useState();
   const [editProfile, setEditProfile] = useState(null);
   const [editPhotos, setEditPhotos] = useState(null);
+  const [editSize, setEditSize] = useState();
+  const [editGender, setEditGender] = useState();
   const [deleteDoc, setDeleteDoc] = useState();
-
+  let oldProfile, oldPhotos;
   const handleOpen = () => {
     setOpen(!open);
   };
@@ -40,20 +37,24 @@ function EditProductDocPopup({
       ...(editNumber ? { mobile: editNumber } : { mobile: deleteDoc.mobile }),
       ...(editPrice ? { price: editPrice } : { price: deleteDoc.price }),
       ...(editAbout ? { about: editAbout } : { about: deleteDoc.about }),
+      ...(editGender ? { gender: editGender } : { gender: deleteDoc.gender }),
+      ...(editSize ? { size: editSize } : { size: deleteDoc.size }),
     };
-
-    console.log(editProfile);
-    editServiceAndProductDocs(
-      rootprevious,
-      beforeprevious,
+    data.map((item) => {
+      if (item.id === editOption) {
+        oldProfile = item.profile;
+        oldPhotos = item.photos;
+      }
+    });
+    await editProducts(
       previous,
       editOption,
       updatedData,
       editProfile,
       editPhotos,
-      "products"
+      oldProfile,
+      oldPhotos
     );
-
     console.log("edited successfully");
   };
   useEffect(() => {
@@ -62,11 +63,12 @@ function EditProductDocPopup({
         data.map((item) => {
           if (item.id === editOption) {
             setDeleteDoc(item);
+            setEditGender(item.gender);
           }
         });
     };
     fetch();
-  }, [editOption]);
+  }, [editOption, open]);
   return (
     <>
       <Button onClick={handleOpen} className="bg-kaavi mx-2 my-3">
@@ -139,7 +141,16 @@ function EditProductDocPopup({
                   placeholder="Price"
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />
-
+                <p className="text-xl font-medium mb-1">Gender</p>
+                <select
+                  value={editGender}
+                  onChange={(e) => setEditGender(e.target.value)}
+                  className="px-10 py-4 mb-10 border border-kaavi"
+                >
+                  <option value=" "> </option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
                 <p className="text-xl font-medium mb-1">About</p>
                 <textarea
                   name="about"

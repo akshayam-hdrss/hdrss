@@ -1,17 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { addServicesAndProductsDoc } from "@/firebase/firestore/servicesProducts";
-import {
-  Button,
-  Dialog,
-  Card,
-  CardBody,
-  CardFooter,
-  Typography,
-  Input,
-  DialogBody,
-} from "@material-tailwind/react";
-import { addProduct } from "../../../firebase/firestore/products";
+import { Button, Dialog, Input, DialogBody } from "@material-tailwind/react";
+import { addProduct } from "@/firebase/firestore/products";
 const footwearSize = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 const shirtSize = [
   "XS",
@@ -51,7 +41,6 @@ function AddProductDocPopup({ open, setOpen, previous }) {
   const handleName = (e) => setName(e.target.value);
   const handleNumber = (e) => setNumber(e.target.value);
   const handleAbout = (e) => setAbout(e.target.value);
-  const handleSize = (e) => setSize(e.target.value);
   const handlePhotos = (e) => {
     const files = Array.from(e.target.files);
     setPhotos(files);
@@ -66,7 +55,7 @@ function AddProductDocPopup({ open, setOpen, previous }) {
     setData({
       name: name,
       price: price,
-      number: number,
+      mobile: number,
       about: about,
       size: size,
       gender: gender,
@@ -133,6 +122,7 @@ function AddProductDocPopup({ open, setOpen, previous }) {
                 onChange={(e) => setSize(e.target.value)}
                 className="px-10 py-4 mb-10 border border-kaavi"
               >
+                <option value=" "> </option>
                 {sizes &&
                   sizes.map((size, index) => (
                     <option value={size} key={index}>
@@ -147,6 +137,7 @@ function AddProductDocPopup({ open, setOpen, previous }) {
                 onChange={(e) => setGender(e.target.value)}
                 className="px-10 py-4 mb-10 border border-kaavi"
               >
+                <option value=" "> </option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
