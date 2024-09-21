@@ -12,3 +12,26 @@
 [debug] [2024-09-19T05:28:08.101Z] > refreshing access token with scopes: []
 [debug] [2024-09-19T05:28:08.103Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
 [debug] [2024-09-19T05:28:08.103Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-09-19T05:28:08.526Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-09-19T05:28:08.527Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-09-19T05:28:08.543Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/hdrss-web:testIamPermissions [none]
+[debug] [2024-09-19T05:28:08.543Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/hdrss-web:testIamPermissions x-goog-quota-user=projects/hdrss-web
+[debug] [2024-09-19T05:28:08.544Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/hdrss-web:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-09-19T05:28:10.049Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/hdrss-web:testIamPermissions 200
+[debug] [2024-09-19T05:28:10.050Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/hdrss-web:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-09-19T05:28:10.051Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/hdrss-web [none]
+[debug] [2024-09-19T05:28:10.615Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/hdrss-web 200
+[debug] [2024-09-19T05:28:10.615Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/hdrss-web {"projectId":"hdrss-web","projectNumber":"1000539781845","displayName":"hdrss","name":"projects/hdrss-web","resources":{"hostingSite":"hdrss-web","storageBucket":"hdrss-web.appspot.com","locationId":"asia-south1"},"state":"ACTIVE","etag":"1_d92565cd-3845-462f-a786-5df72c95702d"}
+[info] 
+[info] === Deploying to 'hdrss-web'...
+[info] 
+[info] i  deploying firestore, hosting 
+[info] i  firestore: reading indexes from firestore.indexes.json... 
+[info] i  cloud.firestore: checking firestore.rules for compilation errors... 
+[debug] [2024-09-19T05:28:10.622Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/hdrss-web:test [none]
+[debug] [2024-09-19T05:28:10.622Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/hdrss-web:test [omitted]
+[debug] [2024-09-19T05:28:12.316Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/hdrss-web:test 200
+[debug] [2024-09-19T05:28:12.316Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/hdrss-web:test {}
+[info] +  cloud.firestore: rules file firestore.rules compiled successfully 
+[debug] [2024-09-19T05:28:12.319Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/hdrss-web/versions [none]
+[debug] [2024-09-19T05:28:12.319Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/hdrss-web/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
