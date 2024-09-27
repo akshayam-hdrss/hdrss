@@ -6,6 +6,7 @@ export async function generateStaticParams() {
   return data.map((doc) => ({ id: doc.id }));
 }
 
-export default function Page() {
-  return <CharityPage />;
+export default function Page({ params }) {
+  const { id } = params;
+  return <CharityPage id={id} />;
 }

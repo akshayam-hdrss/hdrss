@@ -18,7 +18,7 @@ function DeleteCharity({ open, setOpen, id, name }) {
 
   return (
     <>
-      <Button onClick={handleOpen} className="bg-kaavi mx-2 my-3">
+      <Button onClick={handleOpen} className="bg-kaavi mx-2 my-3 hidden">
         Delete
       </Button>
       <Dialog

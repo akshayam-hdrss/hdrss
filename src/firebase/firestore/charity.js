@@ -29,6 +29,8 @@ const storage = getStorage(app);
 
 export const addCharity = async (
   name,
+  upiId,
+  upiName,
   description,
   video,
   profile,
@@ -40,6 +42,8 @@ export const addCharity = async (
     const charityRef = collection(db, "charities");
     await addDoc(charityRef, {
       name: name,
+      upiId: upiId,
+      upiName: upiName,
       description: description,
       video: video,
       profile: profileUrl,
@@ -97,6 +101,8 @@ export const getCharity = async (id) => {
 
 export const editCharity = async (
   name,
+  upiId,
+  upiName,
   description,
   video,
   profile = null,
@@ -105,7 +111,13 @@ export const editCharity = async (
 ) => {
   try {
     const charityRef = doc(db, `charities/${id}`);
-    let data = { name: name, description: description, video: video };
+    let data = {
+      name: name,
+      description: description,
+      video: video,
+      upiId: upiId,
+      upiName: upiName,
+    };
     if (profile) {
       const profileUrl = await addCharityPhoto(profile, name);
       data.profile = profileUrl;

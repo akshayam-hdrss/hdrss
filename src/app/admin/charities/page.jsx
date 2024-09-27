@@ -9,6 +9,8 @@ function charitiesPage() {
   const [addOpen, setAddOpen] = useState(false);
   const [data, setData] = useState();
   const [editOpen, setEditOpen] = useState(false);
+  const [editId, setEditId] = useState();
+  const [deleteId, setDeleteId] = useState();
   const [deleteOpen, setDeleteOpen] = useState(false);
   useEffect(() => {
     const fetch = async () => {
@@ -16,12 +18,18 @@ function charitiesPage() {
       setData(res);
     };
     fetch();
-  }, []);
+  }, [addOpen, editOpen, deleteOpen]);
   return (
     <div className="p-6">
       <h1 className="font-bold text-4xl">Charities</h1>
       <div>
         <AddCharity open={addOpen} setOpen={setAddOpen} />
+        <EditCharity open={editOpen} setOpen={setEditOpen} id={editId} />
+        <DeleteCharity
+          open={deleteOpen}
+          setOpen={setDeleteOpen}
+          id={deleteId}
+        />
       </div>
       {data &&
         data.map((doc, index) => (
@@ -30,7 +38,7 @@ function charitiesPage() {
               <img
                 src={doc.data.profile}
                 alt=""
-                className="m-auto min-w-[150px]"
+                className="m-auto h-[250px] w-[200px]"
               />
             </div>
             <div className="grid">
@@ -39,17 +47,24 @@ function charitiesPage() {
                 {doc.data.description}
               </h3>
               <div className="w-full flex justify-evenly items-center">
-                <EditCharity
-                  open={editOpen}
-                  setOpen={setEditOpen}
-                  id={doc.id}
-                />
-                <DeleteCharity
-                  open={deleteOpen}
-                  setOpen={setDeleteOpen}
-                  id={doc.id}
-                  name={doc.data.name}
-                />
+                <button
+                  className="bg-kaavi text-white px-4 py-2 rounded-md"
+                  onClick={() => {
+                    setEditId(doc.id);
+                    setEditOpen(!editOpen);
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  className="bg-kaavi text-white px-4 py-2 rounded-md"
+                  onClick={() => {
+                    setDeleteId(doc.id);
+                    setDeleteOpen(!deleteOpen);
+                  }}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>

@@ -31,7 +31,7 @@ export async function getSnoLevel1ServicesProducts(type) {
     );
     const snapshot = await getDocs(q);
     snapshot.forEach((doc) => {
-      data.push({ id: doc.id, sno: doc.data().sno });
+      data.push({ id: doc.id, sno: doc.data().sno, name: doc.data().name });
     });
     return data;
   } catch (e) {
@@ -66,7 +66,7 @@ export async function getSnoLevel2ServicesProducts(level1, type) {
     );
     const snapshot = await getDocs(q);
     snapshot.forEach((doc) => {
-      data.push({ id: doc.id, sno: doc.data().sno });
+      data.push({ id: doc.id, sno: doc.data().sno, name: doc.data().name });
     });
     return data;
   } catch (e) {
@@ -101,7 +101,7 @@ export async function getSnoLevel3ServicesProducts(level1, level2, type) {
     );
     const snapshot = await getDocs(q);
     snapshot.forEach((doc) => {
-      data.push({ id: doc.id, sno: doc.data().sno });
+      data.push({ id: doc.id, sno: doc.data().sno, name: doc.data().name });
     });
     return data;
   } catch (e) {

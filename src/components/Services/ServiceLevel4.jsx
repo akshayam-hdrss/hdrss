@@ -27,7 +27,7 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
       <BackButton />
       {data && (
         <div className="p-6">
-          <div className="flex flex-col items-center justify-evenly py-6">
+          <div className="flex flex-col items-center text-center justify-evenly py-6">
             <div className="w-[130px] h-fit">
               <img
                 src={data.profile}

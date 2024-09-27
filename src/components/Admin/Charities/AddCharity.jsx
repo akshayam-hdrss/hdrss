@@ -6,15 +6,24 @@ import { addCharity } from "@/firebase/firestore/charity";
 function AddCharity({ open, setOpen }) {
   const [name, setName] = useState();
   const [description, setDescription] = useState();
+  const [upiId, setUpiId] = useState();
+  const [upiName, setUpiName] = useState();
   const [video, setVideo] = useState();
   const [profile, setProfile] = useState();
   const [background, setBackground] = useState();
 
   const handleOpen = () => setOpen(!open);
   const handleSubmit = async () => {
-    await addCharity(name, description, video, profile, background);
+    await addCharity(
+      name,
+      upiId,
+      upiName,
+      description,
+      video,
+      profile,
+      background
+    );
     setOpen(false);
-    
   };
 
   return (
@@ -42,12 +51,32 @@ function AddCharity({ open, setOpen }) {
                 />
               </div>
               <div className="flex flex-col gap-y-2">
+                <p className="font-medium">Enter the UPI ID of the charity</p>
+                <input
+                  type="text"
+                  placeholder="UPI ID"
+                  required
+                  onChange={(e) => setUpiId(e.target.value)}
+                  className="border border-kaavi w-fit pr-6 pl-2 py-2"
+                />
+              </div>
+              <div className="flex flex-col gap-y-2">
+                <p className="font-medium">Enter the UPI Name of the charity</p>
+                <input
+                  type="text"
+                  placeholder="UPI Name"
+                  required
+                  onChange={(e) => setUpiName(e.target.value)}
+                  className="border border-kaavi w-fit pr-6 pl-2 py-2"
+                />
+              </div>
+              <div className="flex flex-col gap-y-2">
                 <p className="font-medium">
                   Enter the description of the charity
                 </p>
                 <textarea
-                  rows={5}
-                  cols={30}
+                  rows={15}
+                  cols={60}
                   type="text"
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Description"
@@ -64,7 +93,9 @@ function AddCharity({ open, setOpen }) {
                 />
               </div>
               <div className="flex flex-col gap-y-2">
-                <p className="font-medium">Enter the profile picture</p>
+                <p className="font-medium">
+                  Enter the profile picture (Should be 4:5 Aspect Ratio)
+                </p>
                 <input
                   type="file"
                   accept="image/*"
@@ -74,6 +105,20 @@ function AddCharity({ open, setOpen }) {
               </div>
               <div className="flex flex-col gap-y-2">
                 <p className="font-medium">Enter the background image</p>
+                <ul className="list-disc pl-5">
+                  <li>
+                    Aspect Ratio: <strong>16:9</strong>
+                  </li>
+                  <li>
+                    Resolution: <strong>1920x1080 pixels</strong>
+                  </li>
+                  <li>
+                    File Format: <strong>JPEG or PNG</strong>
+                  </li>
+                  <li>
+                    File Size: <strong>Less than 1MB</strong>
+                  </li>
+                </ul>
                 <input
                   type="file"
                   accept="image/*"

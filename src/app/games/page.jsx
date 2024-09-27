@@ -14,41 +14,7 @@ export default function Page() {
           <Navbar />
           <div className="col-span-3 pt-[70px]">
             <BackButton />
-            <h1 className="mb-6 font-koulen text-4xl text-grey mt-14 ml-4">
-              Charities
-            </h1>
-            <div className="overflow-hidden grid relative">
-              <div className="flex gap-x-10 overflow-x-scroll p-5 nosc">
-                <div className="px-2 w-[300px]">
-                  <img src="/logo1.png" alt="Akshaya Patra Logo" className="h-[100px]" />
-                  <h1 className="font-medium text-lg mt-6">
-                    Akshaya Patra Foundation
-                  </h1>
-                  <div className="my-6">
-                    <Link
-                      className="bg-kaavi px-4 py-2 mx-auto text-white rounded-md"
-                      href="https://www.akshayapatra.org/onlinedonations"
-                    >
-                      Donate
-                    </Link>
-                  </div>
-                </div>
-                <div className="px-2 w-[300px]">
-                  <img src="/logo2.webp" alt="Akshaya Patra Logo" className="h-[100px]" />
-                  <h1 className="font-medium text-lg mt-6">
-                    Team Everest Foundation
-                  </h1>
-                  <div className="py-6">
-                    <Link
-                      className="bg-kaavi px-4 py-2 mx-auto text-white rounded-md"
-                      href="https://www.teameverest.ngo/donate"
-                    >
-                      Donate
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
+
             <h1 className="font-koulen text-4xl text-grey mt-14 ml-4">
               Quiz and Games
             </h1>

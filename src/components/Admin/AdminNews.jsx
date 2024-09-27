@@ -19,7 +19,7 @@ function AdminNews() {
       setNews(data);
     };
     fetch();
-  }, [editOpen, deleteOpen]);
+  }, [addOpen, editOpen, deleteOpen]);
   return (
     <div>
       <h1 className="text-2xl font-bold mt-6">Manage news</h1>

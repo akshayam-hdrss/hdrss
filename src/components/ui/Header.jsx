@@ -53,14 +53,11 @@ function Header() {
           background: "linear-gradient(to right, #FF5912 0%, #D30000 100%)",
         }}
       >
-        <div className="flex items-center gap-5">
-          <IoPersonCircleOutline
-            fontSize={35}
-            className="cursor-pointer invisible"
-          />
+        <div className="flex items-start justify-evenly gap-5">
+          <img src="/logo akshayam 1.svg" alt="logo" width={40} height={40} className="m2" />
         </div>
         <Link href="/" className="text-center">
-          <h1 className="font-medium text-center font-lena text-4xl">
+          <h1 className="font-medium text-center font-lena text-5xl">
             akshayam
           </h1>
         </Link>

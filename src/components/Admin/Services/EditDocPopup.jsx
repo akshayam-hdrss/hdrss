@@ -90,8 +90,6 @@ function EditDocPopup({
       updatedData,
       editProfile,
       editPhotos,
-      oldprofile,
-      oldphotos,
       type
     );
 

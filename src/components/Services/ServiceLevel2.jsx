@@ -49,7 +49,9 @@ function ServiceLevel2({ id, secondid }) {
           {data &&
             data.map((doc, index) => (
               <Link
-                href={`/services/${id}/${secondid}/${doc.id}`}
+                href={`/services/${encodeURIComponent(id)}/${encodeURIComponent(
+                  secondid
+                )}/${encodeURIComponent(doc.id)}`}
                 key={index}
                 className="flex items-center justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 md:gap-x-6 p-6 px-3"
               >

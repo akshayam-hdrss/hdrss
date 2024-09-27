@@ -2,7 +2,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
+import { getName, subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import BackButton from "@/components/ui/BackButton";
 import AddServicePopup from "@/components/Admin/Services/AddServicePopup";
 import EditServicePopup from "@/components/Admin/Services/EditServicePopup";
@@ -95,6 +95,7 @@ function AdminPanel2() {
       setAds(data);
       const data2 = await getYt(type, null, null, previous);
       setLink(data2);
+   
     };
     fetch();
   }, [adsOpen, ytOpen]);

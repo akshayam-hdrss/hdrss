@@ -297,45 +297,16 @@ export async function editServiceAndProductDocs(
   type
 ) {
   try {
-    let docUrl;
     let fileUrl;
-    docUrl = `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col/${id}`;
 
     // check for old profile
     if (newprofile != null) {
-      //delete old profile pic
-      // if (oldprofile != undefined) {
-      //   const oldprofileRef = ref(storage, id);
-      //   await getMetadata(oldprofileRef)
-      //     .then(() => {
-      //       deleteObject(oldprofileRef)
-      //         .then(() => console.log("deleted old profile pic"))
-      //         .catch((e) => console.log(e));
-      //     })
-      //     .catch((e) => console.log(e));
-      // }
-
       const newprofileUrl = await uploadDocIcons(newprofile, id);
       data.profile = newprofileUrl;
     }
 
     //check for old photos
     if (newphotos != null) {
-      //delete old photos
-      // if (oldphotos != []) {
-      //   oldphotos.map(async (oldphoto) => {
-      //     const oldphotoRef = ref(storage, id);
-
-      //     await getMetadata(oldphotoRef)
-      //       .then(() => {
-      //         deleteObject(oldphotoRef)
-      //           .then(() => console.log("deleted old photo"))
-      //           .catch((e) => console.log(e));
-      //       })
-      //       .catch((e) => console.log(e));
-      //   });
-      // }
-
       const newphotosUrls = await Promise.all(
         newphotos.map(async (newphoto, index) => {
           const newphotosUrl = await uploadDocPhotos(newphoto, id + index);
@@ -344,8 +315,13 @@ export async function editServiceAndProductDocs(
       );
       data.photos = newphotosUrls;
     }
-    console.log(data.photos);
-    await updateDoc(doc(db, docUrl), data);
+    await updateDoc(
+      doc(
+        db,
+        `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col/${id}`
+      ),
+      data
+    );
     console.log("doc updated");
   } catch (e) {
     console.log(e);

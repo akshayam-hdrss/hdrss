@@ -7,6 +7,14 @@ import CharityCard from "../../components/ui/CharityCard";
 import { getCharities } from "@/firebase/firestore/charity";
 export default function Page() {
   const [data, setData] = useState();
+  const handleUPIPayment = (amount) => {
+    const upiId = data && data.data.upiId; // Replace with your charity's UPI ID
+    const name = data && data.data.upiName; // Replace with your charity's name
+    const url = `upi://pay?pa=${upiId}&pn=${name}&am=${amount}&cu=INR`;
+
+    // Redirect to UPI payment
+    window.location.href = url;
+  };
   useEffect(() => {
     const fetch = async () => {
       const res = await getCharities();

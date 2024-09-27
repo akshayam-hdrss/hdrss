@@ -12,6 +12,7 @@ function AddServiceDocPopup({
   previousname,
 }) {
   const [profile, setProfile] = useState();
+  const [addData, setAddData] = useState();
   const [name, setName] = useState();
   const [businessName, setBusinessName] = useState();
   const [number, setNumber] = useState();
@@ -31,29 +32,25 @@ function AddServiceDocPopup({
     e.preventDefault();
     setOpen(!open);
   };
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setAddData({
+      ...addData,
+      [id]: value,
+    });
+  };
+
   const handleAdd = (e) => {
     e.preventDefault();
     setOpen(!open);
-    const id = name.replace(/\s+/g, "").toLowerCase();
+    const id = addData.name.replace(/\s+/g, "").toLowerCase();
     console.log("before");
     addServicesAndProductsDoc(
       rootprevious,
       beforeprevious,
       previous,
-      {
-        name: name,
-        businessname: businessName,
-        mobile: number,
-        whatsapp: whatsapp,
-        addline1: addLine1,
-        addline2: addLine2,
-        landmark: landmark,
-        area: area,
-        pincode: pincode,
-        district: district,
-        mapurl: mapUrl,
-        about: about,
-      },
+      addData,
       profile,
       photos,
       "services",
@@ -84,14 +81,16 @@ function AddServiceDocPopup({
               <p className="text-xl font-medium mb-1">Name</p>
               <Input
                 type="text"
-                onChange={(e) => setName(e.target.value)}
+                id="name"
+                onChange={handleChange}
                 placeholder="Name"
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
               <p className="text-xl font-medium mb-1">Business Name</p>
               <Input
                 type="text"
-                onChange={(e) => setBusinessName(e.target.value)}
+                id="businessName"
+                onChange={handleChange}
                 placeholder="Name"
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
@@ -99,22 +98,24 @@ function AddServiceDocPopup({
               <p className="text-xl font-medium mb-1">Mobile Number</p>
               <Input
                 type="number"
-                onChange={(e) => setNumber(e.target.value)}
+                id="mobile"
+                onChange={handleChange}
                 placeholder="Mobile Number"
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
               <p className="text-xl font-medium mb-1">Whatsapp Number</p>
               <Input
                 type="text"
-                onChange={(e) => setWhatsapp(e.target.value)}
-                placeholder="Name"
+                id="whatsapp"
+                onChange={handleChange}
+                placeholder="Whatsapp Number"
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
               <p className="text-xl font-medium mb-1">About</p>
               <textarea
                 name="about"
                 id="about"
-                onChange={(e) => setAbout(e.target.value)}
+                onChange={handleChange}
                 rows={5}
                 cols={40}
                 className="border border-kaavi pl-4 py-3 mb-6"
@@ -131,47 +132,54 @@ function AddServiceDocPopup({
               <p className="text-xl font-medium mb-1">Address Line 1</p>
               <input
                 type="text"
-                onChange={(e) => setAddLine1(e.target.value)}
+                id="addLine1"
+                onChange={handleChange}
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
               <p className="text-xl font-medium mb-1">Address Line 2</p>
               <input
                 type="text"
-                onChange={(e) => setAddLine2(e.target.value)}
+                id="addLine2"
+                onChange={handleChange}
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
               <p className="text-xl font-medium mb-1">Landmark</p>
               <input
                 type="text"
-                onChange={(e) => setLandmark(e.target.value)}
+                id="landmark"
+                onChange={handleChange}
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
               <p className="text-xl font-medium mb-1">Area</p>
               <input
                 type="text"
+                id="area"
                 placeholder="Eg: RS Puram"
-                onChange={(e) => setArea(e.target.value)}
+                onChange={handleChange}
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
               <p className="text-xl font-medium mb-1">Pincode</p>
               <input
                 type="text"
                 placeholder="Eg: 641032"
-                onChange={(e) => setPincode(e.target.value)}
+                id="pincode"
+                onChange={handleChange}
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
               <p className="text-xl font-medium mb-1">District</p>
               <input
                 type="text"
                 placeholder="District"
-                onChange={(e) => setDistrict(e.target.value)}
+                id="district"
+                onChange={handleChange}
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
               <p className="text-xl font-medium mb-1">Google Maps Link</p>
               <input
                 type="text"
                 placeholder="Google Maps URL"
-                onChange={(e) => setMapUrl(e.target.value)}
+                id="mapurl"
+                onChange={handleChange}
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
               <div className="flex justify-between">

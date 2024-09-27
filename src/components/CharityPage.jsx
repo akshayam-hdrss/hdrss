@@ -3,22 +3,24 @@ import React, { useEffect, useState } from "react";
 import Header from "@/components/ui/Header";
 import BackButton from "@/components/ui/BackButton";
 import Footer from "@/components/ui/Footer";
-import { getCharities } from "@/firebase/firestore/charity";
+import { getCharities, getCharity } from "@/firebase/firestore/charity";
 import YoutubeEmbed from "./ui/YoutubeEmbed";
-function CharityPage() {
+function CharityPage({id}) {
   const [data, setData] = useState();
   const handleUPIPayment = (amount) => {
-    const upiId = "charity@upi"; // Replace with your charity's UPI ID
-    const name = "Charity Name"; // Replace with your charity's name
-    const url = `upi://pay?pa=${upiId}&pn=${name}&am=${amount}&cu=INR`;
-
+    const upiId = data && data.upiId; // Replace with your charity's UPI ID
+    const name = data && data.upiName; // Replace with your charity's name
+    const url = `upi://pay?pa=${encodeURIComponent(
+      upiId
+    )}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR`;
     // Redirect to UPI payment
+    console.log(url);
     window.location.href = url;
   };
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await getCharities();
+      const res = await getCharity(id);
       setData(res);
     };
     fetch();
@@ -29,27 +31,27 @@ function CharityPage() {
       <Header />
       <BackButton />
       {data &&
-        data.map((charity, index) => (
-          <div key={index} className="p-6 lg:px-20 px-8">
+         (
+          <div className="p-6 lg:px-20 px-8">
             <img
-              src={charity.data.background}
+              src={data.background}
               alt=""
               className="w-full mx-auto max-w-[600px]"
             />
             <div className="mx-auto mt-[-80px]">
               <img
-                src={charity.data.profile}
+                src={data.profile}
                 alt=""
                 className="w-[150px] rounded-full mx-auto"
               />
             </div>
             <div className="pt-5">
               <h1 className="font-semibold lg:text-3xl text-xl text-center">
-                {charity.data.name}
+                {data.name}
               </h1>
-              <h5 className="text-justify py-3">{charity.data.description}</h5>
+              <h5 className="text-justify py-3">{data.description}</h5>
             </div>
-            <YoutubeEmbed embedId={charity.data.video} />
+            <YoutubeEmbed embedId={data.video} />
             <div className="pt-5">
               <h1>Choose amount</h1>
               <div className="grid gap-3 pt-5">
@@ -76,7 +78,7 @@ function CharityPage() {
               </div>
             </div>
           </div>
-        ))}
+        )}
 
       <Footer />
     </div>
