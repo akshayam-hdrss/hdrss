@@ -13,7 +13,7 @@ function AddOffer({ open, setOpen }) {
   };
   const handleAdd = async () => {
     setOpen(!open);
-    await addOffer(offerPhoto, offerPercent, subText, offerBrand);
+    await addOffer(offerPercent, subText, offerBrand);
   };
   return (
     <>
@@ -48,7 +48,7 @@ function AddOffer({ open, setOpen }) {
             className="border mb-5 p-1 border-deep-orange-200"
           />
 
-          <Typography className="-mb-2" variant="h6">
+          {/* <Typography className="-mb-2" variant="h6">
             Brand Photo
           </Typography>
           <input
@@ -56,7 +56,7 @@ function AddOffer({ open, setOpen }) {
             accept="image/*"
             onChange={handlePhoto}
             className="border mb-5 p-1 border-deep-orange-200"
-          />
+          /> */}
         </div>
       </div>
       <div className="flex justify-evenly items-center pt-6 pb-20">

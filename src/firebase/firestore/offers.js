@@ -35,11 +35,10 @@ const uploadOfferPhoto = async (photo) => {
   }
 };
 
-export const addOffer = async (photo, percent, subText, brand) => {
+export const addOffer = async (percent, subText, brand) => {
   try {
-    const photoUrl = await uploadOfferPhoto(photo);
+    // const photoUrl = await uploadOfferPhoto(photo);
     await addDoc(collection(db, "offers"), {
-      photo: photoUrl,
       percent: percent,
       subText: subText,
       brand: brand,
@@ -80,7 +79,7 @@ export const deleteOffer = async (id) => {
 
 export const getOneOffer = async (id) => {
   try {
-    const docRef = doc(db, "offers", id);
+    const docRef = doc(db, `offers/${id}`);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       return docSnap.data();
