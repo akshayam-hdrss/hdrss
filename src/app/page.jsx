@@ -352,7 +352,7 @@ export default function Home() {
           </div>
 
           {/* Offers and rewards */}
-          <div className="px-6">
+          {/* <div className="px-6">
             <h1 className="font-koulen text-4xl text-grey mb-2 z-50">
               Offers and rewards
             </h1>
@@ -392,7 +392,7 @@ export default function Home() {
               </Link>
             </div>
             <div className="flex justify-around items-center mt-1"></div>
-          </div>
+          </div> */}
         </div>
       </div>
       <Footer />

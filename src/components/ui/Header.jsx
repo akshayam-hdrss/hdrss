@@ -151,13 +151,21 @@ function Header() {
               <p className="font-medium">Explore Services</p>
               <IoIosArrowForward />
             </Link>
-
-            <div className="flex mb-4 items-center justify-between">
-              <Link href="#footer" onClick={() => setOpen(false)}>
-                <p className="font-medium">Contact Us</p>
-              </Link>
+            <Link
+              href="/ramdass"
+              className="flex mb-4 items-center justify-between"
+            >
+              <p className="font-medium">About Leader</p>
               <IoIosArrowForward />
-            </div>
+            </Link>
+
+            <Link
+              href="/contact"
+              className="flex mb-4 items-center justify-between"
+            >
+              <p className="font-medium">Contact Us</p>
+              <IoIosArrowForward />
+            </Link>
           </Drawer>
         </ThemeProvider>
       </React.Fragment>
