@@ -48,7 +48,7 @@ function Header() {
   return (
     <div className="">
       <div
-        className="w-full px-4 py-2 text-primary flex justify-between items-center"
+        className="w-full px-4 py-0 text-primary flex justify-between items-center"
         style={{
           background: "linear-gradient(to right, #FF5912 0%, #D30000 100%)",
         }}
@@ -63,9 +63,9 @@ function Header() {
           />
         </div>
         <Link href="/" className="text-center">
-          <h1 className="font-medium text-center font-himalaya text-4xl text-[#F7DF25]">
-            <span className="text-[48px]">A</span>KSHAY
-            <span className="text-[48px]">A</span>
+          <h1 className="font-medium text-center font-himalaya text-[40px] text-white">
+            <span className="text-[52px]">A</span>KSHAY
+            <span className="text-[52px]">A</span>
           </h1>
         </Link>
         <div className="mt-2">
