@@ -48,25 +48,32 @@ function Header() {
   return (
     <div className="">
       <div
-        className="w-full px-4 py-4 text-primary flex justify-between items-center"
+        className="w-full px-4 py-2 text-primary flex justify-between items-center"
         style={{
           background: "linear-gradient(to right, #FF5912 0%, #D30000 100%)",
         }}
       >
         <div className="flex items-start justify-evenly gap-5">
-          <img src="/logo akshayam 1.svg" alt="logo" width={40} height={40} className="m2" />
+          <img
+            src="/logo-new.png"
+            alt="logo"
+            width={65}
+            height={65}
+            className="m2"
+          />
         </div>
         <Link href="/" className="text-center">
-          <h1 className="font-medium text-center font-lena text-5xl">
-            akshayam
+          <h1 className="font-medium text-center font-himalaya text-4xl text-[#F7DF25]">
+            <span className="text-[48px]">A</span>KSHAY
+            <span className="text-[48px]">A</span>
           </h1>
         </Link>
-        <div className="  ">
+        <div className="mt-2">
           <button
             onClick={toggleDrawer}
             className="bg-inherit m-0 p-0 shadow-none lg:hidden"
           >
-            <IoMenu fontSize={40} />
+            <IoMenu fontSize={40} className="text-[#F7DF25]" />
           </button>
 
           <Link

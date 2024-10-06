@@ -112,6 +112,14 @@ function SideBar() {
       </Link>
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path.includes("offers") ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/offers"}
+      >
+        Offers
+      </Link>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
           path.includes("hdrss") ? "bg-kaavi text-white" : " "
         }`}
         href={"/admin/hdrss"}

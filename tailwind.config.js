@@ -18,7 +18,8 @@ export default withMT({
       fontFamily: {
         koulen: ["var(--font-koulen)"],
         inter: ["var(--font-inter)"],
-        lena: ['lena-400','sans-serif']
+        lena: ["lena-400", "sans-serif"],
+        himalaya: ["himalaya", "serif"],
       },
       backgroundImage: {
         pattern: "url('/om.svg')",
