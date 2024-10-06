@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Dialog, Input, DialogBody } from "@material-tailwind/react";
 import { addProduct } from "@/firebase/firestore/products";
 const footwearSize = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
@@ -20,63 +20,58 @@ const shirtSize = [
 ];
 function AddProductDocPopup({ open, setOpen, previous }) {
   const [profile, setProfile] = useState();
-  const [name, setName] = useState();
-  const [number, setNumber] = useState();
-  const [price, setPrice] = useState(0);
-  const [about, setAbout] = useState();
   const [photos, setPhotos] = useState();
-  const [size, setSize] = useState();
-  const [gender, setGender] = useState();
   const [data, setData] = useState({});
   let sizes;
+
   if (previous == "footwear") {
     sizes = footwearSize;
   } else if (previous == "shirts") {
     sizes = shirtSize;
   }
+
   const handleProfile = (e) => {
     setProfile(e.target.files[0]);
   };
-  const handlePrice = (e) => setPrice(e.target.value);
-  const handleName = (e) => setName(e.target.value);
-  const handleNumber = (e) => setNumber(e.target.value);
-  const handleAbout = (e) => setAbout(e.target.value);
+
+  const handleChange = (e) => {
+    const { id, value, type } = e.target;
+    let newValue;
+    if (type === "number") {
+      newValue = parseFloat(value);
+    } else if (value === "true" || value === "false") {
+      newValue = value === "true" ? true : false;
+    } else {
+      newValue = value;
+    }
+    setData({
+      ...data,
+      [id]: newValue,
+    });
+  };
+
   const handlePhotos = (e) => {
     const files = Array.from(e.target.files);
     setPhotos(files);
   };
+
   const handleOpen = () => setOpen(!open);
+
   const handleCancel = (e) => {
     e.preventDefault();
     setOpen(!open);
   };
+
   const handleAdd = async (e) => {
     e.preventDefault();
-    setData({
-      name: name,
-      price: price,
-      mobile: number,
-      about: about,
-      size: size,
-      gender: gender,
-    });
     setOpen(!open);
-    await addProduct(
-      previous,
-      name,
-      price,
-      number,
-      about,
-      gender,
-      size,
-      profile,
-      photos
-    );
-    setName("");
-    setPrice();
-    setAbout("");
-    setPhotos();
+    await addProduct(previous, data, profile, photos);
   };
+
+  useEffect(() => {
+    setData({});
+  }, [open]);
+
   return (
     <>
       <Button className="bg-kaavi" onClick={handleOpen}>
@@ -101,8 +96,8 @@ function AddProductDocPopup({ open, setOpen, previous }) {
               <p className="text-xl font-medium mb-1">Name</p>
               <Input
                 type="text"
-                value={name}
-                onChange={handleName}
+                id="name"
+                onChange={handleChange}
                 placeholder="Name"
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
@@ -110,16 +105,18 @@ function AddProductDocPopup({ open, setOpen, previous }) {
               <p className="text-xl font-medium mb-1">Price(in rupees)</p>
               <Input
                 type="number"
-                value={price}
-                onChange={handlePrice}
+                id="price"
+                onChange={handleChange}
                 placeholder="Price"
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
-              <p className="text-xl font-medium mb-1">Size</p>
+              <p className="text-xl font-medium mb-1">
+                Size (If applicable - leave it blank otherwise)
+              </p>
               <select
                 name="size"
                 id="size"
-                onChange={(e) => setSize(e.target.value)}
+                onChange={handleChange}
                 className="px-10 py-4 mb-10 border border-kaavi"
               >
                 <option value=" "> </option>
@@ -130,11 +127,13 @@ function AddProductDocPopup({ open, setOpen, previous }) {
                     </option>
                   ))}
               </select>
-              <p className="text-xl font-medium mb-1">Gender</p>
+              <p className="text-xl font-medium mb-1">
+                Gender (If applicable - leave it blank otherwise)
+              </p>
               <select
                 name="gender"
                 id="gender"
-                onChange={(e) => setGender(e.target.value)}
+                onChange={handleChange}
                 className="px-10 py-4 mb-10 border border-kaavi"
               >
                 <option value=" "> </option>
@@ -146,8 +145,7 @@ function AddProductDocPopup({ open, setOpen, previous }) {
               <textarea
                 name="about"
                 id="about"
-                value={about}
-                onChange={handleAbout}
+                onChange={handleChange}
                 rows={3}
                 cols={25}
                 className="border border-kaavi pl-4 py-3 mb-6"
@@ -155,8 +153,8 @@ function AddProductDocPopup({ open, setOpen, previous }) {
               <p className="text-xl font-medium mb-1">Contact Number</p>
               <Input
                 type="number"
-                value={number}
-                onChange={handleNumber}
+                id="mobile"
+                onChange={handleChange}
                 placeholder="Contact Number"
                 className="border border-kaavi pl-4 py-3 mb-6"
               />

@@ -61,25 +61,11 @@ export async function uploadProductPhotosAndSaveURLs(previous, files) {
 
 export const addProduct = async (
   previous,
-  name,
-  price,
-  number,
-  about,
-  gender,
-  size,
+  data,
   profilepic = null,
   photos = null
 ) => {
   try {
-    let data = {
-      name: name,
-      price: price,
-      mobile: number,
-      about: about,
-      gender: gender,
-      size: size,
-    };
-
     if (profilepic != null) {
       const profileUrl = await addProductProfile(previous, profilepic);
       data.profile = profileUrl;
