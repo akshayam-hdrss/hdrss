@@ -41,11 +41,7 @@ function Products() {
         height={300}
         className="rotate-45 opacity-[0.04] absolute right-16 -top-28 -z-0 "
       ></Image> */}
-<<<<<<< HEAD
-      {/* checking branch rename */}
-=======
       {/* check branch rename */}
->>>>>>> 13dd7701766c1a92310b3e1f5a76c64dfafc93f1
     </div>
   );
 }
