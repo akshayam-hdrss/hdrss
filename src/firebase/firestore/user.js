@@ -14,9 +14,6 @@ const db = getFirestore(app);
 
 //Function to get Services
 
-
-
-
 export const updateUserDoc = async (user, newLocation) => {
   try {
     if (user) {
@@ -47,9 +44,11 @@ export const updateUserDocDistrict = async (user, newLocation) => {
 
 export const getUser = async (id) => {
   try {
+    let data = {};
     const userref = doc(db, "users", id);
     const snap = await getDoc(userref);
-    return snap.data();
+    data = { id: snap.id, data: snap.data() };
+    return data;
   } catch (e) {
     console.log(e);
   }

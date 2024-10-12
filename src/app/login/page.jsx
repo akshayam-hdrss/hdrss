@@ -16,7 +16,7 @@ function Login() {
     e.preventDefault();
     try {
       await signIn(email, password);
-      router.push("/");
+      router.back();
     } catch (e) {
       console.log(e);
     }

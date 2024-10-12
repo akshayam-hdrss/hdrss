@@ -7,6 +7,10 @@ import { addAstrology } from "@/firebase/firestore/explore";
 import EditExplore4 from "@/components/Admin/Explore/EditExplore4";
 import { getServiceAndProductDocs } from "@/firebase/firestore/servicesProducts";
 import { addOtherExplore } from "../../../firebase/firestore/explore";
+import Ads from "@/components/Admin/Advertisements/Ads";
+import EditYt from "@/components/Admin/Services/EditYt";
+import { getYt } from "@/firebase/firestore/servicesyt";
+import { getServiceAds } from "@/firebase/firestore/advertisements";
 
 function AdminPanelExplore4() {
   const [open, setOpen] = useState();
@@ -17,6 +21,12 @@ function AdminPanelExplore4() {
   const [description, setDescription] = useState();
   const [fullDescription, setFullDescription] = useState();
   const [video, setVideo] = useState();
+
+  const [ytOpen, setYtOpen] = useState();
+  const [adsOpen, setAdsOpen] = useState();
+  const [ads, setAds] = useState();
+  const [link, setLink] = useState();
+
   const searchparam = useSearchParams();
   const tempprevious = searchparam.get("previous");
   const previous = decodeURIComponent(tempprevious);
@@ -57,12 +67,57 @@ function AdminPanelExplore4() {
     };
     fetch();
   });
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getServiceAds(
+        "explore",
+        rootprevious,
+        beforeprevious,
+        previous,
+        null
+      );
+      setAds(data);
+      const data2 = await getYt(
+        "explore",
+        rootprevious,
+        beforeprevious,
+        previous
+      );
+      setLink(data2);
+    };
+    fetch();
+  }, [adsOpen, ytOpen]);
+
   return (
     <>
       <BackButton />
       <div className="p-10 overflow-y-scroll">
         <h1 className="text-3xl font-bold pb-20">{previousname}</h1>
-
+        <div className="flex justify-between items-center">
+          <h1>Advertisements</h1>
+          <Ads
+            open={adsOpen}
+            setOpen={setAdsOpen}
+            rootprevious={rootprevious}
+            beforeprevious={beforeprevious}
+            previous={previous}
+            type={"explore"}
+            data={ads}
+            home={null}
+          />
+        </div>
+        <div className="flex justify-between items-center my-4">
+          <h1>Youtube Link</h1>
+          <EditYt
+            open={ytOpen}
+            setOpen={setYtOpen}
+            type={"explore"}
+            previous={previous}
+            beforeprevious={beforeprevious}
+            rootprevious={rootprevious}
+            data={link}
+          />
+        </div>
         <div>
           <EditExplore4
             data={data}
@@ -112,7 +167,9 @@ function AdminPanelExplore4() {
             />
           </div>
           <div>
-            <p className="mb-4 text-xl font-medium">Enter the Full Description</p>
+            <p className="mb-4 text-xl font-medium">
+              Enter the Full Description
+            </p>
             <textarea
               rows={5}
               cols={60}
