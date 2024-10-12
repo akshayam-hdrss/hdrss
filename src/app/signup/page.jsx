@@ -16,7 +16,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       await signUp(email, password, name);
-      router.push("/");
+      router.back();
     } catch (error) {
       alert("Error signing up: " + error.message);
     }

@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import {
   Button,
   Dialog,
-  Card,
-  CardBody,
-  CardFooter,
   Typography,
   DialogBody,
 } from "@material-tailwind/react";

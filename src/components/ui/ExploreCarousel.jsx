@@ -11,8 +11,8 @@ const explorecontent = [
 ];
 function ExploreCarousel() {
   const months = [
-    "January",
-    "February",
+    "Jan",
+    "Feb",
     "March",
     "April",
     "May",
@@ -20,9 +20,9 @@ function ExploreCarousel() {
     "July",
     "August",
     "Sep",
-    "October",
-    "November",
-    "December",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
 
   const today = new Date();
@@ -31,22 +31,7 @@ function ExploreCarousel() {
   const monthName = months[monthIndex];
   const day = String(today.getDate()).padStart(2, "0");
   const date = `${day} ${monthName} ${year}`;
-  var settings = {
-    infinite: true,
-    speed: 500,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    slidesToShow: 1.7,
-    slidesToScroll: 1,
-  };
-  var settingsmd = {
-    infinite: true,
-    speed: 700,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    slidesToShow: 1.7,
-    slidesToScroll: 1,
-  };
+
   return (
     <div>
       <div className="overflow-hidden max-h-screen grid relative">
