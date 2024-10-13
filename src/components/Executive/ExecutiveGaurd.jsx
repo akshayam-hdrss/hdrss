@@ -11,7 +11,7 @@ function ExecutiveGaurd() {
       </h1>
       <h1>
         Please{" "}
-        <Link href="/login/admin" className="text-blue-800 font-bold uppercase">
+        <Link href="/login" className="text-blue-800 font-bold uppercase">
           login{" "}
         </Link>
         to continue
