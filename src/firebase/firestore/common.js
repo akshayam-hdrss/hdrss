@@ -30,9 +30,14 @@ export async function uploadFilesAndSaveURLs(files) {
   return downloadURLs;
 }
 
-export async function uploadIcons(file, id) {
+export async function uploadIcons(file, id,type) {
   try {
-    const storageRef = ref(storage, `icons/${id}`);
+    let storageRef;
+    if (type === "products") {
+      storageRef = ref(storage, `icons/products/${id}`);
+    } else {
+      storageRef = ref(storage, `icons/${id}`);
+    }
     await uploadBytes(storageRef, file);
     const url = await getDownloadURL(storageRef);
     console.log("uploaded icon");

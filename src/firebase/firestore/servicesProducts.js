@@ -49,7 +49,7 @@ export async function addServiceAndProduct(
     const sno = Math.floor(Math.random() * 100);
 
     if (file != null) {
-      const fileUrl = await uploadIcons(file, id);
+      const fileUrl = await uploadIcons(file, id,type);
       docData = { ...data, iconUrl: fileUrl, sno: sno };
     } else {
       docData = { ...data, iconUrl: "", sno: sno };
