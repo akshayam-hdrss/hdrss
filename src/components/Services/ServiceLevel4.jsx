@@ -86,13 +86,14 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
             </div>
             <div className="flex flex-col items-center text-center justify-evenly py-6 pt-0">
               <h1 className="font-bold text-3xl pb-4">{data.name}</h1>
-              <div className="flex justify-evenly items-center gap-x-10 mb-6">
-                <p className="flex items-center gap-x-2">
+              <div className="flex justify-evenly items-center h-[60px] gap-x-6 mb-6 border border-grey px-4 rounded-lg">
+                <p className="flex items-center gap-x-2 py-4">
                   <IoStar className="text-yellow-800" fontSize={25} />
                   {averageRating}
                 </p>
-                <p className="flex items-center gap-x-2">
-                  <PiSuitcaseSimple fontSize={25}/>
+                <div className="h-full w-[1px] bg-grey"></div>
+                <p className="flex items-center gap-x-2 py-4">
+                  <PiSuitcaseSimple fontSize={25} />
                   {data?.experience} Years
                 </p>
               </div>

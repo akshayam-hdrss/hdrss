@@ -16,7 +16,6 @@ function EditDocPopup({
   rootprevious = null,
   beforeprevious = null,
   previous = null,
-  previousname,
   type,
 }) {
   const [editOption, setEditOption] = useState(null);
