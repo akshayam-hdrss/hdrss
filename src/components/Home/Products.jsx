@@ -28,7 +28,7 @@ function Products() {
             .slice(0, 6)
             .map((item) => (
               <ProductCard
-                name={item.id}
+                name={item.name}
                 url={item.iconUrl}
                 slug={`/products/${item.id}`}
               />
