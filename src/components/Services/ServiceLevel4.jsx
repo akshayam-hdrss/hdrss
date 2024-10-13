@@ -153,11 +153,11 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
                   </p>
                 )}
               </div>
-              <div className="flex flex-row overflow-x-scroll pt-12 nosc">
+              <div className="flex flex-row overflow-x-scroll pt-4 nosc">
                 {reviews &&
                   reviews.map((doc, index) => (
                     <div
-                      className="min-w-[86vw] mx-10 first:ml-0 rounded-md px-6 py-6 overflow-clip border border-grey"
+                      className="min-w-[86vw] mx-10 first:ml-0 rounded-md px-6 py-4 overflow-clip border border-grey"
                       key={index}
                     >
                       <p className="text-grey font-medium">{doc.userName}</p>
@@ -165,7 +165,7 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
                         <IoStar className="text-yellow-800" />
                         {doc.rating}
                       </p>
-                      <p className="py-4 break-words text-justify">
+                      <p className="py-2 break-words text-justify">
                         {doc.review}
                       </p>
                       <p className="font-medium text-grey">
