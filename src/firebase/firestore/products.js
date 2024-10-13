@@ -39,6 +39,21 @@ export const addProductProfile = async (previous, photo) => {
   }
 };
 
+export const addProductBackground = async (previous, photo) => {
+  try {
+    const photoRef = ref(
+      storage,
+      `products/background/${previous}/${photo.name}`
+    );
+    await uploadBytes(photoRef, photo);
+    const photoUrl = await getDownloadURL(photoRef);
+    console.log("product profile pic uploaded");
+    return photoUrl;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export async function uploadProductPhotosAndSaveURLs(previous, files) {
   const uploadPromises = files.map((file) => {
     const storageRef = ref(storage, `productPhotos/${previous}/${file.name}`);
@@ -63,12 +78,15 @@ export const addProduct = async (
   previous,
   data,
   profilepic = null,
+  background = null,
   photos = null
 ) => {
   try {
     if (profilepic != null) {
       const profileUrl = await addProductProfile(previous, profilepic);
       data.profile = profileUrl;
+    } else {
+      data.profile = "";
     }
 
     if (photos != null) {
@@ -81,6 +99,12 @@ export const addProduct = async (
       data.photos = "";
     }
 
+    if (background != null) {
+      const backgroundurl = await addProductBackground(previous, background);
+      data.background = backgroundurl;
+    } else {
+      data.background = null;
+    }
     const sno = Math.floor(Math.random() * 100);
     data.sno = sno;
     await addDoc(collection(db, `products/${previous}/${previous}col`), data);
@@ -157,8 +181,10 @@ export const editProducts = async (
   id,
   updatedData,
   profile = null,
+  background = null,
   photos = null,
   oldProfile,
+  oldBackground,
   oldPhotos
 ) => {
   try {
@@ -174,7 +200,17 @@ export const editProducts = async (
       const profileUrl = await addProductProfile(previous, profile);
       updatedData.profile = profileUrl;
     }
+    if (background != null) {
+      if (oldBackground != null) {
+        const backgroundRef = ref(storage, oldBackground);
+        await deleteObject(backgroundRef)
+          .then(() => console.log("deleted background"))
+          .catch((e) => console.log(e));
+      }
 
+      const backgroundUrl = await addProductBackground(previous, background);
+      updatedData.background = backgroundUrl;
+    }
     if (photos != null) {
       if (oldPhotos !== "") {
         oldPhotos.map(async (oldPhoto) => {

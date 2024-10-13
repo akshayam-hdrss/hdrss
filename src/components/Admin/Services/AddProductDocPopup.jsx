@@ -22,6 +22,7 @@ function AddProductDocPopup({ open, setOpen, previous }) {
   const [profile, setProfile] = useState();
   const [photos, setPhotos] = useState();
   const [data, setData] = useState({});
+  const [backgroundImage, setBackgroundImage] = useState();
   let sizes;
 
   if (previous == "footwear") {
@@ -33,7 +34,9 @@ function AddProductDocPopup({ open, setOpen, previous }) {
   const handleProfile = (e) => {
     setProfile(e.target.files[0]);
   };
-
+  const handleBackground = (e) => {
+    setBackgroundImage(e.target.files[0]);
+  };
   const handleChange = (e) => {
     const { id, value, type } = e.target;
     let newValue;
@@ -65,7 +68,7 @@ function AddProductDocPopup({ open, setOpen, previous }) {
   const handleAdd = async (e) => {
     e.preventDefault();
     setOpen(!open);
-    await addProduct(previous, data, profile, photos);
+    await addProduct(previous, data, profile, backgroundImage, photos);
   };
 
   useEffect(() => {
@@ -90,6 +93,13 @@ function AddProductDocPopup({ open, setOpen, previous }) {
               <Input
                 type="file"
                 onChange={handleProfile}
+                className="border border-kaavi mb-6 w-60"
+                accept="image/*"
+              />
+              <p className="text-xl font-medium mb-1">Background Image</p>
+              <Input
+                type="file"
+                onChange={handleBackground}
                 className="border border-kaavi mb-6 w-60"
                 accept="image/*"
               />

@@ -32,8 +32,10 @@ function EditDocPopup({
   const [editNumber, setEditNumber] = useState();
   const [editAbout, setEditAbout] = useState();
   const [editDistrict, setEditDistrict] = useState();
+  const [editExperience, setEditExperience] = useState();
   const [editProfile, setEditProfile] = useState(null);
   const [editPhotos, setEditPhotos] = useState(null);
+  const [editBackgroundImage, setEditBackgroundImage] = useState(null);
   const [deleteDoc, setDeleteDoc] = useState();
   const handleOpen = () => {
     setOpen(!open);
@@ -65,13 +67,16 @@ function EditDocPopup({
       ...(editLandmark
         ? { landmark: editLandmark }
         : { landmark: deleteDoc.landmark }),
-      ...(editArea ? { location: editArea } : { location: deleteDoc.area }),
+      ...(editArea ? { area: editArea } : { area: deleteDoc.area }),
       ...(editPincode
         ? { pincode: editPincode }
         : { pincode: deleteDoc.pincode }),
       ...(editDistrict
         ? { district: editDistrict }
         : { district: deleteDoc.district }),
+      ...(editExperience
+        ? { experience: editExperience }
+        : { experience: deleteDoc.experience }),
       ...(editMapUrl ? { mapurl: editMapUrl } : { mapurl: deleteDoc.mapurl }),
 
       ...(editAbout ? { about: editAbout } : { about: deleteDoc.about }),
@@ -89,6 +94,7 @@ function EditDocPopup({
       editOption,
       updatedData,
       editProfile,
+      editBackgroundImage,
       editPhotos,
       type
     );
@@ -153,6 +159,13 @@ function EditDocPopup({
                   className="border border-kaavi mb-6 w-60"
                   accept="image/*"
                 />
+                <p className="text-xl font-medium mb-1">Background Image</p>
+                <Input
+                  type="file"
+                  onChange={(e) => setEditBackgroundImage(e.target.files[0])}
+                  className="border border-kaavi mb-6 w-60"
+                  accept="image/*"
+                />
                 <p className="text-xl font-medium mb-1">Name</p>
                 <Input
                   type="text"
@@ -167,6 +180,16 @@ function EditDocPopup({
                   defaultValue={deleteDoc?.businessname}
                   onChange={(e) => setEditBusinessName(e.target.value)}
                   placeholder="Business Name"
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+                <p className="text-xl font-medium mb-1">
+                  Experience (in Years)
+                </p>
+                <Input
+                  type="text"
+                  defaultValue={deleteDoc?.experience}
+                  onChange={(e) => setEditExperience(e.target.value)}
+                  placeholder="Experience"
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />
                 <p className="text-xl font-medium mb-1">Mobile Number</p>

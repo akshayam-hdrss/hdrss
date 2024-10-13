@@ -20,6 +20,7 @@ import {
   uploadDocIcons,
   uploadFilesAndSaveURLs,
   uploadDocPhotos,
+  uploadBackground,
 } from "./common";
 
 const db = getFirestore(app);
@@ -67,6 +68,7 @@ export async function addServicesAndProductsDoc(
   previous,
   data,
   profilepic = null,
+  background = null,
   photos = null,
   type,
   id
@@ -77,35 +79,22 @@ export async function addServicesAndProductsDoc(
     let docUrl;
     let pfpUrl;
     let galleryUrls;
-    let docData;
+    let backgroundUrl;
     console.log("inside");
     docUrl = `${type}/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`;
-    if (profilepic != null && photos != null) {
+    if (profilepic != null) {
       pfpUrl = await uploadIcons(profilepic, id);
-      galleryUrls = await uploadFilesAndSaveURLs(photos);
-      docData = {
-        ...data,
-        profile: pfpUrl,
-        photos: galleryUrls,
-      };
-    } else if (photos != null) {
-      galleryUrls = await uploadFilesAndSaveURLs(photos);
-      docData = {
-        ...data,
-        profile: "",
-        photos: galleryUrls,
-      };
-    } else if (profilepic != null) {
-      pfpUrl = await uploadIcons(profilepic, id);
-      docData = {
-        ...data,
-        profile: pfpUrl,
-        photos: "",
-      };
-    } else {
-      docData = { ...data };
+      data.profile = pfpUrl;
     }
-    result = await setDoc(doc(db, docUrl, id), docData);
+    if (photos != null) {
+      galleryUrls = await uploadFilesAndSaveURLs(photos);
+      data.photos = galleryUrls;
+    }
+    if (background != null) {
+      backgroundUrl = await uploadBackground(type, background, id);
+      data.background = backgroundUrl;
+    }
+    result = await setDoc(doc(db, docUrl, id), data);
     console.log("added service document");
     return result;
   } catch (e) {
@@ -293,6 +282,7 @@ export async function editServiceAndProductDocs(
   id,
   data,
   newprofile,
+  newbackground,
   newphotos,
   type
 ) {
@@ -314,6 +304,11 @@ export async function editServiceAndProductDocs(
         })
       );
       data.photos = newphotosUrls;
+    }
+
+    if (newbackground != null) {
+      const newbackgroundUrl = await uploadBackground(type, newbackground, id);
+      data.background = newbackgroundUrl;
     }
     await updateDoc(
       doc(

@@ -13,19 +13,8 @@ function AddServiceDocPopup({
 }) {
   const [profile, setProfile] = useState();
   const [addData, setAddData] = useState();
-  const [name, setName] = useState();
-  const [businessName, setBusinessName] = useState();
-  const [number, setNumber] = useState();
-  const [about, setAbout] = useState();
+  const [backgroundImage, setBackgroundImage] = useState();
   const [photos, setPhotos] = useState([]);
-  const [addLine1, setAddLine1] = useState();
-  const [addLine2, setAddLine2] = useState();
-  const [landmark, setLandmark] = useState();
-  const [mapUrl, setMapUrl] = useState();
-  const [district, setDistrict] = useState();
-  const [area, setArea] = useState();
-  const [pincode, setPincode] = useState();
-  const [whatsapp, setWhatsapp] = useState();
 
   const handleOpen = () => setOpen(!open);
   const handleCancel = (e) => {
@@ -52,6 +41,7 @@ function AddServiceDocPopup({
       previous,
       addData,
       profile,
+      backgroundImage,
       photos,
       "services",
       id
@@ -78,6 +68,15 @@ function AddServiceDocPopup({
                 className="border border-kaavi mb-6 w-60"
                 accept="image/*"
               />
+              <p className="text-xl mt-2 font-medium mb-1">
+                Background Image (1920 * 1080 pixels)
+              </p>
+              <Input
+                type="file"
+                onChange={(e) => setBackgroundImage(e.target.files[0])}
+                className="border border-kaavi mb-6 w-60"
+                accept="image/*"
+              />
               <p className="text-xl font-medium mb-1">Name</p>
               <Input
                 type="text"
@@ -94,7 +93,14 @@ function AddServiceDocPopup({
                 placeholder="Name"
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
-
+              <p className="text-xl font-medium mb-1">Experience (in Years)</p>
+              <Input
+                type="number"
+                id="experience"
+                onChange={handleChange}
+                placeholder="Experience"
+                className="border border-kaavi pl-4 py-3 mb-6"
+              />
               <p className="text-xl font-medium mb-1">Mobile Number</p>
               <Input
                 type="number"

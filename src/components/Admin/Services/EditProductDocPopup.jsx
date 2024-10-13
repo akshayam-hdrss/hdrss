@@ -23,7 +23,8 @@ function EditProductDocPopup({ open, setOpen, data, previous = null }) {
   const [editSize, setEditSize] = useState();
   const [editGender, setEditGender] = useState();
   const [deleteDoc, setDeleteDoc] = useState();
-  let oldProfile, oldPhotos;
+  const [editBackgroundImage, setEditBackgroundImage] = useState();
+  let oldProfile, oldPhotos, oldBackground;
   const handleOpen = () => {
     setOpen(!open);
   };
@@ -44,6 +45,7 @@ function EditProductDocPopup({ open, setOpen, data, previous = null }) {
       if (item.id === editOption) {
         oldProfile = item.profile;
         oldPhotos = item.photos;
+        oldBackground = item.background;
       }
     });
     await editProducts(
@@ -51,8 +53,10 @@ function EditProductDocPopup({ open, setOpen, data, previous = null }) {
       editOption,
       updatedData,
       editProfile,
+      editBackgroundImage,
       editPhotos,
       oldProfile,
+      oldBackground,
       oldPhotos
     );
     console.log("edited successfully");
@@ -113,6 +117,13 @@ function EditProductDocPopup({ open, setOpen, data, previous = null }) {
                 <Input
                   type="file"
                   onChange={(e) => setEditProfile(e.target.files[0])}
+                  className="border border-kaavi mb-6 w-60"
+                  accept="image/*"
+                />
+                <p className="text-xl font-medium mb-1">Background Image</p>
+                <Input
+                  type="file"
+                  onChange={(e) => setEditBackgroundImage(e.target.files[0])}
                   className="border border-kaavi mb-6 w-60"
                   accept="image/*"
                 />
