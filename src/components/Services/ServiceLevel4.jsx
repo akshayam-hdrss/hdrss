@@ -15,6 +15,7 @@ import { PiSuitcaseSimple } from "react-icons/pi";
 import { app } from "@/firebase/config";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { getReviews } from "@/firebase/firestore/reviews";
+import YoutubeEmbed from "../ui/YoutubeEmbed";
 const db = getFirestore(app);
 
 function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
@@ -24,6 +25,7 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
   const [reviews, setReviews] = useState();
   const [checkReview, setCheckReview] = useState();
   const [averageRating, setAverageRating] = useState(0);
+  const [para, setPara] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -119,10 +121,26 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
             </div>
 
             <h1 className="font-koulen text-3xl text-grey pb-4">About</h1>
-            <p className="px-4 text-justify">{data.about}</p>
+            <p
+              className={
+                para
+                  ? "px-2 text-justify"
+                  : "px-2 text-justify max-h-[200px] overflow-hidden mb-[-50px]"
+              }
+            >
+              {data.about}
+            </p>
+            <div className="flex justify-center backdrop-blur-sm p-2 ">
+              <h1
+                onClick={() => setPara(!para)}
+                className="border-2 px-4 py-2 rounded-xl bg-kaavi text-white cursor-pointer"
+              >
+                {para ? "Show Less" : "Learn More"}
+              </h1>
+            </div>
+            <h1 className="font-koulen text-3xl pt-10 text-grey">Video</h1>
+            {data.video && <YoutubeEmbed embedId={data.video} />}
 
-            <h1 className="font-koulen text-3xl pt-10 text-grey">Gallery</h1>
-            {data.photos && <GalleryCarousel data={data.photos} />}
             <div className="py-6">
               <div className="flex justify-between items-center">
                 <h1 className="font-koulen text-3xl text-grey mr-20">
@@ -189,6 +207,8 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
                 Maps Link
               </a>
             </div>
+            <h1 className="font-koulen text-3xl pt-10 text-grey">Gallery</h1>
+            {data.photos && <GalleryCarousel data={data.photos} />}
           </div>
         </div>
       )}

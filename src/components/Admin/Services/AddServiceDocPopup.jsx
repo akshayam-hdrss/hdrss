@@ -180,6 +180,13 @@ function AddServiceDocPopup({
                 onChange={handleChange}
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
+              <p className="text-xl font-medium mb-1">Youtube Video Link</p>
+              <input
+                type="text"
+                id="video"
+                onChange={handleChange}
+                className="border border-kaavi pl-4 py-3 mb-6"
+              />
               <p className="text-xl font-medium mb-1">Google Maps Link</p>
               <input
                 type="text"

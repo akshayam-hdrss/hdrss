@@ -145,7 +145,7 @@ export default function Home() {
           <News />
 
           {/* Products Section */}
-          <div className="bgom overflow-hidden pb-5 pt-5">
+          <div className="bgom overflow-hidden pb-5 pt-0">
             <div className="px-6 relative ">
               <Image
                 src="/om.svg"
@@ -239,7 +239,7 @@ export default function Home() {
           {/* Events Section */}
           <Events />
 
-          {/* Join us */}
+          {/* Join us
           <div className="p-6 pt-0 md:p-0 relative overflow-hidden">
             <Image
               src="/om.svg"
@@ -314,7 +314,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Members */}
+        
           <div className="p-6 md:py-10 overflow-hidden relative z-0">
             <Image
               src="/om.svg"
@@ -349,7 +349,7 @@ export default function Home() {
               <Link href="/members">All members</Link>
               <IoIosArrowDown className="ml-1" />
             </div>
-          </div>
+          </div> */}
 
           {/* Offers and rewards */}
           {/* <div className="px-6">

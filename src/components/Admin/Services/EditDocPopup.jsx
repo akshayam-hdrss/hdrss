@@ -31,6 +31,7 @@ function EditDocPopup({
   const [editNumber, setEditNumber] = useState();
   const [editAbout, setEditAbout] = useState();
   const [editDistrict, setEditDistrict] = useState();
+  const [editVideo, setEditVideo] = useState();
   const [editExperience, setEditExperience] = useState();
   const [editProfile, setEditProfile] = useState(null);
   const [editPhotos, setEditPhotos] = useState(null);
@@ -67,6 +68,7 @@ function EditDocPopup({
         ? { landmark: editLandmark }
         : { landmark: deleteDoc.landmark }),
       ...(editArea ? { area: editArea } : { area: deleteDoc.area }),
+      ...(editVideo ? { video: editVideo } : { video: deleteDoc.video }),
       ...(editPincode
         ? { pincode: editPincode }
         : { pincode: deleteDoc.pincode }),
@@ -259,7 +261,14 @@ function EditDocPopup({
                   onChange={(e) => setEditMapUrl(e.target.value)}
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />
-
+                <p className="text-xl font-medium mb-1">Youtube Video Link</p>
+                <Input
+                  type="text"
+                  defaultValue={deleteDoc?.video}
+                  onChange={(e) => setEditVideo(e.target.value)}
+                  placeholder="Youtube Video"
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
                 <p className="text-xl font-medium mb-1">About</p>
                 <textarea
                   name="about"
