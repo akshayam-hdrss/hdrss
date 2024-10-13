@@ -123,7 +123,7 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
 
             <h1 className="font-koulen text-3xl pt-10 text-grey">Gallery</h1>
             {data.photos && <GalleryCarousel data={data.photos} />}
-            <div className="py-20">
+            <div className="py-6">
               <div className="flex justify-between items-center">
                 <h1 className="font-koulen text-3xl text-grey mr-20">
                   Reviews
@@ -178,12 +178,12 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
                   ))}
               </div>
             </div>
-            <div>
-              <h1 className="font-koulen text-3xl pt-10 text-grey">
+            <div className="flex justify-between items-center">
+              <h1 className="font-koulen text-3xl text-grey">
                 Google Maps Link
               </h1>
               <a
-                className="bg-kaavi px-4 py-2 text-white rounded-md text-center my-10 mx-auto block w-fit"
+                className="bg-kaavi px-4 py-2 text-white rounded-md text-center mx-auto block w-fit"
                 href={data.mapurl}
               >
                 Maps Link
