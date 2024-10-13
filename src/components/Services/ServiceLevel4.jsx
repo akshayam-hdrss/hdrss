@@ -89,21 +89,19 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
               <div className="flex justify-evenly items-center h-[60px] gap-x-6 mb-6 border border-grey px-4 rounded-lg">
                 <p className="flex items-center gap-x-2 py-4">
                   <IoStar className="text-yellow-800" fontSize={25} />
-                  {averageRating}
+                  {averageRating} Ratings
                 </p>
                 <div className="h-full w-[1px] bg-grey"></div>
                 <p className="flex items-center gap-x-2 py-4">
                   <PiSuitcaseSimple fontSize={25} />
-                  {data?.experience} Years
+                  {data?.experience} Years Exp
                 </p>
               </div>
-              <p className="text-grey font-medium">{data?.addline1}</p>
-              <p className="text-grey font-medium">{data?.addline2}</p>
-              <p className="text-grey font-medium">{data?.area}</p>
-              <p className="text-grey font-medium">{data?.landmark}</p>
               <p className="text-grey font-medium">
+                {data?.addline1} {data?.addline2} {data?.area} {data?.landmark}{" "}
                 {data?.district} - {data?.pincode}
               </p>
+
               <div className="my-4">
                 <a
                   href={`tel:${data.mobile}`}
