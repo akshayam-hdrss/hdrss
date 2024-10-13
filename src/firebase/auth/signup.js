@@ -5,7 +5,13 @@ import { app } from "../config";
 import { doc, setDoc, getFirestore } from "firebase/firestore";
 const db = getFirestore(app);
 
-export default async function signUp(email, password, name) {
+export default async function signUp(
+  mobile = null,
+  email,
+  password,
+  name,
+  executive
+) {
   let result = null;
   try {
     result = await createUserWithEmailAndPassword(auth, email, password);
@@ -14,6 +20,8 @@ export default async function signUp(email, password, name) {
     await setDoc(doc(db, "users", user.uid), {
       name: name,
       email: user.email,
+      executive: executive,
+      mobile: mobile,
     });
     return user;
   } catch (error) {

@@ -9,9 +9,16 @@ function executiveLayout({ children }) {
   const [executive, setExecutive] = useState();
   const [userData, setUserData] = useState();
   useEffect(() => {
-    return onAuthStateChanged(auth, (user) => {
+    return onAuthStateChanged(auth, async (user) => {
       if (user) {
-        if (userData && userData.status === "active") {
+        const userId = user.uid;
+        const data = await getUser(userId);
+        setUserData(data);
+        if (
+          data &&
+          data.data.executive === true &&
+          data.data.execstatus === "active"
+        ) {
           setExecutive(user);
         } else {
           setExecutive(null);
@@ -20,15 +27,8 @@ function executiveLayout({ children }) {
         setExecutive(null);
       }
     });
-  });
+  }, []);
 
-  useEffect(() => {
-    const fetch = async () => {
-      const data = await getUser(user.uid);
-      setUserData(data);
-    };
-    fetch();
-  });
   if (!executive) return <ExecutiveGaurd />;
   return <div>executiveLayout</div>;
 }

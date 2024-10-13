@@ -7,6 +7,7 @@ import {
   getDoc,
   updateDoc,
   query,
+  where,
 } from "firebase/firestore";
 
 import { app } from "../config";
@@ -49,6 +50,32 @@ export const getUser = async (id) => {
     const snap = await getDoc(userref);
     data = { id: snap.id, data: snap.data() };
     return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getExecutives = async () => {
+  try {
+    let data = [];
+
+    const executivesRef = query(
+      collection(db, "users"),
+      where("executive", "==", true)
+    );
+    const querySnapshot = await getDocs(executivesRef);
+    querySnapshot.docs.map((docs) => {
+      data.push({ id: docs.id, data: docs.data() });
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const updateExecutiveStatus = async (status, id) => {
+  try {
+    await updateDoc(doc(db, "users", id), { execstatus: status });
   } catch (e) {
     console.log(e);
   }
