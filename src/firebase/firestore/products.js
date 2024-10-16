@@ -27,9 +27,9 @@ import {
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-export const addProductProfile = async (previous, photo) => {
+export const addProductProfile = async (photo) => {
   try {
-    const photoRef = ref(storage, `products/${previous}/${photo.name}`);
+    const photoRef = ref(storage, `productProfiles/${photo.name}`);
     await uploadBytes(photoRef, photo);
     const photoUrl = await getDownloadURL(photoRef);
     console.log("product profile pic uploaded");
@@ -39,20 +39,20 @@ export const addProductProfile = async (previous, photo) => {
   }
 };
 
-export const addProductBackground = async (previous, photo) => {
-  try {
-    const photoRef = ref(
-      storage,
-      `products/background/${previous}/${photo.name}`
-    );
-    await uploadBytes(photoRef, photo);
-    const photoUrl = await getDownloadURL(photoRef);
-    console.log("product profile pic uploaded");
-    return photoUrl;
-  } catch (e) {
-    console.log(e);
-  }
-};
+// export const addProductBackground = async (previous, photo) => {
+//   try {
+//     const photoRef = ref(
+//       storage,
+//       `products/background/${previous}/${photo.name}`
+//     );
+//     await uploadBytes(photoRef, photo);
+//     const photoUrl = await getDownloadURL(photoRef);
+//     console.log("product profile pic uploaded");
+//     return photoUrl;
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
 
 export async function uploadProductPhotosAndSaveURLs(previous, files) {
   const uploadPromises = files.map((file) => {
@@ -76,14 +76,18 @@ export async function uploadProductPhotosAndSaveURLs(previous, files) {
 
 export const addProduct = async (
   previous,
+  beforeprevious,
+  rootprevious,
   data,
-  profilepic = null,
-  background = null,
+  profilepic,
+  youtubeLinks,
   photos = null
 ) => {
   try {
+    let productData = data;
+    productData.links = youtubeLinks;
     if (profilepic != null) {
-      const profileUrl = await addProductProfile(previous, profilepic);
+      const profileUrl = await addProductProfile(profilepic);
       data.profile = profileUrl;
     } else {
       data.profile = "";
@@ -99,15 +103,21 @@ export const addProduct = async (
       data.photos = "";
     }
 
-    if (background != null) {
-      const backgroundurl = await addProductBackground(previous, background);
-      data.background = backgroundurl;
-    } else {
-      data.background = null;
-    }
+    // if (background != null) {
+    //   const backgroundurl = await addProductBackground(previous, background);
+    //   data.background = backgroundurl;
+    // } else {
+    //   data.background = null;
+    // }
     const sno = Math.floor(Math.random() * 100);
     data.sno = sno;
-    await addDoc(collection(db, `products/${previous}/${previous}col`), data);
+    await addDoc(
+      collection(
+        db,
+        `products/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col`
+      ),
+      data
+    );
   } catch (e) {
     console.log(e);
   }

@@ -237,7 +237,7 @@ export default function Home() {
           </div>
 
           {/* Events Section */}
-          <Events />
+          {/* <Events /> */}
 
           {/* Join us
           <div className="p-6 pt-0 md:p-0 relative overflow-hidden">

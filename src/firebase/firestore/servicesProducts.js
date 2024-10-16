@@ -49,12 +49,12 @@ export async function addServiceAndProduct(
     const sno = Math.floor(Math.random() * 100);
 
     if (file != null) {
-      const fileUrl = await uploadIcons(file, id,type);
+      const fileUrl = await uploadIcons(file, id, type);
       docData = { ...data, iconUrl: fileUrl, sno: sno };
     } else {
       docData = { ...data, iconUrl: "", sno: sno };
     }
-    result = await setDoc(doc(db, docUrl, id), docData);
+    result = await addDoc(collection(db, docUrl), docData);
     console.log("added service");
   } catch (e) {
     console.log(e);

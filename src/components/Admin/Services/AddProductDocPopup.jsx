@@ -2,55 +2,33 @@
 import React, { useEffect, useState } from "react";
 import { Button, Dialog, Input, DialogBody } from "@material-tailwind/react";
 import { addProduct } from "@/firebase/firestore/products";
-const footwearSize = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-const shirtSize = [
-  "XS",
-  "S",
-  "M",
-  "L",
-  "XL",
-  "2XL",
-  "3XL",
-  "4XL",
-  "36",
-  "38",
-  "40",
-  "42",
-  "44",
-];
-function AddProductDocPopup({ open, setOpen, previous }) {
-  const [profile, setProfile] = useState();
+
+function AddProductDocPopup({
+  open,
+  setOpen,
+  previous,
+  beforeprevious,
+  rootprevious,
+  previousname,
+}) {
   const [photos, setPhotos] = useState();
   const [data, setData] = useState({});
-  const [backgroundImage, setBackgroundImage] = useState();
-  let sizes;
-
-  if (previous == "footwear") {
-    sizes = footwearSize;
-  } else if (previous == "shirts") {
-    sizes = shirtSize;
-  }
-
-  const handleProfile = (e) => {
-    setProfile(e.target.files[0]);
-  };
-  const handleBackground = (e) => {
-    setBackgroundImage(e.target.files[0]);
-  };
+  const [profile, setProfile] = useState();
+  const [youtubeLinks, setYoutubeLinks] = useState([]); //State for storing youtube links
+  const [newLink, setNewLink] = useState(""); //State for current youtube link
   const handleChange = (e) => {
-    const { id, value, type } = e.target;
-    let newValue;
-    if (type === "number") {
-      newValue = parseFloat(value);
-    } else if (value === "true" || value === "false") {
-      newValue = value === "true" ? true : false;
-    } else {
-      newValue = value;
-    }
+    const { id, value } = e.target;
     setData({
       ...data,
-      [id]: newValue,
+      [id]: value,
     });
+  };
+
+  const handleAddLink = () => {
+    if (newLink) {
+      setYoutubeLinks([...youtubeLinks, newLink]); // Add new link to the state
+      setNewLink(""); // Clear the input field
+    }
   };
 
   const handlePhotos = (e) => {
@@ -58,6 +36,9 @@ function AddProductDocPopup({ open, setOpen, previous }) {
     setPhotos(files);
   };
 
+  const handleProfile = (e) => {
+    setProfile(e.target.files[0]);
+  };
   const handleOpen = () => setOpen(!open);
 
   const handleCancel = (e) => {
@@ -68,17 +49,26 @@ function AddProductDocPopup({ open, setOpen, previous }) {
   const handleAdd = async (e) => {
     e.preventDefault();
     setOpen(!open);
-    await addProduct(previous, data, profile, backgroundImage, photos);
+    await addProduct(
+      previous,
+      beforeprevious,
+      rootprevious,
+      data,
+      profile,
+      youtubeLinks,
+      photos
+    );
   };
 
   useEffect(() => {
     setData({});
+    setYoutubeLinks([]); // Reset youtube links when dialog opens
   }, [open]);
 
   return (
     <>
       <Button className="bg-kaavi" onClick={handleOpen}>
-        Add new {previous}
+        Add new {previousname}
       </Button>
       <Dialog
         open={open}
@@ -89,21 +79,35 @@ function AddProductDocPopup({ open, setOpen, previous }) {
         <DialogBody className="mx-auto w-full font-inter">
           <form action="submit">
             <div className="flex flex-col justify-between items-start">
-              <p className="text-xl font-medium mb-1">Product Image</p>
-              <Input
+              <p className="text-xl font-medium mb-1">Profile Picture</p>
+              <input
                 type="file"
+                accept="image/*"
                 onChange={handleProfile}
-                className="border border-kaavi mb-6 w-60"
-                accept="image/*"
+                className="mb-4"
               />
-              <p className="text-xl font-medium mb-1">Background Image</p>
+              <p className="text-xl font-medium mb-1">YouTube Links</p>
               <Input
-                type="file"
-                onChange={handleBackground}
-                className="border border-kaavi mb-6 w-60"
-                accept="image/*"
+                type="text"
+                value={newLink}
+                onChange={(e) => setNewLink(e.target.value)} // Update newLink state
+                placeholder="Enter YouTube link"
+                className="border border-kaavi pl-4 py-3 mb-6"
               />
+              <Button onClick={handleAddLink} className="my-4 bg-kaavi">
+                Add Link
+              </Button>
+              {youtubeLinks && (
+                <div className="text-black text-xl my-4">
+                  <h1>Added Youtube Links</h1>
+                  {youtubeLinks.map((link, index) => (
+                    <p key={index}>{link}</p> // Display the added links
+                  ))}
+                </div>
+              )}
+
               <p className="text-xl font-medium mb-1">Name</p>
+
               <Input
                 type="text"
                 id="name"
@@ -112,52 +116,13 @@ function AddProductDocPopup({ open, setOpen, previous }) {
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
 
-              <p className="text-xl font-medium mb-1">Price(in rupees)</p>
-              <Input
-                type="number"
-                id="price"
-                onChange={handleChange}
-                placeholder="Price"
-                className="border border-kaavi pl-4 py-3 mb-6"
-              />
-              <p className="text-xl font-medium mb-1">
-                Size (If applicable - leave it blank otherwise)
-              </p>
-              <select
-                name="size"
-                id="size"
-                onChange={handleChange}
-                className="px-10 py-4 mb-10 border border-kaavi"
-              >
-                <option value=" "> </option>
-                {sizes &&
-                  sizes.map((size, index) => (
-                    <option value={size} key={index}>
-                      {size}
-                    </option>
-                  ))}
-              </select>
-              <p className="text-xl font-medium mb-1">
-                Gender (If applicable - leave it blank otherwise)
-              </p>
-              <select
-                name="gender"
-                id="gender"
-                onChange={handleChange}
-                className="px-10 py-4 mb-10 border border-kaavi"
-              >
-                <option value=" "> </option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-
               <p className="text-xl font-medium mb-1">About</p>
               <textarea
                 name="about"
                 id="about"
                 onChange={handleChange}
-                rows={3}
-                cols={25}
+                rows={5}
+                cols={60}
                 className="border border-kaavi pl-4 py-3 mb-6"
               ></textarea>
               <p className="text-xl font-medium mb-1">Contact Number</p>
@@ -166,6 +131,23 @@ function AddProductDocPopup({ open, setOpen, previous }) {
                 id="mobile"
                 onChange={handleChange}
                 placeholder="Contact Number"
+                className="border border-kaavi pl-4 py-3 mb-6"
+              />
+              <p className="text-xl font-medium mb-1">Whatsapp Number</p>
+              <Input
+                type="number"
+                id="whatsapp"
+                onChange={handleChange}
+                placeholder="Whatsapp Number"
+                className="border border-kaavi pl-4 py-3 mb-6"
+              />
+              <p className="text-xl font-medium mb-1">Google Maps Link</p>
+
+              <Input
+                type="text"
+                id="mapsurl"
+                onChange={handleChange}
+                placeholder="Maps URL"
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
               <p className="text-xl font-medium mb-1">Photos</p>
@@ -178,7 +160,7 @@ function AddProductDocPopup({ open, setOpen, previous }) {
                 multiple
               />
 
-              <div className="flex justify-between">
+              <div className="flex justify-between mt-6">
                 <button
                   className="border border-black mr-2 p-2 px-14"
                   onClick={handleCancel}

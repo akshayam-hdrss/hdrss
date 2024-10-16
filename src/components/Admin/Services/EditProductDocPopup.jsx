@@ -11,53 +11,43 @@ import {
 } from "@material-tailwind/react";
 import { editProducts } from "@/firebase/firestore/products";
 import { IoClose } from "react-icons/io5";
+import { IoCloseCircle } from "react-icons/io5";
 
+import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 function EditProductDocPopup({ open, setOpen, data, previous = null }) {
   const [editOption, setEditOption] = useState(null);
-  const [editName, setEditName] = useState();
-  const [editNumber, setEditNumber] = useState();
-  const [editPrice, setEditPrice] = useState();
-  const [editAbout, setEditAbout] = useState();
+  const [newData, setNewData] = useState({});
   const [editProfile, setEditProfile] = useState(null);
-  const [editPhotos, setEditPhotos] = useState(null);
-  const [editSize, setEditSize] = useState();
-  const [editGender, setEditGender] = useState();
-  const [deleteDoc, setDeleteDoc] = useState();
-  const [editBackgroundImage, setEditBackgroundImage] = useState();
-  let oldProfile, oldPhotos, oldBackground;
+  const [oldData, setOldData] = useState();
+  const [editYoutubeLinks, setEditYoutubeLinks] = useState([]); //State for storing youtube links
+  const [editNewLink, setEditNewLink] = useState(""); //State for current youtube link
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setNewData({
+      ...newData,
+      [id]: value,
+    });
+  };
+
   const handleOpen = () => {
     setOpen(!open);
   };
+
   const handleClose = () => {
     setOpen(!open);
   };
-  const handleAdd = async () => {
+  const handleDeleteLink = async () => {
+    
+  };
+  const handleEdit = async () => {
     setOpen(!open);
-    let updatedData = {
-      ...(editName ? { name: editName } : { name: deleteDoc.name }),
-      ...(editNumber ? { mobile: editNumber } : { mobile: deleteDoc.mobile }),
-      ...(editPrice ? { price: editPrice } : { price: deleteDoc.price }),
-      ...(editAbout ? { about: editAbout } : { about: deleteDoc.about }),
-      ...(editGender ? { gender: editGender } : { gender: deleteDoc.gender }),
-      ...(editSize ? { size: editSize } : { size: deleteDoc.size }),
-    };
-    data.map((item) => {
-      if (item.id === editOption) {
-        oldProfile = item.profile;
-        oldPhotos = item.photos;
-        oldBackground = item.background;
-      }
-    });
     await editProducts(
       previous,
       editOption,
-      updatedData,
+      newData,
       editProfile,
-      editBackgroundImage,
-      editPhotos,
-      oldProfile,
-      oldBackground,
-      oldPhotos
+      oldData.profile
     );
     console.log("edited successfully");
   };
@@ -66,8 +56,7 @@ function EditProductDocPopup({ open, setOpen, data, previous = null }) {
       data &&
         data.map((item) => {
           if (item.id === editOption) {
-            setDeleteDoc(item);
-            setEditGender(item.gender);
+            setOldData(item);
           }
         });
     };
@@ -120,18 +109,13 @@ function EditProductDocPopup({ open, setOpen, data, previous = null }) {
                   className="border border-kaavi mb-6 w-60"
                   accept="image/*"
                 />
-                <p className="text-xl font-medium mb-1">Background Image</p>
-                <Input
-                  type="file"
-                  onChange={(e) => setEditBackgroundImage(e.target.files[0])}
-                  className="border border-kaavi mb-6 w-60"
-                  accept="image/*"
-                />
+
                 <p className="text-xl font-medium mb-1">Name</p>
                 <Input
                   type="text"
-                  defaultValue={deleteDoc?.name}
-                  onChange={(e) => setEditName(e.target.value)}
+                  id="name"
+                  defaultValue={oldData?.name}
+                  onChange={handleChange}
                   placeholder="Name"
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />
@@ -139,55 +123,51 @@ function EditProductDocPopup({ open, setOpen, data, previous = null }) {
                 <p className="text-xl font-medium mb-1">Mobile Number</p>
                 <Input
                   type="number"
-                  defaultValue={deleteDoc?.mobile}
-                  onChange={(e) => setEditNumber(e.target.value)}
+                  id="mobile"
+                  defaultValue={oldData?.mobile}
+                  onChange={handleChange}
                   placeholder="Mobile Number"
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />
-                <p className="text-xl font-medium mb-1">Price</p>
+
+                <p className="text-xl font-medium mb-1">Whatsapp Number</p>
                 <Input
                   type="number"
-                  defaultValue={deleteDoc?.price}
-                  onChange={(e) => setEditPrice(e.target.value)}
-                  placeholder="Price"
+                  id="whatsapp"
+                  defaultValue={oldData?.whatsapp}
+                  onChange={handleChange}
+                  placeholder="Whatsapp Number"
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />
-                <p className="text-xl font-medium mb-1">Gender</p>
-                <select
-                  value={editGender}
-                  onChange={(e) => setEditGender(e.target.value)}
-                  className="px-10 py-4 mb-10 border border-kaavi"
-                >
-                  <option value=" "> </option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
+                <p className="text-xl font-medium mb-1 mt-4">Youtube Links</p>
+                {oldData &&
+                  oldData.links.map((link) => (
+                    <div className="w-[50%] my-6 relative ">
+                      <YoutubeEmbed embedId={link} />
+                      <IoCloseCircle
+                        onClick={handleDeleteLink}
+                        className="absolute top-0 right-0 text-white"
+                        fontSize={40}
+                      />
+                    </div>
+                  ))}
                 <p className="text-xl font-medium mb-1">About</p>
                 <textarea
                   name="about"
                   id="about"
-                  defaultValue={deleteDoc?.about}
-                  onChange={(e) => setEditAbout(e.target.value)}
+                  defaultValue={oldData?.about}
+                  onChange={handleChange}
                   rows={5}
                   cols={70}
                   className="border border-kaavi pl-4 py-3 mb-6"
                 ></textarea>
-                <p className="text-xl font-medium mb-1">Photos</p>
-                <Input
-                  type="file"
-                  placeholder="photos"
-                  onChange={(e) => setEditPhotos([...e.target.files])}
-                  className="border border-kaavi mb-6 w-60"
-                  accept="image/*"
-                  multiple
-                />
               </div>
             </form>
           </div>
           <Button
             className="bg-kaavi text-white"
             type="submit"
-            onClick={handleAdd}
+            onClick={handleEdit}
             fullWidth
           >
             Enter

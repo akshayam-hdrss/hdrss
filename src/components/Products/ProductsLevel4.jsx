@@ -16,9 +16,10 @@ import { app } from "@/firebase/config";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { getReviews } from "@/firebase/firestore/reviews";
 import YoutubeEmbed from "../ui/YoutubeEmbed";
+import VideosCarousel from "../ui/VideosCarousel";
 const db = getFirestore(app);
 
-function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
+function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
   const [data, setData] = useState();
   const [reviewsOpen, setReviewsOpen] = useState();
   const user = UserAuth();
@@ -34,7 +35,7 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
         secondid,
         thirdid,
         fourthid,
-        "services"
+        "products"
       );
       const data2 = await getReviews(fourthid);
       setReviews(data2);
@@ -72,21 +73,10 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
       {data && (
         <div>
           <div className="w-full">
-            <img
-              src={data.background}
-              alt="background image"
-              className="w-full"
-            />
+            <VideosCarousel data={data.links} />
           </div>
           <div className="p-6 pt-0">
-            <div className="w-[130px] h-fit -mt-[80px] ml-[26vw]">
-              <img
-                src={data.profile}
-                alt="profile"
-                className="rounded-md object-cover aspect-[4/5]"
-              />
-            </div>
-            <div className="flex flex-col items-center text-center justify-evenly py-6 pt-0">
+            <div className="flex flex-col items-start justify-evenly py-6 pt-0">
               <h1 className="font-bold text-3xl pb-4">{data.name}</h1>
               <div className="flex justify-evenly items-center h-[60px] gap-x-6 mb-6 border border-grey px-4 rounded-lg">
                 <p className="flex items-center gap-x-2 py-4">
@@ -218,4 +208,4 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
   );
 }
 
-export default ServiceLevel4;
+export default ProductsLevel4;

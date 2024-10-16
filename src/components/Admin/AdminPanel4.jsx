@@ -72,19 +72,6 @@ function AdminPanel4() {
         />
         <div>
           <h1 className="text-2xl font-bold">{item.name}</h1>
-          <p className="font-medium text-lg my-2 mb-4">₹{item.price}</p>
-          <div className="flex items-center bg-[#D9D9D9] rounded-full pr-6">
-            <MdLocalPhone
-              fontSize={20}
-              className="bg-kaavi rounded-full text-white p-1 mr-4"
-            />
-            <a
-              href={`tel:${item.mobile}`}
-              className="font-medium text-[#454545]"
-            >
-              +91 {item.mobile.slice(0, 2)} ********
-            </a>
-          </div>
         </div>
       </div>
     ));
@@ -119,12 +106,7 @@ function AdminPanel4() {
         null
       );
       setAds(data);
-      const data2 = await getYt(
-        "services",
-        rootprevious,
-        beforeprevious,
-        previous
-      );
+      const data2 = await getYt(type, rootprevious, beforeprevious, previous);
       setLink(data2);
     };
     fetch();

@@ -1,4 +1,11 @@
-import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  getFirestore,
+  where,
+  query,
+} from "firebase/firestore";
 import { app } from "../config";
 
 const db = getFirestore(app);
@@ -12,9 +19,10 @@ export const addReview = async (data) => {
   }
 };
 
-export const getReviews = async () => {
+export const getReviews = async (id) => {
   try {
-    const querySnapshot = await getDocs(collection(db, "reviews"));
+    const q = query(collection(db, "reviews"), where("fourthid", "==", id));
+    const querySnapshot = await getDocs(q);
     const reviews = querySnapshot.docs.map((doc) => doc.data());
     return reviews;
   } catch (e) {

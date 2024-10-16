@@ -1,28 +1,21 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Navbar from "@/components/Navbar";
-import Link from "next/link";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
 import BackButton from "@/components/ui/BackButton";
+import Link from "next/link";
+import { getServiceAds } from "@/firebase/firestore/advertisements";
 import Advertisement from "@/components/ui/Advertisement";
+import { getYt } from "@/firebase/firestore/servicesyt";
+import Image from "next/image";
 import { subscribeToServicesAndProducts } from "@/firebase/firestore/servicesProducts";
 import { getName } from "@/firebase/firestore/servicesProducts";
-import { getServiceAds } from "@/firebase/firestore/advertisements";
-import { getYt } from "@/firebase/firestore/servicesyt";
-import { IoIosArrowDown } from "react-icons/io";
-import ProductsFilter from "@/components/Products/ProductsFilter";
-
-function ProductsLevel1({ id }) {
+function ServiceLevel1({ id }) {
   const [data, setData] = useState();
   const [ads, setAds] = useState();
   const [capitalized, setCapitalized] = useState();
   const [link, setLink] = useState();
-  const [filtersOpen, setFiltersOpen] = useState(false);
-  const [gender, setGender] = useState([]);
-  const [size, setSize] = useState([]);
-  const [price, setPrice] = useState([500, 1000]);
   useEffect(() => {
     const fetch = async () => {
       const ads = await getServiceAds("products", null, null, id, null);
@@ -45,64 +38,47 @@ function ProductsLevel1({ id }) {
   }, []);
   console.log(data);
   return (
-    <div className="overflow-hidden">
+    <div>
       <Header />
       <BackButton />
       <Advertisement ads={ads} />
-      <div className="p-6 ">
-        <h1 className="text-center font-bold text-2xl">{capitalized}</h1>
-      </div>
-      <div className="w-max flex gap-x-4 py-2 overflow-x-scroll nosc px-4">
-        <ProductsFilter
-          open={filtersOpen}
-          setOpen={setFiltersOpen}
-          price={price}
-          setPrice={setPrice}
-          data={data}
-          setData={setData}
-          id={id}
-          size={size}
-          setSize={setSize}
-          gender={gender}
-          setGender={setGender}
-        />
-        <div className="flex gap-x-2 border border-grey w-fit px-4 py-2 rounded-full items-center">
-          <p className="font-medium">Pricing</p>
-          <IoIosArrowDown />
-        </div>
-        <div className=" flex gap-x-2 border border-grey w-fit px-4 py-2 rounded-full items-center">
-          <p className="font-medium ">Rating 4+</p>
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-x-4 mx-4 mt-10">
-        {data &&
-          data.map((doc, index) => (
-            <div key={index}>
-              <img
-                src={doc.profile}
-                alt="profile photo"
-                className="h-[150px] w-[150px] rounded-md"
-              />
-              <div className="pt-4">
-                <h1 className="font-medium text-lg">{doc.name}</h1>
-                <p className="text-grey font-medium">₹{doc.price}</p>
-                <div className="mt-4">
-                  <a
-                    href={`/products/${id}/${doc.id}`}
-                    className="bg-kaavi text-white px-4 py-2 rounded-md"
-                  >
-                    View
-                  </a>
+      <div className="p-6 py-20 relative overflow-hidden">
+        <h1 className="text-center font-bold text-2xl md:text-4xl pb-10">
+          {capitalized}
+        </h1>
+        <Image
+          src="/om.svg"
+          alt="om"
+          width={300}
+          height={300}
+          className="rotate-45 opacity-[0.04] absolute left-16 -top-2 -z-10"
+        ></Image>
+        <div className="grid grid-cols-2 gap-y-10 gap-x-4 items-center justify-center">
+          {data &&
+            data.map((doc, index) => (
+              <Link
+                href={`/products/${id}/${doc.id}`}
+                key={index}
+                className="flex items-center text-center md:gap-x-6 justify-center bg-[#F4F5F5] rounded-xl h-20 md:h-28 p-6 px-3"
+              >
+                <div className="w-1/3 md:w-1/5 lg:w-1/6 h-fit mr-3">
+                  <img
+                    src={doc.iconUrl}
+                    alt="Icon"
+                    className="object-scale-down aspect-square"
+                  />
                 </div>
-              </div>
-            </div>
-          ))}
+                <h1 className="w-2/3 md:w-4/5 lg:w-5/6 md:text-xl md:font-medium mr-0">
+                  {doc.name}
+                </h1>
+              </Link>
+            ))}
+        </div>
       </div>
       <YoutubeEmbed embedId={link} />
-
       <Footer />
     </div>
   );
 }
 
-export default ProductsLevel1;
+export default ServiceLevel1;
