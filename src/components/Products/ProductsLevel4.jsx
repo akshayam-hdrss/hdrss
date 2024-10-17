@@ -77,7 +77,18 @@ function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
           </div>
           <div className="p-6 pt-0">
             <div className="flex flex-col items-start justify-evenly py-6 pt-0">
+              <div className="w-[130px] h-fit">
+                <img
+                  src={data.profile}
+                  alt="profile"
+                  className="rounded-md object-cover aspect-[4/5]"
+                />
+              </div>
               <h1 className="font-bold text-3xl pb-4">{data.name}</h1>
+              <p className="text-grey font-medium">
+                {data?.addLine1} {data?.addLine2} {data?.area} {data?.landmark}{" "}
+                {data?.district} - {data?.pincode}
+              </p>
               <div className="flex justify-evenly items-center h-[60px] gap-x-6 mb-6 border border-grey px-4 rounded-lg">
                 <p className="flex items-center gap-x-2 py-4">
                   <IoStar className="text-yellow-800" fontSize={25} />
@@ -89,28 +100,24 @@ function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
                   {data?.experience} Years Exp
                 </p>
               </div>
-              <p className="text-grey font-medium">
-                {data?.addline1} {data?.addline2} {data?.area} {data?.landmark}{" "}
-                {data?.district} - {data?.pincode}
-              </p>
 
-              <div className="my-4">
-                <a
-                  href={`tel:${data.mobile}`}
-                  className="my-6 mr-2 font-medium bg-kaavi text-white rounded-lg p-3 px-4"
-                >
-                  Contact
-                </a>
+              <div className="my-4 w-full flex items-center justify-evenly py-0 h-6">
                 <a
                   href={`https://wa.me/${data.whatsapp}`}
-                  className="my-6 font-medium bg-green-600 text-white rounded-lg p-3 px-4"
+                  className="my-6 font-medium bg-green-600 text-white rounded-lg p-3 px-4 h-fit"
                 >
                   Whatsapp
+                </a>
+                <a
+                  href={`tel:${data.mobile}`}
+                  className="my-6 mr-2 font-medium bg-kaavi text-white rounded-lg p-3 px-4 h-fit"
+                >
+                  Contact
                 </a>
               </div>
             </div>
 
-            <h1 className="font-koulen text-3xl text-grey pb-4">About</h1>
+            <h1 className="font-koulen text-2xl text-grey pb-4">About</h1>
             <p
               className={
                 para
@@ -128,12 +135,10 @@ function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
                 {para ? "Show Less" : "Learn More"}
               </h1>
             </div>
-            <h1 className="font-koulen text-3xl pt-10 text-grey">Video</h1>
-            {data.video && <YoutubeEmbed embedId={data.video} />}
 
             <div className="py-6">
               <div className="flex justify-between items-center">
-                <h1 className="font-koulen text-3xl text-grey mr-20">
+                <h1 className="font-koulen text-2xl text-grey mr-20">
                   Reviews
                 </h1>
 
@@ -187,7 +192,7 @@ function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
               </div>
             </div>
             <div className="flex justify-between items-center">
-              <h1 className="font-koulen text-3xl text-grey">
+              <h1 className="font-koulen text-2xl text-grey">
                 Google Maps Link
               </h1>
               <a
@@ -197,8 +202,9 @@ function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
                 Maps Link
               </a>
             </div>
-            <h1 className="font-koulen text-3xl pt-10 text-grey">Gallery</h1>
-            {data.photos && <GalleryCarousel data={data.photos} />}
+            <h1 className="font-koulen text-2xl pt-10 text-grey">
+              Where to buy?
+            </h1>
           </div>
         </div>
       )}

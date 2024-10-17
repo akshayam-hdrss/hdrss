@@ -81,7 +81,7 @@ function EditSno({
   return (
     <>
       <Button onClick={handleOpen} className="bg-kaavi">
-        Edit the Order
+        Edit Order
       </Button>
       <Dialog
         open={open}

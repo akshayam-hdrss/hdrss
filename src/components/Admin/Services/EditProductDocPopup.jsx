@@ -14,11 +14,18 @@ import { IoClose } from "react-icons/io5";
 import { IoCloseCircle } from "react-icons/io5";
 
 import YoutubeEmbed from "@/components/ui/YoutubeEmbed";
-function EditProductDocPopup({ open, setOpen, data, previous = null }) {
+function EditProductDocPopup({
+  open,
+  setOpen,
+  data,
+  previous,
+  beforeprevious,
+  rootprevious,
+}) {
   const [editOption, setEditOption] = useState(null);
-  const [newData, setNewData] = useState({});
   const [editProfile, setEditProfile] = useState(null);
   const [oldData, setOldData] = useState();
+  const [newData, setNewData] = useState({});
   const [editYoutubeLinks, setEditYoutubeLinks] = useState([]); //State for storing youtube links
   const [editNewLink, setEditNewLink] = useState(""); //State for current youtube link
 
@@ -37,13 +44,13 @@ function EditProductDocPopup({ open, setOpen, data, previous = null }) {
   const handleClose = () => {
     setOpen(!open);
   };
-  const handleDeleteLink = async () => {
-    
-  };
+  const handleDeleteLink = async () => {};
   const handleEdit = async () => {
     setOpen(!open);
     await editProducts(
       previous,
+      beforeprevious,
+      rootprevious,
       editOption,
       newData,
       editProfile,
@@ -119,7 +126,49 @@ function EditProductDocPopup({ open, setOpen, data, previous = null }) {
                   placeholder="Name"
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />
-
+                <p className="text-xl font-medium mb-1">Address Line 1</p>
+                <input
+                  type="text"
+                  id="addLine1"
+                  defaultValue={oldData?.addLine1}
+                  onChange={handleChange}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+                <p className="text-xl font-medium mb-1">Address Line 2</p>
+                <input
+                  type="text"
+                  id="addLine2"
+                  defaultValue={oldData?.addLine2}
+                  onChange={handleChange}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+                <p className="text-xl font-medium mb-1">Area</p>
+                <input
+                  type="text"
+                  id="area"
+                  defaultValue={oldData?.area}
+                  placeholder="Eg: RS Puram"
+                  onChange={handleChange}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+                <p className="text-xl font-medium mb-1">Pincode</p>
+                <input
+                  type="text"
+                  placeholder="Eg: 641032"
+                  id="pincode"
+                  defaultValue={oldData?.pincode}
+                  onChange={handleChange}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+                <p className="text-xl font-medium mb-1">District</p>
+                <input
+                  type="text"
+                  placeholder="District"
+                  id="district"
+                  defaultValue={oldData?.district}
+                  onChange={handleChange}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
                 <p className="text-xl font-medium mb-1">Mobile Number</p>
                 <Input
                   type="number"

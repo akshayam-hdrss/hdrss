@@ -188,17 +188,18 @@ export const applyProductFilters = async (
 
 export const editProducts = async (
   previous,
+  beforeprevious,
+  rootprevious,
   id,
   updatedData,
   profile = null,
-  background = null,
-  photos = null,
-  oldProfile,
-  oldBackground,
-  oldPhotos
+  oldProfile
 ) => {
   try {
-    const docRef = doc(db, `products/${previous}/${previous}col/${id}`);
+    const docRef = doc(
+      db,
+      `products/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col/${id}`
+    );
     if (profile != null) {
       if (oldProfile !== "") {
         const profileRef = ref(storage, oldProfile);
@@ -210,30 +211,30 @@ export const editProducts = async (
       const profileUrl = await addProductProfile(previous, profile);
       updatedData.profile = profileUrl;
     }
-    if (background != null) {
-      if (oldBackground != null) {
-        const backgroundRef = ref(storage, oldBackground);
-        await deleteObject(backgroundRef)
-          .then(() => console.log("deleted background"))
-          .catch((e) => console.log(e));
-      }
+    // if (background != null) {
+    //   if (oldBackground != null) {
+    //     const backgroundRef = ref(storage, oldBackground);
+    //     await deleteObject(backgroundRef)
+    //       .then(() => console.log("deleted background"))
+    //       .catch((e) => console.log(e));
+    //   }
 
-      const backgroundUrl = await addProductBackground(previous, background);
-      updatedData.background = backgroundUrl;
-    }
-    if (photos != null) {
-      if (oldPhotos !== "") {
-        oldPhotos.map(async (oldPhoto) => {
-          const photoRef = ref(storage, oldPhoto);
-          await deleteObject(photoRef)
-            .then(() => console.log("deleted profile"))
-            .catch((e) => console.log(e));
-        });
-      }
+    //   const backgroundUrl = await addProductBackground(previous, background);
+    //   updatedData.background = backgroundUrl;
+    // }
+    // if (photos != null) {
+    //   if (oldPhotos !== "") {
+    //     oldPhotos.map(async (oldPhoto) => {
+    //       const photoRef = ref(storage, oldPhoto);
+    //       await deleteObject(photoRef)
+    //         .then(() => console.log("deleted profile"))
+    //         .catch((e) => console.log(e));
+    //     });
+    //   }
 
-      const photosUrl = await uploadProductPhotosAndSaveURLs(previous, photos);
-      updatedData.photos = photosUrl;
-    }
+    //   const photosUrl = await uploadProductPhotosAndSaveURLs(previous, photos);
+    //   updatedData.photos = photosUrl;
+    // }
 
     await updateDoc(docRef, updatedData);
   } catch (e) {

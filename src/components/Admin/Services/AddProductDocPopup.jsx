@@ -125,6 +125,44 @@ function AddProductDocPopup({
                 cols={60}
                 className="border border-kaavi pl-4 py-3 mb-6"
               ></textarea>
+              <p className="text-xl font-medium mb-1">Address Line 1</p>
+              <input
+                type="text"
+                id="addLine1"
+                onChange={handleChange}
+                className="border border-kaavi pl-4 py-3 mb-6"
+              />
+              <p className="text-xl font-medium mb-1">Address Line 2</p>
+              <input
+                type="text"
+                id="addLine2"
+                onChange={handleChange}
+                className="border border-kaavi pl-4 py-3 mb-6"
+              />
+              <p className="text-xl font-medium mb-1">Area</p>
+              <input
+                type="text"
+                id="area"
+                placeholder="Eg: RS Puram"
+                onChange={handleChange}
+                className="border border-kaavi pl-4 py-3 mb-6"
+              />
+              <p className="text-xl font-medium mb-1">Pincode</p>
+              <input
+                type="text"
+                placeholder="Eg: 641032"
+                id="pincode"
+                onChange={handleChange}
+                className="border border-kaavi pl-4 py-3 mb-6"
+              />
+              <p className="text-xl font-medium mb-1">District</p>
+              <input
+                type="text"
+                placeholder="District"
+                id="district"
+                onChange={handleChange}
+                className="border border-kaavi pl-4 py-3 mb-6"
+              />
               <p className="text-xl font-medium mb-1">Contact Number</p>
               <Input
                 type="number"
