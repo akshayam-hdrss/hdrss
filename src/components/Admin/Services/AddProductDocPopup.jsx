@@ -1,7 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, Dialog, Input, DialogBody } from "@material-tailwind/react";
+import {
+  Button,
+  Dialog,
+  Input,
+  DialogBody,
+  Typography,
+} from "@material-tailwind/react";
 import { addProduct } from "@/firebase/firestore/products";
+import { IoClose } from "react-icons/io5";
 
 function AddProductDocPopup({
   open,
@@ -11,7 +18,6 @@ function AddProductDocPopup({
   rootprevious,
   previousname,
 }) {
-  const [photos, setPhotos] = useState();
   const [data, setData] = useState({});
   const [profile, setProfile] = useState();
   const [youtubeLinks, setYoutubeLinks] = useState([]); //State for storing youtube links
@@ -23,17 +29,14 @@ function AddProductDocPopup({
       [id]: value,
     });
   };
-
+  const handleClose = () => {
+    setOpen(!open);
+  };
   const handleAddLink = () => {
     if (newLink) {
       setYoutubeLinks([...youtubeLinks, newLink]); // Add new link to the state
       setNewLink(""); // Clear the input field
     }
-  };
-
-  const handlePhotos = (e) => {
-    const files = Array.from(e.target.files);
-    setPhotos(files);
   };
 
   const handleProfile = (e) => {
@@ -55,8 +58,7 @@ function AddProductDocPopup({
       rootprevious,
       data,
       profile,
-      youtubeLinks,
-      photos
+      youtubeLinks
     );
   };
 
@@ -74,9 +76,17 @@ function AddProductDocPopup({
         open={open}
         handler={handleOpen}
         className="overflow-scroll"
+        dismiss={{ enabled: false }}
         style={{ maxHeight: "calc(100vh - 200px)" }}
       >
         <DialogBody className="mx-auto w-full font-inter">
+          <div className="flex justify-between items-center mb-4">
+            <Typography variant="h4" color="blue-gray">
+              Add a Product
+            </Typography>
+            <IoClose fontSize={30} onClick={handleClose} />
+          </div>
+
           <form action="submit">
             <div className="flex flex-col justify-between items-start">
               <p className="text-xl font-medium mb-1">Profile Picture</p>
@@ -188,14 +198,24 @@ function AddProductDocPopup({
                 placeholder="Maps URL"
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
-              <p className="text-xl font-medium mb-1">Photos</p>
+
+              <p className="text-xl font-medium mb-1">Buy Link 1</p>
+
               <Input
-                type="file"
-                placeholder="photos"
-                onChange={handlePhotos}
-                className="border border-kaavi mb-6 w-60"
-                accept="image/*"
-                multiple
+                type="text"
+                id="buylink1"
+                onChange={handleChange}
+                placeholder="Link to a service"
+                className="border border-kaavi pl-4 py-3 mb-6"
+              />
+              <p className="text-xl font-medium mb-1">Buy Link 2</p>
+
+              <Input
+                type="text"
+                id="buylink2"
+                onChange={handleChange}
+                placeholder="Link to another service"
+                className="border border-kaavi pl-4 py-3 mb-6"
               />
 
               <div className="flex justify-between mt-6">

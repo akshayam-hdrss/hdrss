@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
-  Card,
-  CardBody,
-  CardFooter,
   Input,
   Typography,
   DialogBody,
 } from "@material-tailwind/react";
-import { editProducts } from "@/firebase/firestore/products";
+import { deleteYtLink, editProducts } from "@/firebase/firestore/products";
 import { IoClose } from "react-icons/io5";
 import { IoCloseCircle } from "react-icons/io5";
 
@@ -24,7 +21,7 @@ function EditProductDocPopup({
 }) {
   const [editOption, setEditOption] = useState(null);
   const [editProfile, setEditProfile] = useState(null);
-  const [oldData, setOldData] = useState();
+  const [oldData, setOldData] = useState(null);
   const [newData, setNewData] = useState({});
   const [editYoutubeLinks, setEditYoutubeLinks] = useState([]); //State for storing youtube links
   const [editNewLink, setEditNewLink] = useState(""); //State for current youtube link
@@ -43,8 +40,24 @@ function EditProductDocPopup({
 
   const handleClose = () => {
     setOpen(!open);
+    setOldData(null);
+    setEditOption(null); // Reset the edit option
+    setNewData({});
   };
-  const handleDeleteLink = async () => {};
+  const handleDeleteLink = async (link) => {
+    await deleteYtLink(
+      link,
+      rootprevious,
+      beforeprevious,
+      previous,
+      editOption
+    );
+
+    if (oldData) {
+      const updatedLinks = oldData.links.filter((item) => item !== link);
+      setOldData({ ...oldData, links: updatedLinks });
+    }
+  };
   const handleEdit = async () => {
     setOpen(!open);
     await editProducts(
@@ -69,15 +82,18 @@ function EditProductDocPopup({
     };
     fetch();
   }, [editOption, open]);
+
   return (
     <>
       <Button onClick={handleOpen} className="bg-kaavi mx-2 my-3">
         Edit
       </Button>
+
       <Dialog
         open={open}
-        handler={handleOpen}
+        handler={handleClose}
         className="overflow-scroll"
+        dismiss={{ enabled: false }}
         style={{ maxHeight: "calc(100vh - 200px)" }}
       >
         <DialogBody className="mx-auto w-full font-inter">
@@ -188,13 +204,34 @@ function EditProductDocPopup({
                   placeholder="Whatsapp Number"
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />
+
+                <p className="text-xl font-medium mb-1">Buy Link 1</p>
+
+                <Input
+                  type="text"
+                  id="buylink1"
+                  defaultValue={oldData?.buylink1}
+                  onChange={handleChange}
+                  placeholder="Link to a service"
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+                <p className="text-xl font-medium mb-1">Buy Link 2</p>
+
+                <Input
+                  type="text"
+                  id="buylink2"
+                  defaultValue={oldData?.buylink2}
+                  onChange={handleChange}
+                  placeholder="Link to another service"
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
                 <p className="text-xl font-medium mb-1 mt-4">Youtube Links</p>
                 {oldData &&
                   oldData.links.map((link) => (
                     <div className="w-[50%] my-6 relative ">
                       <YoutubeEmbed embedId={link} />
                       <IoCloseCircle
-                        onClick={handleDeleteLink}
+                        onClick={() => handleDeleteLink(link)}
                         className="absolute top-0 right-0 text-white"
                         fontSize={40}
                       />

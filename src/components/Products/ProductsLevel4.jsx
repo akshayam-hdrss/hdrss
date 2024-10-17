@@ -77,19 +77,24 @@ function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
           </div>
           <div className="p-6 pt-0">
             <div className="flex flex-col items-start justify-evenly py-6 pt-0">
-              <div className="w-[130px] h-fit">
-                <img
-                  src={data.profile}
-                  alt="profile"
-                  className="rounded-md object-cover aspect-[4/5]"
-                />
+              <div className="flex justify-evenly mb-6 h-[130px] items-start gap-x-6">
+                <div className="h-[130px]">
+                  <img
+                    src={data.profile}
+                    alt="profile"
+                    className="rounded-md object-cover aspect-[4/5]"
+                  />
+                </div>
+                <div>
+                  <h1 className="font-bold text-3xl pb-3">{data.name}</h1>
+                  <p className="text-grey font-medium">
+                    {data?.addLine1} {data?.addLine2} {data?.area}{" "}
+                    {data?.landmark} {data?.district} - {data?.pincode}
+                  </p>
+                </div>
               </div>
-              <h1 className="font-bold text-3xl pb-4">{data.name}</h1>
-              <p className="text-grey font-medium">
-                {data?.addLine1} {data?.addLine2} {data?.area} {data?.landmark}{" "}
-                {data?.district} - {data?.pincode}
-              </p>
-              <div className="flex justify-evenly items-center h-[60px] gap-x-6 mb-6 border border-grey px-4 rounded-lg">
+
+              <div className="flex justify-evenly ml-4 items-center h-[60px] gap-x-6 mb-6 border border-grey px-4 rounded-lg">
                 <p className="flex items-center gap-x-2 py-4">
                   <IoStar className="text-yellow-800" fontSize={25} />
                   {averageRating} Ratings
@@ -138,7 +143,7 @@ function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
 
             <div className="py-6">
               <div className="flex justify-between items-center">
-                <h1 className="font-koulen text-2xl text-grey mr-20">
+                <h1 className="font-koulen text-2xl text-grey mr-14">
                   Reviews
                 </h1>
 

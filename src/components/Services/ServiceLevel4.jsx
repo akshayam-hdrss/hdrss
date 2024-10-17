@@ -143,7 +143,7 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
 
             <div className="py-6">
               <div className="flex justify-between items-center">
-                <h1 className="font-koulen text-3xl text-grey mr-20">
+                <h1 className="font-koulen text-3xl text-grey mr-14">
                   Reviews
                 </h1>
 

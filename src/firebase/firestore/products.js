@@ -13,6 +13,7 @@ import {
   where,
   query,
   orderBy,
+  arrayRemove,
 } from "firebase/firestore";
 import {
   ref,
@@ -86,6 +87,7 @@ export const addProduct = async (
   try {
     let productData = data;
     productData.links = youtubeLinks;
+
     if (profilepic != null) {
       const profileUrl = await addProductProfile(profilepic);
       data.profile = profileUrl;
@@ -93,15 +95,15 @@ export const addProduct = async (
       data.profile = "";
     }
 
-    if (photos != null) {
-      const productPhotos = await uploadProductPhotosAndSaveURLs(
-        previous,
-        photos
-      );
-      data.photos = productPhotos;
-    } else {
-      data.photos = "";
-    }
+    // if (photos != null) {
+    //   const productPhotos = await uploadProductPhotosAndSaveURLs(
+    //     previous,
+    //     photos
+    //   );
+    //   data.photos = productPhotos;
+    // } else {
+    //   data.photos = "";
+    // }
 
     // if (background != null) {
     //   const backgroundurl = await addProductBackground(previous, background);
@@ -134,57 +136,57 @@ export const getProductDocs = async (id, secondid) => {
   }
 };
 
-export const applyProductFilters = async (
-  id,
-  minPrice,
-  maxPrice,
-  gender,
-  size
-) => {
-  try {
-    let q;
-    console.log(size);
-    if (gender.length != 0 && size.length != 0) {
-      q = query(
-        collection(db, `products/${id}/${id}col`),
-        where("price", ">=", minPrice),
-        where("price", "<=", maxPrice),
-        where("gender", "in", gender),
-        where("size", "in", size)
-      );
-    } else if (gender.length != 0) {
-      q = query(
-        collection(db, `products/${id}/${id}col`),
-        where("price", ">=", minPrice),
-        where("price", "<=", maxPrice),
-        where("gender", "in", gender)
-      );
-    } else if (size.length != 0) {
-      q = query(
-        collection(db, `products/${id}/${id}col`),
-        where("price", ">=", minPrice),
-        where("price", "<=", maxPrice),
-        where("size", "in", size)
-      );
-    } else {
-      q = query(
-        collection(db, `products/${id}/${id}col`),
-        where("price", ">=", minPrice),
-        where("price", "<=", maxPrice)
-      );
-    }
-    const querySnapshot = await getDocs(q);
-    const filteredData = [];
-    querySnapshot.forEach((doc) => {
-      filteredData.push({ id: doc.id, ...doc.data() });
-    });
+// export const applyProductFilters = async (
+//   id,
+//   minPrice,
+//   maxPrice,
+//   gender,
+//   size
+// ) => {
+//   try {
+//     let q;
+//     console.log(size);
+//     if (gender.length != 0 && size.length != 0) {
+//       q = query(
+//         collection(db, `products/${id}/${id}col`),
+//         where("price", ">=", minPrice),
+//         where("price", "<=", maxPrice),
+//         where("gender", "in", gender),
+//         where("size", "in", size)
+//       );
+//     } else if (gender.length != 0) {
+//       q = query(
+//         collection(db, `products/${id}/${id}col`),
+//         where("price", ">=", minPrice),
+//         where("price", "<=", maxPrice),
+//         where("gender", "in", gender)
+//       );
+//     } else if (size.length != 0) {
+//       q = query(
+//         collection(db, `products/${id}/${id}col`),
+//         where("price", ">=", minPrice),
+//         where("price", "<=", maxPrice),
+//         where("size", "in", size)
+//       );
+//     } else {
+//       q = query(
+//         collection(db, `products/${id}/${id}col`),
+//         where("price", ">=", minPrice),
+//         where("price", "<=", maxPrice)
+//       );
+//     }
+//     const querySnapshot = await getDocs(q);
+//     const filteredData = [];
+//     querySnapshot.forEach((doc) => {
+//       filteredData.push({ id: doc.id, ...doc.data() });
+//     });
 
-    console.log("Filtered Data:", filteredData);
-    return filteredData;
-  } catch (e) {
-    console.log(e);
-  }
-};
+//     console.log("Filtered Data:", filteredData);
+//     return filteredData;
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
 
 export const editProducts = async (
   previous,
@@ -208,7 +210,7 @@ export const editProducts = async (
           .catch((e) => console.log(e));
       }
 
-      const profileUrl = await addProductProfile(previous, profile);
+      const profileUrl = await addProductProfile(profile);
       updatedData.profile = profileUrl;
     }
     // if (background != null) {
@@ -237,6 +239,25 @@ export const editProducts = async (
     // }
 
     await updateDoc(docRef, updatedData);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const deleteYtLink = async (
+  link,
+  rootprevious,
+  beforeprevious,
+  previous,
+  id
+) => {
+  try {
+    const docRef = doc(
+      db,
+      `products/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col/${id}`
+    );
+    await updateDoc(docRef, { links: arrayRemove(link) });
+    console.log("removed the youtube link");
   } catch (e) {
     console.log(e);
   }
