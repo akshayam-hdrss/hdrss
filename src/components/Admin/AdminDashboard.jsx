@@ -9,7 +9,7 @@ import {
 } from "@/firebase/firestore/user";
 import { BsToggleOff } from "react-icons/bs";
 import { BsToggleOn } from "react-icons/bs";
-
+import Link from "next/link";
 function AdminDashboard() {
   const [adsOpen, setAdsOpen] = useState();
   const [ads, setAds] = useState();
@@ -63,12 +63,13 @@ function AdminDashboard() {
         <table className="w-full border-collapse">
           <thead>
             <tr>
-              <th className="px-4 py-2 border border-gray-300">S.No.</th>
+              <th className="px-4 py-2 border border-gray-300 w-[30px]">
+                S.No.
+              </th>
               <th className="px-4 py-2 border border-gray-300">Name</th>
               <th className="px-4 py-2 border border-gray-300">Mobile</th>
-              <th className="px-4 py-2 border border-gray-300">
-                Executive Status
-              </th>
+              <th className="px-4 py-2 border border-gray-300">Status</th>
+              <th className="px-4 py-2 border border-gray-300">Details</th>
             </tr>
           </thead>
           <tbody>
@@ -96,6 +97,13 @@ function AdminDashboard() {
                         onClick={() => handleToggle(exec.id)}
                       />
                     )}
+                  </td>
+                  <td className="px-4 py-2 border border-gray-300">
+                    <Link href={`/admin/executives/${exec.id}`}>
+                      <button className="text-blue-600 hover:text-blue-800">
+                        View Details
+                      </button>
+                    </Link>
                   </td>
                 </tr>
               ))}

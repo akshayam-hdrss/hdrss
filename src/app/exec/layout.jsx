@@ -30,7 +30,7 @@ function executiveLayout({ children }) {
   }, []);
 
   if (!executive) return <ExecutiveGaurd />;
-  return <div>executiveLayout</div>;
+  return <div>{children}</div>;
 }
 
 export default executiveLayout;

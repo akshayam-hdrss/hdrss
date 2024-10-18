@@ -9,7 +9,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function ServicePages({ params }) {
+export default function ServicePages({ params }) {
   const { id } = params;
   const decoded = decodeURIComponent(id);
 

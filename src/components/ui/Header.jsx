@@ -24,7 +24,7 @@ const theme = createTheme({
   },
 });
 
-function Header() {
+function Header({ exec = null }) {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState();
   const [userDoc, setUserDoc] = useState();
@@ -125,47 +125,63 @@ function Header() {
                 </Link>
               </div>
             )}
+            {exec != null ? (
+              <div>
+                <Link
+                  href="/"
+                  className="flex mb-4 items-center justify-between"
+                >
+                  <p className="font-medium">Home</p>
+                  <IoIosArrowForward />
+                </Link>
+              </div>
+            ) : (
+              <div>
+                <Link
+                  href="/"
+                  className="flex mb-4 items-center justify-between"
+                >
+                  <p className="font-medium">Home</p>
+                  <IoIosArrowForward />
+                </Link>
+                <Link
+                  href="/about"
+                  className="flex mb-4 items-center justify-between"
+                >
+                  <p className="font-medium">About us</p>
+                  <IoIosArrowForward />
+                </Link>
+                <Link
+                  href="/location"
+                  className="flex mb-4 items-center justify-between"
+                >
+                  <p className="font-medium">Select Location</p>
+                  <IoIosArrowForward />
+                </Link>
+                <Link
+                  href="/services"
+                  className="flex mb-4 items-center justify-between"
+                >
+                  <p className="font-medium">Explore Services</p>
+                  <IoIosArrowForward />
+                </Link>
+                <Link
+                  href="/ramdass"
+                  className="flex mb-4 items-center justify-between"
+                >
+                  <p className="font-medium">About Leader</p>
+                  <IoIosArrowForward />
+                </Link>
 
-            <Link href="/" className="flex mb-4 items-center justify-between">
-              <p className="font-medium">Home</p>
-              <IoIosArrowForward />
-            </Link>
-            <Link
-              href="/about"
-              className="flex mb-4 items-center justify-between"
-            >
-              <p className="font-medium">About us</p>
-              <IoIosArrowForward />
-            </Link>
-            <Link
-              href="/location"
-              className="flex mb-4 items-center justify-between"
-            >
-              <p className="font-medium">Select Location</p>
-              <IoIosArrowForward />
-            </Link>
-            <Link
-              href="/services"
-              className="flex mb-4 items-center justify-between"
-            >
-              <p className="font-medium">Explore Services</p>
-              <IoIosArrowForward />
-            </Link>
-            <Link
-              href="/ramdass"
-              className="flex mb-4 items-center justify-between"
-            >
-              <p className="font-medium">About Leader</p>
-              <IoIosArrowForward />
-            </Link>
-
-            <Link
-              href="/contact"
-              className="flex mb-4 items-center justify-between"
-            >
-              <p className="font-medium">Contact Us</p>
-              <IoIosArrowForward />
-            </Link>
+                <Link
+                  href="/contact"
+                  className="flex mb-4 items-center justify-between"
+                >
+                  <p className="font-medium">Contact Us</p>
+                  <IoIosArrowForward />
+                </Link>
+              </div>
+            )}
           </Drawer>
         </ThemeProvider>
       </React.Fragment>
