@@ -80,3 +80,15 @@ export const updateExecutiveStatus = async (status, id) => {
     console.log(e);
   }
 };
+
+export const getExecutive = async (id) => {
+  try {
+    let data = {};
+    const docRef = doc(db, "users", id);
+    const docSnap = await getDoc(docRef);
+    data = { id: docSnap.id, data: docSnap.data() };
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};

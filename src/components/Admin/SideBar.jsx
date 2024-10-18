@@ -29,6 +29,14 @@ function SideBar() {
       >
         Dashboard
       </Link>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path.includes("executives") ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/executives/"}
+      >
+        Executives
+      </Link>
 
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
