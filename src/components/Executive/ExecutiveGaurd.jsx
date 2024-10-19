@@ -7,7 +7,7 @@ function ExecutiveGaurd() {
   return (
     <div className="py-32 text-center text-3xl">
       <h1 className="mb-7">
-        You're trying to access Protected Executive Panel
+        You're trying to access Executive Panel
       </h1>
       <h1>
         Please{" "}

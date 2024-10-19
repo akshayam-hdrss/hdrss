@@ -128,10 +128,24 @@ function Header({ exec = null }) {
             {exec != null ? (
               <div>
                 <Link
-                  href="/"
+                  href="/exec"
                   className="flex mb-4 items-center justify-between"
                 >
                   <p className="font-medium">Home</p>
+                  <IoIosArrowForward />
+                </Link>
+                <Link
+                  href="/exec/clients"
+                  className="flex mb-4 items-center justify-between"
+                >
+                  <p className="font-medium">Clients Details</p>
+                  <IoIosArrowForward />
+                </Link>
+                <Link
+                  href="/exec/add"
+                  className="flex mb-4 items-center justify-between"
+                >
+                  <p className="font-medium">Add new client</p>
                   <IoIosArrowForward />
                 </Link>
               </div>

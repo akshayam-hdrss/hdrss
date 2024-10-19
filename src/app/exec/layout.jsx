@@ -1,22 +1,19 @@
 "use client";
 import ExecutiveGaurd from "@/components/Executive/ExecutiveGaurd";
 import auth from "@/firebase/config";
-import { getUser } from "@/firebase/firestore/user";
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
+import { getExecutive } from "@/firebase/firestore/user";
 
 function executiveLayout({ children }) {
   const [executive, setExecutive] = useState();
-  const [userData, setUserData] = useState();
   useEffect(() => {
     return onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userId = user.uid;
-        const data = await getUser(userId);
-        setUserData(data);
+        const data = await getExecutive(userId);
         if (
           data &&
-          data.data.executive === true &&
           data.data.execstatus === "active"
         ) {
           setExecutive(user);

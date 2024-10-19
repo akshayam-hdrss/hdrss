@@ -125,7 +125,14 @@ function AddProductDocPopup({
                 placeholder="Name"
                 className="border border-kaavi pl-4 py-3 mb-6"
               />
-
+              <p className="text-xl font-medium mb-1">Experience (in Years)</p>
+              <input
+                type="number"
+                id="experience"
+                onChange={handleChange}
+                placeholder="Experience"
+                className="border border-kaavi pl-4 py-3 mb-6"
+              />
               <p className="text-xl font-medium mb-1">About</p>
               <textarea
                 name="about"

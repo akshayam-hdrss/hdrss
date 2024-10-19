@@ -95,22 +95,22 @@ export const addProduct = async (
       data.profile = "";
     }
 
-    // if (photos != null) {
-    //   const productPhotos = await uploadProductPhotosAndSaveURLs(
-    //     previous,
-    //     photos
-    //   );
-    //   data.photos = productPhotos;
-    // } else {
-    //   data.photos = "";
-    // }
+    if (photos != null) {
+      const productPhotos = await uploadProductPhotosAndSaveURLs(
+        previous,
+        photos
+      );
+      data.photos = productPhotos;
+    } else {
+      data.photos = "";
+    }
 
-    // if (background != null) {
-    //   const backgroundurl = await addProductBackground(previous, background);
-    //   data.background = backgroundurl;
-    // } else {
-    //   data.background = null;
-    // }
+    if (background != null) {
+      const backgroundurl = await addProductBackground(previous, background);
+      data.background = backgroundurl;
+    } else {
+      data.background = null;
+    }
     const sno = Math.floor(Math.random() * 100);
     data.sno = sno;
     await addDoc(
@@ -120,17 +120,6 @@ export const addProduct = async (
       ),
       data
     );
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const getProductDocs = async (id, secondid) => {
-  try {
-    const snapshot = await getDoc(
-      doc(db, `products/${id}/${id}col/${secondid}`)
-    );
-    return snapshot.data();
   } catch (e) {
     console.log(e);
   }

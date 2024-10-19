@@ -94,7 +94,7 @@ export async function addServicesAndProductsDoc(
       backgroundUrl = await uploadBackground(type, background, id);
       data.background = backgroundUrl;
     }
-    result = await setDoc(doc(db, docUrl, id), data);
+    result = await addDoc(doc(db, docUrl), data);
     console.log("added service document");
     return result;
   } catch (e) {
@@ -392,25 +392,28 @@ export const subscribeToServiceAndProductDocs = (
   type
 ) => {
   try {
-    const unsubscribe = onSnapshot(
-      collection(
-        db,
-        type,
-        rootdocid,
-        `${rootdocid}col`,
-        beforedocid,
-        `${beforedocid}col`,
-        docid,
-        `${docid}col`
-      ),
-      (snapshot) => {
-        let data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        callback(data);
-      }
+    const colRef = collection(
+      db,
+      type,
+      rootdocid,
+      `${rootdocid}col`,
+      beforedocid,
+      `${beforedocid}col`,
+      docid,
+      `${docid}col`
     );
+
+    // Apply the query to get only documents where 'disabled' is not true
+    const q = query(colRef, where("disabled", "!=", true));
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      let data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      callback(data);
+    });
+
     return unsubscribe;
   } catch (e) {
     console.log(e);
@@ -600,6 +603,49 @@ export async function getName(
     }
 
     return document.data().name;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getLevel1ServiceProducts(type) {
+  try {
+    const data = [];
+    const snapshot = await getDocs(collection(db, type));
+    snapshot.docs.map((doc) => {
+      data.push({ id: doc.id, name: doc.data().name });
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getLevel2ServiceProducts(type, level1) {
+  try {
+    const data = [];
+    const snapshot = await getDocs(
+      collection(db, `${type}/${level1}/${level1}col`)
+    );
+    snapshot.docs.map((doc) => {
+      data.push({ id: doc.id, name: doc.data().name });
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getLevel3ServiceProducts(type, level1, level2) {
+  try {
+    const data = [];
+    const snapshot = await getDocs(
+      collection(db, `${type}/${level1}/${level1}col/${level2}/${level2}col`)
+    );
+    snapshot.docs.map((doc) => {
+      data.push({ id: doc.id, name: doc.data().name });
+    });
+    return data;
   } catch (e) {
     console.log(e);
   }

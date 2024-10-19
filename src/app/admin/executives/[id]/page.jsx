@@ -56,6 +56,18 @@ function ExecutiveAdminPage({ params }) {
           </div>
           <div className="flex justify-between items-center">
             <label className="font-semibold w-1/3 text-right mr-2">
+              User Name(for reference):
+            </label>
+            <input
+              type="text"
+              id="username"
+              className="border border-gray-400 rounded-md p-2 w-2/3"
+              defaultValue={executive.data?.username}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="font-semibold w-1/3 text-right mr-2">
               Member Name:
             </label>
             <input
