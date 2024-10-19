@@ -34,7 +34,7 @@ function AddServiceDocPopup({
     e.preventDefault();
     setOpen(!open);
     const id = addData.name.replace(/\s+/g, "").toLowerCase();
-    console.log("before");
+    addData.disabled = false;
     addServicesAndProductsDoc(
       rootprevious,
       beforeprevious,

@@ -52,6 +52,7 @@ function AddProductDocPopup({
   const handleAdd = async (e) => {
     e.preventDefault();
     setOpen(!open);
+    data.disabled = false;
     await addProduct(
       previous,
       beforeprevious,
