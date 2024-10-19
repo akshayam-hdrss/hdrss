@@ -37,7 +37,6 @@ function addClientPage() {
   };
   const handleAdd = async (e) => {
     e.preventDefault();
-    setOpen(!open);
     const id = clientData.name.replace(/\s+/g, "").toLowerCase();
     clientData.disable = true;
     if (clientData.type === "services")
