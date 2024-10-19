@@ -8,6 +8,7 @@ import {
 } from "@/firebase/firestore/servicesProducts";
 import { addProduct } from "@/firebase/firestore/products";
 import { useRouter } from "next/navigation";
+import { addServicesAndProductsDoc } from "@/firebase/firestore/servicesProducts";
 
 function addClientPage() {
   const [clientData, setClientData] = useState({});
