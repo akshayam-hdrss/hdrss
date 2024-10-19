@@ -5,12 +5,13 @@ import signUp from "@/firebase/auth/signup";
 function CreateExecutive({ open, setOpen }) {
   const [userName, setUserName] = useState();
   const [email, setEmail] = useState();
+  const [mobile, setMobile] = useState();
   const [password, setPassword] = useState();
   const handleOpen = () => setOpen(!open);
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await signUp(null, email, password, userName, true);
+      await signUp(mobile, email, password, userName, true);
       setOpen(!open);
     } catch (error) {
       alert("Error signing up: " + error.message);
@@ -41,6 +42,14 @@ function CreateExecutive({ open, setOpen }) {
               id="username"
               onChange={(e) => setUserName(e.target.value)}
               placeholder="Eg: Exec 5"
+              className="border border-kaavi pl-4 py-2 rounded-sm mb-6"
+            />
+            <p className="text-xl font-medium mb-1">Mobile Number</p>
+            <input
+              type="number"
+              id="mobile"
+              onChange={(e) => setMobile(e.target.value)}
+              placeholder="Email"
               className="border border-kaavi pl-4 py-2 rounded-sm mb-6"
             />
             <p className="text-xl font-medium mb-1">Email</p>

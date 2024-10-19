@@ -16,9 +16,21 @@ export default async function signUp(
   try {
     result = await createUserWithEmailAndPassword(auth, email, password);
     const user = result.user;
-
+    if (executive == true) {
+      await setDoc(doc(db, "executives", user.uid), {
+        username: name,
+        email: user.email,
+        mobile: mobile,
+      });
+    } else {
+      await setDoc(doc(db, "users", user.uid), {
+        name: name,
+        email: user.email,
+        mobile: mobile,
+      });
+    }
     await setDoc(doc(db, "users", user.uid), {
-      name: name,
+      username: name,
       email: user.email,
       executive: executive,
       mobile: mobile,

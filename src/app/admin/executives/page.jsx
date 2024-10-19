@@ -13,7 +13,6 @@ import CreateExecutive from "@/components/Executive/CreateExecutive";
 function executivesPageAdmin() {
   const [executives, setExecutives] = useState();
   const [toggleStatus, setToggleStatus] = useState({}); // Add a state to track toggle status
-  const [createOpen, setCreateOpen] = useState(false);
 
   const handleToggle = async (id) => {
     setToggleStatus((prevStatus) => ({
@@ -43,13 +42,12 @@ function executivesPageAdmin() {
     <div className="py-6">
       <h2 className="text-3xl font-bold mb-6">Executives</h2>
 
-      <CreateExecutive open={createOpen} setOpen={setCreateOpen} />
 
       <table className="w-full border-collapse">
         <thead>
           <tr>
             <th className="px-4 py-2 border border-gray-300 w-[30px]">S.No.</th>
-            <th className="px-4 py-2 border border-gray-300">Name</th>
+            <th className="px-4 py-2 border border-gray-300">User Name</th>
             <th className="px-4 py-2 border border-gray-300">Mobile</th>
             <th className="px-4 py-2 border border-gray-300">Status</th>
             <th className="px-4 py-2 border border-gray-300">Details</th>
@@ -63,7 +61,7 @@ function executivesPageAdmin() {
                   {index + 1}
                 </td>
                 <td className="px-4 py-2 border border-gray-300">
-                  {exec.data.name}
+                  {exec.data.username}
                 </td>
                 <td className="px-4 py-2 border border-gray-300">
                   {exec.data.mobile}

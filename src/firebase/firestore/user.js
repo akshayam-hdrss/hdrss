@@ -59,10 +59,7 @@ export const getExecutives = async () => {
   try {
     let data = [];
 
-    const executivesRef = query(
-      collection(db, "users"),
-      where("executive", "==", true)
-    );
+    const executivesRef = query(collection(db, "executives"));
     const querySnapshot = await getDocs(executivesRef);
     querySnapshot.docs.map((docs) => {
       data.push({ id: docs.id, data: docs.data() });
@@ -75,7 +72,7 @@ export const getExecutives = async () => {
 
 export const updateExecutiveStatus = async (status, id) => {
   try {
-    await updateDoc(doc(db, "users", id), { execstatus: status });
+    await updateDoc(doc(db, "executives", id), { execstatus: status });
   } catch (e) {
     console.log(e);
   }
@@ -84,10 +81,19 @@ export const updateExecutiveStatus = async (status, id) => {
 export const getExecutive = async (id) => {
   try {
     let data = {};
-    const docRef = doc(db, "users", id);
+    const docRef = doc(db, "executives", id);
     const docSnap = await getDoc(docRef);
     data = { id: docSnap.id, data: docSnap.data() };
     return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const editExecutive = async (id, updatedData) => {
+  try {
+    await updateDoc(doc(db, "executives", id), updatedData);
+    console.log("executive updated");
   } catch (e) {
     console.log(e);
   }
