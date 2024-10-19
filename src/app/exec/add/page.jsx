@@ -7,6 +7,7 @@ import {
   getLevel3ServiceProducts,
 } from "@/firebase/firestore/servicesProducts";
 import { addProduct } from "@/firebase/firestore/products";
+import { useRouter } from "next/navigation";
 
 function addClientPage() {
   const [clientData, setClientData] = useState({});
@@ -18,6 +19,8 @@ function addClientPage() {
   const [level1, setLevel1] = useState();
   const [level2, setLevel2] = useState();
   const [level3, setLevel3] = useState();
+
+  const router = useRouter();
   const handleCancel = (e) => {
     e.preventDefault();
     window.location.reload();
@@ -61,6 +64,7 @@ function addClientPage() {
         youtubeLinks,
         photos
       );
+    router.back();
   };
 
   useEffect(() => {
