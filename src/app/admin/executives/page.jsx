@@ -1,14 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  getExecutives,
-  getUser,
-  updateExecutiveStatus,
-} from "@/firebase/firestore/user";
+import { getExecutive,getExecutives, updateExecutiveStatus } from "@/firebase/firestore/user";
 import { BsToggleOff } from "react-icons/bs";
 import { BsToggleOn } from "react-icons/bs";
 import Link from "next/link";
-import CreateExecutive from "@/components/Executive/CreateExecutive";
 
 function executivesPageAdmin() {
   const [executives, setExecutives] = useState();
@@ -19,7 +14,7 @@ function executivesPageAdmin() {
       ...prevStatus,
       [id]: !prevStatus[id],
     }));
-    const executive = await getUser(id);
+    const executive = await getExecutive(id);
     const newStatus =
       executive.data.execstatus === "active" ? "inactive" : "active";
     await updateExecutiveStatus(newStatus, id);
@@ -41,7 +36,6 @@ function executivesPageAdmin() {
   return (
     <div className="py-6">
       <h2 className="text-3xl font-bold mb-6">Executives</h2>
-
 
       <table className="w-full border-collapse">
         <thead>

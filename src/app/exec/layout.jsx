@@ -7,15 +7,15 @@ import { getExecutive } from "@/firebase/firestore/user";
 
 function executiveLayout({ children }) {
   const [executive, setExecutive] = useState();
+  const [execData, setExecData] = useState();
+ 
   useEffect(() => {
     return onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userId = user.uid;
         const data = await getExecutive(userId);
-        if (
-          data &&
-          data.data.execstatus === "active"
-        ) {
+        setExecData(data);
+        if (data && data.data?.execstatus === "active") {
           setExecutive(user);
         } else {
           setExecutive(null);
@@ -27,7 +27,10 @@ function executiveLayout({ children }) {
   }, []);
 
   if (!executive) return <ExecutiveGaurd />;
-  return <div>{children}</div>;
+   const childrenWithProps = React.Children.map(children, (child) => {
+     return React.cloneElement(child, { execData });
+   });
+  return <div>{childrenWithProps}</div>;
 }
 
 export default executiveLayout;

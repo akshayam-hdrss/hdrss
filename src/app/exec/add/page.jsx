@@ -9,8 +9,12 @@ import {
 import { addProduct } from "@/firebase/firestore/products";
 import { useRouter } from "next/navigation";
 import { addServicesAndProductsDoc } from "@/firebase/firestore/servicesProducts";
+import auth from "@/firebase/config";
+import { onAuthStateChanged } from "firebase/auth";
+import { getExecutive } from "@/firebase/firestore/user";
 
 function addClientPage() {
+  const [userData, setUserData] = useState();
   const [clientData, setClientData] = useState({});
   const [profile, setProfile] = useState();
   const [backgroundImage, setBackgroundImage] = useState();
@@ -22,27 +26,57 @@ function addClientPage() {
   const [level3, setLevel3] = useState();
 
   const router = useRouter();
+
   const handleCancel = (e) => {
     e.preventDefault();
-    window.location.reload();
+    router.back();
   };
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setClientData({
       ...clientData,
       [id]: value,
     });
+    if (id === "level1") {
+      const selectedLevel1 = level1.find((level) => level.id === value);
+      setClientData((prevData) => ({
+        ...prevData,
+        level1Name: selectedLevel1 ? selectedLevel1.name : "",
+        level2: "", // Reset level2 and level3 when level1 changes
+        level2Name: "",
+        level3: "",
+        level3Name: "",
+      }));
+    } else if (id === "level2") {
+      const selectedLevel2 = level2.find((level) => level.id === value);
+      setClientData((prevData) => ({
+        ...prevData,
+        level2Name: selectedLevel2 ? selectedLevel2.name : "",
+        level3: "", // Reset level3 when level2 changes
+        level3Name: "",
+      }));
+    } else if (id === "level3") {
+      const selectedLevel3 = level3.find((level) => level.id === value);
+      setClientData((prevData) => ({
+        ...prevData,
+        level3Name: selectedLevel3 ? selectedLevel3.name : "",
+      }));
+    }
   };
+
   const handleAddLink = () => {
     if (newLink) {
       setYoutubeLinks([...youtubeLinks, newLink]); // Add new link to the state
       setNewLink(""); // Clear the input field
     }
   };
+
   const handleAdd = async (e) => {
     e.preventDefault();
     const id = clientData.name.replace(/\s+/g, "").toLowerCase();
-    clientData.disable = true;
+    clientData.disabled = true;
+    clientData.addedBy = userData.data.name;
     if (clientData.type === "services")
       await addServicesAndProductsDoc(
         clientData.level1,
@@ -99,6 +133,16 @@ function addClientPage() {
     fetch();
   }, [clientData.level2]);
 
+  useEffect(() => {
+    return onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userId = user.uid;
+        const data = await getExecutive(userId);
+        setUserData(data);
+      }
+    });
+  }, []);
+  console.log(clientData);
   return (
     <div>
       <Header exec={true} />
@@ -270,7 +314,11 @@ function addClientPage() {
               onChange={handleChange}
               className="border border-kaavi pl-4 py-3 mb-6"
             />
-            <p className="text-xl font-medium mb-1">Experience (in Years)</p>
+            <p className="text-xl font-medium mb-1">
+              {clientData && clientData.type == "services"
+                ? "Experience (in Years)"
+                : "Since (Mention Year)"}
+            </p>
             <input
               type="number"
               id="experience"
@@ -295,6 +343,18 @@ function addClientPage() {
               accept="image/*"
               multiple
             />
+            {clientData && clientData.type == "services" && (
+              <>
+                <p className="text-xl font-medium mb-1">YouTube Link</p>
+                <input
+                  type="text"
+                  id="video"
+                  onChange={handleChange}
+                  placeholder="Enter YouTube link"
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+              </>
+            )}
             {clientData && clientData.type == "products" && (
               <>
                 <p className="text-xl font-medium mb-1">YouTube Links</p>

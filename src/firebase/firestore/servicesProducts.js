@@ -94,7 +94,7 @@ export async function addServicesAndProductsDoc(
       backgroundUrl = await uploadBackground(type, background, id);
       data.background = backgroundUrl;
     }
-    result = await addDoc(doc(db, docUrl), data);
+    result = await addDoc(collection(db, docUrl), data);
     console.log("added service document");
     return result;
   } catch (e) {
@@ -648,5 +648,64 @@ export async function getLevel3ServiceProducts(type, level1, level2) {
     return data;
   } catch (e) {
     console.log(e);
+  }
+}
+
+export async function getFinalLevel4ServiceProducts(type) {
+  try {
+    const allLevel4Docs = [];
+    const level1Snapshot = await getDocs(collection(db, type));
+
+    for (const level1Doc of level1Snapshot.docs) {
+      const level2Snapshot = await getDocs(
+        collection(db, `${type}/${level1Doc.id}/${level1Doc.id}col`)
+      );
+
+      for (const level2Doc of level2Snapshot.docs) {
+        const level3Snapshot = await getDocs(
+          collection(
+            db,
+            `${type}/${level1Doc.id}/${level1Doc.id}col/${level2Doc.id}/${level2Doc.id}col`
+          )
+        );
+
+        for (const level3Doc of level3Snapshot.docs) {
+          const level4Snapshot = await getDocs(
+            collection(
+              db,
+              `${type}/${level1Doc.id}/${level1Doc.id}col/${level2Doc.id}/${level2Doc.id}col/${level3Doc.id}/${level3Doc.id}col`
+            )
+          );
+
+          // Push only the final level 4 documents
+          allLevel4Docs.push(
+            ...level4Snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+          );
+        }
+      }
+    }
+    console.log(allLevel4Docs);
+    return allLevel4Docs; // Returns only the final level 4 documents
+  } catch (e) {
+    console.error("Error fetching final level 4 service products:", e);
+    throw e;
+  }
+}
+
+export async function approveServiceProducts(id, type, level1, level2, level3) {
+  try {
+    // Construct the document URL based on the provided levels
+    const docUrl = `${type}/${level1}/${level1}col/${level2}/${level2}col/${level3}/${level3}col/${id}`;
+
+    // Update the 'disabled' property to true
+    await updateDoc(doc(db, docUrl), {
+      disabled: false,
+    });
+
+    console.log(`Document with ID ${id} approved successfully.`);
+    return "success";
+  } catch (e) {
+    console.log(e);
+    return "failure";
   }
 }

@@ -23,7 +23,7 @@ function SideBar() {
       <h1 className="font-lena my-4 text-2xl lg:text-4xl">akshayam</h1>
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
-          path === "/admin/" ? "bg-kaavi text-white" : " "
+          path === "/admin" ? "bg-kaavi text-white" : " "
         }`}
         href={"/admin/"}
       >
@@ -37,7 +37,14 @@ function SideBar() {
       >
         Executives
       </Link>
-
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path.includes("requests") ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/requests/"}
+      >
+        Requests
+      </Link>
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
           path.includes("services") ? "bg-kaavi text-white" : " "

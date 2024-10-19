@@ -4,17 +4,18 @@ import Header from "@/components/ui/Header";
 import { Inter, Koulen } from "next/font/google";
 import auth from "@/firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
-import { getExecutive } from "../../firebase/firestore/user";
+import { getExecutive } from "@/firebase/firestore/user";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 const inter = Inter({ subsets: ["latin"] });
 
 function executiveHome() {
   const [userData, setUserData] = useState();
- const handleLogout = () => {
-   auth.signOut();
-   router.push("/login/exec");
- };
+  const router = useRouter();
+  const handleLogout = () => {
+    auth.signOut();
+    router.push("/login/exec");
+  };
   useEffect(() => {
     return onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -24,12 +25,14 @@ function executiveHome() {
       }
     });
   }, []);
-  console.log(userData);
+
   return (
     <div>
       <Header exec={true} />
       <div className="p-6">
-        <h1 className="font-inter font-medium text-2xl mt-4">Executive Dashboard</h1>
+        <h1 className="font-inter font-medium text-2xl mt-4">
+          Executive Dashboard
+        </h1>
         <div className="flex flex-col gap-y-2 mt-10 text-lg">
           <div className="flex justify-end gap-x-4">
             <p className="w-1/2 text-right">Membership No:</p>
@@ -73,7 +76,8 @@ function executiveHome() {
           >
             Add new client
           </Link>
-          <button onClick={handleLogout}
+          <button
+            onClick={handleLogout}
             className="fixed bottom-4 right-4 bg-kaavi text-white w-fit px-4 py-2 rounded-md items-center justify-between"
           >
             Log Out

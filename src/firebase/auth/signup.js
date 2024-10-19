@@ -21,6 +21,7 @@ export default async function signUp(
         username: name,
         email: user.email,
         mobile: mobile,
+        execstatus: "inactive",
       });
     } else {
       await setDoc(doc(db, "users", user.uid), {
