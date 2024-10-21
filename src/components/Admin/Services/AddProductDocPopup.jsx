@@ -22,6 +22,8 @@ function AddProductDocPopup({
   const [profile, setProfile] = useState();
   const [youtubeLinks, setYoutubeLinks] = useState([]); //State for storing youtube links
   const [newLink, setNewLink] = useState(""); //State for current youtube link
+  const [photos, setPhotos] = useState([]);
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setData({
@@ -96,6 +98,15 @@ function AddProductDocPopup({
                 accept="image/*"
                 onChange={handleProfile}
                 className="mb-4"
+              />
+              <p className="text-xl font-medium mb-1">Photos</p>
+              <Input
+                type="file"
+                placeholder="photos"
+                onChange={(e) => setPhotos([...e.target.files])}
+                className="border border-kaavi mb-6 w-60"
+                accept="image/*"
+                multiple
               />
               <p className="text-xl font-medium mb-1">YouTube Links</p>
               <Input

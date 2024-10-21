@@ -105,12 +105,12 @@ export const addProduct = async (
       data.photos = "";
     }
 
-    if (background != null) {
-      const backgroundurl = await addProductBackground(previous, background);
-      data.background = backgroundurl;
-    } else {
-      data.background = null;
-    }
+    // if (background != null) {
+    //   const backgroundurl = await addProductBackground(previous, background);
+    //   data.background = backgroundurl;
+    // } else {
+    //   data.background = null;
+    // }
     const sno = Math.floor(Math.random() * 100);
     data.sno = sno;
     await addDoc(
@@ -120,6 +120,81 @@ export const addProduct = async (
       ),
       data
     );
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const editProducts = async (
+  previous,
+  beforeprevious,
+  rootprevious,
+  id,
+  updatedData,
+  profile = null,
+  oldProfile,
+  photos = null,
+  oldPhotos
+) => {
+  try {
+    const docRef = doc(
+      db,
+      `products/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col/${id}`
+    );
+    if (profile != null) {
+      if (oldProfile !== "") {
+        const profileRef = ref(storage, oldProfile);
+        await deleteObject(profileRef)
+          .then(() => console.log("deleted profile"))
+          .catch((e) => console.log(e));
+      }
+
+      const profileUrl = await addProductProfile(profile);
+      updatedData.profile = profileUrl;
+    }
+    // if (background != null) {
+    //   if (oldBackground != null) {
+    //     const backgroundRef = ref(storage, oldBackground);
+    //     await deleteObject(backgroundRef)
+    //       .then(() => console.log("deleted background"))
+    //       .catch((e) => console.log(e));
+    //   }
+
+    //   const backgroundUrl = await addProductBackground(previous, background);
+    //   updatedData.background = backgroundUrl;
+    // }
+    if (photos != null) {
+      if (oldPhotos !== "") {
+        oldPhotos.map(async (oldPhoto) => {
+          const photoRef = ref(storage, oldPhoto);
+          await deleteObject(photoRef)
+            .then(() => console.log("deleted profile"))
+            .catch((e) => console.log(e));
+        });
+      }
+      const photosUrl = await uploadProductPhotosAndSaveURLs(previous, photos);
+      updatedData.photos = photosUrl;
+    }
+    await updateDoc(docRef, updatedData);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const deleteYtLink = async (
+  link,
+  rootprevious,
+  beforeprevious,
+  previous,
+  id
+) => {
+  try {
+    const docRef = doc(
+      db,
+      `products/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col/${id}`
+    );
+    await updateDoc(docRef, { links: arrayRemove(link) });
+    console.log("removed the youtube link");
   } catch (e) {
     console.log(e);
   }
@@ -176,78 +251,3 @@ export const addProduct = async (
 //     console.log(e);
 //   }
 // };
-
-export const editProducts = async (
-  previous,
-  beforeprevious,
-  rootprevious,
-  id,
-  updatedData,
-  profile = null,
-  oldProfile
-) => {
-  try {
-    const docRef = doc(
-      db,
-      `products/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col/${id}`
-    );
-    if (profile != null) {
-      if (oldProfile !== "") {
-        const profileRef = ref(storage, oldProfile);
-        await deleteObject(profileRef)
-          .then(() => console.log("deleted profile"))
-          .catch((e) => console.log(e));
-      }
-
-      const profileUrl = await addProductProfile(profile);
-      updatedData.profile = profileUrl;
-    }
-    // if (background != null) {
-    //   if (oldBackground != null) {
-    //     const backgroundRef = ref(storage, oldBackground);
-    //     await deleteObject(backgroundRef)
-    //       .then(() => console.log("deleted background"))
-    //       .catch((e) => console.log(e));
-    //   }
-
-    //   const backgroundUrl = await addProductBackground(previous, background);
-    //   updatedData.background = backgroundUrl;
-    // }
-    // if (photos != null) {
-    //   if (oldPhotos !== "") {
-    //     oldPhotos.map(async (oldPhoto) => {
-    //       const photoRef = ref(storage, oldPhoto);
-    //       await deleteObject(photoRef)
-    //         .then(() => console.log("deleted profile"))
-    //         .catch((e) => console.log(e));
-    //     });
-    //   }
-
-    //   const photosUrl = await uploadProductPhotosAndSaveURLs(previous, photos);
-    //   updatedData.photos = photosUrl;
-    // }
-
-    await updateDoc(docRef, updatedData);
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const deleteYtLink = async (
-  link,
-  rootprevious,
-  beforeprevious,
-  previous,
-  id
-) => {
-  try {
-    const docRef = doc(
-      db,
-      `products/${rootprevious}/${rootprevious}col/${beforeprevious}/${beforeprevious}col/${previous}/${previous}col/${id}`
-    );
-    await updateDoc(docRef, { links: arrayRemove(link) });
-    console.log("removed the youtube link");
-  } catch (e) {
-    console.log(e);
-  }
-};

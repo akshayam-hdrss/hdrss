@@ -25,7 +25,7 @@ function EditProductDocPopup({
   const [newData, setNewData] = useState({});
   const [editYoutubeLinks, setEditYoutubeLinks] = useState([]); //State for storing youtube links
   const [editNewLink, setEditNewLink] = useState(""); //State for current youtube link
-
+  const [editPhotos, setEditPhotos] = useState(null);
   const handleChange = (e) => {
     const { id, value } = e.target;
     setNewData({
@@ -67,7 +67,9 @@ function EditProductDocPopup({
       editOption,
       newData,
       editProfile,
-      oldData.profile
+      oldData.profile,
+      editPhotos,
+      oldData.photos
     );
     console.log("edited successfully");
   };
@@ -132,7 +134,15 @@ function EditProductDocPopup({
                   className="border border-kaavi mb-6 w-60"
                   accept="image/*"
                 />
-
+                <p className="text-xl font-medium mb-1">Photos</p>
+                <Input
+                  type="file"
+                  placeholder="photos"
+                  onChange={(e) => setEditPhotos([...e.target.files])}
+                  className="border border-kaavi mb-6 w-60"
+                  accept="image/*"
+                  multiple
+                />
                 <p className="text-xl font-medium mb-1">Name</p>
                 <Input
                   type="text"
@@ -183,6 +193,17 @@ function EditProductDocPopup({
                   id="district"
                   defaultValue={oldData?.district}
                   onChange={handleChange}
+                  className="border border-kaavi pl-4 py-3 mb-6"
+                />
+                <p className="text-xl font-medium mb-1">
+                  Experience (in Years)
+                </p>
+                <Input
+                  type="text"
+                  id="experience"
+                  defaultValue={oldData?.experience}
+                  onChange={handleChange}
+                  placeholder="Experience"
                   className="border border-kaavi pl-4 py-3 mb-6"
                 />
                 <p className="text-xl font-medium mb-1">Mobile Number</p>

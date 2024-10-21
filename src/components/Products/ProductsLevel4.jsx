@@ -17,6 +17,8 @@ import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { getReviews } from "@/firebase/firestore/reviews";
 import YoutubeEmbed from "../ui/YoutubeEmbed";
 import VideosCarousel from "../ui/VideosCarousel";
+import { Carousel } from "@material-tailwind/react";
+
 const db = getFirestore(app);
 
 function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
@@ -73,28 +75,55 @@ function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
       {data && (
         <div>
           <div className="w-full">
-            <VideosCarousel data={data.links} />
+            <Carousel
+              autoplay="true"
+              loop="true"
+              className="h-52 w-full mt-4"
+              navigation={({ setActiveIndex, activeIndex, length }) => (
+                <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+                  {new Array(length).fill("").map((_, i) => (
+                    <span
+                      key={i}
+                      className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+                        activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
+                      }`}
+                      onClick={() => setActiveIndex(i)}
+                    />
+                  ))}
+                </div>
+              )}
+            >
+              {data &&
+                data.photos.map((item, i) => (
+                  <img
+                    src={item}
+                    key={i}
+                    alt="image 1"
+                    className="h-full w-full object-cover"
+                  />
+                ))}
+            </Carousel>
           </div>
           <div className="p-6 pt-0">
             <div className="flex flex-col items-start justify-evenly py-6 pt-0">
-              <div className="flex justify-evenly mb-6 h-[130px] items-start gap-x-6">
-                <div className="h-[130px]">
+              <div className="mb-6 flex gap-x-4 mt-4 px-0 w-full overflow-clip">
+                <div className="w-1/3 h-fit">
                   <img
                     src={data.profile}
                     alt="profile"
                     className="rounded-md object-cover aspect-[4/5]"
                   />
                 </div>
-                <div>
+                <div className="w-2/3">
                   <h1 className="font-bold text-3xl pb-3">{data.name}</h1>
-                  <p className="text-grey font-medium">
+                  <p className="text-grey font-medium overflow-clip">
                     {data?.addLine1} {data?.addLine2} {data?.area}{" "}
                     {data?.landmark} {data?.district} - {data?.pincode}
                   </p>
                 </div>
               </div>
 
-              <div className="flex justify-evenly ml-4 items-center h-[60px] gap-x-6 mb-6 border border-grey px-4 rounded-lg">
+              <div className="flex justify-evenly ml-4 items-center h-[60px] gap-x-6 mb-6  border border-grey px-4 rounded-lg">
                 <p className="flex items-center gap-x-2 py-4">
                   <IoStar className="text-yellow-800" fontSize={25} />
                   {averageRating} Ratings
@@ -140,8 +169,11 @@ function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
                 {para ? "Show Less" : "Learn More"}
               </h1>
             </div>
-
-            <div className="py-6">
+            <div className="pt-6">
+              <h1 className="font-koulen text-2xl text-grey">Videos</h1>
+              <VideosCarousel data={data.links} />
+            </div>
+            <div className="pb-6">
               <div className="flex justify-between items-center">
                 <h1 className="font-koulen text-2xl text-grey mr-14">
                   Reviews

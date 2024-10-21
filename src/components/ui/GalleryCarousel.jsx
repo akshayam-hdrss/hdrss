@@ -22,7 +22,7 @@ function GalleryCarousel({ data }) {
         </div>
       )}
     >
-      {data.map((item, i) => (
+      {data && data.map((item, i) => (
         <img
           src={item}
           key={i}
