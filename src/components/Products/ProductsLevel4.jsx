@@ -239,9 +239,24 @@ function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
                 Maps Link
               </a>
             </div>
-            <h1 className="font-koulen text-2xl pt-10 text-grey">
-              Where to buy?
-            </h1>
+            <div className="flex justify-between pt-6 items-center">
+              <h1 className="font-koulen text-2xl text-grey">
+                Where to buy?
+              </h1>
+
+              <a
+                className="bg-kaavi text-white px-4 py-2 rounded-md"
+                href={data?.buylink1}
+              >
+                Link 1
+              </a>
+              <a
+                className="bg-kaavi text-white px-4 py-2 rounded-md"
+                href={data?.buylink2}
+              >
+                Link 2
+              </a>
+            </div>
           </div>
         </div>
       )}
