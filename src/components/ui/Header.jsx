@@ -68,7 +68,7 @@ function Header({ exec = null }) {
             onClick={toggleDrawer}
             className="bg-inherit m-0 p-0 shadow-none lg:hidden"
           >
-            <IoMenu fontSize={40} className="text-black" />
+            <IoMenu fontSize={40} className="text-red-600" />
           </button>
 
           <Link
