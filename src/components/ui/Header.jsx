@@ -48,10 +48,10 @@ function Header({ exec = null }) {
   return (
     <div className="">
       <div
-        className="w-full px-4 py-0 bg-white text-black flex justify-between items-center"
-        // style={{
-        //   background: "linear-gradient(to right, #FF5912 0%, #D30000 100%)",
-        // }}
+        className="w-full px-4 py-0 flex justify-between items-center"
+        style={{
+          background: "linear-gradient(to right, #FF5912 0%, #D30000 100%)",
+        }}
       >
         <div className="flex items-start justify-evenly gap-5"></div>
         <Link href="/" className="text-center">
@@ -68,7 +68,7 @@ function Header({ exec = null }) {
             onClick={toggleDrawer}
             className="bg-inherit m-0 p-0 shadow-none lg:hidden"
           >
-            <IoMenu fontSize={40} className="text-red-600" />
+            <IoMenu fontSize={40} className="text-white" />
           </button>
 
           <Link
