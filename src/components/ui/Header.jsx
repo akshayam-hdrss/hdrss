@@ -60,7 +60,7 @@ function Header({ exec = null }) {
             alt="logo"
             width={235}
             height={65}
-            className="mt-2 ml-2"
+            className="mt-2 ml-2 py-2"
           />
         </Link>
         <div className="mt-2">
