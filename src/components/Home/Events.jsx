@@ -35,7 +35,7 @@ function Events() {
                   className="w-full object-contain m-auto"
                 />
               </div>
-              <div className="col-span-3 px-5 py-5 md:py-10 flex flex-col justify-between">
+              <div className="col-span-3 px-5 py-5 md:py-5 flex flex-col justify-between">
                 <p>{events[0].data.title.slice(0, 100)}</p>
                 <div className="flex justify-between mt-2 items-center">
                   <h1 className="font-bold">{events[0].data.date}</h1>

@@ -20,7 +20,7 @@ function ExploreCarousel() {
       <div className="overflow-hidden max-h-screen grid relative">
         <div className="flex gap-5 overflow-x-scroll p-5 nosc ">
           {explorecontent.map((item) => (
-            <div className="px-2 ">
+            <div key={item} className="px-2 ">
               <Link href={`/explore/${item.toLowerCase()}`}>
                 <div className="border min-w-[200px] lg:min-w-[300px] border-[#808080] rounded-2xl relative overflow-hidden h-72 ">
                   <div className="object-cover w-full h-[65%] rounded-2xl">

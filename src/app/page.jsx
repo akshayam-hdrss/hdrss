@@ -185,6 +185,8 @@ export default function Home() {
             <ExploreCarousel />
           </div>
 
+          <Events/>
+
           {/* Social complaints */}
           <div className="px-0 relative overflow-hidden z-0">
             <Image

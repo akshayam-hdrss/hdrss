@@ -12,8 +12,9 @@ const koulen = Koulen({
 });
 
 export const metadata = {
-  title: "HDRSS",
-  description: "HDRSS Website",
+  title: "HDRSS | Political Party",
+  description: "HDRSS - Political Party Website",
+  keywords:"ramdass , hdrss , bjp , coimbatore , hindu dharma raksha sena , ram dass sandiliyan"
 };
 
 export default function RootLayout({ children }) {
