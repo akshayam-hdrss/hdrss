@@ -35,13 +35,11 @@ const uploadOfferPhoto = async (photo) => {
   }
 };
 
-export const addOffer = async (percent, subText, brand) => {
+export const addOffer = async (offerPhoto) => {
   try {
-    // const photoUrl = await uploadOfferPhoto(photo);
+    const photoUrl = await uploadOfferPhoto(offerPhoto);
     await addDoc(collection(db, "offers"), {
-      percent: percent,
-      subText: subText,
-      brand: brand,
+      photo:photoUrl
     });
     console.log("added offer");
   } catch (e) {

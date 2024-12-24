@@ -23,26 +23,25 @@ function DeleteOffer({ open, setOpen, id }) {
       <Dialog
         open={open}
         handler={handleOpen}
-        className="overflow-scroll"
-        style={{ maxHeight: "calc(100vh - 200px)" }}
+        className="w-[250px]"
+        size="xs"
+
       >
-        <DialogBody className=" mx-auto w-full h-full font-inter">
+        <DialogBody className=" h-full text-black font-inter">
           <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
-              <Typography variant="h4" color="blue-gray">
-                Are you sure?
-              </Typography>
+              <h1 className="font-semibold text-xl">Are you Sure</h1>
               <IoClose fontSize={30} onClick={handleClose} />
             </div>
-            <div className="flex justify-evenly gap-x-8">
+            <div className="flex justify-around gap-x-8">
               <button
-                className="border w-1/2 border-black rounded-md px-4 py-2"
+                className="border border-black rounded-md px-4 py-2"
                 onClick={() => setOpen(!open)}
               >
                 No
               </button>
               <button
-                className="bg-kaavi w-1/2 text-white rounded-md px-4 py-2"
+                className="bg-kaavi text-white rounded-md px-4 py-2"
                 onClick={handleDelete}
               >
                 Yes

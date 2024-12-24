@@ -16,13 +16,15 @@ function offersAdmin() {
     const fetch = async () => {
       const data = await getOffers();
       setOffers(data);
+      console.log(data);
     };
     fetch();
   }, [addOpen, editOpen, deleteOpen]);
+
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold">Offers</h1>
-      <div className="flex justify-evenly my-6">
+      <div className="flex justify-center py-5">
         <button
           className="bg-kaavi mx-2 text-white px-4 py-2 rounded-md"
           onClick={() => setAddOpen(true)}
@@ -33,15 +35,15 @@ function offersAdmin() {
         <DeleteOffer open={deleteOpen} setOpen={setDeleteOpen} id={deleteId} />
       </div>
       {addOpen && <AddOffer open={addOpen} setOpen={setAddOpen} />}
-      <div className="flex flex-col items-center text-center justify-evenly">
+      <div className="grid grid-cols-1">
         {offers &&
           offers.map((doc, index) => (
             <div
               key={index}
-              className="flex justify-evenly items-center gap-x-10 my-10"
+              className="flex justify-center items-center bg-red-100"
             >
               <div className="flex justify-center w-[400px]">
-                <div
+                {/* <div
                   className="w-full h-40 bg-no-repeat bg-cover"
                   style={{ backgroundImage: `url(/coupon.png)` }}
                 >
@@ -59,10 +61,11 @@ function offersAdmin() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
+                <img src={doc.photo} alt="" className="max-w-[300px]" />
               </div>
               <div className="flex flex-col justify-evenly">
-                <button
+                {/* <button
                   className="bg-kaavi text-white px-4 py-2 rounded-md mt-6"
                   onClick={() => {
                     setEditId(doc.id);
@@ -70,7 +73,7 @@ function offersAdmin() {
                   }}
                 >
                   Edit
-                </button>
+                </button> */}
                 <button
                   className="bg-kaavi text-white px-4 py-2 rounded-md mt-6"
                   onClick={() => {

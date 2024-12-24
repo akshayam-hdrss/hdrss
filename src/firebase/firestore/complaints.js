@@ -74,3 +74,12 @@ export async function getNumberofComplaints() {
     console.log(e);
   }
 }
+
+export const deleteComplaint = async (id) => {
+  try {
+    await deleteDoc(doc(db, "complaints", id));
+    console.log("complaint deleted");
+  } catch (e) {
+    console.log(e);
+  }
+};

@@ -3,17 +3,11 @@ import { Button, Typography } from "@material-tailwind/react";
 import { addOffer } from "../../../firebase/firestore/offers";
 
 function AddOffer({ open, setOpen }) {
-  const [offerPercent, setOfferPercent] = useState();
-  const [subText, setSubText] = useState();
   const [offerPhoto, setOfferPhoto] = useState();
-  const [offerBrand, setOfferBrand] = useState();
 
-  const handlePhoto = (e) => {
-    setOfferPhoto(e.target.files[0]);
-  };
   const handleAdd = async () => {
     setOpen(!open);
-    await addOffer(offerPercent, subText, offerBrand);
+    await addOffer(offerPhoto);
   };
   return (
     <>
@@ -23,30 +17,14 @@ function AddOffer({ open, setOpen }) {
             Add an Offer
           </Typography>
 
-          <Typography className="-mb-2" variant="h6">
-            Offer Brand
-          </Typography>
-          <input
-            type="text"
-            onChange={(e) => setOfferBrand(e.target.value)}
-            className="border mb-5 p-1 border-deep-orange-200"
-          />
-          <Typography className="-mb-2" variant="h6">
-            Offer (Percentage or rupees)
-          </Typography>
-          <input
-            type="text"
-            onChange={(e) => setOfferPercent(e.target.value)}
-            className="border mb-5 p-1 border-deep-orange-200"
-          />
-          <Typography className="-mb-2" variant="h6">
-            Offer Description
-          </Typography>
-          <input
-            type="text"
-            onChange={(e) => setSubText(e.target.value)}
-            className="border mb-5 p-1 border-deep-orange-200"
-          />
+          <div className="flex justify-center pb-5">
+            <input
+              type="file"
+              name="photo"
+              id="photo"
+              onChange={(e) => setOfferPhoto(e.target.files[0])}
+            />
+          </div>
 
           {/* <Typography className="-mb-2" variant="h6">
             Brand Photo

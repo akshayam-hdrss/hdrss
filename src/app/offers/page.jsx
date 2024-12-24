@@ -24,25 +24,7 @@ export default function Page() {
             {offers &&
               offers.map((doc, index) => (
                 <div className="flex justify-center" key={index}>
-                  <div
-                    className="w-full h-40 bg-no-repeat bg-contain"
-                    style={{ backgroundImage: `url(/coupon.png)` }}
-                  >
-                    <div className="grid grid-cols-2 h-full px-5 gap-5">
-                      <h1 className="font-inter font-bold text-4xl text-kaavi uppercase my-auto mx-auto mt-12">
-                        {doc.brand}
-                      </h1>
-
-                      <div className="flex justify-center items-center h-full">
-                        <div className="">
-                          <h1 className="font-semibold text-2xl">
-                            {doc.percent}
-                          </h1>
-                          <h3>{doc.subText}</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <img src={doc.photo} alt="" className="max-w-[300px] md:max-w-[500px]" />
                 </div>
               ))}
           </div>

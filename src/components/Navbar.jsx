@@ -9,11 +9,11 @@ const Navbar = () => {
         <div className="p-5 pt-24">
           <div className="flex justify-center">
             <div className="">
-              <div className="flex justify-center py-2">
+              {/* <div className="flex justify-center py-2">
                 <div className="w-[100px] h-[100px] bg-grey rounded-full"></div>
               </div>
               <h1 className="font-semibold text-2xl text-center">User Name</h1>
-              <h5 className="text-center">user@gmail.com</h5>
+              <h5 className="text-center">user@gmail.com</h5> */}
               <div className="pt-5">
                 <Link
                   href="/"
@@ -43,6 +43,8 @@ const Navbar = () => {
                   <p className="font-medium">Explore Services</p>
                   <IoIosArrowForward />
                 </Link>
+               
+           
 
                 <div className="flex mb-4 items-center justify-between">
                   <Link href="#footer">
