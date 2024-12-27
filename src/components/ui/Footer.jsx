@@ -24,7 +24,7 @@ function Footer() {
   return (
     <div
       id="footer"
-      className="bg-[#B72C00] lg:px-20 px-10 py-5 pb-4 mt-4 text-[#F7DF25] "
+      className="bg-[#B72C00] lg:px-20 px-10 py-5 pb-4 text-[#F7DF25] "
     >
       <div className="flex justify-around items-center z-50 mt-2 ml-5 md:py-10">
         <Link href={"/games"} className="text-center grid gap-2 md:scale-125">

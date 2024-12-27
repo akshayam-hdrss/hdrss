@@ -30,19 +30,21 @@ const Navbar = () => {
                   <IoIosArrowForward />
                 </Link>
                 <Link
-                  href="/location"
-                  className="flex mb-4 items-center justify-between"
-                >
-                  <p className="font-medium">Select Location</p>
-                  <IoIosArrowForward />
-                </Link>
-                <Link
                   href="/services"
                   className="flex mb-4 items-center justify-between"
                 >
                   <p className="font-medium">Explore Services</p>
                   <IoIosArrowForward />
                 </Link>
+                <Link
+                  href="/hdrss"
+                  className="flex mb-4 items-center justify-between"
+                >
+                  <p className="font-medium">HDRSS</p>
+                  <IoIosArrowForward />
+                </Link>
+                
+                
                
            
 

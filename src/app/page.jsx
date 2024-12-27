@@ -7,7 +7,6 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useState, useEffect } from "react";
 import ExploreCarousel from "@/components/ui/ExploreCarousel";
 import Header from "@/components/ui/Header";
-import Events from "@/components/Home/Events";
 import Footer from "@/components/ui/Footer";
 import { getUser } from "@/firebase/firestore/user";
 import Level1Services from "@/components/ui/Level1Services";
@@ -70,7 +69,7 @@ export default function Home() {
               background:
                 "linear-gradient(180deg, hsla(172, 73%, 94%, 1) 0%, hsla(18, 92%, 62%, 1) 100%)",
             }}
-            className="relative pt-30 h-[45vh] md:h-screen pb-0 flex flex-row items-center justify-center z-0 "
+            className="relative pt-30 h-[350px] md:min-h-[500px] lg:h-screen pb-0 flex flex-row items-center justify-center z-0 "
           >
             {/* Location */}
 
@@ -103,7 +102,6 @@ export default function Home() {
               className="opacity-30 absolute top-0 right-0 z-0 md:w-[200px]"
             />
             <AdCarousel ads={ads} />
-
             <Image
               src="/ram-temple.png"
               alt="ram-temple"
@@ -185,7 +183,7 @@ export default function Home() {
             <ExploreCarousel />
           </div>
 
-          <Events/>
+         
 
           {/* Social complaints */}
           <div className="px-0 relative overflow-hidden z-0">

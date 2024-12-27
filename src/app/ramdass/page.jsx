@@ -46,7 +46,7 @@ function Ramdass() {
                   ></img>
                 </div>
               </div>
-              <div className="lg:px-20 px-10">
+              <div className="lg:px-20 px-8">
                 <div className="font-semibold text-xl text-center pt-5 grid gap-1">
                   <h1 className="font-bold text-xl mt-3">
                     {leader && leader.name}

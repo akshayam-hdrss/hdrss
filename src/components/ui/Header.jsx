@@ -90,8 +90,10 @@ function Header({ exec = null }) {
             }}
           >
             <IoClose className="ml-auto" fontSize={30} onClick={toggleDrawer} />
-
-            {user ? (
+<div className="">
+  <h1 className="text-center font-semibold py-5 text-2xl">Menu</h1>
+</div>
+            {/* {user ? (
               <div className="flex flex-col mb-14 mt-2 justify-evenly items-center">
                 <p className="mt-10 text-2xl my-1 font-bold">Welcome,</p>
                 <p className="my-1 mb-4 text-lg font-bold border-b-2 border-b-kaavi">
@@ -119,7 +121,7 @@ function Header({ exec = null }) {
                   Sign Up
                 </Link>
               </div>
-            )}
+            )} */}
             {exec != null ? (
               <div>
                 <Link
@@ -175,12 +177,19 @@ function Header({ exec = null }) {
                   <IoIosArrowForward />
                 </Link>
                 <Link
+                  href="/hdrss"
+                  className="flex mb-4 items-center justify-between"
+                >
+                  <p className="font-medium">HDRSS</p>
+                  <IoIosArrowForward />
+                </Link>
+                {/* <Link
                   href="/ramdass"
                   className="flex mb-4 items-center justify-between"
                 >
                   <p className="font-medium">About Leader</p>
                   <IoIosArrowForward />
-                </Link>
+                </Link> */}
 
                 <Link
                   href="/contact"
