@@ -74,7 +74,7 @@ function About() {
                   <div className="flex justify-center backdrop-blur-sm p-2 ">
                     <h1
                       onClick={() => setPara(!para)}
-                      className="border-2 px-4 py-2 rounded-xl bg-kaavi text-white cursor-pointer"
+                      className="bg-white px-4 py-2 rounded-full border-2  cursor-pointer"
                     >
                       {para ? "Show Less" : "Learn More"}
                     </h1>
