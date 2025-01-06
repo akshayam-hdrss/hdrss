@@ -49,7 +49,7 @@ const Navbar = () => {
            
 
                 <div className="flex mb-4 items-center justify-between">
-                  <Link href="#footer">
+                  <Link href="/contact">
                     <p className="font-medium">Contact Us</p>
                   </Link>
                   <IoIosArrowForward />

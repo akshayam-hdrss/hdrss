@@ -149,6 +149,22 @@ function SideBar() {
       >
         About Leader
       </Link>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path.includes("partner") ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/partner"}
+      >
+        About Partner
+      </Link>
+      <Link
+        className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
+          path.includes("companies") ? "bg-kaavi text-white" : " "
+        }`}
+        href={"/admin/companies"}
+      >
+        Companies
+      </Link>
       <button
         onClick={handleLogout}
         className="font-medium w-fit px-4 py-2 rounded-lg lg:text-lg bg-blue-gray-700 text-white  my-2"

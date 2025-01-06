@@ -79,6 +79,7 @@ export default function Page() {
             <div className="">
                 <div className="lg:p-10 p-6">
                   <h1 className="font-koulen text-4xl text-grey ">LEADER</h1>
+                  <h1 className="pt-5 text-center text-2xl font-semibold">Rama Sandilyan</h1>
                   <div className="flex justify-center py-5 ">
                     <Link href={"/ramdass"} className="bg-kaavi px-4 py-1.5 rounded-xl font-semibold text-white">Learn More</Link>
                   </div>

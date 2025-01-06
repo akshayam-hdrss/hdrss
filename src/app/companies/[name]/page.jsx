@@ -14,15 +14,17 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { FaFacebook } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 import Marquee from "react-fast-marquee";
-import { getPartner } from "../../firebase/firestore/partner";
+import { getCompany } from "../../../firebase/firestore/companies";
+import { useParams } from "next/navigation";
 
 function About() {
-  const [partner, setPartner] = useState();
+  const { name } = useParams();
+  const [company, setCompany] = useState();
   const [para, setPara] = useState(false);
   useEffect(() => {
     const fetchdata = async () => {
-      const data = await getPartner();
-      setPartner(data);
+      const data = await getCompany(name);
+      setCompany(data);
     };
     fetchdata();
   }, []);
@@ -37,11 +39,11 @@ function About() {
           <div className="lg:grid grid-cols-5 relative z-[0]">
             <Navbar />
             <div className="col-span-4 pt-[60px]">
-              <img src="/membermd.png" alt="" className="w-full" />
+              <img src={company && company.cover} alt="" className="w-full" />
               <div className="flex justify-center w-full mt-[-100px] ">
                 <div className="p-3 rounded-full shadow-2xl bg-white">
                   <img
-                    src={partner && partner.profile}
+                    src={company && company.profile}
                     alt="About"
                     className="w-[160px] md:w-[200px] h-[160px] md:h-[200px] object-cover object-top rounded-full"
                   ></img>
@@ -50,7 +52,7 @@ function About() {
               <div className="lg:px-20 px-8">
                 <div className="font-semibold text-xl text-center pt-5 grid gap-1">
                   <h1 className="font-bold text-xl mt-3">
-                    {partner && partner.name}
+                    {company && company.name}
                   </h1>
                 </div>
                 <div className="flex justify-center gap-5 text-3xl text-kaavi py-5 items-center">
@@ -67,7 +69,7 @@ function About() {
                         : "pt-5 text-justify max-h-[400px] overflow-hidden mb-[-50px]"
                     }
                   >
-                    {partner && partner.about}
+                    {company && company.about}
                   </p>
                   <div className="flex justify-center backdrop-blur-sm p-2 ">
                     <h1
@@ -83,11 +85,11 @@ function About() {
                   <div className="pt-3">
                     <div className="flex mb-4  items-center  gap-5">
                       <MdOutlineEmail fontSize={30} />
-                      <p className="ml-3">{partner && partner.email}</p>
+                      <p className="ml-3">{company && company.email}</p>
                     </div>
                     <div className="flex items-center  gap-5">
                       <MdOutlineCall fontSize={30} />
-                      <p className="mr-16">{partner && partner.mobile}</p>
+                      <p className="mr-16">{company && company.mobile}</p>
                     </div>
                   </div>
                 </div>
@@ -100,8 +102,8 @@ function About() {
                 <div className="py-5">
                   <section className=" overflow-hidden w-full text-center">
                     <Marquee pauseOnClick pauseOnHover>
-                      {partner &&
-                        partner.gallery.map((photo, index) => (
+                      {company &&
+                        company.gallery.map((photo, index) => (
                           <img
                             src={photo}
                             alt="gallery"
@@ -114,21 +116,7 @@ function About() {
                 </div>
               </div>
 
-              <div className="py-5 px-10 lg:px-20">
-                <h1 className="font-koulen text-4xl text-grey ">LOCATION</h1>
-                <div className="flex justify-center">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.9876107511063!2d76.9215539736997!3d11.039555454287871!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba858b160b58e27%3A0x421a7f182d275d42!2s80%2C%2080%2F3%2C%20Bhaghavath%20Singh%20Street%203%2C%20Edayarpalayam%2C%20Velandipalayam%2C%20Coimbatore%2C%20Tamil%20Nadu%20641025!5e0!3m2!1sen!2sin!4v1736150604450!5m2!1sen!2sin"
-                    width="600"
-                    height="450"
-                    allowfullscreen=""
-                    loading="lazy"
-                    className="max-w-[400px] max-h-[300px] border-2 border-grey rounded-2xl my-3"
-                    referrerpolicy="no-referrer-when-downgrade"
-                  ></iframe>
-                </div>
-                <br />
-              </div>
+
             </div>
           </div>
         </main>

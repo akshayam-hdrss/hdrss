@@ -186,7 +186,7 @@ export default function Home() {
          
 
           {/* Social complaints */}
-          <div className="px-0 relative overflow-hidden z-0">
+          <div className="px-0 pb-5 relative overflow-hidden z-0">
             <Image
               src="/om.svg"
               alt="om"
