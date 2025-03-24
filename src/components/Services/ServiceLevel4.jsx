@@ -72,20 +72,19 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
       {data && (
         <div>
           <div className="w-full">
-            <img
-              src={data.background}
-              alt="background image"
-              className="w-full"
-            />
-          </div>
-          <div className="p-6 pt-0">
-            <div className="w-[130px] h-fit -mt-[80px] ml-[26vw]">
-              <img
-                src={data.profile}
-                alt="profile"
-                className="rounded-md object-cover aspect-[4/5]"
-              />
-            </div>
+          <img
+  src={data.background}
+  alt="background image"
+  className="border-4 border-red-500 w-full"
+/>
+
+<div className="w-[130px] h-fit -mt-[80px] ml-[26vw]">
+  <img
+    src={data.profile}
+    alt="profile"
+    className="border-4 border-red-500 rounded-md object-cover aspect-[4/5]"
+  />
+</div>
             <div className="flex flex-col items-center text-center justify-evenly py-6 pt-0">
               <h1 className="font-bold text-3xl pb-4">{data.name}</h1>
               <div className="flex justify-evenly items-center h-[60px] gap-x-6 mb-6 border border-grey px-4 rounded-lg">
@@ -122,15 +121,15 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
 
             <h1 className="font-koulen text-3xl text-grey pb-4">About</h1>
             <p
-              className={
-                para
-                  ? "px-2 text-justify"
-                  : "px-2 text-justify max-h-[200px] overflow-hidden mb-[-50px]"
-              }
+              className={`px-2 text-justify relative transition-all duration-500 ${
+                !para
+                  ? "max-h-[200px] overflow-hidden text-opacity-100 before:absolute before:bottom-0 before:left-0 before:w-full before:h-12 before:bg-gradient-to-t before:from-white before:to-transparent"
+                  : "text-opacity-100"
+              }`}
             >
               {data.about}
             </p>
-            <div className="flex justify-center backdrop-blur-sm p-2 ">
+            <div className="flex justify-center p-2 ">
               <h1
                 onClick={() => setPara(!para)}
                 className="border-2 px-4 py-2 rounded-xl bg-kaavi text-white cursor-pointer"
