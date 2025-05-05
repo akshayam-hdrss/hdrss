@@ -79,7 +79,9 @@ export const deleteComplaint = async (id) => {
   try {
     await deleteDoc(doc(db, "complaints", id));
     console.log("complaint deleted");
+    return true
   } catch (e) {
-    console.log(e);
+    console.error("Error deleting complaint:", e);
+    return false;
   }
 };

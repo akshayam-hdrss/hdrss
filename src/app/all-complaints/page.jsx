@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { getComplaints } from "@/firebase/firestore/complaints";
 import Slider from "react-slick";
 import { FaLocationDot } from "react-icons/fa6";
+import { submitComplaint } from "@/firebase/firestore/complaints";
 
 import Navbar from "@/components/Navbar";
 import Image from "next/image";

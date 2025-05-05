@@ -82,7 +82,7 @@ function ServiceLevel4({ id, secondid, thirdid, fourthid }) {
   <img
     src={data.profile}
     alt="profile"
-    className="border-4 border-red-500 rounded-md object-cover aspect-[4/5]"
+    className="border-4 border-orange-500 rounded-md object-cover aspect-[4/5]"
   />
 </div>
             <div className="flex flex-col items-center text-center justify-evenly py-6 pt-0">
