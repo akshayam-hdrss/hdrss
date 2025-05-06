@@ -19,6 +19,8 @@ function ServiceLevel2({ id, secondid }) {
   useEffect(() => {
     const fetch = async () => {
       const capitalized = await getName(null, id, secondid, "services");
+      console.log("Getting name from path: /services/", id, "/", secondid);
+
       setCapitalized(capitalized);
       const link = await getYt("services", null, id, secondid);
       setLink(link);
@@ -35,7 +37,10 @@ function ServiceLevel2({ id, secondid }) {
     return () => {
       unsubscribe();
     };
-  });
+  }, [id, secondid]);
+  console.log("Fetching name with:", { id, secondid });
+ // ✅ Add dependencies here
+  
   return (
     <div>
       <Header />

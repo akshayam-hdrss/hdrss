@@ -20,7 +20,7 @@ function SideBar() {
   };
   return (
     <div className="p-6 fixed flex justify-start items-center flex-col gap-y-6 w-[20vw] bg-[#F4F4F5] h-screen overflow-y-scroll overflow-x-hidden">
-      <h1 className="font-lena my-4 text-2xl lg:text-4xl">HDRSS</h1>
+      <h1 className="font-lena my-4 text-2xl lg:text-4xl">PARTNER</h1>
       <Link
         className={`font-medium w-fit px-4 py-2 rounded-lg lg:text-lg my-2 ${
           path === "/admin" ? "bg-kaavi text-white" : " "
