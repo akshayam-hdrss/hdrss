@@ -16,7 +16,27 @@ function ServiceLevel2({ id, secondid }) {
   const [ads, setAds] = useState();
   const [capitalized, setCapitalized] = useState();
   const [link, setLink] = useState();
-
+  useEffect(() => {
+    const fetch = async () => {
+      const capitalized = await getName(null, id, secondid, "services");
+      setCapitalized(capitalized);
+      const link = await getYt("services", null, id, secondid);
+      setLink(link);
+      const ads = await getServiceAds("services", null, id, secondid, null);
+      setAds(ads);
+    };
+    const unsubscribe = subscribeToServicesAndProducts(
+      setData,
+      secondid,
+      id,
+      "services"
+    );
+    fetch();
+    return () => {
+      unsubscribe();
+    };
+  }, [id, secondid]);
+  console.log("Fetching name with:", { id, secondid });
  // ✅ Add dependencies here
   
   return (
