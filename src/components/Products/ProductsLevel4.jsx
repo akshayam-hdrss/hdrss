@@ -99,7 +99,7 @@ function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
                     src={item}
                     key={i}
                     alt="image 1"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover rounded-md border border-gray-900 shadow-sm"
                   />
                 ))}
             </Carousel>
@@ -111,7 +111,7 @@ function ProductsLevel4({ id, secondid, thirdid, fourthid }) {
                   <img
                     src={data.profile}
                     alt="profile"
-                    className="rounded-md object-cover aspect-[4/5]"
+                    className="rounded-md border border-gray-300 shadow-sm object-cover aspect-[4/5]"
                   />
                 </div>
                 <div className="w-2/3">
